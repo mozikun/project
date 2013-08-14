@@ -7,7 +7,7 @@
 .top_title .menu_time { color: #898989; height: 28px; line-height: 28px; }
 .list_body { width: 960px; margin: 0 auto; }
 .list_left { width: 264px; float: left; }
-.list_right { width: 650px; float: right; border: 1px solid #d9d9d9; border-radius: 2px; background-image: url(../../images/mh/ws_32.png); background-repeat: repeat-x; background-position: left top; height: 748px; padding: 0 17px; }
+.list_right { width: 650px; float: right; border: 1px solid #d9d9d9; border-radius: 2px; background-image: url(../../images/mh/ws_32.png); background-repeat: repeat-x; background-position: left top; padding: 0 17px; }
 .notright { float: none; margin-bottom: 17px; overflow: hidden; }
 .healthy { background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(0.9, #ebebeb), color-stop(1, #ebebeb)); height: 222px; border: solid 1px #ddd; margin-bottom: 17px; border-radius: 4px; box-shadow: 0 2px 2px #ddd; overflow: hidden; }
 .healthy .bv_tbs td { line-height: 33px; }

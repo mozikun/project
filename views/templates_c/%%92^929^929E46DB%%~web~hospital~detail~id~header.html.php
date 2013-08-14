@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-14 14:30:50
+<?php /* Smarty version 2.6.14, created on 2013-08-14 15:47:28
          compiled from ../default/header.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -80,7 +80,7 @@ web/default/list/lanmu/<?php echo $this->_tpl_vars['sorts'][$this->_sections['so
 </a></li>
         <?php endfor; endif; ?>
         <li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-appointment/reservation/index">预约挂号</a></li>
+web/register/index">预约挂号</a></li>
       </ul>
       <div class="menu_time"><?php echo $this->_tpl_vars['timer']; ?>
 </div>

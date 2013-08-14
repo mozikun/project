@@ -63,7 +63,23 @@ class web_registerController extends controller
      * @return void
      */
     public function indexAction()
-    {
+    {	
+		//查找医院
+		$organization=new Torganization();
+		/*
+		$organization->orderby("id");
+		//$organization->limit(0,10);
+		$organization->find();
+		$hospitals=array();
+		$i=0;
+		while($organization->fetch()){
+			$hospitals[$i]['id']=$organization->id;
+			$hospitals[$i]['name']=$organization->zh_name;
+			$i++;
+		}
+		
+		$this->view->hospitals=$hospitals;
+		*/
         $this->view->display("index.html");
         
     }
