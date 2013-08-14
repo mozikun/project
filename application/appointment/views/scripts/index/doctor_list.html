@@ -1,0 +1,488 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+#box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+
+<title>雅安市卫生局网上预约挂号平台</title>
+<link href="<!--{$basePath}-->images/index_files/allt.css" rel="stylesheet" type="text/css">
+<script>
+	function check(){
+		var us="";
+		if(us==''){
+			alert('您还没有登陆,请先登录!');
+		}
+	}
+
+  function refreshlog(obj){  
+ //点击验证码图片时候刷新验证码
+	var $obj = "code.php?id="+Math.random();
+  			obj.src = $obj ;
+ }
+
+
+function isNumberString (InString,RefString)
+{
+if(InString.length==0) return (false);
+for (Count=0; Count < InString.length; Count++)  
+{
+	TempChar= InString.substring (Count, Count+1);
+	if (RefString.indexOf (TempChar, 0)==-1)  
+	return (false);
+}
+return (true);
+}
+
+
+function checkForm()
+{
+
+if(document.form1.truename.value=="")
+{
+ document.form1.truename.focus();
+ alert("真实姓名不能为空！");
+ return false;
+}
+
+if(document.form1.sfzhm.value=="")
+{
+ document.form1.sfzhm.focus();
+ alert("证件号不能为空！");
+ return false;
+}
+/*
+if    ( isNumberString(document.form1.sfzhm.value,"1234567890xX")!=1  ||  (document.form1.sfzhm.value.length  !=15  &&  document.form1.sfzhm.value.length !=18)   )
+{
+ document.form1.sfzhm.focus();
+ alert("身份证号不正确！");
+ return false;
+}
+*/
+if(document.form1.yzm.value=="")
+{
+ document.form1.yzm.focus();
+ alert("验证码不能为空！");
+ return false;
+}
+/*
+if(document.form1.yzm.value!=document.form1.syzm.value)
+{
+ document.form1.yzm.focus();
+ alert("验证码不正确！");
+ return false;
+}
+*/
+} 
+</script></head>
+
+<body>
+<!-- 头文件开始 -->
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" class="top">
+  <tbody><tr>
+    <td><img src="<!--{$basePath}-->images/index_files/top.gif" width="980" height="81" alt="雅安市卫生局网上预约挂号平台"></td>
+  </tr>
+</tbody></table>
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" class="menu">
+  <tbody><tr>
+    <td valign="top">
+			<!-- 导航及搜索开始 -->
+	<form action="<!--{$basePath}-->appointment/index/add" method="post" name="formsh">
+	<table width="930" border="0" align="center" cellpadding="0" cellspacing="0" class="marg">
+      <tbody><tr>
+        <td width="585" class="white"><a href="<!--{$basePath}-->images/index_files/index.htm" class="white">首页</a>　|　<a href="www.yawsj.com/comm/yyghzn.php" class="white">预约指南</a>　|　<a href="www.yawsj.com/comm/newgg.php" class="white">最新公告</a>　|　<a href="www.yawsj.com/comm/cjwt.php" class="white">常见问题</a>　|　<a href="www.yawsj.com/comm/cjbdyks.php" class="white">常见病对应科室</a>　|　<a href="www.yawsj.com/comm/vote/yjfk.php" class="white">意见反馈</a></td>
+        <td width="150">&nbsp;</td>
+        
+        <td width="140" align="center">&nbsp;</td>
+        <td width="50" align="center">&nbsp;</td>
+      </tr>
+    </tbody></table>
+	</form>
+	<!-- 导航及搜索结束 -->	
+	<!-- 登录开始 -->
+	
+	
+	<table width="920" border="0" align="center" cellpadding="0" cellspacing="0" class="marg15">
+	<form action="<!--{$basePath}-->appointment/index/list/id/17" name="form1" method="post" >
+      <tbody><tr>
+        <td width="15" class="dblue">&nbsp;</td>
+        <td width="25" class="inbg">&nbsp;</td>
+        <td width="94" align="center" class="dblue">选择医院：</td>
+        <td width="183"  class="inbg1">
+        <input type="hidden" name="organize_code" id="organize_code" value="" />
+        <input type="text" name="organize" id="organize" size="16" class="inputclass"/>
+        <div id='suggest' class="ac_results" >
+        </div>&nbsp;</td>
+        <td width="60" align="center" class="dblue">&nbsp;科室：</td>
+        <td width="80" align="center" class="inbg">
+		 <select name="keshi">
+		  <option>外科</option>
+		  <option>内科</option>
+		  </select>&nbsp;</td>        
+        <td width="61" align="center" class="dblue">医生：</td>
+		<td width="81" class="inbg"> 
+		<select name="doctor">
+		  <option>外科</option>
+		  <option>内科</option>
+		  </select>&nbsp;
+        <td width="79" align="center">
+        <input width="50" type="submit" value="搜索" /></td>
+        <td width="242" align="right"><a href="www.yawsj.com/comm/zcxxxg.php" target="_blank" class="dblue">修改注册信息</a>　<a href="www.yawsj.com/comm/cxqxzn.php" target="_blank" class="dblue">查询/取消预约</a></td>
+      </tr>
+    </tbody>
+    </form>
+    </table>
+	
+	
+		<!-- 登录结束 -->	
+	</td>
+  </tr>
+</tbody></table>
+<!-- 头文件结束 -->
+
+
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tbody><tr>
+    <td><img src="<!--{$basePath}-->images/index_files/liucheng.gif" width="980" height="91"></td>
+  </tr>
+</tbody></table>
+<!-- 预约挂号流程结束 -->
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" class="marg">
+  <tbody><tr>
+    <td width="770" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td width="26"><img src="<!--{$basePath}-->images/index_files/lm_01.gif" width="26" height="34"></td>
+        <td align="center" class="lmmenu"><a href="www.yawsj.com/comm/yyjh.php" target="_blank" class="white">医生列表</a></td>
+        <td align="right" valign="bottom" class="lmt_bg1"><a href="www.yawsj.com/comm/yyjh.php" target="_blank" class="red">&gt;&gt;</a></td>
+        <td width="10"><img src="<!--{$basePath}-->images/index_files/lm_03.gif" width="10" height="34"></td>
+      </tr>
+    </tbody></table>
+	<table width="100%" border="1" cellspacing="0" cellpadding="0" class="box">
+    <tbody><tr>
+    <td width="14%" rowspan="2">排名不分先后</td>
+    
+    <td align="center" colspan="2"><strong>05月22日<br/>  星期二</strong></td>
+    
+    <td align="center" colspan="2"><strong>05月23日<br/>  星期三</strong></td>
+    
+    <td align="center" colspan="2"><strong>05月24日 <br/> 星期四</strong></td>
+    
+    <td align="center"colspan="2"><strong>05月25日<br/>  星期五</strong></td>
+    
+    <td align="center"colspan="2"><strong>05月26日<br/>  星期六</strong></td>
+    
+    <td align="center"colspan="2"><strong>05月27日<br/>  星期日</strong></td>
+    
+    <td align="center"colspan="2"><strong>05月28日<br/>  星期一</strong></td>
+    
+    </tr>
+    <tr>
+    <td width="8%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+  </tr>
+  <!--{section name=v loop=$row}-->
+  <tr>
+    <td align="center" height="29"><a href="http://guahao.zjol.com.cn/DoctorInfo.Aspx?DEPART=1540&ID=3762"><b class="red12"><!--{$row[v].name}--></b></a> </td>
+    
+    <td valign="middle">&nbsp;</td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+    <td valign="middle"></td>
+    <td valign="middle"></td>
+    
+  </tr>
+  <!--{/section}-->
+    </tbody></table>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="6"><img src="<!--{$basePath}-->images/index_files/lm_06.gif" width="6" height="6"></td>
+    <td height="6" class="lh"><img src="<!--{$basePath}-->images/index_files/lm_07.gif" width="1" height="6"></td>
+    <td width="6"><img src="<!--{$basePath}-->images/index_files/lm_08.gif" width="6" height="6"></td>
+  </tr>
+</tbody></table>
+</td>
+    <td>&nbsp;</td>
+    <td width="200" valign="top">
+	
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+          <td width="26"><img src="<!--{$basePath}-->images/index_files/lm_01.gif" width="26" height="34"></td>
+          <td align="center" class="lmmenu"><a href="www.yawsj.com/comm/newgg.php" target="_blank" class="white">公告栏</a></td>
+          <td background="<!--{$basePath}-->images/index_files/lm_02.gif">&nbsp;</td>
+          <td width="10"><img src="<!--{$basePath}-->images/index_files/lm_03.gif" width="10" height="34"></td>
+        </tr>
+      </tbody></table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+          <tbody><tr>
+            <td class="pad">
+            ·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a> <br>
+·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a> <br>
+·<a href="www.yawsj.com/comm/newgg25.php" target="_blank">预约挂号平台新增医院通知</a><br>
+·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a> <br>
+·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a> <br>
+·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a> <br>
+·<a href="www.yawsj.com/comm/newgg21.php" target="_blank" style="color:#FF0000">301医院敬告患者</a><br>
+·<a href="www.yawsj.com/comm/newgg28.php" target="_blank">预约挂号平台新增医院通知</a><!--·<a href="newgg18.php" target="_blank">北京华信医院敬告患者</a><br />
+
+
+
+
+
+
+
+
+
+·<a href="newgg18.php" target="_blank">人民医院预约周期调整公告</a><br />
+·<a href="newgg14.php" target="_blank">三博脑科医院恢复预约公告</a> <br />
+·<a href="newgg17.php" target="_blank">东方医院恢复预约通知</a><br />
+·<a href="newgg8.php" target="_blank">北京天坛医院号源调整公告</a><br />
+·<a href="newgg9.php" target="_blank">预约挂号平台新增医院通知</a><br />
+·<a href="newgg3.php" target="_blank">关于用户未就诊处理通知</a><br />
+
+·<a href="newgg4.php" target="_blank">查询、取消预约注意事项<br /></a>-->             </td>
+          </tr>
+        </tbody></table>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tbody><tr>
+            <td width="6"><img src="<!--{$basePath}-->images/index_files/lm_06.gif" width="6" height="6"></td>
+            <td height="6" class="lh"><img src="<!--{$basePath}-->images/index_files/lm_07.gif" width="1" height="6"></td>
+            <td width="6"><img src="<!--{$basePath}-->images/index_files/lm_08.gif" width="6" height="6"></td>
+          </tr>
+      </tbody></table>
+	  </td>
+  </tr>
+</tbody></table>
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" class="marg10">
+  <tbody><tr>
+    <td width="770" valign="top">
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="cjwt">
+      <tbody><tr>
+        <td width="145" align="center" valign="top" class="pad20"><a href="www.yawsj.com/comm/cjwt.php" target="_blank"><img src="<!--{$basePath}-->images/index_files/cjwt.gif" alt="常见问题" width="65" height="17" border="0"></a></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tbody><tr>
+    <td width="20"><img src="<!--{$basePath}-->images/index_files/icon01.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td width="280"><a href="www.yawsj.com/comm/cjwt.php" target="_blank" class="blue">电话预约或网上预约挂号需要付费吗？</a></td>
+    <td width="20"><img src="<!--{$basePath}-->images/index_files/icon01.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td width="281"><a href="www.yawsj.com/comm/cjwt.php" target="_blank" class="blue">预约前需要注册吗？</a></td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="<!--{$basePath}-->images/index_files/icon02.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank">...</a></td>
+    <td valign="top"><img src="<!--{$basePath}-->images/index_files/icon02.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank">无论通过何种方式预约，预约前都需要实名制注册...</a></td>
+  </tr>
+  <tr>
+    <td><img src="<!--{$basePath}-->images/index_files/icon01.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank" class="blue">能预约专家号吗？ </a></td>
+    <td><img src="<!--{$basePath}-->images/index_files/icon01.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank" class="blue">可以提前几天预约？</a></td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="<!--{$basePath}-->images/index_files/icon02.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank">根据雅安市卫生局医改新政策按医院、科室、职称...</a></td>
+    <td valign="top"><img src="<!--{$basePath}-->images/index_files/icon02.gif" alt="" vspace="3" align="absmiddle"></td>
+    <td><a href="www.yawsj.com/comm/cjwt.php" target="_blank">统一平台不提供当日预约服务，用户可预约接入统一平...</a></td>
+  </tr>
+</tbody></table></td>
+        </tr>
+    </tbody></table>	</td>
+    <td>&nbsp;</td>
+    <td width="200" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+        <td height="77" align="center"><a href="http://www.bjhb.gov.cn/" target="_blank"></a></td>
+      </tr>
+      <tr>
+        <td height="77" align="center">&nbsp;</td>
+      </tr>
+
+    </tbody></table>
+      </td>
+  </tr>
+</tbody></table>
+<!-- 尾文件开始 -->
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" class="foot">
+  <tbody><tr>
+    <td align="center" class="f12px"> <a href="www.yawsj.com/comm/lxwm.php" target="_blank">联系我们</a> ┊ <a href="www.yawsj.com/comm/hzhb.php" target="_blank">合作伙伴</a> ┊ <a href="www.yawsj.com/comm/flsm.php" target="_blank">法律声明</a> ┊ <a href="www.yawsj.com/comm/vote/yjfk.php" target="_blank">意见反馈</a><br>
+      主办单位：雅安市卫生局 <br>
+<a href="http://www.miibeian.gov.cn/" target="_blank">蜀ICP备123456号</a><br>
+    </td>
+  </tr>
+</tbody></table>
+
+
+
+<!-- 尾文件结束 -->
+
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+ <!--{if $currentregion==''}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/organization.js"></script>
+ <!--{else}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/<!--{$currentregion}-->.js"></script>
+ <!--{/if}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+ <script type="text/javascript">
+	 $(function(){
+		 $("#organize").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code',onSelect:function(){$("#organize_passwd").focus();}, attachObject:'#suggest'});
+	 	
+		
+		
+		 //机构密码失去焦点
+		 $("#organize_passwd").blur( function (){
+				var organize_code  = $("#organize_code").val();//机构代码
+				var organize_passwd= $("#organize_passwd").val();//机构密码
+				
+		 		//机构代码和机构密码不能为空验证表单
+				var user=$("#user_id");//用户下拉框
+		 		if(organize_code!=""  && organize_passwd!=""){
+		 			if(organize_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+			   	  	    $("#Layer1").show();
+		        		user.html('<option >载入中,请等待！</option>'); 
+			   	    }else{
+				   	  	alert("机构密码格式不对!");
+				   	  	user.empty();//清空下拉选项
+				   	  	return false;
+			   	    }
+					$.get("<!--{$basePath}-->loging/index/chkoragnize/organize_code/"+organize_code+"/organize_passwd/"+organize_passwd, function(data){
+					  
+					  if(data.indexOf("~")==-1){
+					  	 alert("网络不通！");
+					  	 user.empty();//清空下拉选项
+					  	 return false;
+					  }
+					  var msg_arr=data.split("~");
+					  var msg_code=msg_arr[0];//信息代码
+					  var msg_content=msg_arr[1];//信息提示
+					  
+					  //alert(data);
+					  
+					
+					  user.empty();//清空下拉选项
+					  if(msg_code!=1){
+					  	  //alert(msg_content);
+					  	  $("#Layer1").hide();
+						  return false;
+					  }else{
+						  var user_array=msg_content.split("|");
+						
+						  for(i=0;i<user_array.length;i++){
+						        //alert(user_array[i]);
+						  		var user_arr= (user_array[i]).split(":");//得到用户id和登录名
+								user.append('<option value="'+user_arr[0]+'">'+user_arr[1]+'</option>');   
+						  }
+						  user.focus();
+						  $("#Layer1").hide();
+					  }
+				
+				  	 
+					  
+					});
+				}
+		 
+		 } );
+		
+		
+		//提交表单
+         $("#loginsubmit").click(function(){
+         	   
+		       var organize_code  = $("#organize_code").val();//机构代码
+			   var organize_passwd= $("#organize_passwd").val();//机构密码
+			   var user_code	  = $("#user_id").val();//用户代码
+			   var user_passwd    = $("#user_passwd").val();//用户密码
+			   
+			   if(organize_code==""){
+			    	alert("请输入机构名！");
+			   		$("#organize").focus();
+					return false;
+			   }
+			   if(organize_passwd==""){
+			    	alert("请输入机构密码！");
+			   		$("#organize_passwd").focus();
+					return false;
+			   }else{
+			   	  if(organize_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+			   	  	 
+			   	  }else{
+			   	  	alert("机构密码格式不对!");
+			   	  	return false;
+			   	  }
+			   	
+			   }
+			    if(user_code==""){
+			    	alert("请选择用户名！");
+			   		$("#user_id").focus();
+					return false;
+			   }
+			   if(user_passwd==""){
+			    	alert("请选择用户密码！");
+			   		$("#user_passwd").focus();
+					return false;
+			   }else{
+				      if(user_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+				   	  	 
+				   	  }else{
+				   	  	alert("用户密码格式不对!");
+				   	  	return false;
+				   	  }
+			   	
+			   }
+			   
+			   
+			   $.get("<!--{$basePath}-->loging/index/chkuser/organize_code/"+organize_code+"/user_code/"+user_code+"/user_passwd/"+user_passwd, function(data){
+				  	
+				    //alert(data);
+				    var msg_arr = data.split("|");
+				    if(msg_arr[0]==1){
+				    	window.location="<!--{$basePath}-->doctor/index";
+				  		return false;
+				    }
+				  	//document.write(data);
+					
+					alert(msg_arr[1]);
+				    return false;
+					
+			   });
+			   return false;
+						 
+		 });
+	});
+	
+</script>
+ 
+
+</body></html>

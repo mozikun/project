@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>基本信息一览表</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">基本信息一览表</td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td align="center" >所在区域</td>
+		<td align="center" >卫生行政部门数</td>
+		<td align="center" >市级医院数</td>
+		<td align="center" >县级医院数</td>
+		<td align="center" >社区卫生服务中心数</td>
+		<td align="center" >乡镇卫生院数</td>
+		<td align="center" >个人档案数</td>
+		<td align="center" >个人家庭档案数</td>
+	</tr>
+	<!--{section name=regionArr loop=$regionArr}-->
+	<tr  align="center"  onMouseOver="this.style.backgroundColor='#E5FBFF'" onMouseOut="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$regionArr[regionArr].zh_name}--></td>
+			<td  title="卫生行政部门数"><!--{$regionArr[regionArr].admincount}--></td>
+			<td  title="市级医院数"><!--{$regionArr[regionArr].citycount}--></td>
+			<td  title="市级医院数"><!--{$regionArr[regionArr].countycount}--></td>
+			<td  title="社区卫生服务中心数"><!--{$regionArr[regionArr].communitycount}--></td>
+			<td  title="乡镇卫生院数"><!--{$regionArr[regionArr].orgtowncount}--></td>
+			<td  title="个人档案数"><!--{$regionArr[regionArr].indivicount}--></td>
+			<td  title="个人家庭档案数"><!--{$regionArr[regionArr].familycount}--></td>
+	</tr>
+	<!--{/section}-->
+	<tr class="columnbg">
+		    <td align="center">合计</td>
+			<td align="center" title="卫生行政部门数合计"><!--{$alladmin}--></td>
+			<td align="center" title="市级医院数合计"><!--{$allcount}--></td>
+			<td align="center" title="县级医院数合计"><!--{$allcity}--></td>
+			<td align="center" title="社区卫生服务中心数合计"><!--{$allcommunity}--></td>
+			<td align="center" title="乡镇卫生院数合计"><!--{$alltown}--></td>
+			<td align="center" title="个人档案数合计"><!--{$allindividual}--></td>
+			<td align="center" title="个人家庭档案数合计"><!--{$allfamily}--></td>
+	</tr>
+	
+</table>
+</body>
+</html>

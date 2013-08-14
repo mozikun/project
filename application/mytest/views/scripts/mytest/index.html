@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabsother.css">
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript"  src="<!--{$basePath}-->views/js/objectSwap.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<script language="javascript">AC_FL_RunContent = 0;</script>
+<script language="javascript"> DetectFlashVer = 0; </script>
+<script src="<!--{$basePath}-->library/charts/AC_RunActiveContent.js" language="javascript"></script>
+<script language="JavaScript" type="text/javascript">
+		<!--
+		var requiredMajorVersion = 10;
+		var requiredMinorVersion = 0;
+		var requiredRevision = 45;
+		-->
+</script>
+<script src="<!--{$basePath}-->views/js/xml_charts.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/decision_list.js" type="text/javascript"></script>
+<title>总览</title>
+</head>
+ 
+<body>
+<table width="100%" border="1">
+  <tr >
+    <td rowspan="2" width="209px">
+     <script type="text/javascript">
+	             writeFlashHTML("_swf=<!--{$basePath}-->views/images/images_index/map.swf", "_width=209px", "_height=214px","_wmode=transparent");
+          </script>
+    </td>
+    <td id="hospital" colspan="3">
+     <script language="JavaScript" type="text/javascript">
+			//alert($("td").html());
+			showList("<!--{$basePath}-->admindecision/orgresource/list/region_id/<!--{$reginid}-->/type/<!--{$k}-->",$('#hospital'));
+	 </script>
+    </td>
+    <td id='userresource'>
+			<script language="JavaScript" type="text/javascript">
+			//alert($("td").html());
+			showList("<!--{$basePath}-->admindecision/orguser/list/region_id/<!--{$reginid}-->",$('#userresource'));
+			</script>
+		</td>
+		<td id='equipment'>
+			<script language="JavaScript" type="text/javascript">
+			//alert($("td").html());
+			showList("<!--{$basePath}-->admindecision/orgequipment/list/region_id/<!--{$reginid}-->",$('#equipment'));
+			</script>
+		</td>
+		<td id='building'>
+			<script language="JavaScript" type="text/javascript">
+			//alert($("td").html());
+			showList("<!--{$basePath}-->admindecision/building/list/region_id/<!--{$reginid}-->",$('#building'));
+			</script>
+		</td>
+  </tr>
+</table>
+<table width="100%">
+     <tr align="center">
+      <!--{foreach from=$myarray item=v key=k }-->
+		<td>
+		<script language="JavaScript" type="text/javascript">
+		show_chart("<!--{$basePath}-->admindecision/orgresource/pie<!--{$k}-->/region_id/<!--{$reginid}-->/type/<!--{$k}-->","<!--{$basePath}-->",200,150,"chart_pie2");
+		</script>
+		</td>
+	<!--{/foreach}-->
+	   <td>
+		<script language="JavaScript" type="text/javascript">
+		show_chart("<!--{$basePath}-->admindecision/orguser/bar/region_id/<!--{$reginid}-->/type/11","<!--{$basePath}-->",200,150,"chart_bar");
+		</script>
+		</td>
+		<td>
+		<script language="JavaScript" type="text/javascript">
+		show_chart("<!--{$basePath}-->admindecision/orgequipment/pie/region_id/<!--{$reginid}-->","<!--{$basePath}-->",200,150,"chart_pie");
+		</script>
+		</td>
+  </tr>
+</table>
+</body>
+</html>

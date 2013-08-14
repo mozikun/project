@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>login</title>
+<link href="<!--{$basePath}-->views/styles/linkds.css" type="text/css" rel="stylesheet" />
+<style type=text/css>
+	table,tr,td{
+		margin:0px;
+		padding:0px;
+		height:23px;
+		font-size:14px;
+	}
+	form{
+		padding:0px;
+		margin:0px;
+	}
+
+	.ap{
+		height:30px;
+
+		text-align:right
+	}
+	.ap input{
+		font-size:14px;
+		width:70px;
+		height:29px;
+		margin-top:30px;
+	}
+	#Layer1 {
+		position:absolute;
+		left:0px;
+		top:130px;
+		width:100%;
+		height:100px;
+		z-index:1;
+		text-align:center;
+		display:none;				
+	}
+	#chsc_password,#user_password{
+		width:85px;
+		color:#0000FF
+	}
+	.font{
+		color:#CCCCCC;
+	}
+	.width{width:140px;}
+	.width_cp{width:90px;}
+	
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:200px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/aircity.js"></script>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+ <script type="text/javascript">
+	 $(function(){
+		 $("#arrcity").suggest(citys,{hot_list:commoncitys,dataContainer:'#arrcity_3word',onSelect:function(){$("#city2").click();}, attachObject:'#suggest'});
+		// $("#city2").suggest(citys,{hot_list:commoncitys,attachObject:"#suggest2"});
+		
+	});
+</script>
+</head>
+
+<body>
+<center>
+<div id="Layer1"><img src="<!--{$basePath}-->views/images/load.gif"></div>
+	<p></p>
+<div class="bodyd">
+	<div><img src="<!--{$basePath}-->views/images/a1.jpg" /></div>
+	<div class="bodyd_mid">
+	<div class="fl"><img src="<!--{$basePath}-->views/images//a2.jpg" /></div>
+	<div class="fl bodyd_mid_m">
+		<div class="body_1"><img src="<!--{$basePath}-->views/images/aloged.jpg" /></div>
+		<div class="body_2"><img src="<!--{$basePath}-->views/images/aline.jpg" /></div>
+		<div class="body_33">
+
+ <input type="hidden" name="arrcity_3word" id="arrcity_3word" value="" />
+ <label for="arrcity">出发城市：</label><input type="text" name="arrcity" id="arrcity" />
+ <div id='suggest' class="ac_results">
+ </div>
+ <label for="city2">目的城市：</label><input type="text" name="city2" id="city2" />
+ <div id='suggest2' class="ac_results">
+ </div>
+
+
+	
+	<!--登录  end-->
+		</div>		
+	</div>
+	<div class="fl"><img src="<!--{$basePath}-->views/images/a3.jpg" /></div>
+	
+	</div>
+	<div><img src="<!--{$basePath}-->views/images/a4.jpg" /></div>
+</div>
+</center>
+</body>
+</html>

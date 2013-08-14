@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("#btn").click(function(){
+		//$.dialog(320,300,'<form action="<!--{$basePath}-->organization/listorg/addorg/current_id/<!--{$current_id}-->" method="post"><div  align="center" style="width:300px;margin-top:0px;"> <div style="float:left; width:298px;margin-top:5px;">当前地区名称:<input type="text" name="menu_name_edit" id="menu_name_edit" value="<!--{$zh_name}-->" disabled="disabled"/></div> <div style="float:left; width:298px;margin-top:2px;">添加机构名称:<input type="text" name="orgname"/></div><div style="float:left; width:298px;margin-top:2px;">机构内部编码:<input type="text" name="codename"/></div><div style="float:left; width:298px;">当前机构类型:<select name="orgtype" style="width:156px;"><!--{foreach from=$orgType key=k item=v}--><option value="<!--{$k}-->"><!--{$v}--></option><!--{/foreach}--></select></div><div style="float:left; width:298px;">当前机构密码:<input name="orgpwd" id="orgpwd" type="password"/></div><div style="float:left; width:298px;">确认机构密码:<input name="reorgpwd" id="reorgpwd" type="password"/></div><div style="float:left; width:298px;"><input type="submit" value="添加" name="ok2" id="ok"/></div></div></form>');
+		$.dialog(380,270,$('#addNewOrgDiv').html(),'','添加机构');
+		//alert($('#addNewOrgDiv').html());
+	});
+})
+
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<!--这里太奇怪了，form前要加一个符号，否则在ie下出错-->
+<div id='addNewOrgDiv' style="display:none">
+.
+<form action="<!--{$basePath}-->organization/listorg/addorg" method="POST">
+ 	<input type="hidden" name="region_id" id="region_id" value="<!--{$region_id}-->" />
+	<div  align="center" style="width:300px;margin-top:0px;">
+	 	<div style="float:left; width:298px;margin-top:5px;">
+	 		当前地区名称:<input type="text" name="menu_name_edit" id="menu_name_edit" value="<!--{$zh_name}-->" disabled="disabled"/>
+	 	</div>
+	 	<div style="float:left; width:298px;margin-top:2px;">
+	 		添加机构名称:<input type="text" name="zh_name"/>
+	 	</div>
+	 	<div style="float:left; width:298px;margin-top:2px;">
+	 		机构内部编码:<input type="text" name="standard_code"/>
+	 	</div>
+	 	<div style="float:left; width:298px;">
+	 		当前机构类型:<select name="orgtype" style="width:156px;"><!--{foreach from=$orgType key=k item=v}--><option value="<!--{$k}-->"><!--{$v}--></option><!--{/foreach}--></select>
+	 	</div>
+	 	<div style="float:left; width:298px;">
+	 		当前机构密码:<input name="pwd" id="password" type="password"/>
+	 	</div>
+	 	<div style="float:left; width:298px;">
+	 		确认机构密码:<input name="pwd1" id="password1" type="password"/>
+	 	</div>
+	 	<div style="float:left; width:298px;">
+	 		<input type="submit" value="添加" name="ok" id="ok" />
+	 	</div>
+ 	</div>
+</form>
+</div>
+<title>当前机构列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="5">当前地区:<font color="Red"><!--{$zh_name}--></font>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->organization/region/index/parent_id/<!--{$regionParentId}-->">返回</a></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="20%"><strong>机构编码</strong></td>
+        <td width="30%"><strong>机构名称</strong></td>
+        <td width="20%"><strong>机构信息编辑</strong></td>
+        <td width="20%"><strong>机构人员管理</strong></td>
+        <td width="10%"><strong>删除</strong></td>
+     </tr>
+      <!--{$msg}-->
+     <!--{section loop=$orgArr name=orgArr}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$orgArr[orgArr].standard_code}--></td>
+           <td><!--{$orgArr[orgArr].zh_name}--></td>
+<!--           <td><a href="<!--{$basePath}-->organization/poporg/listpop/regionid/<!--{$region_id}-->/currentorgid/<!--{$orgArr[orgArr].id}-->">[编辑]</a></td>
+-->           <td><a id="btn_<!--{$row[row].id}-->" href="<!--{$basePath}-->organization/listorg/display/region_id/<!--{$orgArr[orgArr].region_id}-->/organization_id/<!--{$orgArr[orgArr].id}-->">[编辑]</a>
+           <td><a href="<!--{$basePath}-->admin/users/index/region_id/<!--{$region_id}-->/org_id/<!--{$orgArr[orgArr].id}-->/">[用户管理]</a></td>
+           <td><a href="<!--{$basePath}-->organization/listorg/delorg/del_id/<!--{$orgArr[orgArr].id}-->" onclick="return confirm('您确定删除吗?确定');">[删除]</a></td>
+        </tr>
+     <!--{/section}-->
+   
+     <tr>
+     	<td colspan="5"><a id="btn" href="#"><strong>[添加机构]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+
+
+<script type="text/javascript">
+function myOpenWindow(organization_id,region_id){
+	var url="<!--{$basePath}-->organization/listorg/display/region_id/"+region_id+'/organization_id/'+organization_id+'/sid/'+Math.random();
+	//alert(url);
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:350px;DialogWidth:600px;DialogHeight:850px;help:no;status:no');
+}
+
+</script>
+

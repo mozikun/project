@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>1岁以内儿童健康检查记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+
+</style>
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->children/children/update" method="post">  
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">1岁以内儿童健康检查记录表</div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/><input type="hidden" name="id" value="<!--{$id}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>姓名</strong>：<!--{$user_name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+    <tr>
+		<td colspan="2" >月龄</td>
+		<!--{section name=customer loop=$nums}-->		
+	    <td>
+	      <!--{foreach from=$project_options key=key item=v}-->
+	      
+	      <!--{if $key==$child_physical_array[customer].project_current}-->
+	      	<!--{$v}-->
+	      <!--{/if}-->
+	      <!--{/foreach}-->
+	    </td>
+	    <!--{/section}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">随访日期</td>
+		<!--{section name=customer loop=$nums}-->		
+	    <td>
+		  <!--{$child_physical_array[customer].vist_time}-->
+		</td>
+		<!--{/section}-->		
+   	</tr>
+   	<tr>
+		<td colspan="2">体重(kg)</td>
+		<!--{section name=customer loop=$nums}-->		
+	    <td>	      
+		  <!--{$child_physical_array[customer].weight}-->
+	      <!--{$child_physical_array[customer].weight_info_current}-->
+		</td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">身长(cm)</td>
+		<!--{section name=customer loop=$nums}-->		
+	    <td>
+	     <!--{$child_physical_array[customer].height}-->
+	     <!--{$child_physical_array[customer].height_info_current}-->
+		</td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">头围(cm)</td>
+		<!--{section name=customer loop=$nums}-->		
+	    <td>
+	     <!--{$child_physical_array[customer].head_size}-->
+	     </td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td  rowspan="15">体格检查</td>
+   	   <td >面色</td>
+       <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].complexion_current}--> </td>
+   	   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td>皮肤
+   	       	  
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].skin_current}--> </td>
+   	   <!--{/section}-->
+   	</tr>
+ 
+   	<tr>
+   	   <td>前囟
+   	    
+        
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].bregma_current}--> <input type="text" name="bregma_width" value="<!--{$child_physical_array[customer].bregma_width}-->" class="inputbottomshort" disabled="true"/>cm×<input type="text" name="bregma_height" value="<!--{$child_physical_array[customer].bregma_height}-->" class="inputbottomshort" disabled="true"/>cm</td>
+   	   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td>颈部包块
+   	    
+        
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].cervical_mass}--></td>
+   	   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td>眼外观
+   	    
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].eye_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>耳外观
+   	    
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].ear_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>口腔</td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].oralcavity}-->
+   	       <!--{if $child_physical_array[customer].number_of_teeth!=''}-->
+   	       出牙数（颗）:<!--{$child_physical_array[customer].number_of_teeth}-->
+   	       <!--{/if}-->   	    
+   	    </td>
+   	   <!--{/section}-->
+   	   
+   	  
+   	</tr>
+   	<tr>
+   	   <td>心肺
+   	   
+   	   </td>
+
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].heart_lung_current}--> </td>
+   	   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td>腹部
+   	    
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].abdomen_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>脐部
+   	   
+   	   </td>
+   	    <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].umbilical_region_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>四肢
+   	   
+   	   </td>
+
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].limb_current}--> </td>
+   	   <!--{/section}-->
+   	</tr>
+   
+   	<tr>
+   	   <td>佝偻病症状
+   	   
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].rickets_symptom_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>佝偻病体征
+   	   
+   	   </td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].rickets_signs_current}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	   <td>肛门/外生殖器
+   	  
+   	   </td>
+
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].gmzz_current}--> </td>
+   	   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	   <td>血红蛋白(g/L)</td>
+   	   <!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].hemoglobin}--> </td>
+   	   <!--{/section}-->
+
+   	</tr>
+   	<tr>
+		<td colspan="2">户外活动<input type="text" name="" value="" class="inputbottomshort" disabled="true"/>小时/日</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].field_sport}--> </td>
+   	   <!--{/section}-->
+	    
+   	</tr>
+   	<tr>
+		<td colspan="2">服用维生素D<input type="text" name="" value="" class="inputbottomshort" disabled="true"/>IU/日</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].vitamin_d}--> </td>
+   	   <!--{/section}-->
+	  
+   	</tr>
+   	<tr>
+		<td colspan="2">发育评估
+		</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].developmental_assessment_current}--> </td>
+   	   <!--{/section}-->
+	   
+   	</tr>
+   	<tr>
+		<td colspan="2">两次随访间患病情况
+		
+		</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].between_and_vist_time_current}--> </td>
+   	   <!--{/section}-->
+	    
+   	</tr>
+   	<tr>
+		<td colspan="2">其他</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].other}--> </td>
+   	   <!--{/section}-->
+	
+   	</tr>
+   	<tr>
+		<td colspan="2">转诊</td>
+		<!--{section name=customer loop=$nums}-->
+	    <td>
+		 		<!--{foreach key=k item=v from=$referral_features_options}-->
+            		<label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        		<!--{/foreach}--><input type="text" name="referral_features" value="<!--{$child_physical_array[customer].referral_features_current}-->"  class="inputnew" disabled="true"/></br>
+		        原因:      <input type="text" name="reason" value="<!--{$child_physical_array[customer].reason}-->"  class="inputbottomlong" disabled="true"/></br>
+		        机构及科室:<input type="text" name="agencies_departments" value="<!--{$child_physical_array[customer].agencies_departments}-->"  class="inputbottomlong" disabled="true"/>
+		</td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">指导</td>
+		<!--{section name=custom loop=$nums}-->
+	    <td>
+	        <!--{foreach key=k item=v from=$advising_options}-->
+               <!--{$k}-->、<!--{$v[1]}-->&nbsp;<!--{if $k==2||$k==4}--><br/><!--{/if}-->
+	        <!--{/foreach}-->&nbsp;
+	        
+
+	        <!--{section name=customer loop=5}-->
+		  	<input type="text" id="advising" name="advising[]" value="<!--{$child_physical_array[custom].advising_current[customer]}-->" class="inputnew"  disabled="true"/>
+	        <!--{/section}-->
+		</td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">下次随访日期</td>
+		<!--{section name=customer loop=$nums}-->
+   	    <td><!--{$child_physical_array[customer].next_followup_time}--> </td>
+   	   <!--{/section}-->
+	 
+   	</tr>
+   	<tr>
+		<td colspan="2">随访医生签名</td>
+	   
+	      <!--{section name=customer loop=$nums}-->
+   	       <td><!--{$child_physical_array[customer].doctors_signature}--> </td>
+   	     <!--{/section}-->
+
+		
+   	</tr>
+   	<!--此处的colspan要动态变化-->
+   	<tr id="no_print">
+		<td colspan="2"><a href="###" onclick="print_info();">打印</a></td>
+	   
+	      <!--{section name=customer loop=$nums}-->
+   	       <td><a href="<!--{$basePath}-->children/children/add/id/<!--{$child_physical_array[customer].id}-->/project/<!--{$child_physical_array[customer].project_current}-->">修改</a>
+   	       <a href="<!--{$basePath}-->children/children/del/uuid/<!--{$child_physical_array[customer].uuid}-->">删除</a>
+   	       </td>
+   	     <!--{/section}-->
+   	</tr>
+   </table>
+</form> 
+</body>
+</html>
+<script type="text/javascript">
+ function  print_info(){
+ 	$("#no_print").hide();
+ 	window.print();
+ 	$("#no_print").show();
+ }
+</script>

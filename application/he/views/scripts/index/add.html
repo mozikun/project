@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>健康教育活动记录表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.nobg table,td,tr
+	{
+		border:0px;
+	}
+	.line_table td
+	{
+		border:1px solid #ccc;
+		margin:2px 0px 2px 0px;
+	}
+	.none
+	{
+	    border:1px solid #FFF;
+		border-bottom:1px solid #ccc;
+	}
+    .input{
+	margin-right:6px;
+    border:1px solid #ccc;
+    }
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+<script>
+$(document).ready(function(){
+    $("input[name='promo_type']").blur(function(){
+        if($("input[name='promo_type']").val()!="" && parseInt($("input[name='promo_type']").val())!=$("input[name='promo_type']").val())
+        {
+            alert("健康教育资料发放种类只能为数值");
+            $("input[name='promo_type']").focus();
+            return false;
+        }
+        return false;
+    })
+    $("input[name='person_num']").blur(function(){
+        if($("input[name='person_num']").val()!="" && parseInt($("input[name='person_num']").val())!=$("input[name='person_num']").val())
+        {
+            alert("接受健康教育人数只能为数值");
+            $("input[name='person_num']").focus();
+            return false;
+        }
+        return false;
+    })
+    $("input[name='promo_num']").blur(function(){
+        if($("input[name='promo_num']").val()!="" && parseInt($("input[name='promo_num']").val())!=$("input[name='promo_num']").val())
+        {
+            alert("健康教育资料发放数量只能为数值");
+            $("input[name='promo_num']").focus();
+            return false;
+        }
+        return false;
+    })
+});
+function checkForm()
+{
+	if($("#activity_time").val()=="")
+    {
+    	alert("活动时间不能为空！");
+    	$("#activity_time").focus();
+    	return false;
+    }
+    if($("#activity_address").val()=="")
+    {
+    	alert("活动地点不能为空！");
+    	$("#activity_address").focus();
+    	return false;
+    }
+     if($("#activity_theme").val()=="")
+    {
+    	alert("活动主题不能为空！");
+    	$("#activity_theme").focus();
+    	return false;
+    }
+    if($("#sponsor").val()=="")
+    {
+    	alert("组织者不能为空！");
+    	$("#sponsor").focus();
+    	return false;
+    } 
+    if($("#active_summary").val()=="")
+    {
+    	alert("活动内容不能为空！");
+    	$("#active_summary").focus();
+    	return false;
+    }
+}
+  
+</script>
+</head>
+<body>
+<table border="0" width="100%" class="nobg">
+	<form method="post" action="<!--{$basePath}-->he/index/save" onsubmit="return checkForm();">
+    <tr style="border:0px ">
+        <td>
+        	附件
+        </td>
+	</tr>
+	<tr>
+		<td style="font-size:14px;font-weight:bold;text-align:center;line-height:68px;">
+        	健康教育活动记录表
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table">
+			    <tr>
+			        <td style="width:50%;">
+			        	活动时间:&nbsp;
+						<input type="hidden" name="uuid" value="<!--{$health_education->uuid}-->" />
+						<input type="text" name="activity_time" id="activity_time" value="<!--{$health_education->activity_time}-->" class="Wdate" size="20" onClick="WdatePicker({firstDayOfWeek:1})" />
+			        </td>			
+					<td style="width:50%;">
+			        	活动地点:&nbsp;<input type="text" id="activity_address" name="activity_address" value="<!--{$health_education->activity_address}-->" class="none" size="35" />
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="2">
+			        	活动形式:&nbsp;
+						<span>
+						<!--{foreach key=k item=v from=$he_active_type}-->
+						&nbsp;<label style="padding-left: 28px;cursor: pointer;"><input type="checkbox" value="<!--{$k}-->" <!--{$v.check}--> name="activity_type[]" /><!--{$v[1]}--></label>
+						<!--{/foreach}-->
+						</span>
+			        </td>			
+					
+				</tr>
+                <tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活&nbsp;动&nbsp;主&nbsp;题&nbsp;:&nbsp;&nbsp;</span>
+						<textarea name="activity_theme" id="activity_theme" class="input" cols="60" rows="6"><!--{$health_education->activity_theme}--></textarea>
+			        </td>			
+				</tr>
+                <tr>
+                <td colspan="2">
+			        	组织者:&nbsp;<input type="text" name="sponsor" id="sponsor" value="<!--{$health_education->sponsor}-->" class="none" size="35" />
+			        </td>
+                </tr>
+				<tr>
+			        <td style="width:50%;">
+			        	接受健康教育人员类别:&nbsp;<input type="text" name="person_category" value="<!--{$health_education->person_category}-->" class="none" size="35" />
+			        </td>			
+					<td style="width:50%;">
+			        	接受健康教育人数:&nbsp;<input type="text" name="person_num" value="<!--{$health_education->person_num}-->" class="none" size="15" />
+			        </td>
+				</tr>
+				<tr>
+			        <td style="width:50%;">
+			        	健康教育资料发放种类:&nbsp;<input type="text" name="promo_type" value="<!--{$health_education->promo_type}-->" class="none" size="15" />
+			        </td>			
+					<td style="width:50%;">
+			        	健康教育资料发放数量:&nbsp;<input type="text" name="promo_num" value="<!--{$health_education->promo_num}-->" class="none" size="15" />
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活&nbsp;动&nbsp;内&nbsp;容&nbsp;:&nbsp;&nbsp;</span>
+						<textarea name="active_summary" id="active_summary" class="input" cols="60" rows="6"><!--{$health_education->active_summary}--></textarea>
+			        </td>			
+				</tr>
+				<tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活动总结评价:</span><textarea name="activity_juggde" class="input" cols="60" rows="6"><!--{$health_education->activity_juggde}--></textarea>
+			        </td>			
+				</tr>
+				<tr>
+			        <td colspan="2">
+			        	存档材料请附后：
+						<!--{foreach key=k item=v from=$health_more_info}-->
+						<input type="checkbox" value="<!--{$k}-->" <!--{$v.check}--> name="more_info[]" /><!--{$v[1]}--></label>&nbsp;
+						<!--{/foreach}-->
+			        </td>			
+				</tr>
+				
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	<span style="float: left;">填表人（签字）:
+			<select name="people_fillin_form" id="people_fillin_form">
+							<!--{section name=people_fillin_form loop=$people_fillin_form}-->
+							<option value="<!--{$people_fillin_form[people_fillin_form].id}-->" <!--{$people_fillin_form[people_fillin_form].selected}--> ><!--{$people_fillin_form[people_fillin_form].zh_name}--></option>
+							<!--{/section}-->
+			</select>
+            </span>
+            <span style="float: right;">负责人（签字）:
+			<select name="person_in_charge" id="person_in_charge">
+							<!--{section name=response_doctor loop=$response_doctor}-->
+							<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+							<!--{/section}-->
+			</select>
+            </span>
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:right;">
+        	填表时间：&nbsp;<input type="text" name="updated" value="<!--{if $health_education->updated}--><!--{$health_education->updated}--><!--{else}--><!--{$updated}--><!--{/if}-->" class="Wdate" size="20" onClick="WdatePicker({firstDayOfWeek:1})" />
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        <input type="hidden" id="refer" name="refer" value="<!--{$refer}-->" />
+        	<input type="submit" value="保存活动记录表" class="input" style="height: 28px;font-size:14px;"  /><!--{if $health_education->uuid}-->
+    &nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" class="input" onclick="javascript:window.print();"  style="height: 28px;font-size:14px;" />
+    <!--{/if}-->
+        </td>
+	</tr>
+	</form>
+</table>
+</body>
+</html>

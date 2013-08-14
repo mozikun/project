@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$rootpath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$rootpath}-->views/js/popup.js"></script>
+<style>
+.change{
+background:#C9E1FA;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("tr:odd").addClass("change");
+})
+</script>
+<title>当前机构</title>
+<link href="<!--{$rootpath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr>
+       <td colspan="3">当前机构:<font color="Red"><!--{$c_name}--></font>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$rootpath}-->organization/listorg/listorg/org_id/<!--{$areaid}-->">返回</a></td>
+     </tr>
+     <tr>
+        <td width="20%">机构ID</td>
+        <td width="40%">机构名称</td>
+        <td width="20%">编辑</td>
+     </tr>
+        <tr>
+           <td><!--{$orgid}--></td>
+           <td><!--{$c_name}--></td>
+           <td><a id="btn" href="javascript:">编辑机构</a>
+           <script type="text/javascript">
+           $(function(){
+	            $("#btn").click(function(){
+                $.dialog(450,500,'<form action="<!--{$rootpath}-->organization/listorg/editorg/current_orgid/<!--{$orgid}-->" method="post"><div style="width:120px;float:left;" align="center">当前地区名称:</div><div style="width:320px;float:left;"align="center"><input type="text" name="menu_name_edit" id="menu_name_edit" value="<!--{$regionname}-->" disabled="disabled"/></div><div style="width:120px;float:left;" align="center">当前机构名称:</div><div style="width:320px;float:left;" align="center"><input type="text" name="orgname" value="<!--{$c_name}-->"/></div><div style="width:120px;float:left;" align="center">机构内部编码:</div><div style="width:320px;float:left;" align="center"><input type="text" name="editname" value="<!--{$code}-->"/></div><div style="width:120px;float:left;" align="center">行政机构类型:</div><div style="width:320px;float:left;" align="center"><select name="orgtype" style="width:153px;"><!--{foreach from=$orgType key=k item=v}--><option value="<!--{$k}-->" <!--{if $k eq $type}-->selected<!--{/if}-->><!--{$v}--></option><!--{/foreach}--></select></div><div style="width:120px;float:left;" align="center">当前机构密码:</div><div style="width:320px;float:left;" align="center"><input type="password" name="orgpwd" value="" style="width:150px;"/></div><div style="width:120px;float:left;" align="center">所辖区域名称:</div><div style="width:320px;float:left;"><!--{section loop=$pathArr name=pathArr}--><div style="width:100px;float:left;"><input type="checkbox" value="<!--{$pathArr[pathArr].region_path}-->" name="region[]" <!--{$pathArr[pathArr].ck}-->/><!--{$pathArr[pathArr].zh_name}--></div><!--{/section}--></div><div style="width:450px;" align="center"><input type="submit" value="修改" name="ok2" id="ok"/></div></form>');
+                 });
+           })
+            </script>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

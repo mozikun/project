@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>3-6岁儿童健康检查记录表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js"  type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+ 
+     //下拉地区
+     get_region_select_html('<!--{$basePath}-->','region_p_id_','menuDropDownBox_address');
+	
+	if("<!--{$display}-->"=="on"){
+		$("#tbody_search").show();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");
+	}else{
+		$("#tbody_search").hide();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");
+	}
+	$("#search_lable").toggle(function(){
+		$("#tbody_search").show();
+		$("#search").attr("action","<!--{$basePath}-->children/threeold/index/display/on");
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");},function(){$("#tbody_search").hide();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");
+		$("#search").attr("action","<!--{$basePath}-->children/threeold/index/display/off");
+		});
+});
+</script>
+</head>
+<body>
+	<table border="0" width="100%">
+		<form action="<!--{$basePath}-->children/threeold/index" id="search" method="POST">
+			<tr><td>
+				姓名<img title="“可以输入汉字也可以输入姓名拼音的首字母，比如要查找'王高兴',那么可以输入姓名的三个汉字中的任意一个，也可以输入‘wxm’几个字母进行搜索查找”" src="<!--{$basePath}-->images/comments.png" class="vtip" />：<input type="text" name="username" value="<!--{$search.username}-->" class="line" size="10">&nbsp;
+				档案号<img title="“输入标准档案号里的全部或者部分数字”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="standard_code" value="<!--{$search.standard_code}-->" class="line" size="10">&nbsp;
+				身份证号<img title="“可以输入完整或者部分身份证号”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="identity_number" value="<!--{$search.identity_number}-->" class="line" size="12">&nbsp;
+				随访医生:<select name="staff_id" id="staff_id">
+			<!--{section name=response_doctor loop=$response_doctor}-->
+			<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+			<!--{/section}-->
+			</select>
+		&nbsp;
+				
+				<input type="submit" value="搜索">
+				<label id="search_lable" style="cursor:pointer;"><img src="<!--{$basePath}-->images/zoom_in.png" />高级搜索</label><img title="请尽量使用普通搜索，并且限制搜索条件详细一些，否则会耗费过长的时间" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+				</td>
+			</tr>
+			<tr id="tbody_search"><td>
+				随访时间段:<input type="text" name="created_start_time" value="<!--{$created_start_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+						  --<input type="text" name="created_end_time" value="<!--{$created_end_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+				<br />所属地区:<span id="menuDropDownBox_address"></span>	
+					<input type="hidden" name="region_p_id" id="region_p_id_" value="<!--{$region_p_id}-->" />
+				</td>
+			</tr>
+			</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>&nbsp;
+        	
+        </th>
+		<th>
+        	姓名
+        </th>
+		<th>
+        	检查时间
+        </th>
+		<th>
+        	检查医生
+        </th>
+		<th>
+        	检查次数
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody id="hy">
+	<!--{section name=custom loop=$child_physical_array}-->
+	 <tr id="hy_<!--{$child_physical_array[custom].uuid}-->">
+	 	<td>&nbsp;
+        	
+        </td>
+		<td>
+        	<!--{$child_physical_array[custom].ssname}-->
+        </td>
+		<td>
+        	<!--{$child_physical_array[custom].followup_time}-->
+        </td>
+		<td>
+        	<!--{$child_physical_array[custom].followup_doctor}-->
+        </td>
+		<td>
+        	<!--{$child_physical_array[custom].snums}-->
+        </td>
+		<td>
+        	 <a href="<!--{$basePath}-->children/threeold/list/id/<!--{$child_physical_array[custom].id}-->">进入查看</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="10">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="10">
+        	&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+	</tbody>
+</table>
+<input type="hidden" id="error_message" name="error_message" value="<!--{$error_message}-->" />
+</body>
+</html>

@@ -1,0 +1,21 @@
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">设备资源</td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="columnbg">
+		<td align="center" >地区</td>
+		<td align="center" >万元以上设备</td>
+	</tr>
+	<!--{section name=regionarr loop=$regionarr}-->
+	<tr  align="center"  onMouseOver="this.style.backgroundColor='#E5FBFF'" onMouseOut="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$regionarr[regionarr].axisname}--></td>
+			<td  title="万元以上设备"><!--{$regionarr[regionarr].equipment_total_number}--></td>
+	</tr>
+	<!--{/section}-->
+	<tr class="title">
+		    <td align="center">合计</td>
+			<td align="center" title="万元以上设备总数"><!--{$allnumber}--></td>
+	</tr>	
+</table>

@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+body, td, th { font-size: 12px; color: #333; font-family:   "微软雅黑", "宋体", "新宋体", "黑体", "楷体",Arial; }
+a:link, a:visited, a:active { color: #1C1C1C; text-decoration: none; }
+a:hover { color: #f30; text-decoration: underline; }
+.bbk { content: ""; clear: both; font-size: 0px; line-height: 0px; height: 0px; visibility: visible; }
+img, a { border:none; }
+html, body, input, label, h1, h2, h3, h4, h5.h6, p, ol, ul, li, dl, dt, dd, input, select, textarea { margin:0px; padding:0px; }
+ol, ul, li, di, dt, dd { list-style:none; }
+table { border-collapse:collapse; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+p { line-height:25px; }
+.fixes { height: 100%; width: 100%; position: fixed; background-color: #1F4B7C; }
+.fixes .login_box { height: 282px; width: 382px; background-image: url(/../views/images/lg_01.png) ;background-repeat:no-repeat; margin-top: 0; margin-right: auto; margin-bottom: 0; margin-left: auto; padding: 15px; }
+.riger tr td { line-height: 48px; height: 48px; font-family: "微软雅黑"; font-size: 14px; padding-left: 5px; }
+.riger td .name1 { line-height: 25px; height: 25px; border: 1px solid #ddd; background-image: none; width: 150px; }
+.riger .liud td { line-height: 80px; height: 80px; }
+.riger td .name2{line-height: 25px; height: 25px; border: 1px solid #ddd; background-image: none; width: 70px;}

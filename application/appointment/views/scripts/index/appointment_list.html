@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+<title><!--{$title}--></title>
+
+</head>
+<body>
+
+<script type="text/javascript">
+ $(function(){
+ });
+ 
+  function del_record(id){
+	 if(confirm("你真的要删除吗？")){
+	 	
+		$.get("<!--{$basePath}-->admin/users/delete/id/"+id, function(data){
+		  	alert(data);
+			if(data=="删除成功！"){
+				window.location="<!--{$basePath}-->admin/users/index/region_id/<!--{$region_id}-->/org_id/<!--{$org_id}-->";
+			}
+		}); 
+	 }
+	 
+ }
+</script>
+	
+	<table cellspacing="0">
+    <thead>
+   
+	</thead>
+    <tr  class="headbg">
+	<th colspan="6" align="center">预约挂号一览表</th>
+	</tr>
+ 
+	<tr class="columnbg">
+	<th  width="16%"  >姓名</th>
+	<th   width="16%"    align="center" >性别</th>
+    <th  width="16%"  >年龄</th>
+    <th  width="16%"  >挂号医生</th>
+    <th  width="16%"   >预约时间</th>
+    <th   >身份证号</th> 
+	</tr>	
+	<tbody id=''>
+      <!--{foreach from=$row key=k item=v}-->
+     
+      <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+			<td ><!--{$v.name}--></td>
+			<td ><!--{$v.gender}--></td>
+            <td ><!--{$v.age }--></td>
+            <td ><!--{$v.doctor_name}--></td>
+            <td ><!--{$v.register_time}--></td>
+           
+            <td ><!--{$v.identity_number}-->
+            
+            </td>
+	  </tr>
+    
+	    <!--{/foreach}-->	
+	</tbody>
+	
+  
+    <tr  class="columnbg">
+		<td  colspan="9"><div style=" float:left"></div><div style="float:right"><!--{$out}--></div></td>
+	</tr>
+	</table>
+
+
+<br />
+	</body>
+</html>

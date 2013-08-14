@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="yaachis" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+    <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="<!--{$basePath}-->views/js/kandytabs.pack.js"></script>
+    <script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/kandytabs.css" />
+	<title>区域卫生信息公众平台-【雅安】-[<!--{$core->name}-->]个人信息预览</title>
+    <style type="text/css">
+    body,div,table{
+        margin: 0;
+        padding:0;
+    }
+    #header{
+    	margin:0px;
+    	background-image:url('<!--{$basePath}-->views/images/ips.gif');
+        background-repeat: no-repeat;
+        height: 67px;
+    }
+    table
+	{
+		background:#ffffff;
+	}
+    #right
+    {
+        overflow:hidden;
+        float: right; /*浮动居右*/
+        clear: right; /*不允许右侧存在浮动*/
+
+    }
+    #content
+    {
+        width: 100%;
+    }
+    input.line{border:0px;border-bottom: 1px solid #ccc;}
+    .red{color: red;}
+    </style>
+<script>
+function show_image(obj)
+{
+    if($("#image_dd").html())
+    {
+        //加载
+        $("#image_dd").html("<img src='<!--{$basePath}-->images/load.gif' />");
+        $.get('<!--{$basePath}-->iha/image/index/card/<!--{$card}-->',function(data){
+            $("#image_dd").html(data);
+        });
+    }
+    else
+    {
+        
+    }
+}
+</script>
+</head>
+
+<body>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="4"><b>预约挂号信息</b></td>
+    </tr>
+    <tr class="columnbg"><td>医院</td><td>医生</td><td>科室</td><td>预约时间</td></tr>
+    <!--{section name=row loop=$result}-->
+    <tr>
+		<td><!--{$result[row].org_name}--></td>
+		<td><!--{$result[row].doctor_name}--></td>
+		<td><!--{$result[row].department}--></td>
+		<td><!--{$result[row].time}--></td>
+		
+	</tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="4">暂时没有预约挂号信息！</td></tr>
+    <!--{/section}-->
+  </table>
+</body>
+</html>

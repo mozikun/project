@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑地区</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+
+</head>
+<body  onbeforeunload='clowseWindow()'>
+<table width="100%" align="center">
+<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+<input type="hidden" name="p_id" id="p_id" value="<!--{$p_id}-->" />
+   <tr>
+	<td width="30%">当前地区名称:</td>
+	<td width="70%"><input type="text" name="zh_name" id="zh_name" value="<!--{$zh_name}-->"/></td>
+   </tr>
+   <tr>
+     
+		<td width="30%">当前地区编码:</td>
+		<td width="70%">
+		<input type="text" name="standard_code" id="standard_code" value="<!--{$standard_code}-->" size="<!--{$standard_code_size}-->" maxlength="<!--{$standard_code_size}-->"/>
+		</td>
+    </tr>
+    <tr>
+		<td width="30%">操作类型:</td>
+        <td width="70%">
+        <input type="radio" id="method_move" name="method" value="move" checked />移动
+        <input type="radio" id="method_merge" name="method" value="merge" />合并
+        </span></td>
+	</tr>
+    <tr>
+		<td width="30%">所属地区:</td>
+        <td width="70%">
+            <span id="menuDropDownBox">
+            </span>
+            <span>
+                <input type="checkbox" id="chorg" name="chorg"  onclick="get_org();" /> 机构改变
+            </span>
+        </td>
+	</tr>
+<tr id="org_result" style="display:none;">
+    <td width="30%">目标机构：</td>
+    <td width="70%" id="org_list"></td>
+</tr>
+<tr id="doctor_result" style="display:none;">
+    <td width="30%">所属医生：</td>
+    <td width="70%" id="doctor_list">
+        
+    </td>
+</tr>
+	<tr>
+	   <td colspan="2" align="center" width="100%">
+		<input type="button" name="save" id="save" value="保存" onclick="ajaxSave()"/>
+		<input type="button" name="exit" id="exit" value="退出" onclick="clowseWindow()"/>
+		</td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var id=$('id').value;
+var p_id=$('p_id').value;
+var xmlHttp;
+getDropDownBox();
+
+function clowseWindow(){
+		//alert(window.dialogArguments.location);
+		$('exit').disabled=true;
+		//alert('s');
+		window.close();
+		var url='<!--{$basePath}-->region/region/listregion'+
+		'/parent_id/'+p_id+
+		'/sid/'+Math.random();
+		window.dialogArguments.location=url;
+}
+function getDropDownBox(){
+	//alert(parentId+id);
+	if(p_id=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/menu/menuDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	var url='<!--{$basePath}-->region/region/menuDropDownBox/p_id/'+p_id+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processDropDownBox;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if($('p_id').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function processDropDownBox(){
+	//alert(xmlHttp.readyState);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//alert(xmlHttp.readyState);
+		//注：firefox不支持innerText
+		var objDiv=$('menuDropDownBox');
+		//alert('1');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(obj,oldValue,currentValue){
+	var tempValue=currentValue.split("|")
+	if(tempValue[0]=='-9'){
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		p_id=tempValue[1];
+		$('p_id').value=tempValue[1];
+
+	}else{
+		p_id=tempValue[0];
+		$('p_id').value=tempValue[0];
+
+	}
+                   var chorg = document.getElementById('chorg');
+                   if(chorg.checked==true)
+                    {
+                        var org_result = document.getElementById('org_result');
+                         org_result.style.display ='none';
+                          var doctor_result = document.getElementById('doctor_result');
+                          if(doctor_result!=='undefind')
+                          {
+                               doctor_result.style.display='none';
+                          }
+                    }
+                    chorg.checked=false;
+	getDropDownBox();
+                   //get_org(result_id);
+}
+function ajaxSave(){
+	$('save').value='正在保存数据，可能需要的时间比较长，请不要关闭窗口';
+	$('save').disabled=true;
+	var zh_name=encodeURIComponent($('zh_name').value);
+	var standard_code=$('standard_code').value;
+                   var org_name = document.getElementsByName('org_name');            
+                    if(org_name[0]!=undefined)
+                    {
+                           if(org_name[0].value!='-9')
+                            {
+                                var org_name_value = org_name[0].value;
+                                var url_org_name = '/org_name/'+org_name_value;
+                            }
+                    }
+                    else
+                    {
+                       var  url_org_name ='/org_name/';
+                    }
+                   var doctor = document.getElementsByName('doctor[]');
+                   if(doctor!==undefined)
+                    {
+                        var doctor_length = doctor.length;
+                        var doctor_str = '';
+                        for(var i=0;i<doctor_length;i++)
+                         {
+                             if(doctor[i].checked==true)
+                             {
+                                 doctor_str+=doctor[i].value+'|';
+                             }
+                         }
+                         var url_doctor_str =  '/doctor/'+doctor_str;
+                    }
+                    else
+                    {
+                        var url_doctor_str ='/doctor/';
+                    }
+                    //alert(standard_code);
+	xmlHttp=getXmlHttpObject();
+	var url='<!--{$basePath}-->region/region/editregion'+
+	'/p_id/'+p_id+
+	'/id/'+id+
+	'/zh_name/'+zh_name+
+	'/standard_code/'+standard_code+url_doctor_str+url_org_name
+	'/sid/'+Math.random();
+                 //alert(url);
+	xmlHttp.onreadystatechange=processAjaxSave;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function processAjaxSave(){
+	//alert(xmlHttp.readyState+' '+xmlHttp.status);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//document.write(xmlHttp.responseText);
+                                     //alert(xmlHttp.responseText);
+		alert(xmlHttp.responseText);
+		//$('save').val('保存');
+		$('save').value='保存';
+		$('save').disabled=false;
+	}
+
+}
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+
+function getorglist(region_id)
+{
+	xmlHttp=getXmlHttpObject();
+	var url='<!--{$basePath}-->region/region/getorg/region_id/'+region_id+'/sid/'+Math.random();//ajax需要传入后端服务器的url
+	xmlHttp.onreadystatechange=receiveajax;
+	//使用get方式提交的方法
+	xmlHttp.open('GET',url,true);//使用get方式进行提交
+	xmlHttp.send(null);
+}
+//接收这个ajax的状态
+function receiveajax()
+{
+    
+    if(xmlHttp.readyState==4 && xmlHttp.status==200)
+    {
+            //状态满足要求的时候进行提交
+            //alert(xmlHttp.responseText);
+            var org_list = document.getElementById('org_list');
+            org_list.innerHTML = xmlHttp.responseText;
+    }
+
+}
+//取得目标地区的所有机构,如果没有目标机构那么直接找他上级的机构
+function get_org()
+{
+    var chorg = document.getElementById('chorg');
+    var org_result = document.getElementById('org_result');
+    var p_ajax_id= document.getElementById('p_id');
+    if(chorg.checked==true)
+    {
+       //需要打开下边的tr
+       org_result.style.display ='';
+       //取得目标地区的org内容
+       getorglist(p_ajax_id.value);
+    }
+    else
+    {
+        org_result.style.display ='none';
+        var doctor_result = document.getElementById('doctor_result');
+        if(doctor_result!=='undefind')
+        {
+             doctor_result.style.display='none';
+        }
+    }
+  
+}
+//取得机构下的医生列表
+function getdoctorlist(org_id)
+{
+     var doctor_result = document.getElementById('doctor_result');
+    if(org_id!=='-9')
+    {
+        doctor_result.style.display='';
+        xmlHttp=getXmlHttpObject();
+        var url='<!--{$basePath}-->region/region/getdoctor/org_id/'+org_id+'/sid/'+Math.random();//ajax需要传入后端服务器的url
+        xmlHttp.onreadystatechange=receivedoctor;
+        //使用get方式提交的方法
+        xmlHttp.open('GET',url,true);//使用get方式进行提交
+        xmlHttp.send(null);
+    }
+    else
+    {
+        doctor_result.style.display='none';
+    }
+}
+//接收这个ajax的状态
+function receivedoctor()
+{
+    
+    if(xmlHttp.readyState==4 && xmlHttp.status==200)
+    {
+            //状态满足要求的时候进行提交
+            //alert(xmlHttp.responseText);
+            var doctor_list = document.getElementById('doctor_list');
+            doctor_list.innerHTML = xmlHttp.responseText;
+    }
+
+}
+</script>

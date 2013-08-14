@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+body, html{width: 100%;height: 100%;overflow: hidden;margin:0;}
+#allmap {margin-right: 300px;height: 100%;overflow: hidden;}
+#result {border-left:1px dotted #999;height:100%;width:295px;position:absolute;top:0px;right:0px;font-size:12px;}
+dl,dt,dd,ul,li{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+dt{
+    font-size:14px;
+    font-family:"微软雅黑";
+    font-weight:bold;
+    border-bottom:1px dotted #000;
+    padding:5px 0 5px 5px;
+    margin:5px 0;
+}
+dd{
+    padding:5px 0 0 5px;
+}
+li{
+    line-height:28px;
+}
+span.title{
+    margin: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+p.info_content{
+    font-size: 12px;
+    line-height: 24px;
+}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/RichMarker/1.2/src/RichMarker_min.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/SearchInfoWindow_min.css" />
+<script src="<!--{$basePath}-->views/js/intro.min.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/introjs.min.css" />
+<!--[if lte IE 8]>
+<link href="<!--{$basePath}-->views/styles/introjs-ie.css" rel="stylesheet" />
+<!-- <![endif]-->
+<title>雅安市区域卫生信息平台-决策支持</title>
+</head>
+<body>
+<div data-step="1" data-intro="为了最大限度的展示地图和决策功能，功能菜单我们已经把他隐藏到了这里，点击向右的箭头图片即可查看功能菜单." style="width: 0px;float: left;" id="data"></div>
+<div id="allmap" style="overflow:hidden;zoom:1;position:relative;">	
+    <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+    <div id="panelWrap" style="width:0px;position:absolute;top:0px;right:0px;height:100%;overflow:auto;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;">
+        <div style="width:20px;height:200px;margin:-100px 0 0 -10px;color:#999;position:absolute;opacity:0.5;top:50%;left:50%;">此处用于展示结果面板</div>
+        <div id="panel" style="position:absolute;"></div>
+    </div>
+</div>
+
+<div id="result">
+    <dl>
+    	<dt>决策常用功能列表</dt>
+        <dd>
+            <ul>
+                <li><a href="###">所辖机构信息</a></li>
+                <li><a href="###">建档信息</a></li>
+            </ul>
+        </dd>
+    </dl>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    $(window.top.frames["leftFrame"].document).find('#switchs').parent().trigger('click');
+    var map = new BMap.Map('allmap',{mapType: BMAP_HYBRID_MAP});
+    var poi = new BMap.Point(103.004087,29.993945);
+    map.centerAndZoom(poi, 26);
+    map.enableScrollWheelZoom();
+    var content = '<div style="margin:0;line-height:20px;padding:2px;">'+
+                    '地址：小北街59号<br/>电话：(0835)2222127<br/>简介：雅安市卫生局综合研发及办公总部。' +
+                  '</div>';
+    //创建检索信息窗口对象
+    var searchInfoWindow = new BMapLib.SearchInfoWindow(map,content, {
+        title  : "雅安市卫生局",      //标题
+        width  : 290,             //宽度
+        height : 105,              //高度
+        panel  : "panel",         //检索结果面板
+        enableAutoPan : true,     //自动平移
+        searchTypes   :[]
+    });
+    var myIcon = new BMap.Icon("<!--{$basePath}-->images/location.png", new BMap.Size(32,32));
+    var marker = new BMap.Marker(poi,{icon:myIcon}); //创建marker对象
+    marker.addEventListener("click", function(e){
+	    searchInfoWindow.open(marker);
+    })
+    map.addOverlay(marker); //在地图中添加marker
+    searchInfoWindow.open(marker); //在marker上打开检索信息串口
+    //创建其他机构的标注
+    var position_array=jQuery.parseJSON('<!--{$position}-->');
+    for (var i = 0; i < position_array.length; i++)
+    {
+      addMarker(position_array[i]['x'], position_array[i]['y'],position_array[i]['name'],position_array[i]['info'],i);
+    }
+    // 编写自定义函数,创建标注
+    function addMarker(lat,lng,org_name,org_info,x)
+    {
+        /*var point = new BMap.Point(lat, lng);
+        //创建检索信息窗口对象
+        searchInfo = new BMap.InfoWindow(org_info,{width:300});
+        marker_t = new BMap.Marker(point);
+        map.openInfoWindow(searchInfo,point); //开启信息窗口
+        marker_t.addEventListener("click", function(e){
+    	    this.openInfoWindow(searchInfo,{width:300});
+        });*/
+        marker_t = new BMap.Marker(new BMap.Point(lat, lng));
+        
+        myRichMarker2 = new BMapLib.RichMarker(org_info,new BMap.Point(lat, lng),{"anchor" : new BMap.Size(-158, -177)});
+        map.addOverlay(myRichMarker2);
+        map.addOverlay(marker_t); //在地图中添加marker
+    }
+    $("#data").height($(document).height()/2);
+    introJs().start();
+});
+</script>
+
+</body>
+</html>
+</script>

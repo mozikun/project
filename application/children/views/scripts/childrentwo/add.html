@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>1～2岁儿童健康检查记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#project").change(function(){
+			var project = $(this).val();//随访项目
+			var url		= "<!--{$basePath}-->children/childrentwo/add/id/<!--{$id}-->/project/"+project;
+			window.location=url;
+		});
+		
+		//初始化检查是否转诊
+		chk_referral_features();
+		//转诊激活
+		$("#referral_features").blur(function(){
+			chk_referral_features();
+		});
+		//检查是否转诊
+		function chk_referral_features(){
+			var referral_features_val	= $("#referral_features").val();//是否转诊的值
+			
+			if(referral_features_val=="2"){
+				$("#agencies_departments").attr("disabled",false);
+				$("#reason").attr("disabled",false);
+			}else{
+				$("#agencies_departments").attr("disabled",true);
+				$("#reason").attr("disabled",true);
+			}
+		}
+	});
+</script>
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->children/childrentwo/update/id/<!--{$id}-->/project/<!--{$project_current}-->" method="post">  
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">1～2岁儿童健康检查记录表<img title="填表时，按照项目栏的文字表述，根据查体结果在对应的序号上单击鼠标左键选择。“—————”表示本次随访时该项目不用检查" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/><input type="hidden" name="id" value="<!--{$id}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>姓名</strong>：<!--{$name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>编号</strong>：<!--{$serial_num}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+    <tr>
+		<td colspan="2" style="width:50%">月（年）龄</td>
+	    <td>
+	      <select name="project" style="width:95px"  id="project">
+	     
+	       <!--{foreach key=k item=v from=$project_options}-->
+	       <option value="<!--{$k}-->" <!--{if $k==$project_current}-->selected<!--{/if}-->>
+	       <!--{$v}--></option>
+	       <!--{/foreach}-->
+	       </select>
+	    </td>
+   	</tr>
+   	<tr>
+		<td colspan="2">随访日期</td>
+	    <td>
+		  <input type="text" name="vist_time" value="<!--{$vist_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" />
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">体重(kg)<img title="指检查时实测的具体数值。并根据卫生部选用的儿童生长发育参照标准，判断儿童体格发育情况，在相应的“上”、“中”、“下”进行选择" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="weight" value="<!--{$weight}-->"  class="inputbottomshort">&nbsp;
+		   <select name="weight_info" style="width:95px">
+	       <option value=""></option>
+	       <!--{foreach key=k item=v from=$weight_info_options}-->
+	       <option value="<!--{$v}-->" <!--{if $v==$weight_info_current}-->selected<!--{/if}-->>
+	       <!--{$v}--></option>
+	       <!--{/foreach}-->
+	       </select>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">身长(cm)<img title="指检查时实测的具体数值。并根据卫生部选用的儿童生长发育参照标准，判断儿童体格发育情况，在相应的“上”、“中”、“下”进行选择" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="height" value="<!--{$height}-->"  class="inputbottomshort">&nbsp;
+		   <select name="height_info" style="width:95px">
+	       <option value=""></option>
+	       <!--{foreach key=k item=v from=$height_info_options}-->
+	       <option value="<!--{$v}-->" <!--{if $v==$height_info_current}-->selected<!--{/if}-->>
+	       <!--{$v}--></option>
+	       <!--{/foreach}-->
+	       </select>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2" >坐高(cm)</td>
+	    <td>
+		  <input type="text" name="sitting_hight" value="<!--{$sitting_hight}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+   	<tr>
+		<td  colspan="2">头围(cm)</td>
+	    <td>
+		 <input type="text" name="head_size" value="<!--{$head_size}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">胸围(cm)</td>
+	    <td>
+		  <input type="text" name="bust" value="<!--{$bust}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+  
+   	<tr>
+   	   <td  rowspan="14">体格检查</td>
+   	   <td >面色
+   	   <!--{foreach key=k item=v from=$complexion_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','complexion')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+       <!--{/foreach}-->&nbsp;
+        </td>
+   	   <td> <input type="text" name="complexion" value="<!--{$complexion_current}-->" class="inputnew" /></td>
+   	</tr>
+   	<tr>
+   	   <td>皮肤<img title="当无皮疹、湿疹、增大的体表淋巴结等，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{foreach key=k item=v from=$skin_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','skin')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->&nbsp;
+   	   <td><input type="text" name="skin" value="<!--{$skin_current}-->"  class="inputnew"></td>
+   	</tr>
+ 
+   	<tr>
+   	   <td>前囟<img title="如果未闭，请填写具体的数值" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	   <!--{if $project_current!=8}-->
+   	    <!--{foreach key=k item=v from=$bregma_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','bregma')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->&nbsp;
+       <!--{/if}-->
+   	   </td>
+   	   <td>
+   	   <!--{if $project_current!=8}-->
+   	   <input type="text" name="bregma" value="<!--{$bregma_current}-->"  class="inputnew"><input type="text" name="bregma_width" value="<!--{$bregma_width}-->" class="inputbottomshort"/>cm×<input type="text" name="bregma_height" value="<!--{$bregma_height}-->" class="inputbottomshort"/>cm
+   	   <!--{else}-->
+   	   —————
+   	   <!--{/if}-->
+   	   </td>
+   	</tr>
+   
+   	<tr>
+   	   <td>眼外观<img title="结膜无充血、无溢泪、无流脓判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{foreach key=k item=v from=$eye_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','eye')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->&nbsp;
+   	   </td>
+   	   <td><input type="text" name="eye" value="<!--{$eye_current}-->"  class="inputnew"/></td>
+   	</tr>
+   	<tr>
+   	   <td>耳外观<img title="外耳无湿疹、畸形、外耳道无异常分泌物，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{foreach key=k item=v from=$ear_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','ear')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+   	   </td>
+   	   <td><input type="text" name="ear" value="<!--{$ear_current}-->"  class="inputnew"/></td>
+   	</tr>
+   		<tr>
+   	   <td>听力<img title="使用行为测听的方法进行听力筛查。检查时应避开小儿的视线，分别从不同的方向给予不同强度的声音，观察孩子的反应，根据所给声音的大小，大致地估测听力正常与否" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	   <!--{if $project_current==5 ||  $project_current==7}-->
+   	    <!--{foreach key=k item=v from=$hearing_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','hearing')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+        <!--{/if}-->
+   	   </td>
+   	   <td>
+   	   <!--{if $project_current==5 ||  $project_current==7}-->
+   	   <input type="text" name="hearing" value="<!--{$hearing_current}-->"  class="inputnew"/>
+   	   <!--{else}-->
+   	   —————
+   	   <!--{/if}-->
+   	   </td>
+   	</tr>
+   	<tr>
+   	   <td>出牙/龋齿数（颗）<img title="填入出牙颗数和龋齿颗数。出现褐色或黑褐色斑点或斑块，表面粗糙，甚至出现明显的牙体结构破坏为龋齿" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    
+        </td>
+   	   <td>
+   	   
+   	   <input type="text" name="number_of_teeth" value="<!--{$number_of_teeth}-->"  class="inputbottomshort"/>/   
+   	   <input type="text" name="oralcavity" value="<!--{$oralcavity_current}-->"  class="inputbottomshort"/>
+   	   </td>
+   	</tr>
+   	<tr>
+   	   <td>心肺<img title="当未闻及心脏杂音，肺部呼吸音也无异常时，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	   <!--{foreach key=k item=v from=$heart_lung_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','heart_lung')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+   	   </td>
+   	   <td><input type="text" name="heart_lung" value="<!--{$heart_lung_current}-->"  class="inputnew"/></td>
+   	</tr>
+   	<tr>
+   	   <td>腹部<img title="肝脾触诊无异常，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{foreach key=k item=v from=$abdomen_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','abdomen')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+   	   </td>
+   	   <td><input type="text" name="abdomen" value="<!--{$abdomen_current}-->"  class="inputnew"/></td>
+   	</tr>
+  
+   	<tr>
+   	   <td>四肢<img title="上下肢活动良好且对称，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{foreach key=k item=v from=$limb_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','limb')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+   	   </td>
+   	   <td><input type="text" name="limb" value="<!--{$limb_current}-->"  class="inputnew"/></td>
+   	</tr>
+   	<tr>
+   	   <td>步态<img title="无跛行，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	    <!--{if $project_current!=5}-->
+   	    <!--{foreach key=k item=v from=$gait_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','gait')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+        <!--{/if}-->
+   	   </td>
+   	   <td>
+   	   <!--{if $project_current!=5}-->
+   	   <input type="text" name="gait" value="<!--{$gait_current}-->"  class="inputnew">
+   	   <!--{else}-->
+   	   —————
+   	   <!--{/if}-->
+   	   </td>
+   	</tr>
+
+   	<tr>
+   	   <td>可疑佝偻病体征<img title="根据体征的有无在对应选项上单击鼠标左键选择" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+   	   
+        <!--{foreach key=k item=v from=$rickets_signs_array}-->
+            <label onclick="set_input_value('<!--{$k}-->','rickets_signs')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+      
+   	   </td>
+   	   <td>
+   	   <!--{if $project_current!=8}-->
+   	   <input type="text" name="rickets_signs" value="<!--{$rickets_signs_current}-->"  class="inputnew">
+   	   <!--{else}-->
+   	   —————
+   	   <!--{/if}-->
+   	   </td>
+   	</tr>
+   
+   	<tr>
+   	   <td>血红蛋白(g/L)</td>
+   	   <td><input type="text" name="hemoglobin" value="<!--{$hemoglobin}-->"  class="inputbottomlong"></td>
+   	</tr>
+   	<tr>
+		<td>户外活动(小时/日)<img title="询问家长儿童在户外活动的平均时间后填写" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="field_sport" value="<!--{$field_sport}-->"  class="inputbottomlong">
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">服用维生素D(IU/日)<img title="填写具体的维生素D 名称、每日剂量，按实际补充量填写，未补充，填写“0”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="vitamin_d" value="<!--{$vitamin_d}-->"  class="inputbottomlong"/>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">发育评估<img title="按照“儿童生长发育监测图”的运动发育指标进行评估（见服务规范指南）。每项发育指标至箭头右侧月龄通过的，为通过。否则为不通过" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		<!--{foreach key=k item=v from=$developmental_assessment_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','developmental_assessment')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+		</td>
+	    <td>
+	      <!--{if $project_current!=8}-->
+		  <input type="text" name="developmental_assessment" value="<!--{$developmental_assessment_current}-->"  class="inputnew">
+		  <!--{else}-->
+		  —————
+		  <!--{/if}-->
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">两次随访间患病情况<img title="填写上次随访到本次随访间儿童所患疾病情况，若有，填写具体疾病名称" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		<!--{foreach key=k item=v from=$between_and_vist_time_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','between_and_vist_time')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        <!--{/foreach}-->
+		</td>
+	    <td>
+		  <input type="text" name="between_and_vist_time" value="<!--{$between_and_vist_time_current}-->"  class="inputnew">
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">其他<img title="将需要记录又不在标目限制范围之内的内容时记录在此" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="other" value="<!--{$other}-->"  class="inputbottomlong"/>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">转诊建议<img title="转诊无、有在相应数字上单击鼠标左键选择。并将转诊原因及接诊机构名称填入" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		 		<!--{foreach key=k item=v from=$referral_features_options}-->
+            		<label onclick="set_input_value('<!--{$k}-->','referral_features')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+        		<!--{/foreach}--><input type="text" id="referral_features" name="referral_features" value="<!--{$referral_features_current}-->"  class="inputnew"/></br>
+		        原因:      <input type="text" name="reason" id="reason" value="<!--{$reason}-->"  class="inputbottomlong"/></br>
+		        机构及科室:<input type="text" name="agencies_departments" id="agencies_departments" value="<!--{$agencies_departments}-->"  class="inputbottomlong"/>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">指导<img title="做了哪些指导请在对应的选项上选择，可以多选，未列出的其他指导请具体填写" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+
+	       <!--{if $project_current==5 || $project_current==6}-->
+	       <!--{foreach key=k item=v from=$advising_options}-->
+               <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+	        <!--{/foreach}-->&nbsp;
+	        <!--{else}-->
+	         <!--{foreach key=k item=v from=$advising_array}-->
+               <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+	        <!--{/foreach}-->&nbsp;
+	        <!--{/if}-->
+            <input type="text" name="advising_other" id="present_symptoms_other" value="<!--{$advising_other}-->" class="inputbottom" />
+	        <!--{section name=customer loop=5}-->
+		  	<input type="text" id="advising" name="advising[]" value="<!--{$advising_current[customer]}-->" class="inputnew" />
+	        <!--{/section}-->
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">下次随访日期<img title="根据儿童情况确定下次随访的日期，并告知家长" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+		  <input type="text" name="next_followup_time" value="<!--{$next_followup_time}-->" onClick="WdatePicker({firstDayOfWeek:1})"  class="inputnone2"/>
+		</td>
+   	</tr>
+   	<tr>
+		<td colspan="2">随访医生签名</td>
+	    <td>
+	       <select name="doctors_signature" >
+	       <!--{section loop=$region_users name=experience}-->  
+	       
+	       <option value="<!--{$region_users[experience].user_id}-->" <!--{if $doctors_signature==$region_users[experience].user_id}-->selected<!--{/if}-->>
+	       <!--{$region_users[experience].name_real}--></option>
+	       <!--{/section}-->
+	       </select>
+
+		</td>
+   	</tr>
+   	<!--此处的colspan要动态变化-->
+   	<tr>
+		<td colspan="3" align="center"><input name="" type="submit" value="保存数据" class="inputbutton"/> <!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td>
+   	</tr>
+   </table>
+</form> 
+</body>
+</html>

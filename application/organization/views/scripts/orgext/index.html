@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>当前机构信息列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="5"><strong><!--{$orgname}-->--机构信息</strong></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="50%"><strong>机构信息数据年份</strong></td>
+        <td width="50%"><strong>操作</strong></td>
+     </tr>
+     <!--{section loop=$chs_center_array name=chs_center_array}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$chs_center_array[chs_center_array].year}-->年机构信息数据</td>
+           <td>
+<a href="<!--{$basePath}-->organization/orgext/index/org_id/<!--{$org_id}-->/org_year/<!--{$chs_center_array[chs_center_array].year}-->">[编辑]</a><a href="<!--{$basePath}-->organization/orgext/del/org_id/<!--{$org_id}-->/org_year/<!--{$chs_center_array[chs_center_array].year}-->" onclick="return confirm('您确定删除吗?确定');">[删除]</a></td>
+        </tr>
+     <!--{sectionelse}-->
+     <tr>
+      <td colspan="2">
+         目前没有任何数据！
+      </td>
+     </tr>
+     <!--{/section}-->
+     <tr>
+     	<td colspan="5"><!--{if $org_type=='3'||$org_type=='5'}--><a  href="<!--{$basePath}-->organization/orgext/index"><strong>[添加机构信息]</strong><!--{/if}--></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+

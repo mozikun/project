@@ -1,0 +1,240 @@
+
+/******
+ Tabs
+********/
+@media projection, screen { 
+    .tabs-hide {
+        display: none;
+    }
+}
+
+/* Hide useless elements in print layouts... */
+@media print {
+    .tabs-nav {
+        display: none;
+    }
+}
+
+/* Skin */
+.tabs-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 4px;
+}
+.tabs-nav:after { /* clearing without presentational markup, IE gets extra treatment */
+    display: block;
+    clear: both;
+    content: " ";
+}
+.tabs-nav li {
+    float: left;
+    margin: 0 0 0 1px;
+    min-width: 84px; /* be nice to Opera */
+}
+.tabs-nav a, .tabs-nav a span {
+    display: block;
+    padding: 0 10px;
+    background: url(../images/tab.png) no-repeat;
+}
+.tabs-nav a {
+    position: relative;
+    top: 1px;
+    z-index: 2;
+    padding-left: 0;
+    color: #27537a;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap; /* required in IE 6 */    
+}
+.tabs-nav .tabs-selected a {
+    color: #000;
+}
+.tabs-nav .tabs-selected a, .tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active {
+    background-position: 100% -150px;
+    outline: 0; /* prevent dotted border in Firefox */
+}
+.tabs-nav a, .tabs-nav .tabs-disabled a:hover, .tabs-nav .tabs-disabled a:focus, .tabs-nav .tabs-disabled a:active {
+    background-position: 100% -100px;
+}
+.tabs-nav a span {
+    width: 64px; /* IE 6 treats width as min-width */
+    min-width: 64px;
+    height: 18px; /* IE 6 treats height as min-height */
+    min-height: 18px;
+    padding-top: 6px;
+    padding-right: 0;
+}
+*>.tabs-nav a span { /* hide from IE 6 */
+    width: auto;
+    height: auto;
+}
+.tabs-nav .tabs-selected a span {
+    padding-top: 7px;
+}
+.tabs-nav .tabs-selected a span, .tabs-nav a:hover span, .tabs-nav a:focus span, .tabs-nav a:active span {
+    background-position: 0 -50px;
+}
+.tabs-nav a span, .tabs-nav .tabs-disabled a:hover span, .tabs-nav .tabs-disabled a:focus span, .tabs-nav .tabs-disabled a:active span {
+    background-position: 0 0;
+}
+.tabs-nav .tabs-selected a:link, .tabs-nav .tabs-selected a:visited, .tabs-nav .tabs-disabled a:link, .tabs-nav .tabs-disabled a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+.tabs-nav a:hover, .tabs-nav a:focus, .tabs-nav a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+}
+.tabs-nav .tabs-disabled {
+    opacity: .4;
+}
+.tabs-container {
+    border-top: 1px solid #97a5b0;
+    padding: 1em 8px;
+    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+
+/********
+html  body  A
+********/
+html,body{
+	font-size:14px;
+	padding:0px;
+	margin-top:0px; 
+	background-color:#f9f9f9;
+}           
+p{
+	margin:0px;
+	padding:0px;
+}
+pre, pre+p, p+p {
+	margin: 1em 0 0;
+}
+table,tr,td a{
+  color: #000;
+}
+
+/************************/
+
+form{
+	margin:0px;
+	padding:0px;
+}
+
+body table,tr,td,th{
+	height:26px;
+	font-size:13px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#CCCCCC 1px solid
+}
+
+table .headbg{  /*头部*/
+	height:34px;
+	font-weight:bold;
+	color:#FFFFFF;
+	background: url('../images/title_bg.gif') repeat-x;
+    font-size: 14px;
+    color: #000;
+    word-break:keep-all; /* for ie */  
+    white-space:nowrap; /* for chrome */
+}
+table .headbg td{
+	padding-left:12px;
+}
+table .headbg a{
+	color: #000;
+}
+
+table .columnbg{ /*列表*/
+	height:26px;
+	font-weight:bold;
+	color:#000000;
+	font-size:14px;
+	text-align:left;
+	background-color:#f2fcfe;
+}
+
+
+table .endbg{ /*结尾*/
+	height:32px;
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#f2fcfe;
+}
+table .endbg td{
+	text-align:center
+}
+table .page {
+	font-size:14px;
+	text-align:right;
+	background-color:#f2fcfe;
+}
+.title td{
+    height:26px;
+	font-weight:bold;
+	color:#000000;
+}
+/*form*/
+table select{
+	font-size:14px;
+	background-color:#EFEFEF;
+	border:#7F9DB9 1px solid;
+	
+}
+table .endbg  input{
+	font-size:14px;
+	margin-right:6px;
+}
+/*错误或提示style*/
+.error{height:80px;text-align:left;}
+/*样式的切换*/
+.showdou{border:#0000CC 2px solid}
+
+/***/
+.headbg a{
+	color:#fff;
+}
+
+
+/* 排序样式的点击选择  */
+h5{
+	height:23px;
+	width:100%;
+	text-align:center;
+	margin:0px;
+	padding:0px;
+}
+
+h5 div{
+	padding:3px;
+	margin:3px;
+	height:10px;
+}
+
+h5 div a{
+	color:#000;
+	text-decoration:none;
+	font-size:14px;
+	font-weight:bold;
+	cursor: hand
+}
+
+.up{ background: url(../images/_up.png);
+}
+
+.down{
+	 background: url(../images/_down.png);
+}
+
+.align_right {
+
+text-align:right;
+padding-right:5px;
+
+      
+}
+	/*左上角*/
+.Left_top {right:0;top:0;position:fixed;+position:absolute;top:expression(parseInt(document.body.scrollTop));}
+/*******jquery.tablesorter.blue*******/

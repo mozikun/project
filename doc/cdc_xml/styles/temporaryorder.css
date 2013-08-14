@@ -1,0 +1,52 @@
+﻿#temporaryorder
+{
+	text-align:center;
+}
+
+#temporaryorder .totable
+{
+	width:900px;
+	font-family:宋体;
+	font-size:10.5pt;
+	margin:0 auto;
+	line-height:18px;
+}
+
+#temporaryorder .tohead
+{
+	font-family:宋体;
+	font-size:15pt;
+	text-align:center;
+}
+
+#temporaryorder .totitle
+{
+	font-family:宋体;
+	font-weight:bold;
+	font-size:18pt;
+	text-align:center;
+}
+#temporaryorder .tobtable
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;	
+	border-collapse:collapse;
+	font-family:宋体;
+	font-size:10.5pt;
+}
+#temporaryorder .tobtable tr
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}
+#temporaryorder .tobtable td
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}

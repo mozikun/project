@@ -1,0 +1,42 @@
+<table border="0" width="100%">
+				<thead>
+		    	<tr>
+		        <th>
+		        	医生
+		        </th>
+				<th>
+		        	所属地区
+		        </th>
+				<th>
+		        	日期<!--{if $serach_type}-->(<!--{$unit[$serach_type]}-->)<!--{/if}-->
+		        </th>
+				<th>
+		        	档案数
+		        </th>
+				<th>
+		        	最小完整率
+		        </th>
+				<th>
+		        	最大完整率
+		        </th>
+				<th>
+		        	平均完整率
+		        </th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--{foreach key=key name=iha item=iha from=$core}-->
+					<!--{foreach key=ks name=fiha item=fiha from=$iha}-->
+					<!--{if $smarty.foreach.fiha.iteration==1}-->
+					<tr>
+						<td rowspan="<!--{$iha|@count}-->"><!--{$fiha.doctor_name}--></td><td rowspan="<!--{$iha|@count}-->"><!--{$fiha.doctor_path}--></td><td><!--{$fiha.day}--></td><td><!--{$fiha.nums}--></td><td><!--{$fiha.min_criteria_rate}--></td><td><!--{$fiha.max_criteria_rate}--></td><td><!--{$fiha.avg_criteria_rate}--></td>
+					</tr>
+					<!--{else}-->
+					<tr>
+						<td><!--{$fiha.day}--></td><td><!--{$fiha.nums}--></td><td><!--{$fiha.min_criteria_rate}--></td><td><!--{$fiha.max_criteria_rate}--></td><td><!--{$fiha.avg_criteria_rate}--></td>
+					</tr>
+					<!--{/if}-->
+					<!--{/foreach}-->
+					<!--{/foreach}-->
+				</tbody>
+			</table>

@@ -1,0 +1,78 @@
+/* 全局CSS定义 */
+body {font-family:'宋体';background:url(bg.gif) repeat-x left top;font-size:14px;color:#000000;}
+body,form,fieldset,input,textarea,blockquote,p{padding:0; margin:0;}
+table,td,tr,th{font-size:14px;line-height:24px;}
+img{vertical-align:top;border:0;}
+
+/* 默认链接颜色 */
+a,a:visited{outline-style:none;color:#000000;text-decoration:none;}
+a:hover{color:#c00;text-decoration:none;}
+
+/* 文字颜色 */
+.blue,.blue:link,.blue:visited{color:#256FC5;font-weight:bold;}
+.blue:hover{color:#256FC5;font-weight:bold;}
+.blue12,.blue12:link,.blue12:visited{color:#256FC5;}
+.blue12:hover{color:#256FC5;}
+.black12,.black12:link,.black12:visited{color:#000;font-size:12px;}
+.black12:hover{color:#c00;font-size:12px;}
+
+.dblue,.dblue:link,.dblue:visited{color:#CFF0FC;font-weight:bold;}
+.dblue:hover{color:#CFF0FC;font-weight:bold;}
+.red,.red:link,.red:visited{color:#FF0000;}
+.red:hover{color:#FF0000;text-decoration:none;}
+.white,.white:link,.white:visited{color:#FFFFFF;font-weight:bold;}
+.white:hover{color:#FFFFFF;text-decoration:none;font-weight:bold;}
+.gray,.gray:link,.gray:visited{color:#636F63;font-weight:bold;}
+.gray:hover{color:#c00;text-decoration:none;font-weight:bold;}
+.gray12{color:#636F63;font-size:12px;}
+
+/* 字体大小 */
+.f12px{font-size:12px}
+.f14px{font-size:14px}
+.f20px{font-size:24px;font-family:'宋体';font-weight:bold;padding:5px;}
+.line1{border-bottom:1px #DEDEDE solid;}
+.b{font-weight:bold;}
+.marg{margin-top:10px;}
+.marg5{margin-top:5px;}
+.marg10{margin-top:10px;*margin-top:0px;}
+.marg15{margin-top:18px;}
+.pad{padding:5px;}
+.pad5{padding:5px;*padding:0px;}
+.pad10{padding:10px 15px;}
+.pad20{padding-top:20px;}
+.padgh{padding:20px 30px;background:#F7FDFF;color:#636F63;}
+.lh{height:6px;background:url(lm_07.gif) repeat-x left top;}
+/*头部属性*/
+.top{width:980px;height:81px;background:url(top.gif) no-repeat top left;}
+.input3{width:120px;height:20px;border:0px;background:#FFF;line-height:20px;text-align:center;}
+.input{width:180px;height:16px;background:url(input_bg03.gif) repeat-x center center;border:0px;margin:6px 5px 2px 5px;*margin:3px 5px 2px 5px;text-align:center;}
+.input1{width:75px;height:16px;background:url(input_bg03.gif) repeat-x center center;border:0px;margin:3px 5px 2px 5px;text-align:center;}
+.input2{width:130px;height:16px;background:url(input_bg03.gif) repeat-x center center;border:0px;margin:3px 5px 2px 5px;text-align:center;}
+.menu{width:980px;height:85px;background:url(menubgt.gif) no-repeat top left;}
+.menu1{width:980px;height:85px;background:url(menubg02.gif) no-repeat top left;}
+.lc{width:980px;height:91px;background:url(liucheng.gif) no-repeat top left;}
+/*栏目属性*/
+.lmmenu{width:142px;height:34px;background:url(lm_bg.gif) no-repeat top left;}
+.lmt_bg{width:812px;height:34px;background:url(lm_02.gif) repeat-x top left;}
+.lmt_bg1{width:592px;height:34px;background:url(lm_02.gif) repeat-x top left;}
+.box{border-left:1px #D2D2D2 solid;border-right:1px #D2D2D2 solid;}
+.cjwt{width:770px;height:154px;background:url(cjwt_bg.gif) no-repeat top left;}
+/*标准尾样式开始*/
+.foot{width:980px;height:84px;background:url(foot_bg.gif) repeat-x top left;margin-top:10px;}
+/*医院集合页属性*/
+.dqwz{height:30px;background:url(yy_02.gif) repeat-x top left;margin-top:10px;}
+.yy_bg{background:url(yy_bg.gif) repeat-x top left;}
+.yy_box{border:1px #B8D9F5 solid;background:#FFFFFF;margin:15px;}
+.cjwt{width:770px;height:154px;background:url(cjwt_bg.gif) no-repeat top left;}
+.bl_yy,.bl_yy:link,.bl_yy:visited{color:#256FC5;text-decoration:underline;}
+.bl_yy:hover{color:#256FC5;text-decoration:underline;}
+.left_box{border:1px #D6D6D6 solid;border-top:0;margin-top:3px;}
+.left_menu{height:28px;background:url(yy_menubg.gif) repeat-x top left;border-top:1px #D6D6D6 solid;}
+.left_menu1{height:28px;background:url(er_bg01.gif) repeat-x top left;border-top:1px #D6D6D6 solid;color:#FFF;font-weight:bold;}
+/*科室属性*/
+.pic{padding:8px 11px ;*padding:2px 11px ;}
+.ks_bg{background:url(yy_rqbg03.gif) repeat-x top left;border-left:1px #B8D9F5 solid;border-right:1px #B8D9F5 solid;color:#579FDD;}
+.search5 {font-weight:bold;cursor:hand;color:#FFFFFF;background:url(yy_rqbg01.gif) no-repeat left top;font-size:12px;}
+.search6 {font-weight:bold;cursor:hand;color:#59A2DD;background:url(yy_rqbg02.gif) no-repeat left top;font-size:12px;}
+.inbg{width:80px;height:24px;background:url(menubg_input1.gif) no-repeat center center;}
+.inbg1{width:140px;height:24px;background:url(menubg_input2.gif) no-repeat center center;}

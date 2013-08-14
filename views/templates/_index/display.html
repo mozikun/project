@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$orgName}--></title>
+<link href="/views/templates/index/top.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/display.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/footer.css" type="text/css" rel="stylesheet" />
+</head>
+<!--太怪了，只有css文件名里有header就无法加载-->
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<!--包头-->
+	<!--{include file="./index/header.html"}-->
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div><a href="<!--{$body_11_url}-->"><!--{$body_11_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft1" userDefineClass='alterImage' interval='3000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_11_image_list loop=$body_11_image_list}-->
+					<a href="<!--{$body_11_image_list[body_11_image_list].url}-->"><img class="alterImage" src="<!--{$body_11_image_list[body_11_image_list].imageUrl}-->" alt="<!--{$body_11_image_list[body_11_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_12_url}-->"><!--{$body_12_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft2" userDefineClass='alterImage' interval='6000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_12_image_list loop=$body_12_image_list}-->
+					<a href="<!--{$body_12_image_list[body_12_image_list].url}-->"><img class="alterImage" src="<!--{$body_12_image_list[body_12_image_list].imageUrl}-->" alt="<!--{$body_12_image_list[body_12_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_13_url}-->"><!--{$body_13_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft3" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_13_image_list loop=$body_13_image_list}-->
+					<a href="<!--{$body_13_image_list[body_13_image_list].url}-->"><img class="alterImage" src="<!--{$body_13_image_list[body_13_image_list].imageUrl}-->" alt="<!--{$body_13_image_list[body_13_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_14_url}-->"><!--{$body_14_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft4" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_14_image_list loop=$body_14_image_list}-->
+					<a href="<!--{$body_14_image_list[body_14_image_list].url}-->"><img class="alterImage" src="<!--{$body_14_image_list[body_14_image_list].imageUrl}-->" alt="<!--{$body_14_image_list[body_14_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+		</div><!--bodyLeftDiv end-->
+
+		<div id="bodyRightDiv">
+			<div id="bodyNavigation">
+				当前位置 >> <a href="/">首页</a> >> 
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->"><!--{$description}--></a> >> 
+				<a href="/default/index/display/newsId/<!--{$newsId}-->"><!--{$title}--></a> 
+			</div><!--bodyNavigation end-->
+			<div id="bodyTitle">
+				<!--{$title}-->
+				[<!--{$dateUpdate}-->]阅读
+				<!--{$hitTimes}-->次
+			</div>
+			<div id="bodyContent">
+				<span class="bodydd"><!--{$content}--></span><br />
+				<!--{$uploaded}-->			
+			</div>
+			<div id="attachment" style="display:<!--{$displayAttachmentDiv}-->">
+				<!--{$attachment}-->			
+			</div>
+		</div><!--bodyRightDiv end-->
+	</div>
+	<!--包脚-->
+	<!--{include file="./index/footer.html"}-->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/index/index.js"></script>
+<script type="text/javascript">
+//显示下拉菜单
+showSubMenu();
+//显示幻灯图片
+showAlterImages();
+</script>

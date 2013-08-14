@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>标准模块维护</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<form action="<!--{$basePath}-->wsmodule/wsmanage/manage" method="post">
+<input type="hidden" name="currentpage" value="<!--{$currentpage}-->"/>
+<input type="hidden" name="editid" value="<!--{$currentId}-->"/>
+<table width="100%" align="center">
+   <tr class="headbg">
+       <td colspan="2">标准模块维护&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->wsmodule/wsmanage/index/page/<!--{$currentpage}-->">[返回列表]</a></td>
+   </tr>
+   <tr>
+	<td width="30%">模块编号:</td>
+	<td width="70%"><input type="text" name="module_id" id="module_id" value="<!--{$moduleId}-->"  <!--{$controlName}-->/></td>
+   </tr>
+   <tr>
+	<td width="30%">模块名称:</td>
+	<td width="70%"><input type="text" name="module_name" id="module_name" value="<!--{$moduleName}-->"/></td>
+   </tr>
+   <tr>
+	<td width="30%">模块备注:</td>
+	<td width="70%"><textarea cols="50" rows="4" name="module_con"><!--{$moduleContent}--></textarea></td>
+   </tr>
+	<tr>
+	 <td colspan="2" align="center" width="100%">
+		<input type="submit" name="save" id="save" value="保存数据"/>
+	 </td>
+	</tr>
+</table>
+</form>
+</body>
+<!--{$message}-->

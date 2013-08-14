@@ -1,0 +1,115 @@
+<!Doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3.org/tr/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+
+
+</style>
+<!--引入jquery-->
+<script src="<!--{$basepath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basepath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+		<tr>
+        <td>
+        	药品库存编号
+        </td>
+        <td>
+        	<!--{$med_store->kcid}-->
+        </td>
+        <td>
+        	医疗机构代码
+        </td>
+        <td>
+        	<!--{$med_store->yljgdm}-->
+        </td>
+    </tr>
+    <tr>
+        <td>药品所在库房编号</td><td ><!--{$med_store->ypkfid}--></td>
+        <td>药品所在库房名</td><td><!--{$med_store->ypkf}--></td>
+    </tr>
+    <tr>
+        
+        <td>药品编码</td><td><!--{$med_store->ypbm}--></td>
+         <td>药品名称</td><td><!--{$med_store->ypmc}--></td>
+    </tr>
+    <tr>
+       
+        <td>药品批号</td><td><!--{$med_store->ypph}--></td>
+        <td>药品产地</td><td><!--{$med_store->ypcd}--></td>
+    </tr>
+    <tr>
+        
+        <td>药品失效日期</td><td><!--{$med_store->ypsxrq}--></td>
+         <td>药品类别</td><td><!--{$med_store->yplb}--></td>
+    </tr>
+    <tr>
+       
+        <td>药品毒理分类</td><td><!--{$med_store->ypdlfl}--></td>
+        <td>批准文号</td><td><!--{$med_store->pzwh}--></td>
+    </tr>
+    <tr>
+    	
+        <td>药品规格</td><td><!--{$med_store->ypgg}--></td>
+        <td>药品剂量</td><td><!--{$med_store->ypjl}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>药品大包装单位</td><td><!--{$med_store->ypbzdw}--></td>
+        <td>药品包装倍数</td><td><!--{$med_store->ypbzbs}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>药品库存数量</td><td><!--{$med_store->ypkc}--></td>
+        <td>药品库存单位</td><td><!--{$med_store->ypdw}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>零售药品价格</td><td><!--{$med_store->ypdj}--></td>
+        <td>进货药品价格</td><td><!--{$med_store->jhypjg}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>批发药品价格</td><td><!--{$med_store->pfypjg}--></td>
+        <td>是否基药</td><td><!--{$med_store->sfjy}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>药品出库数量合计</td><td><!--{$med_store->ypcksl}--></td>
+        <td>药品入库数量合计</td><td><!--{$med_store->yprksl}--></td>
+
+    </tr>
+
+    </tr>
+   
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

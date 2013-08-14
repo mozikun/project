@@ -1,0 +1,27 @@
+﻿#firstpage
+{
+    text-align:center;
+}
+#firstpage .fptable
+{
+    font-family:宋体;
+    width:700px;
+    font-size:10.5pt;
+    margin:0 auto;
+}
+#firstpage .fptable td 
+{
+    line-height:18px;
+}
+#firstpage .head
+{
+    font-family:微软雅黑;
+    font-size:15pt;
+    text-align:center;
+}
+#firstpage .title
+{
+    font-family:微软雅黑;
+    font-size:18pt;
+    text-align:center;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<title><!--{if ($add_tag)}-->药品单位添加<!--{else}-->药品单位编辑<!--{/if}--></title>
+</head>
+<body>
+<form action="" method="POST" onsubmit="return check_form();">
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><strong><!--{if ($add_tag)}-->药品单位添加<!--{else}-->药品单位编辑<!--{/if}--></strong></td>
+     </tr>
+     <tr>
+        <td>药品单位编码：</td>
+        <td>
+              <input type="text" name="measure_code" id="measure_code" value="<!--{$measure_code}-->" />            
+        </td>
+     </tr>
+    <tr>
+       <td>药品单位名称：</td>
+       <td><input name="measure_name" id="measure_name" type="text"  value="<!--{$measure_name}-->" /></td>
+    </tr>
+    <tr >
+      <td colspan="2">
+      <div align="center">
+      <!--{if ($add_tag)}-->
+          <input type="submit" name="ok" value="添加" />
+          <!--{else}--><input type="submit" name="ok" value="修改" /><!--{/if}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" value="退出" onclick="window.location='<!--{$basePath}-->coding/measure/index'" />
+      </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    function check_form()
+  	  {
+  	  	 var measure_code = $("#measure_code");
+  	  	 var measure_name = $("#measure_name");
+  	  	 if(measure_code.val()=="")
+  	  	 {
+  	  	 	alert("药品单位编码不能为空！");
+  	  	 	measure_code.focus();
+  	  	 	return false;
+  	  	 }
+  	  	 if(measure_name.val()=="")
+  	  	 {
+  	  	 	alert("药品单位名称不能为空！");
+  	  	 	measure_name.focus();
+  	  	 	return false;
+  	  	 }
+  	  }
+</script>

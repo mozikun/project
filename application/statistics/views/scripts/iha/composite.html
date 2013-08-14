@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>个人健康档案综合统计</title>
+        <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+        <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+        <style>
+            table {
+                background: #ffffff;
+            }
+        </style>
+        <!--引入jquery-->
+        <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js">
+        </script>
+        <script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript">
+        </script>
+        <!--时间控件的加载!-->
+        <link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+        <script>
+            $(document).ready(function(){
+                checkForm('<!--{$basePath}-->statistics/iha/all');
+            });
+            function checkForm(curl){
+                $.ajax({
+                    type: "POST",
+                    url: curl,
+                    dataType: "html",
+                    data: $("form[name='searchform']").serialize(),
+                    beforeSend: function(){
+                        $("#totaldata").html("<img src=\"<!--{$basePath}-->images/load.gif\" />数据查询中，综合统计可能会耗费较长时间，请耐心等待...");
+                    },
+                    success: function(data){
+                        $("#totaldata").html(data);
+                        return false;
+                    },
+                    error: function(){
+                        $("#totaldata").html("<font color=red>服务器返回信息不完整，请重新查询...</font>");
+                        return false;
+                    }
+                });
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+        <table border="0" width="100%">
+            <thead>
+                <tr class="headbg">
+                    <th colspan="6">
+                        健康档案综合统计报表
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="iha">
+                <tr>
+                    <td style="vertical-align:top;" id="totaldata">
+                        <img src="<!--{$basePath}-->images/load.gif" />数据查询中，综合统计可能会耗费较长时间，请耐心等待...
+                    </td>
+                    <td style="width:200px;text-align:center;vertical-align:top;">
+                        <form name="searchform" method="post">
+                            <label>
+                                <input type="radio" name="serach_type" value="all"<!--{if $serach_type==all}-->
+                                checked="checked"<!--{/if}-->
+                                />&nbsp;&nbsp;综合统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="sex"<!--{if $serach_type==sex}-->
+                                checked="checked"<!--{/if}-->
+                                />按性别统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="race"<!--{if $serach_type==race}-->
+                                checked="checked"<!--{/if}-->
+                                />按民族统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="occupation"<!--{if $serach_type==occupation}-->
+                                checked="checked"<!--{/if}-->
+                                />按职业统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="residence"<!--{if $serach_type==residence}-->
+                                checked="checked"<!--{/if}-->
+                                />按常住类型统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="ABO_bloodtype"<!--{if $serach_type==ABO_bloodtype}-->
+                                checked="checked"<!--{/if}-->
+                                />按血型统计统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="school_type"<!--{if $serach_type==school_type}-->
+                                checked="checked"<!--{/if}-->
+                                />按文化程度统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="marriage"<!--{if $serach_type==marriage}-->
+                                checked="checked"<!--{/if}-->
+                                />按婚姻状况统计
+                            </label>
+                            <br/>
+							<label>
+                                <input type="radio" name="serach_type" value="charge_style"<!--{if $serach_type==charge_style}-->
+                                checked="checked"<!--{/if}-->
+                                />按医疗支付方式统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="allergy"<!--{if $serach_type==allergy}-->
+                                checked="checked"<!--{/if}-->
+                                />按药物过敏史统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="disease_history"<!--{if $serach_type==disease_history}-->
+                                checked="checked"<!--{/if}-->
+                                />按疾病史统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="surgery_history"<!--{if $serach_type==surgery_history}-->
+                                checked="checked"<!--{/if}-->
+                                />按手术史统计
+                            </label>
+                            <br/>
+							<label>
+                                <input type="radio" name="serach_type" value="trauma_history"<!--{if $serach_type==trauma_history}-->
+                                checked="checked"<!--{/if}-->
+                                />按外伤史统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="blood_history"<!--{if $serach_type==blood_history}-->
+                                checked="checked"<!--{/if}-->
+                                />按输血史统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="genetic_diseases_history"<!--{if $serach_type==genetic_diseases_history}-->
+                                checked="checked"<!--{/if}-->
+                                />按遗传病史统计
+                            </label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="serach_type" value="disability"<!--{if $serach_type==disability}-->
+                                checked="checked"<!--{/if}-->
+                                />按残疾状况统计
+                            </label>
+                            <br/>
+                            统计日期
+                            <br/>
+                            <input type="text" class="Wdate" style="margin-top:20px; width:100px;" value="<!--{$startDate}-->" onfocus="WdatePicker({firstDayOfWeek:1})" MINDATE="2000-1-1" MAXDATE="2099-12-31" name="startDate"/>
+                            <br/>
+                            <input type="text" class="Wdate" style="width:100px; margin-top:20px;" value="<!--{$endDate}-->" onfocus="WdatePicker({firstDayOfWeek:1})" MINDATE="2000-1-1" MAXDATE="2099-12-31" name="endDate"/>
+                            <br/>
+                            <input type="button" style="margin-top:20px" value="查询" onclick="return checkForm('<!--{$basePath}-->statistics/iha/all');"/>
+                            <br />
+                            <input type="button" style="margin-top:20px" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

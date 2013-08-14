@@ -1,0 +1,16 @@
+<table border="0" width="100%">
+
+    <tr class="columnbg">
+
+        <!--{foreach key=k item=v from=$specialty_code}-->
+        <td><!--{$v}--></td>
+        <!--{/foreach}-->
+	</tr>
+    <tr>
+    	<!--{foreach key=k item=v from=$specialty_code}-->
+        <td ><!--{foreach key=sk item=sv from=$staff_type_arr}--><!--{if $k==$sk}--><!--{$sv}--><!--{/if}--><!--{/foreach}--></td>
+        <!--{/foreach}-->
+	</tr>
+
+  
+</table>

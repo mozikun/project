@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script>
+<style type="text/css">
+.long{border:0; border-bottom:1px solid navy; width:350px;}
+.long2{border:0; border-bottom:1px solid navy; width:150px;}
+.tab tr{ height:40px;}
+.inputs {
+background:none repeat scroll 0 0 #FFFFFF;
+border-style:none;
+width:40px;
+}
+.tab2 tr{ height:30px;}
+label{ cursor:pointer;}
+.noti{ border-bottom:1px solid #CCCCCC;}
+</style>
+<script type="text/javascript">
+function set_val(obj,val){
+	$('input[name='+ obj +']').val(val);
+}
+</script>
+</head>
+
+<body>
+
+<div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">新增男性婚前检查信息表<img title="注：1、本证明有效期为三个月2、对上述结果如有异议，可请医学技术鉴定,此联交婚姻登记部门" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+<div></div>
+<form name="" action="<!--{$basePath}-->premarital/premarital/update" method="post">
+<input type="hidden" name="aid" value="<!--{$aid}-->" />
+<table width="100%" height="392" border="1" class="tab">
+  <tr>
+    <td width="115">填写日期</td>
+    <td colspan="5"><input type="text" realvalue="" value="<!--{$fill_time}-->" onclick="WdatePicker({firstDayOfWeek:1})" readonly class="inputbottom" name="fill_time" id="fill_time"></td>
+    <td width="137" rowspan="3"><div align="center">照片</div></td>
+  </tr>
+  <tr>
+    <td>姓名</td>
+    <td colspan="4"><input name="text" readonly type="text" class="inputbottom noti" value="<!--{$name}-->" /></td>
+    <td width="239">出生日期<!--{$date_of_birth}--></td>
+  </tr>
+  <tr>
+    <td>身份证号</td>
+    <td colspan="5">
+	<!--{$identity_number}-->	</td>
+  </tr>
+  <tr>
+    <td>职业</td>
+    <td width="350"><input type="text" readonly value="<!--{$unit}-->" class="long noti" name="text2422"></td>
+    <td colspan="5">文化程度
+    <input name="text22" type="text" readonly class="inputbottom noti" value="<!--{$study_history}-->" />民族
+    <input name="text222" type="text" readonly class="inputbottom noti" value="<!--{$curr_race}-->" /></td>
+  </tr>
+  <tr>
+    <td>户口所在地</td>
+    <td colspan="6"><input name="text23" readonly type="text" class="inputbottom noti" value="<!--{$temp_zh_name[0]}-->" />
+      省
+      <input name="text24" type="text" readonly class="inputbottom noti" value="<!--{$temp_zh_name[1]}-->" />
+      市
+      <input name="text25" type="text" readonly class="inputbottom noti" value="<!--{$temp_zh_name[2]}-->" />
+      区(县)
+      <input name="text26" type="text" readonly class="inputbottom noti" value="<!--{$temp_zh_name[3]}-->" />
+      街道(乡)</td>
+  </tr>
+  <tr>
+    <td>现住址</td>
+    <td colspan="6"><!--{$address}--></td>
+  </tr>
+  <tr>
+    <td>工作单位</td>
+    <td><input name="text2422" readonly type="text" class="long noti" value="<!--{$unit_name}-->" /></td>
+    <td colspan="5">联系电话
+    <input name="text252" readonly type="text" class="inputbottom noti" value="<!--{$contact_number}-->" />对方姓名
+    <input name="name_of_the_partner" type="text" class="inputbottom" value="<!--{$name_of_the_partner}-->" /></td>
+  </tr>
+  <tr>
+    <td>编号</td>
+    <td colspan="2"><input name="text232" readonly type="text" class="long2 noti" value="<!--{$standard_code}-->" /></td>
+    <td colspan="2">对方编号
+    <input name="sn_of_the_partner" type="text" class="long2" value="<!--{$sn_of_the_partner}-->" /></td>
+    <td colspan="2">检查日期
+    
+ <input type="text" class="inputs" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" value="<!--{$follow_time_year}-->" name="follow_time_year" realvalue="2010-09-dd">
+年
+<input type="text" class="inputs" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" value="<!--{$follow_time_month}-->" name="follow_time_month">
+月
+<input type="text" class="inputs" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" value="<!--{$follow_time_day}-->" name="follow_time_day" realvalue="yyyy-09-21">日</td>
+  </tr>
+  <tr>
+    <td>血缘关系</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$blood_kinship_options}-->
+	<label onclick="set_val('blood_kinship','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+    <input name="blood_kinship_other" type="text" class="inputbottom" value="<!--{$blood_kinship_other}-->" />
+	<input type="text" name="blood_kinship" class="inputnew" value="<!--{$blood_kinship_current}-->" maxlength="2"></td>
+  </tr>
+  <tr>
+    <td>既往病史</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$past_disease_history_options}-->
+	<label onclick="set_val('past_disease_history','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+    <input name="past_disease_history_other" type="text" class="inputbottom" value="<!--{$past_disease_history_other}-->" />
+	<input type="text" class="inputnew" name="past_disease_history" value="<!--{$past_disease_history_current}-->" maxlength="2"></td>
+  </tr>
+  <tr>
+    <td>手术史</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$operation_history_options}-->
+	<label onclick="set_val('operation_history','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+      <input type="text" name="operation_history_other" class="inputbottom" value="<!--{$operation_history_other}-->" /> 
+<input type="text" name="operation_history" class="inputnew" value="<!--{$operation_history_current}-->" maxlength="2"></td>
+  </tr>
+  <tr>
+    <td>现 病 史</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$present_disease_history_options}-->
+	<label onclick="set_val('present_disease_history','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+    <input name="present_disease_history_info" type="text" class="inputbottom" value="<!--{$present_disease_history_info}-->" />
+	<input type="text" class="inputnew" name="present_disease_history" value="<!--{$present_disease_history_current}-->" maxlength="2"></td>
+  </tr>
+
+  <tr>
+    <td>既往婚育史</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$fertile_history_options}-->
+	<label onclick="set_val('fertile_history','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	<!--{if $k eq 2}-->(
+		<!--{foreach key=k item=fhi from=$fertile_history_info_options}-->
+			<label onclick="set_val('fertile_history_info','<!--{$k}-->')">
+			<!--{$k}-->、<!--{$fhi}-->
+			</label>
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" value="<!--{$fertile_history_info_current}-->" name="fertile_history_info" maxlength="2">	)
+		<!--{/if}-->
+	</label>
+	<!--{/foreach}-->
+
+      子女<input name="number_of_children" type="text" class="inputbottom" value="<!--{$number_of_children}-->" />
+    人 
+	<input type="text" class="inputnew" value="<!--{$fertile_history_current}-->" name="fertile_history" maxlength="2">	</td>
+  </tr>
+  <tr>
+    <td>与遗传有关的家族史</td>
+    <td colspan="4"><p>
+	<!--{foreach key=k item=con from=$family_history_options}-->
+	<label onclick="set_val('family_history','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+
+      <input name="family_history_other" type="text" class="inputbottom" value="<!--{$family_history_other}-->" />
+	  <input type="text" class="inputnew" name="family_history" value="<!--{$family_history_current}-->" maxlength="2">
+    </p>    </td>
+    <td colspan="2">患者与本人关系
+    <input name="relationship_with_patient" type="text" class="inputbottom" value="<!--{$relationship_with_patient}-->" /></td>
+  </tr>
+  <tr>
+    <td>家族近亲婚配</td>
+    <td colspan="6">
+	<!--{foreach key=k item=con from=$family_inbreeding_options}-->
+	<label onclick="set_val('family_inbreeding','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	<!--{if $k eq 2}-->(
+		<!--{foreach key=k item=fii from=$family_inbreeding_info_options}-->
+		<label onclick="set_val('family_inbreeding_info','<!--{$k}-->')">
+		<!--{$k}-->、<!--{$fii}-->
+		</label>
+		<!--{/foreach}--> 
+<input type="text" class="inputnew" value="<!--{$family_inbreeding_info_current}-->" name="family_inbreeding_info" maxlength="2">		)
+	<!--{/if}-->
+	</label>
+	<!--{/foreach}-->
+
+	<input type="text" class="inputnew" value="<!--{$family_inbreeding_current}-->" name="family_inbreeding" maxlength="2"></td>
+  </tr>
+  <tr>
+    <td colspan="7"><div align="right">
+    医师签名
+        <input name="signature_doctor_examination" type="text" class="inputbottom" value="<!--{$signature_doctor_examination}-->" />
+    </div></td>
+  </tr>
+</table>
+<div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold; height:30px; padding-top:10px;">体格检查</div>
+<div></div>
+<table width="100%" height="392" border="1" class="tab2">
+<tr>
+	<td colspan="3">血压：<input type="text" value="<!--{$systolic_pressure}-->" class="inputbottom" name="systolic_pressure">/<input type="text" value="<!--{$diastolic_pressure}-->" class="inputbottom" name="diastolic_pressure">mmHg</td>
+    <td colspan="">特殊体态：
+	<!--{foreach key=k item=con from=$special_body_options}-->
+	<label onclick="set_val('special_body','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" value="<!--{$special_body_info}-->" class="inputbottom" name="special_body_info">
+	<input type="text" class="inputnew" value="<!--{$special_body_current}-->" name="special_body" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">精神状态：
+	<!--{foreach key=k item=con from=$mental_states_options}-->
+	<label onclick="set_val('mental_states','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$mental_states_info}-->" class="inputbottom" name="mental_states_info" />
+	<input type="text" class="inputnew" name="mental_states" value="<!--{$mental_states_current}-->" maxlength="2"></td>
+  <td>特殊面容：
+	<!--{foreach key=k item=con from=$unusual_facies_options}-->
+	<label onclick="set_val('unusual_facies','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$unusual_facies_info}-->" class="inputbottom" name="unusual_facies_info" />
+	<input type="text" class="inputnew" name="unusual_facies" value="<!--{$unusual_facies_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">智力：
+	<!--{foreach key=k item=con from=$intelligence_options}-->
+	<label onclick="set_val('intelligence','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$con}-->
+	<!--{if $k eq 2}-->(
+		<!--{foreach key=k item=int from=$intelligence_info_options}-->
+		<label onclick="set_val('intelligence_info','<!--{$k}-->')">
+		<!--{$k}-->、<!--{$int}-->
+		</label>
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="intelligence_info" value="<!--{$intelligence_info_current}-->" maxlength="2"> )
+	<!--{/if}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" class="inputnew" name="intelligence" value="<!--{$intelligence_current}-->" maxlength="2">	</td>
+  <td>皮肤毛发：
+	<!--{foreach key=k item=sh from=$skin_and_hair_options}-->
+	<label onclick="set_val('skin_and_hair','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$sh}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$skin_and_hair_info}-->" class="inputbottom" name="skin_and_hair_info" />
+	<input type="text" class="inputnew" name="skin_and_hair" value="<!--{$skin_and_hair_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">五    官：
+	<!--{foreach key=k item=feature_options from=$feature_options}-->
+	<label onclick="set_val('feature','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$feature_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$feature_info}-->" class="inputbottom" name="feature_info" />
+	<input type="text" class="inputnew" value="<!--{$feature_current}-->" name="feature" maxlength="2"></td>
+  <td>甲 状 腺：
+	<!--{foreach key=k item=td from=$thyroid_options}-->
+	<label onclick="set_val('thyroid','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$td}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$thyroid_info}-->" class="inputbottom" name="thyroid_info" />
+	<input type="text" class="inputnew" name="thyroid" value="<!--{$thyroid_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">心：心率
+    <input type="text" value="<!--{$heart_rate}-->" class="inputbottom" name="heart_rate" />
+    次/分  心律
+    <input type="text" value="<!--{$cardiac_rhythm}-->" class="inputbottom" name="cardiac_rhythm" /></td>
+  <td>杂音：
+	<!--{foreach key=k item=noi from=$noise_options}-->
+	<label onclick="set_val('noise','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$noi}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$noise_info}-->" class="inputbottom" name="noise_info" />
+	<input type="text" class="inputnew" name="noise" value="<!--{$noise_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">肺：
+	<!--{foreach key=k item=lung_options from=$lung_options}-->
+	<label onclick="set_val('lung','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$lung_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$lung_info}-->" class="inputbottom" name="lung_info" />
+	<input type="text" class="inputnew" name="lung" value="<!--{$lung_current}-->" maxlength="2"></td>
+  <td>肝： 
+	<!--{foreach key=k item=liver_options from=$liver_options}-->
+	<label onclick="set_val('liver','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$liver_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$liver_info}-->" class="inputbottom" name="liver_info" />
+	<input type="text" class="inputnew" name="liver" value="<!--{$liver_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">四肢脊柱：
+	<!--{foreach key=k item=spine_extremities_options from=$spine_extremities_options}-->
+	<label onclick="set_val('spine_extremities','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$spine_extremities_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$spine_extremities_info}-->" class="inputbottom" name="spine_extremities_info" />
+	<input type="text" class="inputnew" name="spine_extremities" value="<!--{$spine_extremities_current}-->" maxlength="2"></td>
+  <td>其他
+    <input name="other" type="text" class="long" value="<!--{$other}-->" /></td>
+</tr>
+<tr>
+  <td colspan="4" style="height:40px;"><div align="right">检查医师签名
+      <input type="text" value="<!--{$signature_doctor_physical}-->" class="inputbottom" name="signature_doctor_physical" />
+  </div></td>
+  </tr>
+<tr>
+  <td colspan="3">第二性征：喉结：
+	<!--{foreach key=k item=adam_apple_options from=$adam_apple_options}-->
+	<label onclick="set_val('adam_apple','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$adam_apple_options}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" class="inputnew" name="adam_apple" value="<!--{$adam_apple_current}-->" maxlength="2"></td>
+  <td>阴毛：
+	<!--{foreach key=k item=pubes_options from=$pubes_options}-->
+	<label onclick="set_val('pubes','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$pubes_options}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" class="inputnew" name="pubes" value="<!--{$pubes_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td rowspan="4">生 殖 器：</td>
+  <td>阴茎：
+	<!--{foreach key=k item=sex_fluid_options from=$sex_fluid_options}-->
+	<label onclick="set_val('sex_fluid','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$sex_fluid_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$sex_fluid_info}-->" class="inputbottom" name="sex_fluid_info" />
+	<input type="text" class="inputnew" name="sex_fluid" value="<!--{$sex_fluid_current}-->" maxlength="2"></td>
+  <td colspan="2">包皮：
+	<!--{foreach key=k item=foreskin_options from=$foreskin_options}-->
+	<label onclick="set_val('foreskin','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$foreskin_options}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" class="inputnew" name="foreskin" value="<!--{$foreskin_current}-->" maxlength="2"></td>
+</tr>
+<tr>
+  <td colspan="3">睾丸：
+  	<!--{foreach key=k item=testis_options from=$testis_options}-->
+	<label onclick="set_val('testis','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$testis_options}-->
+	</label>
+	<!--{if $k eq 1}-->
+		体积（ml）左<input type="text" value="<!--{$testis_left}-->" class="inputbottom" name="testis_left" />
+    	右<input type="text" value="<!--{$testis_right}-->" class="inputbottom" name="testis_right" />
+	<!--{else}-->
+	<input type="text" class="inputnew" value="<!--{$testis_current}-->" name="testis" maxlength="2"></td>
+	<!--{/if}-->
+	<!--{/foreach}-->
+
+
+  </tr>
+<tr>
+  <td colspan="3">附睾：
+  	<!--{foreach key=k item=epididymis_options from=$epididymis_options}-->
+	<label onclick="set_val('epididymis','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$epididymis_options}-->
+	</label>
+	<!--{if $k eq 2}-->
+	左
+    <input type="text" value="<!--{$nodules_left}-->" class="inputbottom" name="nodules_left" />  
+    右
+    <input type="text" value="<!--{$nodules_right}-->" class="inputbottom" name="nodules_right" />
+	<!--{/if}-->
+	<!--{/foreach}-->
+	<input type="text" maxlength="2" value="<!--{$epididymis_current}-->" name="epididymis" class="inputnew">
+	</td>
+  </tr>
+<tr>
+  <td colspan="3">精索静脉曲张：
+  	<!--{foreach key=k item=varicocele_options from=$varicocele_options}-->
+	<label onclick="set_val('varicocele','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$varicocele_options}-->
+	</label>
+	<!--{if $k eq 2}-->
+	部位
+    <input type="text" value="<!--{$varicocele_place}-->" class="inputbottom" name="varicocele_place" />     
+    程度
+    <input type="text" value="<!--{$varicocele_leavel}-->" class="inputbottom" name="varicocele_leavel" />
+	<!--{/if}-->
+	<!--{/foreach}-->
+	<input type="text" class="inputnew" name="varicocele" value="<!--{$varicocele_current}-->" maxlength="2"></td>
+  </tr>
+  <tr>
+  <td colspan="4">其它
+    <input name="sex_male_other" type="text" class="long" value="<!--{$sex_male_other}-->" /></td>
+  </tr>
+
+<tr>
+  <td colspan="4" style="height:40px;"><div align="right">检查医师签名
+      <input type="text" value="<!--{$signature_doctor_second}-->" class="inputbottom" name="signature_doctor_second" />
+  </div></td>
+  </tr>
+</table>
+<div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold; height:30px; padding-top:10px;">实验室及特殊检查</div>
+<div></div>
+<div style=" width:100%; height:40px; border:1px solid #999; text-align:center; background:#CCC">
+	<div style="padding-top:10px;">检    验    报    告    粘    贴    处</div>
+</div>
+<table width="100%" height="392" border="1" class="tab2">
+<tr>
+	<td width="7%" rowspan="2">检查结果</td>
+    <td width="93%">
+	<!--{foreach key=k item=check from=$cr}-->
+	<label onclick="set_val('check_result','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$check}-->
+	</label>
+	<!--{/foreach}-->
+	<input type="text" maxlength="2" value="<!--{$check_result}-->" name="check_result" class="inputnew"></td>
+</tr>
+<tr>
+  <td><span style="height:40px;">
+    <input name="check_result_info" type="text" class="long" value="<!--{$check_result_info}-->" />
+  </span></td>
+</tr>
+<tr>
+  <td>医学意见</td>
+  <td><p>
+  	<!--{foreach key=k item=disease_diagnosis_options from=$disease_diagnosis_options}-->
+	<label onclick="set_val('disease_diagnosis','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$disease_diagnosis_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$medical_opinion}-->" class="inputbottom" name="medical_opinion" />
+	<input type="text" class="inputnew" name="disease_diagnosis" value="<!--{$disease_diagnosis_current}-->" maxlength="2">
+  </p>    </td>
+</tr>
+
+  <td colspan="2" style="height:40px;">婚前卫生咨询
+    <input name="health_advisory" type="text" class="long" value="<!--{$health_advisory}-->" /></td>
+</tr>
+<tr>
+  <td colspan="2" style="height:40px;">咨询指导结果：
+  	<!--{foreach key=k item=counseling_results_options from=$counseling_results_options}-->
+	<label onclick="set_val('counseling_results','<!--{$k}-->')">
+	<!--{$k}-->、<!--{$counseling_results_options}-->
+	</label>
+	<!--{/foreach}-->
+    <input type="text" value="<!--{$check_result_info}-->" class="inputbottom" name="check_result_info" />
+	<input type="text" class="inputnew" value="<!--{$counseling_results_current}-->" name="counseling_results" maxlength="2"></td>
+</tr>
+</table>
+<table width="100%" height="392" border="1" class="tab2">
+<tr>
+	<td width="45%">转诊医院<span style="height:40px;">
+	  <input name="referral_hospital" type="text" class="long" value="<!--{$referral_hospital}-->" />
+	</span></td>
+    <td width="55%">转诊日期
+<input type="text" id="referral_time" name="referral_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$referral_time}-->" realvalue=""></td>
+</tr>
+<tr>
+  <td>预约复诊日期
+<input type="text" id="return_visit_time" name="return_visit_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$return_visit_time}-->" realvalue=""></td>
+  <td>出具《婚前医学检查证明》日期
+<input type="text" id="cpe_time" name="cpe_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$cpe_time}-->" realvalue=""></td>
+</tr>
+<tr>
+  <td colspan="2" style="height:40px;"><div align="right">主检医师签名
+      <input type="text" value="<!--{$md_signature}-->" class="inputbottom" name="md_signature" />
+  </div></td>
+  </tr>
+<tr>
+  <td colspan="2" style="height:40px;"><div align="center">
+  <input type="submit" class="inputbutton" value="确认"><!--{if $aid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}-->
+  </div></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

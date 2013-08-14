@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>记量单位</title>
+<link href="/views/role/category/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/management/role/edit">
+	<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	单位名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+	属性排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="/management/role/list">返回</a>
+</body>
+</html>
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

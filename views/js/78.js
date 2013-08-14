@@ -1,0 +1,13 @@
+var organizationArray=new Array();
+organizationArray[0]=new Array('179','宝兴县卫生局','bxxwsj','001');
+organizationArray[1]=new Array('35','灵关镇卫生院','lgzwsy','001');
+organizationArray[2]=new Array('36','穆坪镇卫生院','mpzwsy','001');
+organizationArray[3]=new Array('37','陇东镇卫生院','ldzwsy','444444-7');
+organizationArray[4]=new Array('38','大溪乡卫生院','dxxwsy','45254047-0');
+organizationArray[5]=new Array('39','中坝乡卫生院','zbxwsy','001');
+organizationArray[6]=new Array('40','五龙乡卫生院','wlxwsy','001');
+organizationArray[7]=new Array('41','永富乡卫生院','yfxwsy','001');
+organizationArray[8]=new Array('42','明礼乡卫生院','mlxwsy','001');
+organizationArray[9]=new Array('43','硗碛乡卫生院','qqxwsy','001');
+organizationArray[10]=new Array('44','盐井乡卫生院','yjxwsy','001');
+organizationArray[11]=new Array('45','民治乡卫生院','mzxwsy','001');

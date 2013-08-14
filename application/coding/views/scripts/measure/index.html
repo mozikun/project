@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+body
+{
+margin:0 auto;
+padding:0;
+algin:center;
+}
+
+ul{
+list-style:none;
+margin:0 auto;
+padding:0;
+text-align:center;
+width:90%;
+height:100%;
+position:relative;
+border:1px solid white;
+}
+li
+{
+margin-top:23px;
+height:20px;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<script type="text/javascript">
+
+</script>
+<title>药品单位列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="3"><strong>药品单位列表</strong></td>
+     </tr>
+     <tr class="bigfont">
+        <td ><strong>药品单位编码</strong></td>
+        <td><strong>药品单位名称</strong></td>
+        <td ><strong>操作</strong></td>
+     </tr>
+     <!--{section loop=$measures_array name=cus}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$measures_array[cus].measure_code}--></td>
+           <td><!--{$measures_array[cus].measure_name}--></td>
+           <td>
+           <a href="<!--{$basePath}-->coding/measure/add/id/<!--{$measures_array[cus].uuid}-->/page/<!--{$pageCurrent}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->coding/measure/del/id/<!--{$measures_array[cus].uuid}-->" onclick="return confirm('您确定删除吗?确定');">[删除]</a>
+           </td>
+        </tr>
+     <!--{sectionelse}-->
+     <tr>
+        <td colspan="3">当前没有任何数据!</td>
+     </tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="3"><a id="btn1" href="<!--{$basePath}-->coding/measure/add"><strong>[添加药品单位]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+<title><!--{$title}--></title>
+
+</head>
+<body>
+<script type="text/javascript">
+ $(function(){
+ });
+ 
+  function del_record(id){
+	 if(confirm("你真的要删除吗？")){
+	 	
+		$.get("<!--{$basePath}-->admin/users/delete/id/"+id, function(data){
+		  	alert(data);
+			if(data=="删除成功！"){
+				window.location="<!--{$basePath}-->admin/users/index/region_id/<!--{$region_id}-->/org_id/<!--{$org_id}-->";
+			}
+		}); 
+	 }
+	 
+ }
+ 
+</script>
+
+
+ <style type="text/css">
+
+        #textarea {
+
+            width: 580px;
+
+            height: 50px;
+
+            
+
+           
+			
+
+            overflow-y:visible;
+
+        }
+
+    </style>
+	
+	<table cellspacing="0"  style="width:600px;">
+    <thead>
+  
+	</thead>
+    <tr  class="headbg">
+	<td style="width:500px; height:20px" colspan="4">&nbsp;</th>
+	</tr>
+   <form name="module"  method="post" action="<!--{$basePath}-->wsinfo/interface/module_add"/>
+	<tr class="columnbg">
+    <input name="module_id" type="hidden" value="<!--{$uuid}-->"/>
+	<td width="90" >模块名:</td><td width="168">
+	  <input name="module_name" value="<!--{$module_name}-->" type="text"/></td>
+	<td width="115" >排序: </td><td width="217">      
+	  <input  name="order_by" value="<!--{$order_by}-->" type="text"  /></td>
+	</tr>
+    <tr class="columnbg">
+    <td width="90" height="68"  colspan="4">XML模板:
+    <textarea  name="xml_template" id="textarea"><!--{$xml_template}--></textarea>
+	
+
+      </td>
+    </tr>
+    <tr class="columnbg">
+	<td  align="center"colspan="4"><input name="action" value="提交" type="submit"/></td>
+	</tr>
+   </form>
+	</table>
+	<p>&nbsp;</p>
+
+		<br />
+	</body>
+</html>

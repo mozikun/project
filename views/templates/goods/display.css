@@ -1,0 +1,22 @@
+form{
+	margin:5px;
+}
+div{
+	position:relative;
+	float:left;
+	width:100%;
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF;
+}
+.title{
+	background-color:#EBF3FB;
+}
+td{
+	border:#000000 1px solid;
+	height:20px;
+}

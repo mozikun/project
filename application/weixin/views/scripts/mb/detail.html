@@ -1,0 +1,62 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+
+
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+		<a data-role="button" href="#page1" data-icon="back" data-iconpos="left"
+			class="ui-btn-left">
+				返回
+		</a>
+        <h3>
+            慢病工作计划
+        </h3>
+    </div>
+    <div data-role="content">
+        <div data-role="collapsible-set" data-content-theme="e">
+            <div data-role="collapsible"  data-collapsed="false">
+                <h3>
+                   居民姓名
+                </h3>
+				<!--{$name}-->
+            </div>
+            <div data-role="collapsible"  data-collapsed="false">
+                <h3>
+                   居民住址
+                </h3>
+				<!--{$address}-->
+            </div>
+            <div data-role="collapsible" data-collapsed="false">
+                <h3>
+                    提醒标题
+                </h3>
+				<!--{$title}-->
+            </div>
+            <div data-role="collapsible" data-collapsed="false">
+                <h3>
+                    计划制定者
+                </h3>
+				<!--{$staff_name}-->
+            </div>
+           <div data-role="collapsible" data-collapsed="false">
+                <h3>
+                    处理时间
+                </h3>
+				<!--{$tips_time}-->
+            </div>
+            <div data-role="collapsible" data-collapsed="false">
+                <h3>
+                    完成时间  
+                </h3>
+				<!--{$tips_complete_time}-->
+            </div>		 
+        </div>
+
+    </div>
+    
+</div>
+<html>

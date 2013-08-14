@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>访问控制管理</title>
+<link href="<!--{$__BASEPATH}-->views/templates/acl/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="<!--{$__BASEPATH}-->management/aclStaffResource/edit">
+	<input type="hidden" id="id" name="id" value="<!--{$id}-->">
+	<table class="categoryList">
+		<tr>
+		<td colspan="3">
+			访问控制权限管理
+		</td>
+		</tr>
+		<tr  class="title"><td>角色或用户名称</td><td>资源名称</td><td>读&nbsp;写&nbsp;审</td></tr>
+	<!--{section name=aclList loop=$aclList}-->
+		<tr>
+			<td><!--{$aclList[aclList].roleDescription}--></td>
+			<td><!--{$aclList[aclList].resourceDescription}--></td>
+			<td><!--{$aclList[aclList].privilegeList}--></td>
+		</tr>
+	<!--{/section}-->
+	</table>
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="<!--{$__BASEPATH}-->management/staff/list">返回</a>
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+</body>
+</html>
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

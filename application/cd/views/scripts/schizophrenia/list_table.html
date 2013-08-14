@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>重性精神疾病患者随访服务记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+
+</style>
+
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->cd/schizophrenia/update" method="post">
+   
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">【<!--{$user_name}-->】重性精神疾病患者随访服务记录表(共<!--{$nums}-->次)<img title="“本表为重性精神疾病患者在接受随访服务时由医生填写。每年的综合评估填写居民健康档案的健康体检表。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:30%; text-align:left; float:left;background:#FFFFFF;"><strong>姓名</strong>：<!--{$user_name}--></div>
+      <div  style=" width:40%; text-align:left; float:left;background:#FFFFFF;"><strong>身份证号</strong>：<!--{$identity_number}--></div>
+	  <div style=" width:30%; text-align:left; float:left;background:#FFFFFF;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+   	<tr>
+		<td colspan="2">随访日期</td>
+        <!--{section name=fllowup_time loop=$nums}-->	    
+	    <td colspan="3">
+		<!--{$schizophrenia_array[fllowup_time].fllowup_time}-->
+		</td>
+        <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2">目前症状</td>
+      	<!--{section name=present_symptoms_current loop=$nums}-->
+            <td colspan="3">
+             <!--{foreach key=k item=v from=$present_symptoms_options}-->
+                   <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="present_symptoms_other" id="present_symptoms_other" value="<!--{$schizophrenia_array[present_symptoms_current].present_symptoms_other}-->" class="inputbottom" disabled="true"/>
+            <!--{section name=customer loop=12}-->
+            <input type="text" id="present_symptoms" name="present_symptoms[]" value="<!--{$schizophrenia_array[present_symptoms_current].present_symptoms_current[customer]}-->" class="inputnew" />
+            <!--{/section}-->
+            </td>
+        <!--{/section}-->
+   	</tr>
+    <tr>
+		<td colspan="2">自知力</td>
+        <!--{section name=insight_current loop=$nums}-->			
+	    	<td colspan="3">
+            <!--{foreach key=k item=v from=$insight_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="insight" value="<!--{$schizophrenia_array[insight_current].insight_current}-->" class="inputnew" />
+            </td>
+    	<!--{/section}-->
+   	</tr>
+    <tr>
+		<td colspan="2">睡眠情况</td>
+        <!--{section name=sleep_quality_current loop=$nums}-->
+	    	<td colspan="3">
+        	<!--{foreach key=k item=v from=$sleep_quality_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="sleep_quality" value="<!--{$schizophrenia_array[sleep_quality_current].sleep_quality_current}-->" class="inputnew" />
+            </td>
+         <!--{/section}-->
+            
+   	</tr>
+    <tr>
+		<td colspan="2">饮食情况</td>
+        <!--{section name=personlife_do_current loop=$nums}-->
+	    	<td colspan="3">
+       		<!--{foreach key=k item=v from=$personlife_do_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="personlife_do" value="<!--{$schizophrenia_array[personlife_do_current].personlife_do_current}-->" class="inputnew" />
+            </td>
+         <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" rowspan="5">社会功能情况</td>
+      <!--{section name=diet_current loop=$nums}-->   
+      	   <td height="30"  >个人生活料理</td>                    
+          <td  height="30" colspan="2">
+          <!--{foreach key=k item=v from=$diet_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+                <!--{/foreach}-->&nbsp;
+          <input type="text" name="diet" value="<!--{$schizophrenia_array[diet_current].diet_current}-->" class="inputnew" />
+          </td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+     <!--{section name=housework_current loop=$nums}-->  
+         <td height="30"  >
+            家务劳动      
+          </td>
+         <td height="30" colspan="2">
+         <!--{foreach key=k item=v from=$housework_options}-->
+              <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+         <!--{/foreach}-->&nbsp;
+         <input type="text" name="housework" value="<!--{$schizophrenia_array[housework_current].housework_current}-->" class="inputnew" />	  </td>
+     <!--{/section}-->
+   	</tr>
+    <tr>
+     <!--{section name=work_current loop=$nums}-->  
+     <td height="30" >
+   	    生产劳动及工作      </td>
+   	 <td height="30" colspan="2" >
+      		<!--{foreach key=k item=v from=$work_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="work" value="<!--{$schizophrenia_array[work_current].work_current}-->" class="inputnew" />	  </td>
+       <!--{/section}-->
+   	</tr>
+    <tr>
+   	  <!--{section name=learning_current loop=$nums}-->  
+      <td height="30"  >
+   	     学习能力      </td>
+   	  <td height="30" colspan="2" >
+			<!--{foreach key=k item=v from=$learning_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text" name="learning" value="<!--{$schizophrenia_array[learning_current].learning_current}-->" class="inputnew" />	  </td>
+       <!--{/section}-->
+   	</tr>
+    <tr>
+      <!--{section name=human_communication_current loop=$nums}-->  
+          <td height="30" >
+            社会人及交往      </td>
+          <td height="30" colspan="2" >
+                <!--{foreach key=k item=v from=$human_communication_options}-->
+                    <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+                <!--{/foreach}-->&nbsp;
+                <input type="text" name="human_communication" value="<!--{$schizophrenia_array[human_communication_current].human_communication_current}-->" class="inputnew" />	  </td>
+      <!--{/section}-->
+   	</tr>
+    <tr>
+		<td colspan="2">患者对家庭社会的影响</td>
+        <!--{section name=custom loop=$nums}-->  
+            <td colspan="3">       		
+                1 轻度滋事<input type="text" name="mild_trouble" value="<!--{$schizophrenia_array[custom].mild_trouble}-->" class="inputbottom"/>次
+                2 肇事<input type="text" name="accident" value="<!--{$schizophrenia_array[custom].accident}-->" class="inputbottom"/>次
+                3 肇祸<input type="text" name="zhaohuo" value="<!--{$schizophrenia_array[custom].zhaohuo}-->" class="inputbottom"/>次<br/>
+                4 自伤<input type="text" name="self_wounding" value="<!--{$schizophrenia_array[custom].self_wounding}-->" class="inputbottom"/>次
+                5 自杀未遂<input type="text" name="attmpted_suicide" value="<!--{$schizophrenia_array[custom].attmpted_suicide}-->" class="inputbottom"/>次		</td>
+        <!--{/section}-->   
+   	</tr>
+   	<tr>
+   	  <td colspan="2">室验室检查</td>
+      <!--{section name=custom loop=$nums}-->
+          <td  colspan="3"  valign="top">
+          <!--{$schizophrenia_array[custom].lab_examination}-->
+          </td>
+      <!--{/section}-->   
+   	</tr>
+   	
+   	<tr>
+   	  <td colspan="2">服药依从性</td>
+      <!--{section name=custom loop=$nums}-->
+          <td colspan="3">
+                <!--{foreach key=k item=v from=$compliance_options}-->
+                    <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+                <!--{/foreach}-->&nbsp;
+                <input type="text"  name="compliance" value="<!--{$schizophrenia_array[custom].compliance_current}-->" class="inputnew" />	
+          </td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td  colspan="2">药物不良反应</td>
+      <!--{section name=custom loop=$nums}-->
+         <td colspan="3">
+    		<!--{foreach key=k item=v from=$adverse_drug_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+            <input type="text"  id="adverse_drug_info" name="adverse_drug_info" value="<!--{$schizophrenia_array[custom].adverse_drug_info}-->" class="inputbottom"/>
+            
+            <input type="text" id="adverse_drug" name="adverse_drug" value="<!--{$schizophrenia_array[custom].adverse_drug_current}-->"  class="inputnew" />	
+         </td>
+      <!--{/section}-->
+
+    </tr>
+   	<tr>
+   	  <td  colspan="2">治疗效果</td>
+      <!--{section name=custom loop=$nums}-->
+      <td colspan="3">
+    		<!--{foreach key=k item=v from=$treatment_effect_options}-->
+                <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;            
+            <input type="text" name="treatment_effect" value="<!--{$schizophrenia_array[custom].treatment_effect_current}-->" class="inputnew" />	
+      </td>
+      <!--{/section}-->
+    </tr>
+   	<tr>
+   	  <td colspan="2">此次随访分类</td>
+      <!--{section name=custom loop=$nums}-->
+        <td colspan="3">
+    		<!--{foreach key=k item=v from=$followup_classification_options}-->
+                <label><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;            
+            <input type="text" name="followup_classification" value="<!--{$schizophrenia_array[custom].followup_classification_current}-->" class="inputnew" />	
+        </td>
+      <!--{/section}-->
+    </tr>
+   	<tr>
+   	  <td  colspan="2">是否转诊</td>
+      <!--{section name=custom loop=$nums}-->
+          <td colspan="3">
+                 <!--{foreach key=k item=v from=$is_referral_options}-->
+                    <label><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+                <!--{/foreach}-->&nbsp;            
+                <input type="text" id="is_referral" name="is_referral" value="<!--{$schizophrenia_array[custom].is_referral_current}-->" class="inputnew"   />	
+                <br />
+                原因：<input type="text" id="reason_referral" name="reason_referral" value="<!--{$schizophrenia_array[custom].reason_referral}-->" class="inputbottom"/><br/>
+                机构及科室：<input type="text" id="hospital_referral" name="hospital_referral" value="<!--{$schizophrenia_array[custom].hospital_referral}-->" class="inputbottom"/>
+          </td>  
+      <!--{/section}-->	
+    </tr>
+   	<tr>
+   	  <td rowspan="3" colspan="2">用药情况</td>
+   	     <!--{section name=custom loop=$nums}-->
+	      <td  >药物 1:      
+	      <input name="drug_name1" type="text" class="inputnone2" value="<!--{$schizophrenia_array[custom].drug_name1}-->"/></td>
+	      <td>用法:
+	      <select name="drug_usage_frequency1">
+	      	<!--{html_options options=$drug_usage_frequency1_options selected=$schizophrenia_array[custom].drug_usage_frequency1_current }-->
+	      </select>
+	      <input name="drug_usage1" type="text" class="inputnone" value="<!--{$schizophrenia_array[custom].drug_usage1}-->"/>次</td>
+	   	  <td>每次剂量<input name="drug_dose1" type="text" class="inputnone" value="<!--{$schizophrenia_array[custom].drug_dose1}-->"/>mg</td>
+	     <!--{/section}-->
+	   	</tr>
+	   	<tr>
+	   	   <!--{section name=custom loop=$nums}-->
+		   	  <td >药物 2:<input name="drug_name2" type="text" class="inputnone2" value="<!--{$schizophrenia_array[custom].drug_name2}-->"/></td>
+		      <td>用法:
+		      <select name="drug_usage_frequency2">
+		      	<!--{html_options options=$drug_usage_frequency2_options selected=$$schizophrenia_array[custom].drug_usage_frequency2_current }-->
+		      </select>
+		      <input name="drug_usage2" type="text" class="inputnone" value="<!--{$schizophrenia_array[custom].drug_usage2}-->"/>次</td>
+		   	  <td>每次剂量            <input name="drug_dose2" type="text" class="inputnone" value="<!--{$schizophrenia_array[custom].drug_dose2}-->"/>mg</td	>
+	   	  <!--{/section}-->
+	    </tr>
+	   	<tr>
+	   	   <!--{section name=custom loop=$nums}-->
+		   	  <td >药物 3:<input name="drug_name3" type="text" class="inputnone2"  value="<!--{$schizophrenia_array[custom].drug_name3}-->"/></td>
+		      <td>用法:
+		      <select name="drug_usage_frequency3">
+		      	<!--{html_options options=$drug_usage_frequency3_options selected=$schizophrenia_array[custom].drug_usage_frequency3_current }-->
+		      </select>
+		      <input name="drug_usage3" type="text" class="inputnone"  value="<!--{$schizophrenia_array[custom].drug_usage3}-->"/>次</td>
+		   	  <td>每次剂量            <input name="drug_dose3" type="text" class="inputnone" value="<!--{$schizophrenia_array[custom].drug_dose3}-->"/>mg</td>
+	   	   <!--{/section}-->
+   	 
+      </tr>
+   	 <tr>
+   	  <td colspan="2">康复措施</td>
+   	  <!--{section name=rehabilitation_measure loop=$nums}-->
+        <td colspan="3">
+      		<!--{foreach key=k item=v from=$rehabilitation_measures_options}-->
+                <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+            <!--{/foreach}-->&nbsp;   
+            <input type="text" name="rehabilitation_measure_other" id="rehabilitation_measure_other" value="<!--{$schizophrenia_array[rehabilitation_measure].rehabilitation_measure_other}-->" class="inputbottom"  disabled="true"/>
+            <!--{section name=custom loop=3}-->
+            <input type="text" id="rehabilitation_measures" name="rehabilitation_measures[]" value="<!--{$schizophrenia_array[rehabilitation_measure].rehabilitation_measures_current[custom]}-->" class="inputnew" />	
+            <!--{/section}-->
+        </td> 
+      <!--{/section}-->
+    </tr>
+    <tr>
+   	  <td  colspan="2">下次随访日期</td>
+   	  <!--{section name=customer loop=$nums}-->
+	      <td  colspan="3" >
+	         <!--{$schizophrenia_array[customer].next_followup_time}-->
+	      </td>
+	    
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td  colspan="2">随访结果</td>
+   	  <!--{section name=customer loop=$nums}-->
+	      
+	      <td colspan="3">
+	     	<!--{$schizophrenia_array[customer].followup_content}-->
+	      </td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td  colspan="2">下次随访日期</td>
+   	  <!--{section name=customer loop=$nums}-->
+	      
+	      <td colspan="3">随访医生签名:
+	     	<!--{$schizophrenia_array[customer].followup_doctor}-->
+	      </td>
+      <!--{/section}-->
+   	</tr>
+    <tr id="no_print">
+		<td colspan="2">&nbsp;</td>
+   	  <!--{section name=customer loop=$nums}-->
+   	 	 <td colspan="3" align="center"><a href="<!--{$basePath}-->cd/schizophrenia/add/uuid/<!--{$schizophrenia_array[customer].uuid}-->">修改</a>　<a href="<!--{$basePath}-->cd/schizophrenia/del/uuid/<!--{$schizophrenia_array[customer].uuid}-->" onclick="if(confirm('确定要删除吗？')){return true;}else{return false;}">删除 </a>
+         
+         　<a  target="_blank" href="<!--{$basePath}-->cd/schizophrenia/print/uuid/<!--{$schizophrenia_array[customer].uuid}-->">打印</a>
+         </td>
+   	  <!--{/section}-->
+   	</tr>
+   </table>
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;">
+   <input type="button" name="return" id="return" class="inputbutton" value="返回列表" onclick="javascript:window.location='<!--{$basePath}-->cd/schizophrenia/index';" />
+</div>
+</form> 
+</body>
+</html>
+<script type="text/javascript">
+ function  print_info(){
+ 	$("#no_print").hide();
+ 	window.print();
+ 	$("#no_print").show();
+ }
+</script>

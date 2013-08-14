@@ -1,0 +1,200 @@
+<!--{include file="../header.html"}-->
+<script type="text/javascript">
+ $(function(){
+ 	
+ 	$('#form_table').css("display","none");
+ 	$('#form_table').css("background-color","#F5F5F5");
+ 	 //提交按钮单击事件
+	 $("input[type='submit']").click( function () {
+	      
+		  　//对角色名进行验证－－start
+	 	　　var role_en_name  = $("#role_en_name").val();
+		   var role_zh_name  = $("#role_zh_name").val();	
+			  
+		   if(role_en_name.length<2){
+			  alert("角色英文名也太短了吧!");
+			  $("#role_en_name").focus();
+			  return false;
+		   }
+		   if(role_zh_name.length<2){
+			  alert("角色名也太短了吧!");
+			  $("#role_zh_name").focus();
+		
+			  return false;
+		   }
+		   if(role_en_name.match(/^[a-zA-Z0-9_\-]{2,60}$/)){
+			 
+		   }else{
+			  alert("角色英语名只能是数字,字母,下划线");
+			  return false;
+		   }
+		   //对角色名进行验证--stop
+		  
+		 //提交表单
+         $.post("<!--{$basePath}-->admin/roles/update",$("#form1").serialize(),function (msg) {
+		 		//alert(msg);
+			    var mm=msg.split("|");
+				
+				alert(mm[2]);
+				//更新成功后　更新列表
+				if(mm[1]=='true'){
+				　　　//更新列表
+					$.get("<!--{$basePath}-->admin/roles/list", function(data){
+ 						 $("#role_list").html(data);
+					}); 
+					add_record();//清除输入信息
+				}
+				
+			});
+			
+			
+		  return false;
+    } ); 
+ });
+ 　//链接添加，清空输入内容
+  function add_record(){
+  
+  	$("#role_en_name").val("");
+	$("#role_zh_name").val("");
+	
+	$("#role_id").val("");
+	
+	$('#form_table').bPopup({
+	          fadeSpeed: 'fast', //can be a string ('slow'/'fast') or int
+	          followSpeed: 'fast', //can be a string ('slow'/'fast') or int
+	          modalColor: 'black'
+
+	            //modalClose: false
+	  });	
+	  $("#role_en_name").focus();
+  }
+  //链接修改，清空输入内容
+  function update_record(role_id){
+  	
+  	$("#role_en_name").val($("#en_"+role_id).text());
+	$("#role_zh_name").val($("#zh_"+role_id).text());
+	if($("#wo_"+role_id).val()==1){
+		//alert(1);
+		$("#width_option").attr("checked",true);
+		
+	}else{
+		//alert(2);
+		$("#width_option").attr('checked',false);
+	}
+	
+	$("#role_id").val(role_id);	
+	$('#form_table').bPopup({
+            fadeSpeed: 'fast', //can be a string ('slow'/'fast') or int
+            followSpeed: 'fast', //can be a string ('slow'/'fast') or int
+            modalColor: 'black'
+            //zIndex: 2,
+            //modalClose: false
+            
+    });
+	$("#role_en_name").focus();
+  }
+  ////链接删除，清空输入内容
+  function del_record(role_current_id){
+  	
+   if(confirm('你真的要删除么？删除后将不能恢复！')){
+	  　 $.get("<!--{$basePath}-->admin/roles/delete/role_id/"+role_current_id, function(msg){
+	  			//alert(msg);
+	  			 var mm=msg.split("|");
+					
+				 alert(mm[2]);
+				//删除成功
+	            if(mm[1]=="true"){
+					//更新列表
+					$.get("<!--{$basePath}-->admin/roles/list", function(data){
+				　　 　　$("#role_list").html(data);
+						$("#role_en_name").val("");
+						$("#role_zh_name").val("");	
+						$("#role_id").val("");
+			　　　　　}); 
+				}
+		}); 
+  
+  	
+	}
+	
+  }
+  
+  function chk_form(){
+   var role_en_name  = $("#role_en_name").val();
+   var role_zh_name  = $("#role_zh_name").val();	
+      
+   if(role_en_name.length<2){
+      alert("角色英文名也太短了吧!");
+	  $("#role_en_name").focus();
+	  return false;
+   }
+   if(role_zh_name.length<2){
+      alert("角色名也太短了吧!");
+	  $("#role_zh_name").focus();
+
+	  return false;
+   }
+   if(role_en_name.match(/^[a-zA-Z0-9_\-]{2,60}$/)){
+     
+   }else{
+      alert("角色英语名只能是数字,字母,下划线");
+	  return false;
+   }
+   return true;
+  }
+  
+ 
+</script>
+<div>
+<fieldset id="list" style="width:90%">
+	<legend>角色列表</legend>
+	<table cellspacing="0">
+	<thead>
+	<tr class="headbg">
+	<th >角色英文名</th><th >角色中文名</th><th>管理权限</th><th>操作</th>
+	</tr>
+	</thead>
+	<tbody id='role_list'>
+       <!--{include file="./list.html"}-->	
+
+	
+	</tbody>
+	</table>
+</fieldset>
+</div>
+
+<div style="width:50%">
+<fieldset id="form_table">
+<a name="update_role" id="update_role"></a>
+
+	<table cellspacing="0">
+	<thead>
+	<tr class="headbg">
+	<th colspan="2">角色管理</th>
+	</tr>
+	</thead>
+	<form name="form1" id="form1" method="POST" action="<!--{$basePath}-->admin/roles/update">
+	<input type="hidden" name="role_id" id="role_id"/>
+	<tbody >
+		<tr>
+		<td>角色英文名</td><td><input type="text" id="role_en_name" name="role_en_name"/></td>
+		</tr>
+		<tr>
+		<td>角色中文名</td><td><input type="text" id="role_zh_name" name="role_zh_name"/>管理权限<input type="checkbox" name="width_option" id="width_option" value="1" ></td>
+		</tr>
+		<tr>
+		<td></td><td><input type="submit"　　  value="提交"/></td>
+		</tr>
+
+	
+	</tbody>
+	</form>
+	</table>
+</fieldset>
+
+</div>
+
+
+
+
+<!--{include file="../footer.html"}-->

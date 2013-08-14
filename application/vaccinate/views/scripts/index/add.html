@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>预防接种卡</title>
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+
+<style type="text/css">
+.long{border:0; border-bottom:1px solid navy; width:350px;}
+.long2{border:0; border-bottom:1px solid navy; width:150px;}
+.tab tr{ height:30px;}
+.inputs {
+background:none repeat scroll 0 0 #FFFFFF;
+border-style:none;
+width:40px;
+}
+.tab2 tr{ height:30px;}
+label{ cursor:pointer;}
+.tab tr td{ text-align:center;}
+</style>
+
+</head>
+
+<body>
+<form name="card" method="post" action="<!--{$basePath}-->vaccinate/index/update">
+<div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+font-weight: bold;">预防接种卡<img title="1、CHO疫苗用于新生儿母婴阻断的剂量为20ug/ml。2、为收入药典的疫苗，其接种部位、途径和剂量参见疫苗使用说明书。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+<div style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/><input type="hidden" name="id" value="<!--{$id}-->"/><input type="hidden" name="staff_id" value="<!--{$staff_id}-->"/>
+  <div style=" width:70%; text-align:left; float:left;background:#FFFFFF; height:30px;"><span class="STYLE2">姓名</span>：<!--{$uname}--></div>
+  <div style=" width:30%;height:30px; text-align:left; float:left;background:#FFFFFF; "><span class="STYLE2">编号</span>：<!--{$standard_code}--></div>
+</div>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
+  <tr bgcolor="#FFFFFF">
+    <td height="34">性别：<!--{$sex}-->&nbsp;&nbsp;&nbsp;&nbsp;
+      出生日期：<!--{$date_of_birth}--></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="38">监护人姓名：
+    <input type="text" class="inputbottom" name="guardian" value="<!--{$guardian}-->" />
+    与儿童关系：
+    <input type="text" class="inputbottom" name="relation" value="<!--{$relation}-->"/>
+    联系电话：
+    <input type="text" class="inputbottom" name="telephone" value="<!--{$telephone}-->"/></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="40">家庭现住址：
+    <input type="text" class="long2" name="family_address_city" value="<!--{$family_address_city}-->" />
+    县(区)
+    <input type="text" class="long2" name="family_address_street" value="<!--{$family_address_street}-->" />
+    乡镇(街道)</td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="36">户籍地址：1、同家庭地址 2、
+      <input type="text" class="inputbottom" name="census_register_province" value="<!--{$census_register_province}-->"/>
+    省
+    <input type="text" class="inputbottom" name="census_register_city" value="<!--{$census_register_city}-->"/>
+    市
+    <input type="text" class="inputbottom" name="census_register_area" value="<!--{$census_register_area}-->"/>
+    县(区)
+    <input type="text" class="inputbottom" name="census_register_street" value="<!--{$census_register_street}-->"/>
+    乡镇(街道 ) <input type="text" maxlength="2" value="<!--{$census_register}-->" class="inputnew" id="census_register" name="census_register"></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="36">迁入时间：
+      <input type="text" id="date_of_birth" name="immigration_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$immigration_time}-->" realvalue=""> 迁出时间：
+    <input type="text" id="emigration_time" name="emigration_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$emigration_time}-->" realvalue=""> 迁出原因：
+    <input type="text" value="<!--{$emigration_cause}-->" class="long" name="emigration_cause"></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="35">疫苗异常反应史：
+    <input type="text"   class="long" name="vaccinum_unusual_history" value="<!--{$vaccinum_unusual_history}-->"/></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="36">接种禁忌：
+    <input type="text" value="<!--{$vaccinate_no_no}-->" class="long" name="vaccinate_no_no" /></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="31">传染病史：
+    <input type="text" value="<!--{$infect_history}-->" class="long" name="infect_history" /></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+    <td height="32">建卡日期：
+ <input type="text" id="created_card_time" name="created_card_time" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$created_card_time}-->" realvalue=""> 建卡人：
+    <input type="text" class="inputbottom" name="created_doc" value="<!--{$created_doc}-->" /></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC" class="tab">
+  <tr>
+    <td colspan="2"><div align="center">疫苗与剂次</div></td>
+    <td width="13%"><div align="center">接种日期</div></td>
+    <td width="13%"><div align="center">接种部位</div></td>
+    <td width="13%"><div align="center">疫苗批号</div></td>
+    <td width="13%"><div align="center">有效日期</div></td>
+    <td width="13%"><div align="center">生产企业</div></td>
+    <td width="13%"><div align="center">接种医生</div></td>
+    <td width="7%"><div align="center">备注</div></td>
+  </tr>
+  <tr>
+    <td width="10%" rowspan="3"><div align="center">乙肝疫苗</div></td>
+    <td width="5%"><div align="center">1</div></td>
+    <td><input type="text" name="hepatitis_time_1" value="<!--{$hepatitis_time_1}-->" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})"></td>
+    <td><input type="text" name="hepatitis_part_1" value="<!--{$hepatitis_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatitis_batch_1" value="<!--{$hepatitis_batch_1}-->" class="inputbottom"></td>
+   <td> <input type="text" name="hepatitis_effective_1" value="<!--{$hepatitis_effective_1}-->" class="inputbottom" onclick="WdatePicker({firstDayOfWeek:1})"></td>
+    <td> <input type="text" name="hepatitis_enterprises_1" value="<!--{$hepatitis_enterprises_1}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_doctor_1" value="<!--{$hepatitis_doctor_1}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_remark_1" value="<!--{$hepatitis_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td><div align="center">2</div></td>
+    <td><input type="text" name="hepatitis_time_2" onclick="WdatePicker({firstDayOfWeek:1})" value="<!--{$hepatitis_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatitis_part_2" value="<!--{$hepatitis_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatitis_batch_2" value="<!--{$hepatitis_batch_2}-->" class="inputbottom"></td>
+   <td> <input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepatitis_effective_2" value="<!--{$hepatitis_effective_2}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_enterprises_2" value="<!--{$hepatitis_enterprises_2}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_doctor_2" value="<!--{$hepatitis_doctor_2}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_remark_2" value="<!--{$hepatitis_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td><div align="center">3</div></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepatitis_time_3" value="<!--{$hepatitis_time_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatitis_part_3" value="<!--{$hepatitis_part_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatitis_batch_3" value="<!--{$hepatitis_batch_3}-->" class="inputbottom"></td>
+   <td> <input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepatitis_effective_3" value="<!--{$hepatitis_effective_3}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_enterprises_3" value="<!--{$hepatitis_enterprises_3}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_doctor_3" value="<!--{$hepatitis_doctor_3}-->" class="inputbottom"></td>
+    <td> <input type="text" name="hepatitis_remark_3" value="<!--{$hepatitis_remark_3}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2">卡介苗</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="bcg_time" value="<!--{$bcg_time}-->" class="inputbottom"></td>
+    <td><input type="text" name="bcg_part" value="<!--{$bcg_part}-->" class="inputbottom"></td>
+    <td><input type="text" name="bcg_batch" value="<!--{$bcg_batch}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="bcg_effective" value="<!--{$bcg_effective}-->" class="inputbottom"></td>
+    <td><input type="text" name="bcg_enterprises" value="<!--{$bcg_enterprises}-->" class="inputbottom"></td>
+    <td><input type="text" name="bcg_doctor" value="<!--{$bcg_doctor}-->" class="inputbottom"></td>
+    <td><input type="text" name="bcg_remark" value="<!--{$bcg_remark}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="4">脊灰疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_time_1" value="<!--{$polio_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_part_1" value="<!--{$polio_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_batch_1" value="<!--{$polio_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_effective_1" value="<!--{$polio_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_enterprises_1" value="<!--{$polio_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_doctor_1" value="<!--{$polio_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_remark_1" value="<!--{$polio_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_time_2" value="<!--{$polio_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_part_2" value="<!--{$polio_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_batch_2" value="<!--{$polio_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_effective_2" value="<!--{$polio_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_enterprises_2" value="<!--{$polio_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_doctor_2" value="<!--{$polio_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_remark_2" value="<!--{$polio_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_time_3" value="<!--{$polio_time_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_part_3" value="<!--{$polio_part_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_batch_3" value="<!--{$polio_batch_3}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_effective_3" value="<!--{$polio_effective_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_enterprises_3" value="<!--{$polio_enterprises_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_doctor_3" value="<!--{$polio_doctor_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_remark_3" value="<!--{$polio_remark_3}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_time_4" value="<!--{$polio_time_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_part_4" value="<!--{$polio_part_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_batch_4" value="<!--{$polio_batch_4}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="polio_effective_4" value="<!--{$polio_effective_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_enterprises_4" value="<!--{$polio_enterprises_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_doctor_4" value="<!--{$polio_doctor_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="polio_remark_4" value="<!--{$polio_remark_4}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="4">百白破疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_time_1" value="<!--{$dpt_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_part_1" value="<!--{$dpt_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_batch_1" value="<!--{$dpt_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_effective_1" value="<!--{$dpt_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_enterprises_1" value="<!--{$dpt_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_doctor_1" value="<!--{$dpt_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_remark_1" value="<!--{$dpt_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_time_2" value="<!--{$dpt_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_part_2" value="<!--{$dpt_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_batch_2" value="<!--{$dpt_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_effective_2" value="<!--{$dpt_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_enterprises_2" value="<!--{$dpt_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_doctor_2" value="<!--{$dpt_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_remark_2" value="<!--{$dpt_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_time_3" value="<!--{$dpt_time_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_part_3" value="<!--{$dpt_part_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_batch_3" value="<!--{$dpt_batch_3}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_effective_3" value="<!--{$dpt_effective_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_enterprises_3" value="<!--{$dpt_enterprises_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_doctor_3" value="<!--{$dpt_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_remark_3" value="<!--{$dpt_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_time_4" value="<!--{$dpt_time_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_part_4" value="<!--{$dpt_part_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_batch_4" value="<!--{$dpt_batch_4}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="dpt_effective_4" value="<!--{$dpt_effective_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_enterprises_4" value="<!--{$dpt_enterprises_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_doctor_4" value="<!--{$dpt_doctor_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="dpt_remark_4" value="<!--{$dpt_remark_4}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2">白破疫苗</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="rubella_time" value="<!--{$rubella_time}-->" class="inputbottom"></td>
+    <td><input type="text" name="rubella_part" value="<!--{$rubella_part}-->" class="inputbottom"></td>
+    <td><input type="text" name="rubella_batch" value="<!--{$rubella_batch}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="rubella_effective" value="<!--{$rubella_effective}-->" class="inputbottom"></td>
+    <td><input type="text" name="rubella_enterprises" value="<!--{$rubella_enterprises}-->" class="inputbottom"></td>
+    <td><input type="text" name="rubella_doctor" value="<!--{$rubella_doctor}-->" class="inputbottom"></td>
+    <td><input type="text" name="rubella_remark" value="<!--{$rubella_remark}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2">麻风疫苗</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="lepra_time" value="<!--{$lepra_time}-->" class="inputbottom"></td>
+    <td><input type="text" name="lepra_part" value="<!--{$lepra_part}-->" class="inputbottom"></td>
+    <td><input type="text" name="lepra_batch" value="<!--{$lepra_batch}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="lepra_effective" value="<!--{$lepra_effective}-->" class="inputbottom"></td>
+    <td><input type="text" name="lepra_enterprises" value="<!--{$lepra_enterprises}-->" class="inputbottom"></td>
+    <td><input type="text" name="lepra_doctor" value="<!--{$lepra_doctor}-->" class="inputbottom"></td>
+    <td><input type="text" name="lepra_remark" value="<!--{$lepra_remark}-->" class="inputbottom"></td>  </tr>
+  <tr>
+    <td rowspan="2">麻腮风疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mmr_time_1" value="<!--{$mmr_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_part_1" value="<!--{$mmr_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_batch_1" value="<!--{$mmr_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mmr_effective_1" value="<!--{$mmr_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_enterprises_1" value="<!--{$mmr_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_doctor_1" value="<!--{$mmr_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_remark_1" value="<!--{$mmr_remark_1}-->" class="inputbottom"></td>
+
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mmr_time_2" value="<!--{$mmr_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_part_2" value="<!--{$mmr_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_batch_2" value="<!--{$mmr_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mmr_effective_2" value="<!--{$mmr_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_enterprises_2" value="<!--{$mmr_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_doctor_2" value="<!--{$mmr_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="mmr_remark_2" value="<!--{$mmr_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2">麻腮疫苗</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mm_time" value="<!--{$mm_time}-->" class="inputbottom"></td>
+    <td><input type="text" name="mm_part" value="<!--{$mm_part}-->" class="inputbottom"></td>
+    <td><input type="text" name="mm_batch" value="<!--{$mm_batch}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="mm_effective" value="<!--{$mm_effective}-->" class="inputbottom"></td>
+    <td><input type="text" name="mm_enterprises" value="<!--{$mm_enterprises}-->" class="inputbottom"></td>
+    <td><input type="text" name="mm_doctor" value="<!--{$mm_doctor}-->" class="inputbottom"></td>
+    <td><input type="text" name="mm_remark" value="<!--{$mm_remark}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">麻疹疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="measles_time_1" value="<!--{$measles_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_part_1" value="<!--{$measles_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_batch_1" value="<!--{$measles_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="measles_effective_1" value="<!--{$measles_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_enterprises_1" value="<!--{$measles_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_doctor_1" value="<!--{$measles_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_remark_1" value="<!--{$measles_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="measles_time_2" value="<!--{$measles_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_part_2" value="<!--{$measles_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_batch_2" value="<!--{$measles_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="measles_effective_2" value="<!--{$measles_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_enterprises_2" value="<!--{$measles_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_doctor_2" value="<!--{$measles_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="measles_remark_2" value="<!--{$measles_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">A群流脑疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="a_time_1" value="<!--{$a_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_part_1" value="<!--{$a_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_batch_1" value="<!--{$a_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="a_effective_1" value="<!--{$a_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_enterprises_1" value="<!--{$a_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_doctor_1" value="<!--{$a_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_remark_1" value="<!--{$a_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="a_time_2" value="<!--{$a_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_part_2" value="<!--{$a_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_batch_2" value="<!--{$a_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="a_effective_2" value="<!--{$a_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_enterprises_2" value="<!--{$a_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_doctor_2" value="<!--{$a_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="a_remark_2" value="<!--{$a_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">A+C群流脑疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ac_time_1" value="<!--{$ac_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_part_1" value="<!--{$ac_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_batch_1" value="<!--{$ac_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ac_effective_1" value="<!--{$ac_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_enterprises_1" value="<!--{$ac_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_doctor_1" value="<!--{$ac_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_remark_1" value="<!--{$ac_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ac_time_2" value="<!--{$ac_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_part_2" value="<!--{$ac_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_batch_2" value="<!--{$ac_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ac_effective_2" value="<!--{$ac_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_enterprises_2" value="<!--{$ac_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_doctor_2" value="<!--{$ac_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ac_remark_2" value="<!--{$ac_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">乙脑(减毒)活疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="att_time_1" value="<!--{$att_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_part_1" value="<!--{$att_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_batch_1" value="<!--{$att_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="att_effective_1" value="<!--{$att_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_enterprises_1" value="<!--{$att_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_doctor_1" value="<!--{$att_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_remark_1" value="<!--{$att_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="att_time_2" value="<!--{$att_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_part_2" value="<!--{$att_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_batch_2" value="<!--{$att_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="att_effective_2" value="<!--{$att_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_enterprises_2" value="<!--{$att_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_doctor_2" value="<!--{$att_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="att_remark_2" value="<!--{$att_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="4">乙脑灭活疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_time_1" value="<!--{$ina_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_part_1" value="<!--{$ina_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_batch_1" value="<!--{$ina_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_effective_1" value="<!--{$ina_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_enterprises_1" value="<!--{$ina_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_doctor_1" value="<!--{$ina_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_remark_1" value="<!--{$ina_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_time_2" value="<!--{$ina_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_part_2" value="<!--{$ina_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_batch_2" value="<!--{$ina_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_effective_2" value="<!--{$ina_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_enterprises_2" value="<!--{$ina_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_doctor_2" value="<!--{$ina_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_remark_2" value="<!--{$ina_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_time_3" value="<!--{$ina_time_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_part_3" value="<!--{$ina_part_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_batch_3" value="<!--{$ina_batch_3}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_effective_3" value="<!--{$ina_effective_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_enterprises_3" value="<!--{$ina_enterprises_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_doctor_3" value="<!--{$ina_doctor_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_remark_3" value="<!--{$ina_remark_3}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_time_4" value="<!--{$ina_time_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_part_4" value="<!--{$ina_part_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_batch_4" value="<!--{$ina_batch_4}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="ina_effective_4" value="<!--{$ina_effective_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_enterprises_4" value="<!--{$ina_enterprises_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_doctor_4" value="<!--{$ina_doctor_4}-->" class="inputbottom"></td>
+    <td><input type="text" name="ina_remark_4" value="<!--{$ina_remark_4}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2">甲肝减毒活疫苗</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepatt_time" value="<!--{$hepatt_time}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatt_part" value="<!--{$hepatt_part}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatt_batch" value="<!--{$hepatt_batch}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepatt_effective" value="<!--{$hepatt_effective}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatt_enterprises" value="<!--{$hepatt_enterprises}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatt_doctor" value="<!--{$hepatt_doctor}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepatt_remark" value="<!--{$hepatt_remark}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td rowspan="2">甲肝灭活疫苗</td>
+    <td>1</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepa_time_1" value="<!--{$hepa_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_part_1" value="<!--{$hepa_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_batch_1" value="<!--{$hepa_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepa_effective_1" value="<!--{$hepa_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_enterprises_1" value="<!--{$hepa_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_doctor_1" value="<!--{$hepa_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_remark_1" value="<!--{$hepa_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepa_time_2" value="<!--{$hepa_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_part_2" value="<!--{$hepa_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_batch_2" value="<!--{$hepa_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="hepa_effective_2" value="<!--{$hepa_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_enterprises_2" value="<!--{$hepa_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_doctor_2" value="<!--{$hepa_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="hepa_remark_2" value="<!--{$hepa_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="9">其他疫苗</td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="text" name="vaccinum_name_1" value="<!--{$vaccinum_name_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_time_1" value="<!--{$vaccinum_time_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_part_1" value="<!--{$vaccinum_part_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_batch_1" value="<!--{$vaccinum_batch_1}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_effective_1" value="<!--{$vaccinum_effective_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_enterprises_1" value="<!--{$vaccinum_enterprises_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_doctor_1" value="<!--{$vaccinum_doctor_1}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_remark_1" value="<!--{$vaccinum_remark_1}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="text" name="vaccinum_name_2" value="<!--{$vaccinum_name_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_time_2" value="<!--{$vaccinum_time_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_part_2" value="<!--{$vaccinum_part_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_batch_2" value="<!--{$vaccinum_batch_2}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_effective_2" value="<!--{$vaccinum_effective_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_enterprises_2" value="<!--{$vaccinum_enterprises_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_doctor_2" value="<!--{$vaccinum_doctor_2}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_remark_2" value="<!--{$vaccinum_remark_2}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><input type="text" name="vaccinum_name_3" value="<!--{$vaccinum_name_3}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_time_3" value="<!--{$vaccinum_time_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_part_3" value="<!--{$vaccinum_part_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_batch_3" value="<!--{$vaccinum_batch_3}-->" class="inputbottom"></td>
+    <td><input type="text" onclick="WdatePicker({firstDayOfWeek:1})" name="vaccinum_effective_3" value="<!--{$vaccinum_effective_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_enterprises_3" value="<!--{$vaccinum_enterprises_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_doctor_3" value="<!--{$vaccinum_doctor_3}-->" class="inputbottom"></td>
+    <td><input type="text" name="vaccinum_remark_3" value="<!--{$vaccinum_remark_3}-->" class="inputbottom"></td>
+  </tr>
+  <tr>
+    <td colspan="9"><input type="submit" value="确认" class="inputbutton"><!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

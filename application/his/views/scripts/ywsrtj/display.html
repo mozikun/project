@@ -1,0 +1,110 @@
+<!Doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3.org/tr/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+
+
+</style>
+<!--引入jquery-->
+<script src="<!--{$basepath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basepath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+		<tr>
+        <td>
+        	医疗机构代码
+        </td>
+        <td>
+        	<!--{$tb_yw_ywsrtj->yljgdm}-->
+        </td>
+        <td>
+        	科室编码
+        </td>
+        <td>
+        	<!--{$tb_yw_ywsrtj->ksbm}-->
+        </td>
+    </tr>
+    <tr>
+        <td>业务时间</td><td ><!--{$tb_yw_ywsrtj->ywsj}--></td>
+        <td>科室名称</td><td><!--{$tb_yw_ywsrtj->ksmc}--></td>
+    </tr>
+    <tr>
+        
+        <td>门急诊医疗费用</td><td><!--{$tb_yw_ywsrtj->mjzylfy}--></td>
+         <td>住院医疗费用</td><td><!--{$tb_yw_ywsrtj->zyylfy}--></td>
+    </tr>
+    <tr>
+       
+        <td>门急诊药品费用</td><td><!--{$tb_yw_ywsrtj->mjzypfy}--></td>
+        <td>住院药品费用</td><td><!--{$tb_yw_ywsrtj->zyypfy}--></td>
+    </tr>
+    <tr>
+        
+        <td>门急诊医保医疗费用</td><td><!--{$tb_yw_ywsrtj->mjzybylfy}--></td>
+         <td>住院医保医疗费用</td><td><!--{$tb_yw_ywsrtj->zyybylfy}--></td>
+    </tr>
+    <tr>
+       
+        <td>门急诊医保药品费用</td><td><!--{$tb_yw_ywsrtj->mjzybypfy}--></td>
+        <td>住院医保药品费用</td><td><!--{$tb_yw_ywsrtj->zyybypfy}--></td>
+    </tr>
+    <tr>
+    	
+        <td>预留统计字段1</td><td><!--{$tb_yw_ywsrtj->tjyl1}--></td>
+        <td>预留统计字段2</td><td><!--{$tb_yw_ywsrtj->tjyl2}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>预留统计字段3</td><td><!--{$tb_yw_ywsrtj->tjyl3}--></td>
+        <td>预留统计字段4</td><td><!--{$tb_yw_ywsrtj->tjyl4}--></td>
+
+    </tr>
+     <tr>
+    	
+        <td>预留统计字段5</td><td><!--{$tb_yw_ywsrtj->tjyl5}--></td>
+        <td>预留统计字段6</td><td><!--{$tb_yw_ywsrtj->tjyl6}--></td>
+
+    </tr>
+    <tr>
+    	
+        <td>预留统计字段7</td><td><!--{$tb_yw_ywsrtj->tjyl7}--></td>
+        <td>预留统计字段8</td><td><!--{$tb_yw_ywsrtj->tjyl8}--></td>
+
+    </tr>
+    <tr>
+    	
+        <td>填报日期</td><td><!--{$tb_yw_ywsrtj->tbrq}--></td>
+        <td></td><td></td>
+
+    </tr>
+  
+
+    </tr>
+   
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

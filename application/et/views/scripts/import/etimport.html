@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><!--{$module_dicreption}--></title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script type="text/javascript">
+</script>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong><!--{$module_dicreption}--></strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->et/import/import" id="search" method="post">
+			<tr>
+				<td>
+				地区：<span id="menuDropDownBox"></span>	
+			    <input type="hidden" name="region_id" id="region_id" value="<!--{$region_id}-->" />
+			    <input type="hidden" name="region_p_id" id="region_p_id" value="<!--{$region_p_id}-->" />
+			    
+				 &nbsp;年龄:<input type="text" name="age_start" class="line" style="width:28px" size="6" />
+				~<input type="text" name="age_end" class="line" style="width:28px" size="6" />
+				&nbsp;
+				性别:&nbsp;<select name="sex">
+				<option value="">请选择</option>
+                <!--{foreach key=k item=v from=$sex_array}-->
+				<option value="<!--{$v[0]}-->" <!--{if $v[0]==$sex}--> selected='selected' <!--{/if}-->><!--{$v[1]}--></option>
+				<!--{/foreach}-->
+                </select>
+				<input type="submit" value="搜索" class="inputbutton"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th title="姓名">
+    	  姓名
+        </th>
+        <th title="性别">
+    	  性别
+        </th>
+        <th title="年龄">
+    	  年龄
+        </th>
+        <th title="地址">
+        	地址
+        </th>
+		<th title="联系电话" >
+        	联系电话
+        </th>
+		<th title="体检日期">
+        	体检日期
+        </th>
+		<th title="体检医生">
+        	体检医生
+        </th>
+	</tr>
+	</thead>
+	<form action="<!--{$basePath}-->et/import/import" method="post">
+	<input type="hidden" name="region_p_id" id="region_new_id" value="<!--{$region_p_id}-->" />
+	<input type="hidden" name="sex"  value="<!--{$sex}-->" />
+	<input type="hidden" name="age_start"  value="<!--{$age_start}-->" />
+	<input type="hidden" name="age_end"  value="<!--{$age_end}-->" />
+	<tbody >
+     <!--{section loop=$et_array name=et_array}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+        <td>
+           <!--{$et_array[et_array].name}--> 
+        </td>
+        <td>
+           <!--{$et_array[et_array].sex}--> 
+        </td>
+        <td>
+           <!--{$et_array[et_array].date_of_birth}--> 
+        </td>
+		<td >
+           <!--{$et_array[et_array].address}-->
+        </td>
+		<td>
+           <!--{$et_array[et_array].phone_number}-->
+        </td>
+		<td>
+        	<!--{$et_array[et_array].examination_date}-->
+        </td>
+        <td>
+        	<!--{$et_array[et_array].name_login}-->
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr align="center">
+	  <td colspan="7">没有相关数据</td>
+	</tr>
+	 <!--{/section}-->
+	  <tr>
+	  <td colspan="7" align="center">
+	  <!--{$page}-->&nbsp;&nbsp;<!--{if $mytag==1}--><br/><span style="color: red; font-size: 28px;">请在09:00之前,16:30之后使用导出数据功能</span><!--{else}--><input type="submit" name="import_do" value="导出" class="inputbutton" /><!--{/if}-->
+	</td>
+	</tr>
+	</tbody>
+	</form> 
+</table>
+</body>
+</html>
+<!--{$mywarning}-->
+<script type="text/javascript">
+var region_id=document.getElementById('region_id').value;
+var region_p_id=document.getElementById('region_p_id').value;
+var xmlHttp;
+getDropDownBox();
+function getDropDownBox(){
+	//alert(parentId+id);
+	if(region_p_id=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/menu/menuDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	var url='<!--{$basePath}-->region/region/menuDropDownBoxIha/p_id/'+region_p_id+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processDropDownBox;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if(document.getElementById('region_p_id').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function processDropDownBox(){
+	//alert(xmlHttp.readyState);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//alert(xmlHttp.readyState);
+		//注：firefox不支持innerText
+		var objDiv=document.getElementById('menuDropDownBox');
+		//alert('1');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(obj,oldValue,currentValue){
+	var tempValue=currentValue.split("|")
+	if(tempValue[0]=='-9'){
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		region_p_id=tempValue[1];
+		document.getElementById('region_p_id').value=tempValue[1];
+
+	}else{
+		region_p_id=tempValue[0];
+		document.getElementById('region_p_id').value=tempValue[0];
+
+	}
+	getDropDownBox();
+}
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+</script>

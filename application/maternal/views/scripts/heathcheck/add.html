@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/vtip.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<script>
+	function mk_disable(iptname)
+	{
+		if($("input[name='"+iptname+"']").val()=='2')
+		{
+			$("input[name='"+iptname+"_info']").focus();
+			$("input[name='"+iptname+"_info']").attr("disabled",false);
+		}
+		else
+		{
+			$("input[name='"+iptname+"_info']").attr("disabled",true);
+		}
+	}
+	function refer()
+	{
+		if($("input[name='referral']").val()=='2')
+		{
+			$("input[name='referral_reason']").focus();
+			$("input[name='referral_reason']").attr("disabled",false);
+			$("input[name='referral_org']").attr("disabled",false);
+		}
+		else
+		{
+			$("input[name='referral_reason']").attr("disabled",true);
+			$("input[name='referral_org']").attr("disabled",true);
+		}
+	}
+$(document).ready(function(){
+	//处理指导
+	$("input[name='medical_advice[]']").each(function(){
+		$(this).click(function(){
+			$("input[name='medical_advice[]']:checked").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$pohe_medical_advice_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#medical_advice_info").attr("disabled",false);
+				if($("#medical_advice_info").val()=="")
+				{
+					$("#medical_advice_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#medical_advice_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+});
+</script> 
+<title>产后42天健康检查记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+</style>
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->maternal/heathcheck/editin" method="post">  
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">产后42天健康检查记录表</div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>姓名</strong>：<!--{$user_name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+   	<tr>
+		<td>随访日期</td>
+	    <td>
+	    	<input type="hidden" name="uuid" value="<!--{$uuid}-->" />
+			<input type="hidden" name="fid" value="<!--{$fid}-->" />
+	    	<input type="hidden" name="userid" value="<!--{$userid}-->" />
+	      <input type="text" name="follow_time_year" value="<!--{$filling_time_year}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone"/>年
+		  <input type="text" name="follow_time_month" value="<!--{$filling_time_month}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" />月
+		  <input type="text" name="follow_time_day" value="<!--{$filling_time_day}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" />日
+	    </td>
+   	</tr>
+	<tr>
+		<td>一般健康状况<img title="一般健康状况：对产妇一般情况进行检查，具体描述并填写。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+	      <input type="text" name="general_health" value="<!--{$general_health}-->"  class="inputnone2"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>一般心理状况</td>
+	    <td>
+	      <input type="text" name="general_psychology" value="<!--{$general_psychology}-->"  class="inputnone2"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>血压<img title="血压：如有必要，测量产妇血压，填写具体数值。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+	      <input type="text" name="systolic_blood_pressure" value="<!--{$systolic_blood_pressure}-->"  class="inputnone2"/>/
+	      <input type="text" name="diastolic_blood_pressure" value="<!--{$diastolic_blood_pressure}-->"  class="inputnone2"/>mmHg
+	    </td>
+  	</tr>
+  	<tr>
+		<td>乳房<img title="乳房：对产妇进行检查，若有异常，具体描述。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td><!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','brest')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->
+	      <input type="text" name="brest_info" <!--{if $brest!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$brest_info}-->"  class="inputbottom"/>
+	      <input type="text" onblur="mk_disable('brest')" name="brest" value="<!--{$brest}-->"  class="inputnew"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>恶露<img title="恶露：对产妇进行检查，若有异常，具体描述。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td><!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','lochia')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->
+	      <input type="text" name="lochia_info" <!--{if $lochia!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$lochia_info}-->"  class="inputbottom"/>
+	      <input type="text" onblur="mk_disable('lochia')" name="lochia" value="<!--{$lochia}-->"  class="inputnew"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>子宫<img title="子宫：对产妇进行检查，若有异常，具体描述。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td><!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','uterus')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->
+	      <input type="text" name="uterus_info" <!--{if $uterus!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$uterus_info}-->"  class="inputbottom"/>
+	      <input type="text" onblur="mk_disable('uterus')" name="uterus" value="<!--{$uterus}-->"  class="inputnew"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>伤口<img title="伤口：对产妇进行检查，若有异常，具体描述。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td><!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','durative_ulcer')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->
+	      <input type="text" name="durative_ulcer_info" <!--{if $durative_ulcer!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$durative_ulcer_info}-->"  class="inputbottom"/>
+	      <input type="text" onblur="mk_disable('durative_ulcer')" name="durative_ulcer" value="<!--{$durative_ulcer}-->"  class="inputnew"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>其他</td>
+	    <td>
+	      <textarea cols="70" rows="5"  class="newtextarea" col="20"/><!--{$post_other}--></textarea>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>分类<img title="分类：根据此次随访情况，对产妇进行分类，若为未恢复，具体写明情况。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+	    	<!--{foreach key=k item=v from=$pohe_sort}-->
+			<label onclick="set_input_value('<!--{$k}-->','pregnant_sort')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->
+	      <input type="text" name="pregnant_sort_info" <!--{if $pregnant_sort!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$pregnant_sort_info}-->"  class="inputbottom"/>
+	      <input type="text" onblur="mk_disable('pregnant_sort')" name="pregnant_sort" value="<!--{$pregnant_sort}-->"  class="inputnew"/>
+	    </td>
+  	</tr>
+  	<tr>
+		<td>指导<img title="指导：可以多选，未列出的其他指导请具体填写。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td>
+	      <!--{foreach key=k item=v from=$pohe_medical_advice}-->
+		<label><input type="checkbox" value="<!--{$k}-->" <!--{$v.check}--> name="medical_advice[]" /><!--{$k}-->、<!--{$v[1]}--></label><br />
+		<!--{/foreach}-->
+		<input type="text" name="medical_advice_info" <!--{if !$medical_advice_sign}--> disabled="disabled"<!--{/if}--> id="medical_advice_info" value="<!--{$medical_advice_info}-->"  class="inputbottom" />
+	    </td>
+  	</tr>
+  	<tr>
+	   	 <td>处理<img title="处理：若产妇已恢复，则结案。若有需转诊的情况，具体填写。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+   	     <td><!--{foreach key=k item=v from=$pohe_referral}-->
+			<label onclick="set_input_value('<!--{$k}-->','referral')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+		              <input type="text" name="referral" value="<!--{$referral}-->" onblur="refer()"  class="inputnew"/></br>
+		        原因:      <input type="text" name="referral_reason" <!--{if $referral!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$referral_reason}-->"  class="inputbottomlong"/></br>
+		        机构及科室:<input type="text" name="referral_org" <!--{if $referral!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$referral_org}-->"  class="inputbottomlong"/>
+		 </td>
+   	 </tr>
+   	<tr>
+   	  <td>随访医生签名<img title="随访医生签名：随访完毕，核查无误后随访医生签名" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	  <td>
+	  	<select name="follow_staff" id="follow_staff">
+							<!--{section name=response_doctor loop=$response_doctor}-->
+							<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+							<!--{/section}-->
+		</select>
+		</td>
+   	</tr>
+   	<!--此处的colspan要动态变化-->
+   	<tr>
+		<td colspan="2" align="center"><input name="submit" type="submit" value="保存数据" class="inputbutton"/>
+        <!--{if $uuid}-->
+        <input type="button" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+        <!--{/if}-->
+        </td>
+   	</tr>
+	<tr>
+	  <td colspan="2" align="center">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td colspan="2" style="padding:4px;">填表说明<br />
+1．一般健康状况：对产妇一般情况进行检查，具体描述并填写。<br />
+2．血压：如有必要，测量产妇血压，填写具体数值。<br />
+3．乳房、恶露、子宫、伤口：对产妇进行检查，若有异常，具体描述。<br />
+4．分类：根据此次随访情况，对产妇进行分类，若为未恢复，具体写明情况。<br />
+5．指导：做了哪些指导请在对应的选项上划“√”，可以多选，未列出的其他指导请具体填写。<br />
+6．处理：若产妇已恢复，则结案。若有需转诊的情况，具体填写。<br />
+7．随访医生签名：随访完毕，核查无误后随访医生签署其姓名。
+
+
+</td>
+	</tr>
+   </table>
+</form> 
+</body>
+</html>

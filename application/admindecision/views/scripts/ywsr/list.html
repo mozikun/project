@@ -1,0 +1,44 @@
+<table  width="100%" >
+     <tr class="headbg">
+       <td colspan="10" align="left">
+       业务收入分析统计
+       </td>
+     </tr>
+     <tr class="columnbg">
+     <td align="center">地区名称</td>
+     <td align="center">门急诊医疗费用</td>
+     <td align="center">住院医疗费用</td>
+     <td align="center">门急诊药品费用</td>
+     <td align="center">住院药品费用</td>
+     <td align="center">门急诊医保医疗费用</td>
+     <td align="center">住院医保医疗费用</td>
+     <td align="center">门急诊医保药品费用</td>
+     <td align="center">住院医保药品费用</td>	
+    </tr>
+  <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><!--{$row[row].zh_name}--></td>
+    <td align="center"><!--{$row[row].mjzylfy}--></td>
+    <td align="center"><!--{$row[row].zyylfy}--></td>
+    <td align="center"><!--{$row[row].mjzypfy}--></td>
+    <td align="center"><!--{$row[row].zyypfy}--></td>
+    <td align="center"><!--{$row[row].mjzybylfy}--></td>
+    <td align="center"><!--{$row[row].zyybylfy}--></td>
+    <td align="center"><!--{$row[row].mjzybypfy}--></td>
+    <td align="center"><!--{$row[row].zyybypfy}--></td>
+   </tr>
+ <!--{/section}-->
+   <tr align="center" class="title">
+     <td>合计</td>
+     <td><!--{$sum_mjzylfy}--></td>
+     <td><!--{$sum_zyylfy}--></td>
+     <td><!--{$sum_mjzypfy}--></td>
+     <td><!--{$sum_zyypfy}--></td>
+     <td><!--{$sum_mjzybylfy}--></td>
+     <td><!--{$sum_zyybylfy}--></td>
+     <td><!--{$sum_mjzybypfy}--></td>
+     <td><!--{$sum_zyybypfy}--></td>
+     <td></td>
+   </tr>
+</table>
+

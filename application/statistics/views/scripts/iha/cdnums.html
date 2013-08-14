@@ -1,0 +1,27 @@
+<table border="0" width="100%">
+				<thead>
+		    	<tr>
+		        <th>
+		        	年份
+		        </th>
+                <!--{foreach key=k item=v from=$disease_history}-->
+                <th>
+		        	<!--{$v[1]}-->
+		        </th>
+		       <!--{/foreach}-->
+				
+				</tr>
+				</thead>
+				<tbody>
+					<!--{foreach key=key name=iha item=iha from=$core}-->
+					
+					<tr>
+						<td><!--{$key}--></td>
+                        <!--{foreach key=k item=v from=$disease_history}-->
+                        <td><!--{$iha[$k]|default:'0'}--></td>
+                        <!--{/foreach}-->
+					</tr>
+					<!--{/foreach}-->
+				</tbody>
+			</table>
+<br />*因统计口径问题，此处统计结果仅做参考，无这一列表示无慢病记录的人，无确诊日期表示此人确诊过，但未填写确诊日期

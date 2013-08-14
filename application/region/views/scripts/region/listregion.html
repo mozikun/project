@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+    $("#btn1").click(function(){
+        $.dialog(300,150,'<form id="popup" action="<!--{$basePath}-->region/region/addregion/need_add_id/<!--{$add_need_id}-->" method="POST"><div  align="center" style="width:300px;margin-top:0px;"><div style="float:left; width:298px;margin-top:5px;">地区名称:<input type="text" name="region_name" id="region_name"/></div><div style="float:left; width:298px;margin-top:5px;">地区编码:<input type="text" name="standard_code" id="standard_code"  size="<!--{$standard_code_size}-->" maxlength="<!--{$standard_code_size}-->" /></div><div style="float:left; width:298px;margin-top:5px;"><input type="button" value="添加" name="ok" id="ok" onclick="mysubmit();" /></div></div></form>','','添加地区');
+    });
+})
+</script>
+<title>地区列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center">
+     <tr class="headbg">
+       <td colspan="6"><!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->region/region/listregion/parent_id/<!--{$rs[rs].id}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->region/region/listregion/parent_id/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td><strong>ID</strong></td>
+        <td width="20%"><strong>地区名称</strong></td>
+<!--        <td width="10%"><strong>地区路径</strong></td>
+-->
+        <td width="10%"><strong>标准代码</strong></td>
+        <td width="20%"><strong>进入下级地区</strong></td>
+        <td width="<!--{$firstcu}-->"><strong>编辑</strong></td>
+        <td width="<!--{$secondcu}-->"><strong>删除</strong></td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].id}--></td>
+           <td><!--{$row[row].zh_name}--></td>
+<!--           <td><!--{$row[row].region_path}--></td>
+-->           <td><!--{$row[row].standard_code}--></td>
+           <td><a href="<!--{$basePath}-->region/region/listregion/parent_id/<!--{$row[row].id}-->">[进入子地区]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="##" onclick="mymeregedit('<!--{$row[row].id}-->');">[合并地区]</a></td>
+           <td>
+           <!--{if $row[row].region_core_edit==1}-->
+           <a id="btn_<!--{$row[row].id}-->" href="##" onclick="myOpenWindow('<!--{$row[row].id}-->')">[地区核心信息]</a>&nbsp;&nbsp;&nbsp;&nbsp;
+           <!--{/if}-->
+           <a href="<!--{$basePath}-->region/regionext/index/nowid/<!--{$row[row].id}-->/pagecurrent/<!--{$nowpage}-->"><!--{$str}--></a>
+           </td>
+           <td><a href="<!--{$basePath}-->region/region/delregion/current_id/<!--{$row[row].id}-->" onclick="return confirm('您确定删除吗?确定');">[删除地区]</a></td>
+        </tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="6"><a id="btn1" href="javascript:"><strong>[添加地区]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+function myOpenWindow(id){
+	var url="<!--{$basePath}-->region/region/display/id/"+id+'/sid/'+Math.random();
+	//alert(url);
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:250px;DialogWidth:650px;DialogHeight:250px;help:no;status:no');
+}
+function mymeregedit(id){
+	var url="<!--{$basePath}-->region/region/meregedit/id/"+id+'/sid/'+Math.random();
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:250px;DialogWidth:650px;DialogHeight:250px;help:no;status:no');
+	location.reload();
+}
+function mysubmit(){
+	if($('#region_name').val()==''){
+		alert('请输入地区名称');
+		return;
+	}
+	if($('#standard_code').val()==''){
+		alert('请输入标准码');
+		return;
+	}	
+	$('#ok').attr('disabled',true);
+	$('#popup')[0].submit();
+	return true;
+}
+if($('#errorMessage').html()!=''){
+	alert($('#errorMessage').html());
+}
+</script>
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>手术明细列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+	text-align:center;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>手术明细列表</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->his/operation/list" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="patientname"  value="<!--{$search.xm}-->"/>&nbsp;
+				身份证号:<input type="text" name="identity_number" value="<!--{$search.identity_number}-->"/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+		<th title="姓名" >
+			姓名
+        </th>
+        <th title="性别">
+      	    性别
+        </th>
+        <th title="证件编号">
+        	证件编号
+        </th>
+        <th title="手术名称">
+        	手术名称
+        </th>
+		<th title="体检日期">
+        	手术时间
+        </th>
+		<th title="手术医生">
+        	手术医生
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	 <!--{section name=operationList loop=$operationList}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" class="lista">
+
+		<td>
+        	<!--{$operationList[operationList].xm}-->
+        </td>   
+        <td><!--{$operationList[operationList].xb}--></td>
+        <td>
+         <!--{$operationList[operationList].kh}-->
+        </td>        
+        <td>
+        <!--{$operationList[operationList].ssczmc}-->
+        </td>
+		<td>
+        	<!--{$operationList[operationList].sskssj}-->----<!--{$operationList[operationList].ssjssj}-->
+        </td>
+		<td>
+            <!--{$operationList[operationList].ssysxm}-->
+        </td>
+		<td >
+        	<a href="<!--{$basePath}-->his/operation/display/ssmxlsh/<!--{$operationList[operationList].ssmxlsh}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{/section}-->
+	<!--{$str}-->
+	  <tr>
+	  <td colspan="6" align="center"> 
+        <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

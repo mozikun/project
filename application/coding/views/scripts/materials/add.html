@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<title><!--{if $add_tag}-->卫生耗材编码添加<!--{else}-->卫生耗材编码编辑<!--{/if}--></title>
+<script type="text/javascript">
+function get_region_select_html(base_path,input_id,span_id)
+{
+    var org_id=$("#"+input_id).val();//隐藏表单字段的值
+    var url=base_path+'coding/consumables/getresult/p_id/'+org_id+'/input_id/'+input_id+'/span_id/'+span_id+'/sid/'+Math.random();//待请求的地址
+   // alert(url);
+    $.get(url,function(select_html){
+        //处理地址
+        $("#"+span_id).html(select_html);
+    });
+}
+function change_org(input_id,span_id,currentValue,base_path){
+	var tempValue=currentValue.split("|")
+	if(tempValue[0]=='-9')
+    {
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		$("#"+input_id).val(tempValue[1]);
+		//alert($("#"+input_id).val(tempValue[1]));
+	}
+    else
+    {
+		$("#"+input_id).val(tempValue[0]);
+		//alert(tempValue[0]);
+	}
+    get_region_select_html(base_path,input_id,span_id);
+}
+$(document).ready(function(){
+	get_region_select_html('<!--{$basePath}-->','edit_id','result');
+});
+</script>
+</head>
+<body>
+<form action="" method="POST" onsubmit="return check_form();">
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><strong><!--{if $add_tag}-->耗材分类添加<!--{else}-->耗材分类编辑<!--{/if}--></strong></td>
+     </tr>
+     <tr>
+       <td>所属分类:</td>
+       <td>
+       <!--{if $add_tag}-->
+          <input type="hidden" name="edit_id" value="1" id="edit_id" />
+        <!--{else}-->
+         <input type="hidden" name="edit_id" value="<!--{$path_pid}-->" id="edit_id" />
+        <!--{/if}-->
+          <span id="result"></span>
+        </td>
+     </tr>
+     <tr>
+        <td>品名编码：</td>
+        <td>
+              <input type="text" name="name_encod" id="name_encod" value="<!--{$name_encoding}-->" /> 
+              <!--{if $add_tag}-->           
+              <input type="hidden" name="p_id" id="p_id" value="<!--{$quiet_id}-->" />            
+              <!--{/if}-->
+        </td>
+     </tr>
+    <tr>
+       <td>耗材名称：</td>
+       <td><input name="zh_name" id="zh_name" type="text"  value="<!--{$zh_name}-->" /></td>
+    </tr>
+    <tr>
+       <td>耗材单位：</td>
+       <td>
+          <select name="measure">
+            <option value="-9">请选择...</option>
+            <!--{section loop=$m_array name=cus}-->
+            <option value="<!--{$m_array[cus].uuid}-->" <!--{if $measure eq $m_array[cus].uuid}-->selected="selected"<!--{/if}-->><!--{$m_array[cus].measure_name}--></option>
+            <!--{/section}-->
+          </select>
+       </td>
+    </tr>
+    <tr>
+       <td>耗材规格：</td>
+       <td>
+          <select name="format">
+            <option value="-9">请选择...</option>
+            <!--{section loop=$s_array name=cus}-->
+            <option value="<!--{$s_array[cus].uuid}-->" <!--{if $format eq $s_array[cus].uuid}-->selected="selected"<!--{/if}-->><!--{$s_array[cus].specification_name}--></option>
+            <!--{/section}-->
+          </select>
+       </td>
+    </tr>
+    <tr>
+      <td>是否国产:</td>
+      <td>
+      <!--{foreach from=$domestic_array item=v key=k}-->
+         <input type="radio" name="domestic" id="domestic" value="<!--{$k}-->" <!--{if $add_tag}--><!--{if $k eq '1'}-->checked="checked"<!--{/if}--><!--{else}--><!--{if $k eq $domestic}-->checked="checked"<!--{/if}--><!--{/if}-->/><!--{$v}-->
+      <!--{/foreach}-->
+      </td>
+    </tr>
+    <tr>
+      <td>医保等级:</td>
+      <td>
+         <select name="medicare">
+         <option value="-9">请选择...</option>
+         <!--{foreach from=$medicare_array item=v key=k}-->
+           <option value="<!--{$k}-->" <!--{if $medicare eq $k}-->selected="selected"<!--{/if}-->><!--{$v}--></option>
+         <!--{/foreach}-->
+        </select>
+      </td>
+    </tr>
+    <tr >
+      <td colspan="2">
+      <div align="center">
+      <!--{if $add_tag}-->
+          <input type="submit" name="ok" value="添加" />
+          <!--{else}--><input type="submit" name="ok" value="修改" /><!--{/if}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" value="退出" onclick="window.location='<!--{$basePath}-->coding/materials/index/p_id/<!--{$quiet_id}-->'" />
+      </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+/*
+    function check_form()
+  	  {
+  	  	 var standard_code = $("#standard_code");
+  	  	 var zh_name = $("#zh_name");
+  	  	 if(standard_code.val()=="")
+  	  	 {
+  	  	 	alert("卫生耗材分类编码不能为空！");
+  	  	 	standard_code.focus();
+  	  	 	return false;
+  	  	 }
+  	  	 if(zh_name.val()=="")
+  	  	 {
+  	  	 	alert("卫生耗材分类名称不能为空！");
+  	  	 	zh_name.focus();
+  	  	 	return false;
+  	  	 }
+  	  }
+ */
+</script>

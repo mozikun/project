@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+body { /*background-image:-moz-linear-gradient(0% 0% 90deg, #069, #0cc); background-image: -webkit-gradient(linear, left top, left bottom, from(#069), to(#0cc), to(#000));*/ background-color: #039ab4; position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; }
+.box { width: 775px; height: 660px; position: absolute; background-color: #fefefe; border: solid 1px #ddd; border-radius: 2px; background: -webkit-gradient(linear, 0 0, 0 100%, from(＃2074af), to(＃2c91d2)); margin-top: -265.5px; margin-left: -388.5px; left: 50%; top: 40%; box-shadow:0 1px 3px #fff; border-radius:4px; }
+.box .title { height: 70px; background-image: url(../../images/lead/ya_01.png); box-shadow: 0 2px 3px #1d6363; border-radius: 5px; }
+.box .title h1 { font-size: 24px; line-height: 70px; text-align: center; height: 70px; color: #103470; text-shadow: 2px 2px 2px #FFF, -2px -2px -2px #FFF;/* -webkit-box-reflect: below -25px -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(.5, transparent), to(#fff));*/ display: block; }
+.box .mains { height: 490px; margin-top: 4px; background-color: #eee; }
+.box .bottom { }
+.box .mains .left { float: left; height: 488px; width: 238px; border: 1px solid #128285; border-radius: 3px; overflow: hidden; box-shadow: 0px 0 3px #999; }
+.box .mains .right { height: 488px; border: 1px solid #fff; background-image: url(../../images/lead/ya_13.png); position: relative; background-repeat: no-repeat; background-position: center; box-shadow:0 1px 3px #999; border-radius:4px; }
+.ri_text { text-align: center; height: 30px; position: absolute; bottom: 14px; width: 90px; line-height: 30px; font-size: 16px; font-weight: bold; color: #333; text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff; left: 300px; }
+.box .mains .left ul li { display: block; height: 50px; border: solid 2px #fefefe; border-top: none; }
+.box .mains .left ul li a { display: block; line-height: 50px; font-size: 18px; color: #FFF; background-image: url(../../images/lead/ya_03.png); background-repeat: no-repeat; background-position: -2px; padding-left: 10px; border-radius: 5px; overflow: hidden; }
+.box .mains .left ul li a:hover { background-image: url(../../images/lead/ya_04.png); font-weight: bold; text-decoration: none; box-shadow: 0 2px 3px #666; text-shadow: 0 0 2px #eee; }
+.box .mains .left ul li span { display: block; float: left; height: 30px; width: 30px; margin-top: 10px; margin-right: 2px; }
+.area a { display: block; height: 100%; width: 100%; }
+.pos1 { height: 47px; width: 60px; top: 161px; right: 288px; }
+.pos2 { height: 118px; width: 75px; top: 182px; right: 330px; }
+.pos3 { height: 69px; width: 124px; top: 238px; right: 405px; }
+.pos4 { height: 96px; width: 122px; top: 140px; right: 406px; }
+.pos5 { height: 113px; width: 131px; top: 308px; right: 375px; }
+.pos6 { height: 134px; width: 100px; top: 5px; right: 386px; }
+.pos7 { height: 100px; width: 100px; top: 333px; right: 504px; }
+.pos8 { height: 115px; width: 58px; top: 44px; right: 326px; }
+.area { position: absolute; }
+.introduce { height: 75px; background-color: #FFF; padding: 10px; }
+.introduce p{ line-height: 25px; color: #000; text-shadow:1px 1px #ddd;}

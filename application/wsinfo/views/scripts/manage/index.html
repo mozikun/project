@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<title>接口模块列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+a{
+	text-decoration:none;
+}
+</style>
+</head>
+<body>
+<table width="100%" align="center">
+   <tr class="headbg">
+    <td width="14%"><strong>模块代码</strong></td>
+	<td><strong>模块名称</strong></td>
+	<td><strong>创建者</strong></td>
+	<td><strong>创建时间</strong></td>
+	<td><strong>排序号</strong></td>
+	<td><strong>模板路径</strong></td>
+	<td width="14%"><strong>操作</strong></td>
+   </tr>
+   <!--{foreach from=$rows item=r key=k}-->
+   <tr>
+    <td width="14%"><!--{$r.module_id}--></td>
+	<td><!--{$r.module_name}--></td>
+	<td><!--{$r.staff}--></td>
+	<td><!--{$r.created}--></td>
+	<td><!--{$r.order_by}--></td>
+	<td><!--{$r.xml}--></td>
+	
+	<td width="14%"><a href="<!--{$basePath}-->wsinfo/manage/edit/uuid/<!--{$r.uuid}-->/currentpage/<!--{$pageCurrent}-->/module_search/<!--{$module_id}-->/table_search/<!--{$table_name}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#" onclick="del('<!--{$r.uuid}-->')">[删除]</a></td>
+   </tr>
+   
+   <!--{/foreach}-->
+	<tr>
+	 <td colspan="7" align="left" width="100%">
+		<a href="<!--{$basePath}-->wsinfo/manage/add">[添加]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}-->
+	 </td>
+	</tr>
+	<script  language="javascript">
+           function del(id)
+		   {   
+		      if(confirm('您确定删除吗?请谨慎操作')){
+			   $.get("<!--{$basePath}-->wsinfo/manage/del/id/"+id,function(data){
+				   alert(data);
+
+				   window.location='<!--{$basePath}-->wsinfo/manage/index';
+			   });
+			  }
+			   }
+        </script>
+</table>
+</body>

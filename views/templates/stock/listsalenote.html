@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99" style="margin:0px;padding:0px;">
+<!--	销货单<br />
+-->	
+	<table class="categoryList">
+		<tr  class="title"><td>订单号</td><td>商品名称</td><td>客户名称</td><td>日期</td><!--<td>动作</td>--><!--<td>计量方式</td>--><td>数量</td><td>单价</td><td>单价×数量</td><td>实际总价</td><td>操作</td></tr>
+	<!--{section name=stockList loop=$stockList}-->
+		<tr  id="<!--{$stockList[stockList].saleId}-->">
+			<td><!--{$stockList[stockList].udfSaleNoteId}--></td>
+			<td><a href="#" onclick="setFrame2('<!--{$stockList[stockList].saleId}-->')"><!--{$stockList[stockList].goodsDescription}--></a></td>
+			<td><!--{$stockList[stockList].factory}--></td>
+			<td><!--{$stockList[stockList].date}--></td>
+			<!--
+			<td><!--{$stockList[stockList].action}--></td>
+			<td><!--{$stockList[stockList].measurementRate}--></td>
+			-->
+			<td><!--{$stockList[stockList].amountSell}--></td>
+			<td><!--{$stockList[stockList].priceSell}--></td>
+			<td><!--{$stockList[stockList].calculatePriceTotalSell}--></td>
+			<td><!--{$stockList[stockList].priceTotalSell}--></td>
+			<td>
+				<a href="#" onclick="setFrame2('<!--{$stockList[stockList].saleId}-->')">编辑</a>
+				<a href="/goods/stock/deletesell/sailId/<!--{$stockList[stockList].saleId}-->/openerUrl/<!--{$openerUrl}-->" onclick="return confirm('是否确定')">删除</a>
+			</td>
+		</tr>
+	<!--{/section}-->
+		<tr>
+		<td colspan="6"></td>
+		<td><!--{$calculatePriceTotalSell}--></td>
+		<td><!--{$priceTotalSell}--></td>		
+		<td>&nbsp;</td>
+		</tr>
+	</table>
+
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+	<input type="hidden" id="opener" name="opener" value="<!--{$opener}-->" />
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	
+	
+</body>
+</html>
+
+<script type="text/javascript" src="/views/templates/script/dropdownbox.js"></script>
+<script type="text/javascript">
+function doQuery(){
+	//alert(parentId);
+	var url='/goods/stock/listbuy/categoryId/'+parentId+'/goodsId/'+goodsId+'/sid/'+Math.random();
+	document.location=url;
+}
+function add(){
+	//这里的goodsId并不是下拉框的id，而隐藏变量的id，请注意
+	if($('goodsId').value=='-9' || $('goodsId').value==''){
+		//alert($('parentId').value);
+		alert('请选择一种商品');
+		return false;
+	}
+	if($('goodsMeasurementDropDownBox')==null){
+		alert('请选择计量模式');
+		return false;
+	}
+	if($('goodsMeasurementDropDownBox').value=='-9'){
+		//alert($('parentId').value);
+		alert('请选择计量模式。如果计量模式列表框下没有值，请到商品计量模式中先定义。');
+		return false;
+	}
+
+	var goodsId=$('goodsId').value;
+	var goodsMeasurement=$('goodsMeasurementDropDownBox').value;
+	var openerUrl=$('openerUrl').value;
+	var url='/goods/stock/addbuy/goodsId/'+goodsId+'/goodsMeasurement/'+goodsMeasurement+'/openerUrl/'+openerUrl+'/sid/'+Math.random();
+	//alert(url);
+	document.location=url;
+
+}
+//在引入的.js文件中已定义了requestForm()等函数，因此在这里再次定义时就出错了，请以后注意封装的问题
+/*function requestForm(){
+//测试用ajax方式加载动态网页，但发现无法执行该页面的js，因此处理起来比较困难。
+xmlHttp=getXmlHttpObject();
+url='/goods/stock/displaybuy/stockId/'+parentId+'/categoryId/'+categoryId+'/goodsId/'+goodsId+'/sid/'+Math.random();
+url='/goods/stock/displaybuy/stockId/4a74476a0643a/openerUrl/categoryId-1|goodsId-|current_page-0';
+xmlHttp.onreadystatechange=handleStateChange;
+xmlHttp.open('GET',url,false);
+xmlHttp.send(null);
+
+}
+function handleStateChange(){
+if(xmlHttp.readyState==4 && xmlHttp.status==200){
+//注：firefox不支持innerText
+//var objDiv=$('container');
+//alert(xmlHttp.responseText);
+//objDiv.innerHTML=xmlHttp.responseText;
+
+}
+}*/
+function setFrame2(saleId){
+	//var iframe=$('displaysell');
+	//让所有的tr恢复原色
+	var rows=document.getElementsByTagName('tr');
+	for(var i=0;i<rows.length;i++){
+		rows[i].style.backgroundColor='#EFEFEF';
+	}
+	var row=$(saleId);
+	row.style.backgroundColor='#00FFFF';
+	try{
+		var frame2=window.parent.document.getElementById('frame2');
+		url='/goods/stock/displaysell/saleId/'+saleId;
+		frame2.src=url;
+
+	}catch(e){
+		//alert(e);
+	}
+}
+</script>
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var goodsId=$('goodsId').value;
+var xmlHttp;
+//getCategoryDropDownBox();
+//requestForm();
+//requestForm1();
+//alert($('stockId').value);
+if($('message').value!=''){
+	alert($('message').value);
+}
+//如果删除了，就让中间的frame显示空页
+if($('opener').value=='deletesell'){
+	var frame2=window.parent.document.getElementById('frame2');
+	url='';
+	frame2.src=url;
+	parent.frames[2].location.reload();
+
+
+}
+</script>

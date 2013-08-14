@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>添加地区扩展基本信息</title>
+<script type="text/javascript">
+   function checksub(){
+	   var base_year        = document.getElementById('base_year');
+	   var base_number      = document.getElementById('base_number');
+	   var base_city_number = document.getElementById('base_city_number');
+	   var base_vill_number = document.getElementById('base_vill_number');
+	   var base_area_number = document.getElementById('base_area_number');
+	   if(base_year.value==""){
+		   window.alert("请输入年限信息");
+		   base_year.focus();
+		   return false;
+		   }
+	   if(isNaN(base_year.value)){ 
+		   alert("请输入数字！");
+		   base_year.value="";
+		   base_year.focus();
+		   return false;
+	   }
+	   if(base_year.value.length!==4){
+		   alert("对不起您输入的年份长度不正确!");
+		   base_year.value="";
+		   base_year.focus();
+		   return false;
+		   }
+	   if(base_number.value==""){
+		   window.alert("请输入人口总数信息！");
+		   base_number.focus();
+		   return false;
+		   }
+	   if(isNaN(base_number.value)){ 
+		   alert("请输入数字或者小数！");
+		   base_number.value="";
+		   base_number.focus();
+		   return false;
+	   }
+	   /**if(base_city_number.value==""){
+		   window.alert("请输入城市人口总数信息！");
+		   base_city_number.focus();
+		   return false;
+		   }
+	   if(isNaN(base_city_number.value)){ 
+		   alert("请输入数字或者小数！");
+		   base_city_number.value="";
+		   base_city_number.focus();
+		   return false;
+	   }
+	   if(base_vill_number.value==""){
+		   window.alert("请输入农村人口总数信息！");
+		   base_vill_number.focus();
+		   return false;
+		   }
+	   if(isNaN(base_vill_number.value)){ 
+		   alert("请输入数字或者小数！");
+		   base_vill_number.value="";
+		   base_vill_number.focus();
+		   return false;
+	   }*/
+	   if(base_area_number.value==""){
+		   window.alert("请输入地理面积信息！");
+		   base_area_number.focus();
+		   return false;
+		   }
+	   if(isNaN(base_area_number.value)){ 
+		   alert("请输入数字或者小数！");
+		   base_area_number.value="";
+		   base_area_number.focus();
+		   return false;
+	   }		  
+	  }
+</script>
+<body>
+<form name="form1" id="form1" method="post" onsubmit="return checksub();"/>
+	<table cellspacing="0" style="100%">
+    <thead>
+    <tr >
+	<th style="width:40%" colspan="3" align="left">当前地区:<font color="Red"><!--{$regionname}--></font>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript::" onclick="window.location='<!--{$basePath}-->region/regionext/index/nowid/<!--{$currentid}-->/pagecurrent/<!--{$pagecurrent}-->'">返回</a></th>
+	</tr>
+	</thead>
+    <tr  class="headbg">
+	<th colspan="2">地区扩展基本信息</th>
+	</tr>
+    
+	<tr class="columnbg">
+	<th ></th><input type="hidden" value="<!--{$region_id}-->" name="region_id" id="region_id"/><input type="hidden" value="<!--{$org_id}-->"  name="org_id" id="org_id"/><input type="hidden" value="<!--{$id}-->" id='id' name='id'/><input type="hidden" value="<!--{$user_type}-->"  id="user_type" name="user_type"/><input type="hidden" name="region_path" value="<!--{$region_path}-->" id="region_path"/><th></th>
+	</tr>	
+	<tbody id=''>
+      
+      <tr><td  style="width:30%">数据年限</td><td  style="width:70%"><input type="text" name="base_year" id="base_year" value="<!--{$baseyear}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})"/>*</td></tr>
+	  <tr><td >人口总数</td><td ><input type="text" name="base_number" id="base_number"  value="<!--{$population}-->"/>*</td></tr>
+      <!--<tr><td >城市人口</td><td ><input type="text" name="base_city_number" id="base_city_number" value="<!--{$citypopulation}-->"/>*</td></tr>
+      <tr><td >农村人口</td><td ><input type="text" name="base_vill_number" id="base_vill_number" value="<!--{$vill_population}-->"/>*</td></tr>-->
+      <tr><td >地理面积</td><td ><input type='text' name='base_area_number' id='base_area_number'   value="<!--{$graph_area}-->" />*</td></tr>
+	</tbody>
+ 
+    <tr  class="columnbg">
+		<td  colspan="2" style=" text-align:center;"><input type="submit" value="保存 " name="ok"/> <input type="button"  onclick="window.location='<!--{$basePath}-->region/regionext/index/nowid/<!--{$currentid}-->/pagecurrent/<!--{$pagecurrent}-->'" value=" 返回 "/></td>
+	</tr>
+	</table>
+	</form>
+</body>  
+</html> 
+<!--{$msg}-->
+<!--{$msgadd}-->

@@ -1,0 +1,123 @@
+#topDiv{
+	border:solid 1px #C5D9F1;
+	width:800px;
+	height:150px;
+}
+#topLeft{
+	/*border:#0033CC 1px solid;*/
+	margin:0 5px 0 5px;
+	width:183px;
+	height:150px;
+}
+#topRight{
+	/*border: 1px solid #0033CC ;*/
+	/*background:#CCCCCC;*/
+	width:598px;
+	height:150px;
+}
+/*图片样式*/
+.image{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:120px;
+}
+/*幻灯片图片样式*/
+.alterImage1{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:130px;
+	display:none;
+}
+/*幻灯片的第一张主动显示出来*/
+.initialImage{
+	display:block;
+}
+#topMenuDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	/*与页面的宽度一样，要好看一些*/
+	width:800px;
+	line-height:40px;
+	z-index:100;
+	background:#EBF3FB;
+	/*#008AE4-蓝色*/;
+}
+#topMenuUl{
+	float:none;
+	margin:0;
+	padding:0;
+	/*这两个决定菜单的高度*/
+	line-height:36px;
+	height:36px;
+	/*列表样式为无*/
+	list-style-type:none;
+	border-bottom:solid 4px #C5D9F1;
+	/*#ACACAC*/
+	width:100%;
+}
+#topMenuUl li{
+	float:left;
+	margin:0;
+	padding:0;
+	width:90px;
+	background:#EBF3FB;
+	/*当列表横起来后，充当块的右边界*/
+	border-right:solid 1px #C5D9F1;
+	/*必须要text-align:left,教学中作为调试，可修改给学生看align为right的情况*/
+	text-align:left;
+}
+#topMenuUl li a{
+	/*这里必须要用none,如果不用none,则下拉菜单会浮动到与主菜单同一水平位置*/
+	float:none;
+	/*a用block的方式呈现，所以a hover就成整体反色效果了*/
+	display:block;
+	/*这里必须要用100%，使每个a都充满所在的li的左右边界，否则下拉菜单的位置不对*/
+	width:100%;
+	text-decoration:none;
+	color:#000000;
+	margin:0;
+	padding:0;
+	/*必须要*/
+	text-align:center;
+}
+#topMenuUl li a:hover{
+	background:#C5D9F1;
+}
+.subMenu{
+	border-bottom:solid 1px #C5D9F1;
+}
+#topMenuUl li ul{
+	/*这个ul与上面的a都是父级下面的二个块，只要处理好这两个块的关系，下拉菜单的制作就很简单了*/
+	/*此处一定为absolute，根据层的相对与绝对浮动原理，就能使下拉菜单显示在下方*/
+	position:absolute;
+	/*刚载入时，所有的下拉菜单都不显示*/
+	display:none;
+	width:80px;
+	line-height:24px;
+	list-style-type:none;
+	margin:0px 0px 0px -1px;
+	padding:0px;
+}
+#topMenuUl li ul li{
+	float:left;
+	background:#EBF3FB;
+	border-left:solid 1px #C5D9F1;
+	border-right:solid 1px #C5D9F1;	
+	/*border-top:solid 1px #C5D9F1;*/
+	border-bottom:solid 1px #C5D9F1;
+	margin:0px;
+	padding:0px;
+
+}
+#topMenuUl li ul li a{
+	margin:0px;
+	padding:0px;
+
+	/*width:80px;*/
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>业务量统计表列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>业务量统计表</strong>
+	  </td>
+	</tr>
+		<form action="" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="patientname"  value=""/>&nbsp;
+				身份证号:<input type="text" name="identity_number" value=""/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th title="医疗机构名称">
+        	医疗机构名称
+        </th>
+		
+		<th title="科室名称">
+        	科室名称
+        </th>
+        <th title="门诊人次">
+        	门诊人次
+        </th>
+         <th title="急诊人次">
+        	急诊人次
+        </th>
+        <th title="业务时间">
+        	业务时间
+        </th>
+		<th title="填报日期">
+        	填报日期
+        </th>
+       
+        
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	<!--{section loop=$row name=row}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+        <td>
+         <!--{$row[row].yljgdm}-->
+        </td>
+		<td>
+        	<!--{$row[row].ksmc}-->
+        </td>
+        <td>
+        	<!--{$row[row].mzrc}-->
+        </td>
+        <td>
+           <!--{$row[row].jzrc}-->
+        </td>
+		<td>
+            <!--{$row[row].ywsj}-->
+        </td>
+        <td>
+            <!--{$row[row].bgsj}-->
+        </td>
+        
+		<td >
+        	<a href="<!--{$basePath}-->his/ywltj/display/id/<!--{$row[row].id}-->,<!--{$row[row].ksbm}-->,<!--{$row[row].ywsj}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<td colspan="6" align="center">
+	   当前没有符合条件的数据！
+	</tr>
+	<!--{/section}-->
+	  <tr>
+	  <td colspan="6" align="center"> 
+         <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

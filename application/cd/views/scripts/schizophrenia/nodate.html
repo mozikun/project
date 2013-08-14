@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>个人健康档案列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js" type="text/javascript"></script>
+<script>	
+	function set_session(uid)
+	{
+		$.ajax({
+			type:"get",
+			url:"<!--{$basePath}-->iha/index/setsession/uuid/"+uid,
+			dataType:"html",
+			data:"",
+			success:function(data){
+				//alert(data);
+				if($.trim(data)=="ok")
+				{
+					//设置图标
+					//移除已经标志为选中状态的数据
+					$(".online").attr("src","<!--{$basePath}-->images/status_offline.png");
+					//将选中用户置为在线状态
+					//alert(uid);
+					//var obj1=document.getElementById("iha_"+uid);
+					//var obj2=obj1.getElementByTagname('img');
+					//document.getElementById('')
+					var id='img_'+uid;
+					$("img[id='"+id+"']").attr("src","<!--{$basePath}-->images/status_online.png");
+					//设置顶部医生提示
+					id=uid+"_name";
+					$(window.top.frames["right_top"].document).find('#patient').html($("td[id='"+id+"']").text());
+				}
+				//return false;
+			}
+		});
+		return true;
+	}
+</script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>&nbsp;
+        	
+        </th>
+        <th>档案号
+        </th>
+		<th>
+        	姓名
+        </th>
+		<th>
+        	性别
+        </th>
+		<th>
+        	家庭地址
+        </th>
+		<th>
+        	年龄
+        </th>
+		<th>
+        	联系电话
+        </th>
+		<th>
+        	户主姓名
+        </th>
+		<th>
+        	建档医生
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+	<!--{section name=iha loop=$iha}-->
+	 <tr id="iha_<!--{$iha[iha].uuid}-->" ondblclick="set_session('<!--{$iha[iha].uuid}-->')">
+	 	<td>
+	 		<!--{if $iha[iha].uuid==$individual_current->uuid}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$basePath}-->images/status_online.png" class="online" />
+			<!--{else}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$basePath}-->images/status_offline.png" class="online" />
+			<!--{/if}--> 
+	 	</td>
+        <td>
+        	<!--{$iha[iha].standard_code}-->
+        </td>
+		<td id="<!--{$iha[iha].uuid}-->_name">
+        	<!--{$iha[iha].name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].sex}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].address}-->
+        </td>
+		<td title="生日：<!--{$iha[iha].date_of_birth}-->">
+        	<!--{$iha[iha].age}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].contact_number}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].householder_name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].staff_name}-->
+        </td>
+		<td>
+        	<a href="<!--{$basePath}-->iha/index/add/uuid/<!--{$iha[iha].uuid}-->/para_page/<!--{$para_page}-->/opener/index"  onclick="set_session('<!--{$iha[iha].uuid}-->');" target="_blank">编辑档案</a>
+        	<a href="<!--{$basePath}-->iha/index/delete/uuid/<!--{$iha[iha].uuid}-->" onclick="return confirm('是否确定')">删除</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="10">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="10">
+        	<img src="<!--{$basePath}-->images/status_online.png" />选中状态
+			&nbsp;
+			<img src="<!--{$basePath}-->images/status_offline.png" />未选中状态&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+	</tbody>
+</table>
+<div id="rate_popup" style="display:none;">
+</div>
+<input type="hidden" id="error_message" name="error_message" value="<!--{$error_message}-->" />
+</body>
+</html>

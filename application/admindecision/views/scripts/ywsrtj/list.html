@@ -1,0 +1,85 @@
+<table  width="100%" >
+     <tr class="columnbg">
+     <td align="center">地区名称</td>
+     <!--{if $field eq 'mjzylfy'}-->
+     <td align="center">门急诊医疗费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyylfy'}-->
+     <td align="center">住院医疗费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzypfy'}-->
+     <td align="center">门急诊药品费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyypfy'}-->
+     <td align="center">住院药品费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzybylfy'}-->
+     <td align="center">门急诊医保医疗费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyybylfy'}-->
+     <td align="center">住院医保医疗费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzybypfy'}-->
+     <td align="center">门急诊医保药品费用</td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyybypfy'}-->
+     <td align="center">住院医保药品费用</td>	
+     <!--{/if}-->
+    </tr>
+  <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><!--{$row[row].zh_name}--></td>
+    <!--{if $field eq 'mjzylfy'}-->
+    <td align="center"><!--{$row[row].mjzylfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyylfy'}-->
+    <td align="center"><!--{$row[row].zyylfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'mjzypfy'}-->
+    <td align="center"><!--{$row[row].mjzypfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyypfy'}-->
+    <td align="center"><!--{$row[row].zyypfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'mjzybylfy'}-->
+    <td align="center"><!--{$row[row].mjzybylfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyybylfy'}-->
+    <td align="center"><!--{$row[row].zyybylfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'mjzybypfy'}-->
+    <td align="center"><!--{$row[row].mjzybypfy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyybypfy'}-->
+    <td align="center"><!--{$row[row].zyybypfy}--></td>
+   <!--{/if}-->
+   </tr>
+ <!--{/section}-->
+   <tr align="center" class="title">
+     <td>合计</td>
+     <!--{if $field eq 'mjzylfy'}-->
+     <td><!--{$total.sum_mjzylfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyylfy'}-->
+     <td><!--{$total.sum_zyylfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzypfy'}-->
+     <td><!--{$total.sum_mjzypfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyypfy'}-->
+     <td><!--{$total.sum_zyypfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzybylfy'}-->
+     <td><!--{$total.sum_mjzybylfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyybylfy'}-->
+     <td><!--{$total.sum_zyybylfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'mjzybypfy'}-->
+     <td><!--{$total.sum_mjzybypfy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyybypfy'}-->
+     <td><!--{$total.sum_zyybypfy}--></td>
+	<!--{/if}-->
+   </tr>
+</table>

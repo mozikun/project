@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>重性精神病患者个人信息补充表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+</style>
+<script>
+	$(document).ready(function(){
+	//目前症状
+		$("input[name='main_symptomsed[]']").each(function(){
+			 $(this).blur(function(){
+				$("input[name='main_symptomsed[]']").each(function(){
+				var present_symptoms_array=jQuery.parseJSON('<!--{$present_symptoms_json}-->');
+				var input_val=$(this).val();			
+				if(input_val!="" && present_symptoms_array[input_val][0]=="-99")
+				{
+					
+					$("#main_symptomsed_other").attr("disabled",false);
+					if($("#main_symptomsed_other").val()=="")
+					{
+						$("#main_symptomsed_other").focus();
+					}
+					return false;//只要出现了其他项，则退出					
+				}
+				else
+				{				
+					$("#main_symptomsed_other").attr("disabled",true);
+				}
+				});
+			});
+		});
+	});
+</script>
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->cd/schizophrenia/supptabupdate" method="post">
+
+   <input type="hidden" name="id" value="<!--{$id}-->">
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">重性精神病患者个人信息补充表<img title="对于重性精神疾病患者，在建立居民健康档案时，除填写个人基本信息表外，还应填写此表。在随访中发现个人信息有所变更时，要及时修订" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:70%; text-align:left; float:left;background:#FFFFFF;"><strong>姓名</strong>：<!--{$user_name}--></div>
+	  <div style=" width:30%; text-align:left; float:left;background:#FFFFFF;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+   	<tr>
+   	  <td colspan="2">监护人姓名<img title="监护人姓名：法律规定的、目前行使监护职责的人" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td ><input type="text" name="guardian_name" value="<!--{$guardian_name}-->" class="inputnone2"></td>
+      <td>与患者关系</td>
+   	  <td width="34%"><input type="text" name="relationship_with_patients" value="<!--{$relationship_with_patients}-->" class="inputnone2"></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">监护人地址<img title="监护人住址及监护人电话：填写患者监护人目前的居住地址及可以随时联系的电话。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td ><input type="text" name="guardian_address" value="<!--{$guardian_address}-->" class="inputnone2"></td>
+      <td>监护人电话</td>
+   	  <td><input type="text" name="guardian_phone" value="<!--{$guardian_phone}-->" class="inputnone2"></td>
+   	</tr>
+    <tr>
+		<td colspan="2">辖区村委会(居)委会联系人</td>
+	    <td ><input type="text" name="contact_area" value="<!--{$contact_area}-->" class="inputnone1"></td><td>电话</td><td><input type="text" name="phone_area" value="<!--{$phone_area}-->" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+		<td colspan="2">初次发病时间<img title="初次发病时间：患者首次出现精神症状的时间" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="3"><input type="text" name="onset_time" value="<!--{$onset_time}-->" class="inputbottomlong"  onClick="WdatePicker({firstDayOfWeek:1})" /></td>
+   	</tr>
+    <tr>
+		<td colspan="2">知情同意</td>
+	    <td colspan="3">
+	     <!--{foreach key=k item=v from=$informed_consent_options}-->
+                <label onclick="set_input_value('<!--{$k}-->','informed_consent')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+         <!--{/foreach}-->&nbsp;   
+         <input type="text"  name="informed_consent" value="<!--{$informed_consent_current}-->" class="inputnew" />         
+        <br/> 
+        签字:<input type="text" name="informed_consent_sign" value="<!--{$informed_consent_sign}-->" class="inputbottomlong"/>	   
+	    <br/>
+	    签字时间:<input type="text" name="informed_consent_sign_time" value="<!--{$informed_consent_sign_time}-->" class="inputbottomlong"  onClick="WdatePicker({firstDayOfWeek:1})" /> 
+	    </td>
+   	</tr>
+    <tr>
+		<td colspan="2">既往主要症状<img title="既往主要症状：根据患者从第一次发病到填写此表之时的情况，填写患者曾出现过的主要症状" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="3">
+       		 <!--{foreach key=k item=v from=$present_symptoms_options}-->
+               <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+	        <!--{/foreach}-->&nbsp;
+	        <input type="text" name="main_symptomsed_other" id="main_symptomsed_other" value="<!--{$main_symptomsed_other}-->" class="inputbottom" disabled="true"/>
+	        <!--{section name=customer loop=12}-->
+		  	<input type="text" id="main_symptomsed" name="main_symptomsed[]" value="<!--{$main_symptomsed_current[customer]}-->" class="inputnew" />
+	        <!--{/section}-->
+         </td>
+   	</tr>
+   	<tr>
+   	  <td width="10%" rowspan="2">既往治疗情况<img title="既往治疗情况：根据患者接受的门诊和住院治疗情况填写。若未住过精神专科医院或综合医院精神科，填写“0”，住过院的填写次数" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td width="9%" >门诊</td>
+      <td height="30"  colspan="3">  
+   	        <!--{foreach key=k item=v from=$outpatient_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','outpatient')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;
+      		<input type="text" name="outpatient" value="<!--{$outpatient_current}-->" class="inputnew" />    
+      </td>
+   	</tr>
+    <tr>
+      <td>住院</td>
+   	  <td height="30" colspan="3" >
+                     曾住精神专科医院/综合医院精神专科<input type="text" name="hospital" value="<!--{$hospital}-->" class="inputbottom" />次	  
+       </td>
+   	</tr>
+     <tr>
+		<td colspan="2">最近诊断情况<img title="最近诊断情况：填写患者最近一次所患精神疾病的诊断名称，并填写医院名称和确诊日期" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="3">
+	              诊断   <input type="text" name="diagnosis" value="<!--{$diagnosis}-->" class="inputbottomlong"/>
+	              确诊医院<input type="text" name="hospital_diagnosis" value="<!--{$hospital_diagnosis}-->" class="inputbottomlong"/>
+	              确诊日期<input type="text" name="time_diagnosis" value="<!--{$time_diagnosis}-->" class="inputbottomlong" onClick="WdatePicker({firstDayOfWeek:1})" />
+	    </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">最近一次治疗效果</td>
+      <td colspan="3" >
+            <!--{foreach key=k item=v from=$treatment_effect_options}-->
+                <label onclick="set_input_value('<!--{$k}-->','therapeutic_effect')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;            
+            <input type="text"  name="therapeutic_effect" value="<!--{$therapeutic_effect_current}-->" class="inputnew" />
+      </td>
+   	</tr>	
+   	<tr>
+   	  <td colspan="2">患者对家庭社会的影响<img title="患病对家庭社会的影响：根据患者从第一次发病到填写此表之时的情况，若未发生过，填写“0”；若发生过，填写相应的次数。轻度滋事：是指公安机关出警但仅作一般教育等处理的案情，例如患者打、骂他人或者扰乱秩序，但没有造成生命财产损害的，属于此类。肇事：是指患者的行为触犯了我国《治安管理处罚法》但未触犯《刑法》，例如患者有行凶伤人毁物等，但未导致被害人轻、重伤的。肇祸：是指患者的行为触犯了《刑法》，属于犯罪行为的" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="3">
+         1 轻度滋事<input type="text" name="mild_trouble" value="<!--{$mild_trouble}-->" class="inputbottom">次&nbsp;
+         2 肇事<input type="text" name="accident" value="<!--{$accident}-->" class="inputbottom">次&nbsp;
+         3 肇祸<input type="text" name="zhaohuo" value="<!--{$zhaohuo}-->" class="inputbottom">次&nbsp;
+         4 自伤<input type="text" name="self_wounding" value="<!--{$self_wounding}-->" class="inputbottom">次&nbsp;
+         5 自杀未遂<input type="text" name="attmpted_suicide" value="<!--{$attmpted_suicide}-->" class="inputbottom">次&nbsp;
+         6 无
+      </td>
+   	</tr>
+   	 <tr>
+   	  <td  colspan="2">关锁情况<img title="关锁情况：关锁指出于非医疗目的，使用某种工具（如绳索、铁链、铁笼等）限制患者的行动自由" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="3">
+           <!--{foreach key=k item=v from=$shut_case_options}-->
+                <label onclick="set_input_value('<!--{$k}-->','shut_case')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;            
+            <input type="text"  name="shut_case" value="<!--{$shut_case_current}-->" class="inputnew" />	
+            </td>  	
+    </tr>
+    <tr>
+   	  <td  colspan="2">经济状况<img title="经济状况：指患者经济状况。贫困指低保户" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="3">
+           <!--{foreach key=k item=v from=$economic_conditions_array}-->
+                <label onclick="set_input_value('<!--{$k}-->','economic_conditions')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+            <!--{/foreach}-->&nbsp;            
+            <input type="text"  name="economic_conditions" value="<!--{$economic_conditions}-->" class="inputnew" />	
+            </td>  	
+    </tr>
+    <tr>
+   	  <td  colspan="2">专科医生的意见<br/>(如果有请记录)<img title="专科医生意见：是指建档时由家属提供或患者原治疗医疗机构提供的精神专科医生的意见。如没有相关信息则填写“无”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="3">
+           <textarea  class="newtextarea" name="specialist_advice" cols="60" rows="5"><!--{$specialist_advice}--></textarea>
+            </td>  	
+    </tr>
+    <tr>
+   	  <td  colspan="2">填表日期</td>
+      <td >
+         <input type="text" name="fill_time" value="<!--{$fill_time}-->" onClick="WdatePicker({firstDayOfWeek:1})" class="inputbottom">年
+	  </td>
+      <td>医生签名</td>
+   	  <td>
+   	 
+       <select name="doctors_signature" style="width:95px">
+       <!--{section loop=$region_users name=experience}-->
+       <option value="<!--{$region_users[experience].user_id}-->" <!--{if $doctors_signature==$region_users[experience].user_id}-->selected<!--{/if}-->>
+       <!--{$region_users[experience].name_real}--></option>
+       <!--{/section}-->
+       </select>
+       </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="5" align="center"><input type="submit" name="ok" value="保存" class="inputbutton"/><!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td>
+   	</tr>
+   </table>
+</form> 
+</body>
+</html>

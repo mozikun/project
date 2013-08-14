@@ -1,0 +1,101 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>机构管理</title>
+<link href="<!--{$__BASEPATH}-->views/templates/organization/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="<!--{$__BASEPATH}-->management/organization/edit" onsubmit="return checkValue();">
+	
+	<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	所属类别<span id='organizationDropDownBox'></span><br />
+	分类名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+<!--	机构属性<input type="checkbox" id="gov" name="gov" value="gov">政府机构&nbsp;
+			<input type="checkbox" id="hospital" name="hospital" value="hospital">医院&nbsp;
+			<input type="checkbox" id="chsc" name="chsc" value="chsc">社区卫生服务中心&nbsp;
+			<input type="checkbox" id="chss" name="chss" value="chss">社区卫生服务站&nbsp;
+			<input type="checkbox" id="department" name="department" value="department">部门&nbsp;
+			<br />		
+-->	
+	内部排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="<!--{$__BASEPATH}-->management/organization/list/id/<!--{$parentId}-->">返回</a>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+//此值在整个过程是要保持不变的
+var id=$('id').value;
+//多级下拉框就依赖于parentId来实现
+var parentId=$('parentId').value;
+var xmlHttp;
+getOrganizationDropDownBox();
+
+function getOrganizationDropDownBox(){
+	if(parentId=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/organization/organizationDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	//本来只需要获取当前部门所在级次及所有上级的下拉框，但为了在staff管理中通用，则把当前级的下一级下拉框也显示出来
+	//比如 销售一部在销售部下面，而销售一科又在销售一部下面。则现在的下拉框不但要显示销售部下拉框，还要显示销售一部下拉框
+	url='<!--{$__BASEPATH}-->management/organization/organizationDropDownBox/parentId/'+parentId+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=handleStateChange;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if($('parentId').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function handleStateChange(){
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//注：firefox不支持innerText
+		var objDiv=$('organizationDropDownBox');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+	}
+}
+function changeValue(theValue){
+	//用户点选了下拉框中的新值时，将此值存入parentId，并刷新下拉框组。
+	parentId=theValue;
+	$('parentId').value=theValue;
+	//id=theValue;
+	//$('id').value=theValue;
+	getOrganizationDropDownBox();
+}
+
+
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject(){
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+	<title><!--{$individual_core->name}--><!--{$title}--></title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%;}
+       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+</head>
+<body>
+    <!--最近二次就诊记录-->
+  <div class="title_bg">
+     门诊处方明细
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!--{section name=tb_fee loop=$tb_cis_prescription_detail}-->
+        <tr >
+          <td colspan="2"><strong>门诊处方(<!--{$tb_cis_prescription_detail[tb_fee].myorder}-->)</strong></td>
+        </tr>
+	    <tr>
+	      <td>医疗机构</td>
+	      <td><!--{$tb_cis_prescription_detail[tb_fee].yljgdm}--></td>
+	    </tr>
+      <tr>
+       <td>患者姓名</td>
+       <td><!--{$tb_cis_prescription_detail[tb_fee].hzxm}--></td>
+      </tr>
+      <!--{section name=tb_fee_table loop=$tb_cis_prescription_detail[tb_fee].cis}-->
+      <tr>
+        <td width="30%">处方号码</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].cyh}--></td>
+     </tr>
+     <tr>
+        <td>就诊科室名称</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].jzksmc}--></td>
+    </tr>
+    <tr>
+        <td>开方医生姓名</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfysxm}--></td>
+    </tr>
+    <tr>
+        <td>开方时间</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfrq}--></td>
+    </tr>
+    <tr>
+        <td>药品名称</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].xmmc}--></td>
+    </tr>
+    <tr>
+        <td>发药数量</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypsl}--></td>
+    </tr>
+      <tr>
+        <td>发药数量单位</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypdw}--></td>
+      </tr>
+    <tr>
+        <td>用药频次</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].sypc}--></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="height:50px;line-height:50px;"></td>
+    </tr>
+      <!--{/section}-->
+      <!--{sectionelse}-->
+      <tr>
+      <td colspan="2">没有任何记录</td>
+      </tr>
+      <!--{/section}-->
+     </table>
+   </div>
+   <div class="ui-footer">
+     <a id="login" href="<!--{$basePath}-->iha/login/index">返回</a>
+  </div>
+</body>
+</html>

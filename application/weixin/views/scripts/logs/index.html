@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>微信日志列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>
+<form action="" id="search" method="post">
+<table border="0" width="100%">
+<tr><td>事件类型：<select name="event">
+                          <option value="">请选择</option>
+                          <!--{foreach key=k item=v from=$event}-->
+                          <option value="<!--{$k}-->" <!--{if $search.wx_event==$k}--> selected="selected"<!--{/if}-->><!--{$v}--></option>
+                          <!--{/foreach}-->
+                          </select>&nbsp;&nbsp;<input type="submit" value="搜索" /></td></tr>
+</table>
+</form>		
+<table border="0" width="100%">
+    <tr class="headbg">
+    	<td colspan="7">
+        	微信日志管理
+        </td>
+	</tr>
+    <tr class="title">
+    	<td>
+        	微信号
+        </td>
+        <td>
+        	请求时间
+        </td>
+        <td>
+        	响应
+        </td>
+        <td>
+        	事件
+        </td>
+        <td>
+        	消息内容
+        </td>
+		<td>
+        	操作选项
+        </td>
+	</tr>
+	<tbody id="log">
+	<!--{section name=log loop=$logs}-->
+	 <tr id="log_<!--{$logs[log].js_uuid}-->">
+	 	<td>
+        	<!--{$logs[log].weixin_id}-->
+        </td>
+		<td>
+        	<!--{$logs[log].add_time}-->
+        </td>
+        <td>
+        	<!--{$logs[log].reply}-->
+        </td>
+        <td>
+        	<!--{$logs[log].event}-->
+        </td>
+        <td>
+        	<!--{$logs[log].content}-->
+        </td>
+		<td>
+       		 <a href="###" onclick="return del('<!--{$logs[log].uuid}-->','<!--{$logs[log].js_uuid}-->')">删除</a>
+		</td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="6">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="6">
+        	<!--{$pager}-->
+        </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
+<script>
+	function del(uuid,js_uuid)
+	{
+		if(confirm("确定要删除微信日志吗？"))
+		{
+			 $.ajax({
+                    type: "get",
+                    url: "<!--{$basePath}-->weixin/logs/delete/uuid/"+uuid,
+                    dataType: "html",
+                    data: "",
+                    success: function(data){
+                        if(data=="ok")
+						{
+							$("#log_"+js_uuid).hide();
+							alert("删除微信日志成功");
+						}
+                        else
+						{
+							alert("删除失败，未知的错误");
+						}
+                        return false;
+                    },
+                    error: function(){
+                        alert("服务器返回信息不完整，请重新点击删除");
+                        return false;
+                    }
+                });
+		}
+		return false;
+	}
+</script>

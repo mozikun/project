@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>慢病确诊人数统计</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<script>
+	$(document).ready(function(){
+		checkForm('<!--{$basePath}-->statistics/iha/cdnums');
+	});
+	
+	function getImgdata(curl){
+		var dd=$("form[name='searchform']").serialize().replace(/=/g,"/");
+		var furl=curl+"/"+dd.replace(/&/g,"/");
+		$("#totaldata").html("<img src='"+furl+"' />");
+	}
+
+	function checkForm(curl)
+	{
+		$.ajax({
+		type:"POST",
+		url:curl,
+		dataType:"html",
+		data:$("form[name='searchform']").serialize(),
+		beforeSend:function(){
+				$("#totaldata").html("<img src=\"<!--{$basePath}-->images/load.gif\" />数据查询中，综合统计可能会耗费较长时间，请耐心等待...");
+				},
+		success:function(data){
+			$("#totaldata").html(data);
+			return false;
+		},
+		error:function(){
+			$("#totaldata").html("<font color=red>服务器返回信息不完整，请重新查询...</font>");
+			return false;
+		}
+	});
+	return false;
+	}
+</script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th colspan="6">
+        	慢病确诊人数按年统计结果(请完善慢病确诊日期，否则统计的数据可能和其他统计口径有差别)
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+		<tr>
+		<td style="vertical-align:top;" id="totaldata">
+			<img src="<!--{$basePath}-->images/load.gif" />数据查询中，综合统计可能会耗费较长时间，请耐心等待...
+		</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

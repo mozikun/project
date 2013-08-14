@@ -1,0 +1,28 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4" align="center"><center>特殊人群健康统计表</center></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="21%">地区名称</td>
+        <td width="17%">老年人健康管理次数</td>
+        <td width="17%">儿童健康管理次数</td>
+        <td width="17%">孕产妇健康管理次数</td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].sum_older}--></td>
+           <td><!--{$row[row].sum_child}--></td>
+           <td><!--{$row[row].sum_maternal}--></td>
+         </tr>
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td><!--{$sum_older}--></td>
+           <td><!--{$sum_child}--></td>
+           <td><!--{$sum_maternal}--></td>
+        </tr>
+
+</table>
+

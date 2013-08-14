@@ -1,0 +1,44 @@
+
+<!--{}-->
+<input type="text" value="<!--{$a}-->" />
+<input type="text" value="<!--{$b}-->" />
+<br />
+<input type="radio" name="sex" value="1" <!--{if $sex == '1'}-->checked<!--{/if}--> />男
+<input type="radio" name="sex" value="2" <!--{if $sex == '2'}-->checked<!--{/if}--> />女
+<br />
+<input type="checkbox" name="ah[]" value="1" <!--{if in_array('1',$ah)}-->checked<!--{/if}--> />吃饭
+<input type="checkbox" name="ah[]" value="2" <!--{if in_array('2',$ah)}-->checked<!--{/if}--> />睡觉
+<input type="checkbox" name="ah[]" value="3" <!--{if in_array('3',$ah)}-->checked<!--{/if}--> />打豆豆
+
+<select multiple>
+	<!--{foreach key=k item=v from = $area}-->
+ 		<option value="<!--{$v}-->"><!--{$v}--></option>
+	<!--{/foreach}-->
+</select>
+
+<table border="1">
+	<tr>
+		<td>ID</td>
+		<td>Title</td>
+	</tr>
+	<!--{foreach key=k item=v from=$data}-->
+ 	<tr>
+ 		<td>
+ 			<!--{foreach key=key item=a from=$v}-->
+ 			<!--{$a}-->
+ 			<!--{/foreach}-->
+ 			<!--{foreach key=key item=val from=$v}-->
+ 			<!--{$val}-->
+ 			<!--{/foreach}-->
+ 		</td>
+ 		<td></td>
+ 	</tr>
+	<!--{/foreach}-->
+</table>
+
+<strong>演示用foreache显示二维数组:方法一</strong><br />
+<!--{foreach name=foreach item=student from=$students}-->
+  <!--{foreach key=key item=value from=$student}-->
+    <!--{$key}-->: <!--{$value}--><br>
+  <!--{/foreach}-->
+<!--{/foreach}-->

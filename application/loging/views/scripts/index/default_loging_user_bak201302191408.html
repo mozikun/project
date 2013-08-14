@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>管理登录</title>
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/css.css" type="text/css" />
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+ <!--{if $currentregion==''}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/organization.js"></script>
+ <!--{else}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/<!--{$currentregion}-->.js"></script>
+ <!--{/if}-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+ <script type="text/javascript">
+	 $(function(){
+		 $("#organize").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code',onSelect:function(){$("#organize_passwd").focus();}, attachObject:'#suggest'});
+	 	
+		
+		
+		 //机构密码失去焦点
+		 $("#organize_passwd").blur( function (){
+				var organize_code  = $("#organize_code").val();//机构代码
+				var organize_passwd= $("#organize_passwd").val();//机构密码
+				
+		 		//机构代码和机构密码不能为空验证表单
+				var user=$("#user_id");//用户下拉框
+		 		if(organize_code!=""  && organize_passwd!=""){
+		 			if(organize_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+			   	  	    $("#Layer1").show();
+		        		user.html('<option >载入中,请等待！</option>'); 
+			   	    }else{
+				   	  	alert("机构密码格式不对!");
+				   	  	user.empty();//清空下拉选项
+				   	  	return false;
+			   	    }
+					$.get("<!--{$basePath}-->loging/index/chkoragnize/organize_code/"+organize_code+"/organize_passwd/"+organize_passwd, function(data){
+					  
+					  if(data.indexOf("~")==-1){
+					  	 alert("网络不通！");
+					  	 user.empty();//清空下拉选项
+					  	 return false;
+					  }
+					  var msg_arr=data.split("~");
+					  var msg_code=msg_arr[0];//信息代码
+					  var msg_content=msg_arr[1];//信息提示
+					  
+					  //alert(data);
+					  
+					
+					  user.empty();//清空下拉选项
+					  if(msg_code!=1){
+					  	  //alert(msg_content);
+					  	  $("#Layer1").hide();
+						  return false;
+					  }else{
+						  var user_array=msg_content.split("|");
+						
+						  for(i=0;i<user_array.length;i++){
+						        //alert(user_array[i]);
+						  		var user_arr= (user_array[i]).split(":");//得到用户id和登录名
+								user.append('<option value="'+user_arr[0]+'">'+user_arr[1]+'</option>');   
+						  }
+						  user.focus();
+						  $("#Layer1").hide();
+					  }
+				
+				  	 
+					  
+					});
+				}
+		 
+		 } );
+		
+		
+		//提交表单
+         $("#loginsubmit").click(function(){
+         	   
+		       var organize_code  = $("#organize_code").val();//机构代码
+			   var organize_passwd= $("#organize_passwd").val();//机构密码
+			   var user_code	  = $("#user_id").val();//用户代码
+			   var user_passwd    = $("#user_passwd").val();//用户密码
+			   
+			   if(organize_code==""){
+			    	alert("请输入机构名！");
+			   		$("#organize").focus();
+					return false;
+			   }
+			   if(organize_passwd==""){
+			    	alert("请输入机构密码！");
+			   		$("#organize_passwd").focus();
+					return false;
+			   }else{
+			   	  if(organize_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+			   	  	 
+			   	  }else{
+			   	  	alert("机构密码格式不对!");
+			   	  	return false;
+			   	  }
+			   	
+			   }
+			    if(user_code==""){
+			    	alert("请选择用户名！");
+			   		$("#user_id").focus();
+					return false;
+			   }
+			   if(user_passwd==""){
+			    	alert("请选择用户密码！");
+			   		$("#user_passwd").focus();
+					return false;
+			   }else{
+				      if(user_passwd.match(/[\u4e00-\u9fa5 0-9 a-z_]{1}/i)){
+				   	  	 
+				   	  }else{
+				   	  	alert("用户密码格式不对!");
+				   	  	return false;
+				   	  }
+			   	
+			   }
+			   
+			   
+			   $.get("<!--{$basePath}-->loging/index/chkuser/organize_code/"+organize_code+"/user_code/"+user_code+"/user_passwd/"+user_passwd, function(data){
+				  	
+				    //alert(data);
+				    var msg_arr = data.split("|");
+				    if(msg_arr[0]==1){
+				    	window.location="<!--{$basePath}-->doctor/index";
+				  		return false;
+				    }
+				  	//document.write(data);
+					
+					alert(msg_arr[1]);
+				    return false;
+					
+			   });
+			   return false;
+						 
+		 });
+	});
+	
+</script>
+<body>
+    <div id="Layer1"><img src="<!--{$basePath}-->images/load.gif"></div>
+	<p></p>
+   <div class="maindiv">
+      <div class="toptextdiv">
+           
+      </div>
+      <div class="topdiv">
+                         
+	  </div>
+	  <div class="topcenter">
+	      
+	      <div class="lefttop"> 
+		  </div>
+		   <form>
+		  <div class="divform">
+		    <table cellpadding="0" cellspacing="0">
+			   <tr>
+			     <td height="25">机构名称：</td>
+				 <td>
+				    <input type="hidden" name="organize_code" id="organize_code" value="" />
+                	<input type="text" name="organize" id="organize" size="16" class="inputclass"/>
+                    <div id='suggest' class="ac_results">
+                    </div>
+				</td>
+			   </tr>
+			   <tr>
+			     <td height="23">机构密码：</td>
+				 <td><input type="password" name="organize_passwd" id="organize_passwd" size="16" maxlength="16" class="inputclass"/></td>
+			   </tr>
+			   <tr>
+			     <td height="25">用户账号：</td>
+				 <td><select name="user_id" id="user_id" class='width' ></select></td>
+			   </tr>
+			   <tr>
+			     <td height="30">用户密码：</td>
+				 <td><input type="password" name="user_passwd" id="user_passwd" size="16" maxlength="16" class="inputclass"></td>
+			   </tr>
+			   <tr>
+			     <td colspan="2" align="center">
+				 <input type="button" name="loginsubmit" value=" 登录 "  id="loginsubmit"/>
+				 <input type="button" name="Submit2" value=" 退出 " onClick="window.location.href='<!--{$basePath}-->loging/index'"/>
+				</td>
+			   </tr>
+			</table>
+		  </div>
+		
+		  </form>
+	  </div>
+	  <div class="topbottom">
+	             一切为了人民健康;非法窃取个人信息是刑事犯罪&nbsp;&nbsp;&nbsp;&nbsp;      &copy;2010&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.yaswsj.gov.cn" target="_blank">四川省雅安市卫生局</a>
+	  </div>
+   </div>
+</body>
+</html>

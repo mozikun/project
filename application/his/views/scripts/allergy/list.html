@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>细菌结果</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style type="text/css">
+table
+{
+	background:#ffffff;
+}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+	text-align:center;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<table border="0" width="100%">
+  <tr class="headbg">
+      <td>
+		<strong>药敏结果</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->his/bacteria/list" id="search" method="post">
+			<tr>			
+				<td>
+				药敏名称 :<input type="text" name="ymmc" value=""/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>
+
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+		<th title="医疗机构名称" >
+			医疗机构名称
+        </th>
+        <th title="药敏结果流水号">
+      	    药敏结果流水号
+        </th>            
+          <th title="检验报告单号">
+      	    检验报告单号
+        </th>        
+        <th title="药敏名称">
+      	    药敏名称
+        </th>
+        <th title="检测结果">
+      	    检测结果
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	 <!--{section name=allergyList loop=$allergyList}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" class="lista">
+		<td>
+        	<!--{$allergyList[allergyList].yyjgmc}-->
+        </td>   
+		<td>
+            <!--{$allergyList[allergyList].ymjglsh}-->
+        </td>		
+        <td>
+            <!--{$allergyList[allergyList].bgdh}-->
+        </td>		
+        <td>
+            <!--{$allergyList[allergyList].ymmc}-->
+        </td>       
+         <td>
+            <!--{$allergyList[allergyList].jcjg}-->
+        </td>       
+
+		<td>
+        	<a href="<!--{$basePath}-->his/allergy/display/ymjglsh/ <!--{$allergyList[allergyList].ymjglsh}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{/section}-->
+		<!--{$str}-->
+	  <tr>
+	  <td colspan="5" align="center"> 
+        <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

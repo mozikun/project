@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>门诊就诊信息</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">门诊就诊信息详细</th>
+</tr>
+</thead>
+<tr>
+  <td colspan="4">医疗机构:<!--{$tb_yl_mz_medical_record->yljgdm}--></td>
+</tr>
+<tr>
+  <td>姓名</td>
+  <td><!--{$tb_yl_mz_medical_record->hzxm}--></td>
+  <td>性别</td>
+  <td><!--{$tb_yl_patient_information->xb}--></td>
+</tr>
+<tr>
+  <td>卡号</td>
+  <td><!--{$tb_yl_mz_medical_record->kh}--></td>
+  <td>卡类型</td>
+  <td><!--{$tb_yl_mz_medical_record->klx}--></td>
+</tr>
+<tr>
+  <td>患者属性</td>
+  <td><!--{$tb_yl_mz_medical_record->hzsx}--></td>
+
+<td>就诊科室名称</td>
+<td><!--{$tb_yl_mz_medical_record->jzksmc}--></td>
+</tr>
+<tr>
+  <td>门诊就诊日期</td>
+  <td><!--{$tb_yl_mz_medical_record->jzksrq}--></td>
+  <td>主诊医生工号</td>
+  <td><!--{$tb_yl_mz_medical_record->zzysgh}--></td>
+</tr>
+<tr>
+  <td>主诊医生姓名</td>
+  <td><!--{$tb_yl_mz_medical_record->zzysxm}--></td>
+  <td>门诊诊断编码（主要诊断)</td>
+  <td><!--{$tb_yl_mz_medical_record->jzzdbm}--></td>
+</tr>
+<tr>
+  <td>门诊诊断名称（主要诊断）</td>
+  <td><!--{$tb_yl_mz_medical_record->jzzdmc}--></td>
+  <td>编码类型</td>
+  <td><!--{$tb_yl_mz_medical_record->bmlx}--></td>
+</tr>
+<tr>
+  <td>门诊诊断说明</td>
+  <td><!--{$tb_yl_mz_medical_record->jzzdsm}--></td>
+  <td>主诉</td>
+  <td><!--{$tb_yl_mz_medical_record->zs}--></td>
+</tr>
+<tr>
+  <td>症状描述</td>
+  <td><!--{$tb_yl_mz_medical_record->zzms}--></td>
+  <td>收缩压(mmHg)</td>
+  <td><!--{$tb_yl_mz_medical_record->ssy}--></td>
+</tr>
+<tr>
+  <td>舒张压(mmHg)</td>
+  <td><!--{$tb_yl_mz_medical_record->szy}--></td>
+  <td>体温(℃)</td>
+  <td><!--{$tb_yl_mz_medical_record->tw}--></td>
+</tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

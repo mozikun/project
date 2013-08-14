@@ -1,0 +1,34 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4" align="center"><center><strong>基本建档率统计表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="21%"><strong>地区</strong></td>
+        <td width="17%"><strong>人口数</strong></td>
+        <td width="17%"><strong>已建档数</strong></td>
+        <td width="17%"><strong>总建档率</strong></td>
+<!--        <td width="14%"><strong>一年内<br />新建档数</strong></td>
+        <td width="14%"><strong>一年内<br />新建档率<br />(100%)</strong></td>-->
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td align="right"><!--{$row[row].population}--></td>
+           <td align="right"><!--{$row[row].archive}--></td>
+           <td align="right"><!--{$row[row].archive_rate}--></td>
+<!--           <td><!--{$row[row].archive_last_year}--></td>
+           <td><!--{$row[row].archive_rate_last_year}--></td>-->
+         </tr>
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td align="right"><!--{$sum_population}--></td>
+           <td align="right"><!--{$sum_archive}--></td>
+           <td align="right"><!--{$sum_archive_rate}--></td>
+<!--           <td><!--{$sum_archive_last_year}--></td>
+           <td><!--{$sum_archive_rate_last_year}--></td>-->
+        </tr>
+</table>
+
+

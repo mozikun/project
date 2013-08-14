@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<script src="" type="text/javascript"></script>
+
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">床位数</td>
+	</tr>
+</table>
+<!--传了 ID后的 -->
+<table width="100%" border="0">
+	<tr class="headbg">
+	    <td rowspan="2">地区</td>
+	    <td align="center" rowspan="2">机构名称</td>
+		<td align="center" rowspan="2">年&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+		<td align="center" colspan="1">编制床位数</td>
+		<td align="center" colspan="1">实有床位数</td>
+		<td align="center" colspan="1">实际开放总床日数</td>
+		<td align="center" colspan="1">实际占用总床日数</td>
+		<td align="center" colspan="1">出院者占用总床日数</td>
+		<td align="center" colspan="1">观察床</td>
+		<td align="center" colspan="1">全年开设家庭病床总数</td>
+	</tr>
+	<tr class="headbg">
+		<!--编制床位数-->
+		<td align="center">合计</td>
+		<!--实有床位数-->
+		<td align="center">合计</td>
+		<!--实际开放总床日数-->
+		<td align="center">合计</td>
+		<!--实际占用总床日数-->
+		<td align="center">合计</td>
+		<!--出院者占用总床日数-->
+		<td align="center">合计</td>
+		<!--观察床-->
+		<td align="center">合计</td>
+		<!--全年开设家庭病床总数-->
+		<td align="center">合计</td>
+	</tr>
+    <!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td rowspan="<!--{$region_array[region_array].rowspan}-->"><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/orgbed/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	    <!--{section loop=$region_array[region_array].org name=c}-->
+	    <!--{if $smarty.section.c.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td rowspan="<!--{$region_array[region_array].org[c].org_ext}-->"><!--{$region_array[region_array].org[c].zh_name}--></td>
+	   <!--{section loop=$region_array[region_array].org[c].ext name=d}-->
+	   <!--{if $smarty.section.d.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td><!--{$region_array[region_array].org[c].ext[d].year}-->年</td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].bed_number}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].bed_allnumber}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].totalbed_days}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].occupied_bed}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].tbo_total}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].observation_bed}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].family_beds}--></td>
+	  </tr>
+	  <!--{sectionelse}-->
+	    <td colspan="8" align="left">无机构床位信息数据</td>
+	  </tr>
+	 <!--{/section}-->
+	 <!--{sectionelse}-->
+	  <td colspan="9" align="left">无机构数据</td>
+	  </tr>
+	 <!--{/section}-->
+     <!--{/section}-->
+</table>
+</body>
+</html>

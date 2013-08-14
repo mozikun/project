@@ -1,0 +1,14 @@
+img{
+	float:left;
+}
+span{
+	clear:none;
+}
+div{
+	float:left;
+	margin:10px;
+	width:100%;
+}
+#content{
+	width:600px;
+}

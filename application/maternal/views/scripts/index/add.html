@@ -1,0 +1,568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/iha_add.js" type="text/javascript"></script>
+<script>
+	function check_form()
+	{
+		if($("input[name='last_menstrual_year']").val()=="")
+		{
+			alert("请选择末次月经时间的年份");
+			$("input[name='last_menstrual_year']").focus();
+			return false;
+		}
+		if($("input[name='last_menstrual_month']").val()=="")
+		{
+			alert("请选择末次月经时间的月份");
+			$("input[name='last_menstrual_month']").focus();
+			return false;
+		}
+		if($("input[name='last_menstrual_day']").val()=="")
+		{
+			alert("请选择末次月经时间的天数");
+			$("input[name='last_menstrual_day']").focus();
+			return false;
+		}
+	}
+	function mk_disable(iptname)
+	{
+		if($("input[name='"+iptname+"']").val()=='2')
+		{
+			$("input[name='"+iptname+"_info']").focus();
+			$("input[name='"+iptname+"_info']").attr("disabled",false);
+		}
+		else
+		{
+			$("input[name='"+iptname+"_info']").attr("disabled",true);
+		}
+	}
+	function refer()
+	{
+		if($("input[name='referral']").val()=='2')
+		{
+			$("input[name='referral_reason']").focus();
+			$("input[name='referral_reason']").attr("disabled",false);
+			$("input[name='referral_org']").attr("disabled",false);
+		}
+		else
+		{
+			$("input[name='referral_reason']").attr("disabled",true);
+			$("input[name='referral_org']").attr("disabled",true);
+		}
+	}
+$(document).ready(function(){
+	//处理既往史
+	$("input[name='clinical_history[]']").each(function(){
+		$(this).blur(function(){
+			$("input[name='clinical_history[]']").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$clinical_history_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#disease_history_info").attr("disabled",false);
+				if($("#disease_history_info").val()=="")
+				{
+					$("#disease_history_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#disease_history_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+	//处理家族史
+	$("input[name='family_history[]']").each(function(){
+		$(this).blur(function(){
+			$("input[name='family_history[]']").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$family_history_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#family_history_info").attr("disabled",false);
+				if($("#family_history_info").val()=="")
+				{
+					$("#family_history_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#family_history_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+    //处理个人史
+	$("input[name='personal_history[]']").each(function(){
+		$(this).blur(function(){
+			$("input[name='personal_history[]']").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$personal_history_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#personal_history_info").attr("disabled",false);
+				if($("#personal_history_info").val()=="")
+				{
+					$("#personal_history_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#personal_history_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+	//处理阴道分泌物
+	$("input[name='vaginal_fluid[]']").each(function(){
+		$(this).blur(function(){
+			$("input[name='vaginal_fluid[]']").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$vaginal_fluid_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#vaginal_fluid_info").attr("disabled",false);
+				if($("#vaginal_fluid_info").val()=="")
+				{
+					$("#vaginal_fluid_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#vaginal_fluid_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+    //处理保健指导
+    $("input[name='health_guide[]']").each(function(){
+		$(this).blur(function(){
+			$("input[name='health_guide[]']").each(function(){
+			//转换过来只是JSON字符串，需要解析一次
+			var charge_style_array=jQuery.parseJSON('<!--{$health_guide_json}-->');
+			var input_val=$(this).val();
+			if(input_val!="" && charge_style_array[input_val][0]=="-99")
+			{
+				$("#health_guide_info").attr("disabled",false);
+				if($("#health_guide_info").val()=="")
+				{
+					$("#health_guide_info").focus();
+				}
+				return false;//只要出现了其他项，则退出
+			}
+			else
+			{
+				$("#health_guide_info").attr("disabled",true);
+			}
+			});
+		});
+	});
+    
+});
+</script>
+<title>第1次产前随访服务记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+</style>
+</head>
+<body >
+
+<form  action="<!--{$basePath}-->maternal/index/editin" method="post" onsubmit="return check_form()">  
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px; font-weight: bold;">第1次产前随访服务记录表<img title="请查看下方填表说明" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>姓名</strong>：<!--{$user_name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+   	<tr>
+		<td width="10%">填表日期</td>
+	    <td colspan="2">
+	    	<input type="hidden" name="uuid" value="<!--{$uuid}-->" />
+	    	<input type="hidden" name="userid" value="<!--{$userid}-->" />
+		<input type="text" name="follow_time_year" value="<!--{$filling_time_year}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="follow_time_month" value="<!--{$filling_time_month}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="follow_time_day" value="<!--{$filling_time_day}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+		</td>
+		<td width="16%">填表孕周<img title="填表孕周：为填写此表时孕妇的怀孕周数。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+		<td colspan="2"><input type="text" name="gestational_weeks" value="<!--{$gestational_weeks}-->" class="inputnone"/>周</td>
+   	</tr>
+    <tr>
+	   <td>孕妇年龄</td>
+	   <td colspan="5"><!--{$age}--></td>
+	</tr>
+	<tr>
+	   <td>丈夫姓名</td>
+	   <td width="23%"><input type="text" name="husband_name" value="<!--{$husband_name}-->" class="inputnone2"/></td>
+	   <td width="21%">丈夫年龄</td>
+	   <td><input type="text" name="husband_age" value="<!--{$husband_age}-->" class="inputnone"/></td>
+	   <td width="14%">丈夫电话</td>
+	   <td width="16%"><input type="text" name="husband_phone" value="<!--{$husband_phone}-->" class="inputnone2"/></td>
+	</tr>
+	<tr>
+		<td width="10%">孕&nbsp;&nbsp;&nbsp;&nbsp;次<img title="孕次：怀孕的次数，包括本次妊娠。系统自动取记录中最大值并加1次作为默认值" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="2">
+		<input type="text" name="gravidity" value="<!--{$gravidity}-->"  class="inputnone"></td>
+		<td width="16%">产&nbsp;&nbsp;&nbsp;&nbsp;次<img title="指此次怀孕前，孕期超过28周的分娩次数。参考值为上次记录中填写的值，没有记录则默认为0次" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+		<td colspan="2">阴道分娩<input type="text" name="number_vaginal_delivery" value="<!--{$number_vaginal_delivery}-->" class="inputbottomshort" style="text-align: center;"/>次<!--{if !$uuid}-->(参考值:<!--{$number_vaginal_delivery_more}-->)<!--{/if}-->&nbsp;剖宫产<input type="text" name="cesarean_delivery_times" value="<!--{$cesarean_delivery_times}-->" class="inputbottomshort" style="text-align: center;"/>次<!--{if !$uuid}-->(参考值:<!--{$cesarean_delivery_times_more}-->)<!--{/if}-->
+        <input type="hidden" name="parity" value="<!--{$parity}-->" />
+        </td>
+   	</tr>
+   	<tr>
+	   <td>末次月经<img title="末次月经：此怀孕前最后一次月经的第一天。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td width="23%">
+	    <input type="text" name="last_menstrual_year" value="<!--{$last_menstrual_year}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="last_menstrual_month" value="<!--{$last_menstrual_month}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="last_menstrual_day" value="<!--{$last_menstrual_day}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+	   </td>
+	   <td width="21%">预产期<img title="预产期：可按照末次月经推算，为末次月经日期的月份加9或减3，为预产期月份数；天数加7，为预产期日。可留空，系统自动按此规则计算" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="3">
+	    <input type="text" name="expected_date_of_confine_year" value="<!--{$expected_date_of_confine_year}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="expected_date_of_confine_month" value="<!--{$expected_date_of_confine_month}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="expected_date_of_confine_day" value="<!--{$expected_date_of_confine_day}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+	   </td>
+	</tr>
+	<tr>
+	   <td>既往史<img title="既往史：孕妇曾经患过的疾病，可以多选。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="5">
+	   	<!--{foreach key=k item=v from=$clinical_history}-->
+			<label onclick="set_input_values('<!--{$k}-->','clinical_history[]')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			<!--{/foreach}-->&nbsp;
+			<input type="text" name="disease_history_info" id="disease_history_info" value="<!--{$disease_history_info}-->" <!--{if !$clinical_history_sign}--> disabled="disabled"<!--{/if}-->  class="inputbottom"/>
+	   	<!--{section name=clinical_history loop=7}-->
+        	<input type="text" name="clinical_history[]" value="<!--{$clinical_history_array[clinical_history]}-->"  class="inputnew"/>/
+		<!--{/section}-->
+	   </td>
+	</tr>
+	<tr>
+	   <td>家族史<img title="家族史：填写孕妇父亲、母亲、丈夫、兄弟姐妹或其他子女中是否曾患遗传性疾病或精神疾病，若有，请具体说明。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="5">
+	   	<!--{foreach key=k item=v from=$family_history}-->
+			<label onclick="set_input_values('<!--{$k}-->','family_history[]')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		<!--{/foreach}-->&nbsp;
+		<input type="text" name="family_history_info" id="family_history_info" <!--{if !$family_history_sign}--> disabled="disabled"<!--{/if}--> value="<!--{$family_history_info}-->"  class="inputbottom"/>
+	    <!--{section name=family_history loop=3}-->
+        	<input type="text" name="family_history[]" value="<!--{$family_history_array[family_history]}-->"  class="inputnew"/>/
+		<!--{/section}-->
+	   </td>
+	</tr>
+    <tr>
+	   <td>个人史<img title="可以多选" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="5">
+	   	<!--{foreach key=k item=v from=$ma_personal_history}-->
+			<label onclick="set_input_values('<!--{$k}-->','personal_history[]')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		<!--{/foreach}-->&nbsp;
+		<input type="text" name="personal_history_info" id="personal_history_info" <!--{if !$personal_history_sign}--> disabled="disabled"<!--{/if}--> value="<!--{$personal_history_info}-->"  class="inputbottom"/>
+	    <!--{section name=personal_history loop=5}-->
+        	<input type="text" name="personal_history[]" value="<!--{$personal_history_array[personal_history]}-->"  class="inputnew"/>/
+		<!--{/section}-->
+	   </td>
+	</tr>
+	<tr>
+	   <td>妇科手术史</td>
+	   <td colspan="5">
+	   	<!--{foreach key=k item=v from=$fksss_dic}-->
+			<label onclick="set_input_value('<!--{$k}-->','fksss')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+	    <input type="text" name="fksss_info" value="<!--{$fksss_info}-->" <!--{if $fksss!=2}--> disabled="disabled"<!--{/if}-->  class="inputbottom"/>
+	    <input type="text" name="fksss" value="<!--{$fksss}-->"  class="inputnew" onblur="mk_disable('fksss')"/>
+	   </td>
+	</tr>
+	<tr>
+	   <td>孕产史<img title="孕产史：根据具体情况填写，若有，填写次数，若无，填写“0”。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="5">
+	    1  流产  <input type="text" name="abortion" value="<!--{$abortion}-->"  class="inputbottom"/>
+	    2  死胎  <input type="text" name="stillbirth" value="<!--{$stillbirth}-->"  class="inputbottom"/>
+	    3  死产  <input type="text" name="fetal_death" value="<!--{$fetal_death}-->"  class="inputbottom"/>
+	    4  新生儿死亡 <input type="text" name="neonatal_death" value="<!--{$neonatal_death}-->"  class="inputbottom"/>
+        5  出生缺陷儿 <input type="text" name="birth_defects" value="<!--{$birth_defects}-->"  class="inputbottom"/>
+	   </td>
+	</tr>
+	<tr>
+	   <td>身高</td>
+	   <td colspan="2">
+	    <input type="text" name="height" value="<!--{$height}-->"  class="inputnone"/>cm
+	   </td>
+	   <td>体重</td>
+	   <td colspan="2">
+	    <input type="text" name="weight" value="<!--{$weight}-->"  class="inputnone"/>Kg
+	   </td>
+	</tr>
+	<tr>
+	   <td>体质指数<img title="体质指数=体重（kg）/身高的平方（m2）。可留空，当填写了身高和体重时，系统自动计算此值" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   <td colspan="2">
+	    <input type="text" name="bmi" value="<!--{$bmi}-->"  class="inputnone"/>
+	   </td>
+	   <td>血压</td>
+	   <td colspan="2">
+	    <input type="text" name="systolic_blood_pressure" value="<!--{$systolic_blood_pressure}-->"  class="inputnone"/>/
+	    <input type="text" name="diastolic_blood_pressure" value="<!--{$diastolic_blood_pressure}-->"  class="inputnone"/>mmHg
+	   </td>
+	</tr>
+	<tr>
+	   <td>听诊</td>
+	   <td colspan="2">
+	             心脏:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','auscultation_heart')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;<input type="text" name="auscultation_heart_info" value="<!--{$auscultation_heart_info}-->" <!--{if $auscultation_heart!=2}--> disabled="disabled"<!--{/if}-->  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="auscultation_heart" value="<!--{$auscultation_heart}-->" onblur="mk_disable('auscultation_heart')"  class="inputnew"/>
+	   </td>
+	   <td colspan="3">
+	             肺部:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','auscultation_lung')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+		<input type="text" name="auscultation_lung_info" <!--{if $auscultation_lung!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$auscultation_lung_info}-->"  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="auscultation_lung" onblur="mk_disable('auscultation_lung')" value="<!--{$auscultation_lung}-->"  class="inputnew"/>
+	   </td>
+	</tr>
+	<tr>
+	   <td rowspan="3">妇科检查</td>
+	   <td colspan="2">
+	            外阴:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','vulva')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;		
+				<input type="text" name="vulva_info" <!--{if $vulva!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$vulva_info}-->"  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="vulva" onblur="mk_disable('vulva')" value="<!--{$vulva}-->"  class="inputnew"/>
+	   </td>
+	   <td colspan="3">
+	             阴道:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','vaginal')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;		 
+				 <input type="text" name="vaginal_info" <!--{if $vaginal!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$vaginal_info}-->"  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="vaginal" onblur="mk_disable('vaginal')" value="<!--{$vaginal}-->"  class="inputnew"/>
+	   </td>
+	</tr>
+	<tr>
+	    <td colspan="2">
+	            宫颈:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','cervix')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;		
+				<input type="text" name="cervix_info" <!--{if $cervix!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$cervix_info}-->"  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="cervix" onblur="mk_disable('cervix')" value="<!--{$cervix}-->"  class="inputnew"/>
+	   </td>
+	   <td colspan="3">
+	             子宫:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','uterus')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;		 
+				 <input type="text" name="uterus_info" <!--{if $uterus!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$uterus_info}-->"  class="inputbottom"/>&nbsp;&nbsp;<input type="text" name="uterus" onblur="mk_disable('uterus')" value="<!--{$uterus}-->"  class="inputnew"/>
+	   </td>
+	</tr>
+	<tr>
+	    <td colspan="5">
+	            附近:
+		<!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','dnexauteri')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;		
+				<input type="text" name="dnexauteri_info" <!--{if $dnexauteri!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$dnexauteri_info}-->"  class="inputbottom"/>
+				&nbsp;&nbsp;<input type="text" name="dnexauteri" onblur="mk_disable('dnexauteri')" value="<!--{$dnexauteri}-->"  class="inputnew"/>
+	   </td>
+	</tr>
+	<tr>
+	   <td rowspan="13">辅助检查</td>
+	   <td>血常规</td>
+	   <td colspan="4">
+	                 血红蛋白值    <input type="text" name="hemoglobin" value="<!--{$hemoglobin}-->" class="inputbottomshort"/>g/L &nbsp;&nbsp;
+	                 白细胞计数值<input type="text" name="wbc_count" value=<!--{$wbc_count}-->"" class="inputbottomshort"/>/L  &nbsp;&nbsp;
+	                 血小板计数值<input type="text" name="platelet_count" value="<!--{$platelet_count}-->" class="inputbottomshort"/>/L  &nbsp;&nbsp;
+	                 其他                    <input type="text" name="blood_other" value="<!--{$blood_other}-->" class="inputbottomshort"/>
+	   </td>
+	</tr>
+	<tr>
+	   <td>尿常规*</td>
+	   <td colspan="4">
+	                 尿蛋白    <input type="text" name="azoturia" value="<!--{$azoturia}-->" class="inputbottomshort"/> &nbsp;&nbsp;
+	                 尿糖         <input type="text" name="glucose_in_urine" value="<!--{$glucose_in_urine}-->" class="inputbottomshort"/>  &nbsp;&nbsp;
+	                 尿酮体    <input type="text" name="ketone" value="<!--{$ketone}-->" class="inputbottomshort"/>  &nbsp;&nbsp;
+	                 尿潜血    <input type="text" name="urine_occult_blood" value="<!--{$urine_occult_blood}-->" class="inputbottomshort"/>  &nbsp;&nbsp;
+	                 其他         <input type="text" name="urine_other" value="<!--{$urine_other}-->" class="inputbottomshort"/>
+	   </td>
+	</tr>
+    <tr>
+	   <td rowspan="2">血型</td>
+       <td>ABO</td>
+	   <td rowspan="2" colspan="3">
+	    <input type="text" name="blood_type" value="<!--{$blood_type}-->" size="35" class="inputbottom"/>            
+	   </td>
+	</tr>
+    <tr>
+       <td>Rh*</td>
+	</tr>
+    <tr>
+	   <td>血糖</td>
+	   <td colspan="4">
+	    <input type="text" name="blood_sugar" value="<!--{$blood_sugar}-->" size="35" class="inputbottom"/>mmol/L
+	   </td>
+	</tr>
+	<tr>
+	   <td>肝功能*</td>
+	   <td colspan="4">
+	                 血清谷丙转氨酶    <input type="text" name="sgpt" value="<!--{$sgpt}-->" class="inputbottomshort"/>U/L &nbsp;&nbsp;
+	                 血清谷草转氨酶    <input type="text" name="sgot" value="<!--{$sgot}-->" class="inputbottomshort"/>U/L &nbsp;&nbsp;
+	                 白蛋白                        <input type="text" name="seralbumin" value="<!--{$seralbumin}-->" class="inputbottomshort"/>g/L  &nbsp;&nbsp;
+	                总胆红素                    <input type="text" name="total_bilirubin" value="<!--{$total_bilirubin}-->" class="inputbottomshort"/>μ mol/L &nbsp;&nbsp;
+	                 结合胆红素             <input type="text" name="bilirubin_direct" value="<!--{$bilirubin_direct}-->" class="inputbottomshort"/>μ mol/L
+	   </td>
+	</tr>
+	<tr>
+	   <td>肾功能*</td>
+	   <td colspan="4">
+	                 血清肌酐    <input type="text" name="serum_creatinine" value="<!--{$serum_creatinine}-->" class="inputbottomshort"/>μ mol/L &nbsp;&nbsp;
+	                 血尿素氮    <input type="text" name="bun" value="<!--{$bun}-->" class="inputbottomshort"/> mmol/L &nbsp;&nbsp;
+	   </td>
+	</tr>
+	<tr>
+	   <td rowspan="2">阴道分泌物*</td>
+	   <td colspan="4">
+	   	<!--{foreach key=k item=v from=$vaginal_fluid_dic}-->
+			<label onclick="set_input_values('<!--{$k}-->','vaginal_fluid[]')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		<!--{/foreach}-->&nbsp;
+	       <input type="text" name="vaginal_fluid_info" id="vaginal_fluid_info" <!--{if !$vaginal_fluid_sign}--> disabled="disabled"<!--{/if}--> value="<!--{$vaginal_fluid_info}-->" class="inputbottom"/>
+		    <!--{section name=vaginal_fluid loop=3}-->
+        	<input type="text" name="vaginal_fluid[]" value="<!--{$vaginal_fluid_array[vaginal_fluid]}-->"  class="inputnew"/>/
+			<!--{/section}--> 
+	   </td>
+	</tr>
+    <tr>
+	   <td colspan="4">
+       阴道清洁度：
+       <!--{foreach key=k item=v from=$ma_vaginal_cleanliness}-->
+			<label onclick="set_input_value('<!--{$k}-->','vaginal_cleanliness')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+	       <input type="text" name="vaginal_cleanliness" value="<!--{$vaginal_cleanliness}-->"  class="inputnew"/>
+	   </td>
+	</tr>
+    <tr>
+	   <td>乙型肝炎五项</td>
+	   <td colspan="4">
+	    乙型肝炎表面抗原<input type="text" name="hepatitis_b_surface_antigen" value="<!--{$hepatitis_b_surface_antigen}-->" class="inputbottomshort"/>&nbsp;&nbsp;乙型肝炎表面抗体<input type="text" name="hepatitis_b_surface_antibody" value="<!--{$hepatitis_b_surface_antibody}-->" class="inputbottomshort"/>&nbsp;&nbsp;<br />乙型肝炎e抗原<input type="text" name="hepatitis_b_e_antigen" value="<!--{$hepatitis_b_e_antigen}-->" class="inputbottomshort"/>&nbsp;&nbsp;乙型肝炎e抗体<input type="text" name="hepatitis_b_e_antibody" value="<!--{$hepatitis_b_e_antibody}-->" class="inputbottomshort"/>&nbsp;&nbsp;<br />乙型肝炎核心抗体<input type="text" name="hepatitis_b_core_antibody" value="<!--{$hepatitis_b_core_antibody}-->" class="inputbottomshort"/>&nbsp;&nbsp;     
+	   </td>
+	</tr>
+	<tr>
+	   <td>梅毒血清学试验*</td>
+	   <td colspan="4">
+	   	<!--{foreach key=k item=v from=$ma_vdrl_dic}-->
+			<label onclick="set_input_value('<!--{$k}-->','result_of_vdrl')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+	       <input type="text" name="result_of_vdrl" value="<!--{$result_of_vdrl}-->"  class="inputnew"/> 
+	   </td>
+	</tr>
+	<tr>
+	   <td>HIV抗体检测*</td>
+	   <td colspan="4">
+	   	<!--{foreach key=k item=v from=$ma_vdrl_dic}-->
+			<label onclick="set_input_value('<!--{$k}-->','div_antibody_check')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;
+	       <input type="text" name="div_antibody_check" value="<!--{$div_antibody_check}-->"  class="inputnew"/> 
+	   </td>
+	</tr>
+    <tr>
+	   <td>B超*</td>
+	   <td colspan="4">
+	       <input type="text" name="bc" value="<!--{$bc}-->"  class="inputbottom"/> 
+	   </td>
+	</tr>
+	<tr>
+	    <td>总体评估<img title="总体评估：根据孕妇总体情况进行评估，若发现异常，具体描述异常情况。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="5">
+	    <!--{foreach key=k item=v from=$ma_comm}-->
+			<label onclick="set_input_value('<!--{$k}-->','overall_assessment')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;	
+		<input type="text" name="overall_assessment_info" <!--{if $overall_assessment!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$overall_assessment_info}-->" class="inputbottom"/> &nbsp;&nbsp; <input type="text" onblur="mk_disable('overall_assessment')" name="overall_assessment" value="<!--{$overall_assessment}-->"  class="inputnew"/></td>
+	</tr>
+    <tr>
+	    <td>保健指导<img title="保健指导：填写相应的保健指导内容，可以多选。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	    <td colspan="5">
+	    <!--{foreach key=k item=v from=$ma_health_guide}-->
+			<label onclick="set_input_values('<!--{$k}-->','health_guide[]')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		<!--{/foreach}-->&nbsp;
+		<input type="text" name="health_guide_info" id="health_guide_info" <!--{if !$health_guide_sign}--> disabled="disabled"<!--{/if}--> value="<!--{$health_guide_info}-->"  class="inputbottom"/>
+	    <!--{section name=health_guide loop=5}-->
+        	<input type="text" name="health_guide[]" value="<!--{$health_guide_array[health_guide]}-->"  class="inputnew"/>/
+		<!--{/section}-->
+        
+        </td>
+	</tr>
+	<tr>
+	    <td colspan="6">
+	              转诊 <img title="转诊：若有需转诊的情况，具体填写。" src="<!--{$basePath}-->images/comments.png" class="vtip" /> &nbsp;&nbsp;&nbsp;&nbsp;   
+		<!--{foreach key=k item=v from=$fksss_dic}-->
+			<label onclick="set_input_value('<!--{$k}-->','referral')"><!--{$k}-->、<!--{$v[1]}--></label>
+		<!--{/foreach}-->&nbsp;<input type="text" name="referral" value="<!--{$referral}-->" class="inputnew" onblur="refer()" /></br>
+	              原因  ： <input type="text" name="referral_reason" <!--{if $referral!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$referral_reason}-->" class="inputbottom"/></br>
+	             机构及科室   ：<input type="text" name="referral_org" <!--{if $referral!=2}--> disabled="disabled"<!--{/if}--> value="<!--{$referral_org}-->" class="inputbottom"/>      
+	    </td>
+	</tr>
+	<tr>
+	  <td>下次随访日期<img title="下次随访日期：根据孕妇情况确定下次随访日期，并告知孕妇。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	  <td width="23%" colspan="2">
+	    <input type="text" name="follow_next_time_year" value="<!--{$follow_next_time_year}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="follow_next_time_month" value="<!--{$follow_next_time_month}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="follow_next_time_day" value="<!--{$follow_next_time_day}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+	  </td>
+	  <td>随访医生签名<img title="随访医生签名：随访完毕，核查无误后随访医生签署其姓名。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	  <td width="23%" colspan="2">
+	    <select name="person_in_charge" id="person_in_charge">
+							<!--{section name=response_doctor loop=$response_doctor}-->
+							<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+							<!--{/section}-->
+		</select>
+	  </td>
+	</tr>
+	<tr>
+	  <td colspan="6" align="center"><input name="submit" type="submit" value="保存数据" class="inputbutton"/>
+      <!--{if $uuid}-->
+    <input type="button" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+    <!--{/if}--></td>
+	</tr>
+	<tr>
+	  <td colspan="6" align="center">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td colspan="6" style="padding:4px;">填表说明<br />
+1．本表由医生在第一次接诊孕妇（尽量在孕12足周前）时填写。若未建立居民健康档案，需同时建立。随访时填写各项目对应情况的数字。<br />
+2．填表孕周：为填写此表时孕妇的怀孕周数。<br />
+3．孕次：怀孕的次数，包括本次妊娠。<br />
+4．产次：指此次怀孕前，孕期超过28周的分娩次数。<br />
+5．末次月经：此怀孕前最后一次月经的第一天。<br />
+6．预产期：可按照末次月经推算，为末次月经日期的月份加9或减3，为预产期月份数；天数加7，为预产期日。<br />
+7．既往史：孕妇曾经患过的疾病，可以多选。<br />
+8．家族史：填写孕妇父亲、母亲、丈夫、兄弟姐妹或其他子女中是否曾患遗传性疾病或精神疾病，若有，请具体说明。<br />
+9．个人史：可以多选 。<br />
+10．孕产史：根据具体情况填写，若有，填写次数，若无，填写“0”。<br />
+11．体质指数=体重（kg）/身高的平方（m2）。<br />
+12．体格检查、妇科检查及辅助检查：进行相应检查，并填写检查结果。<br />
+13．总体评估：根据孕妇总体情况进行评估，若发现异常，具体描述异常情况。<br />
+14．保健指导：填写相应的保健指导内容，可以多选。<br />
+15．转诊：若有需转诊的情况，具体填写。<br />
+16．下次随访日期：根据孕妇情况确定下次随访访查日期，并告知孕妇。<br />
+17．随访医生签名：随访完毕，核查无误后随访医生签署其姓名。<br />
+</td>
+	</tr>
+   </table>
+   
+</form> 
+</body>
+</html>

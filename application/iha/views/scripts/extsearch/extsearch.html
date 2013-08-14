@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="yaachis" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+	<title><!--{$individual_core->name}-->个人信息</title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%;}
+       div,img,table,tr,strong{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+</head>
+<body>
+   <!--个人基本信息-->
+   <div class="title_bg">
+     个人基本信息
+   </div>
+   <div >
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+       <tr>
+         <td  width="30%" style="height:200px;"align="center"><img src="<!--{$individual_core->main_img_src}-->" alt="个人照片" style="border:1px solid black" width="100px" height="128px" /></td>
+         <td><font ><!--{$individual_core->name}--></font></td>
+          </tr>
+       
+       <tr>
+         <td>性别：</td>
+         <td><!--{$individual_core->sex}--> </td>
+       </tr>
+       <tr>
+         <td>民族：</td>
+         <td><!--{$individual_core->race}--> </td>
+       </tr>
+       <tr>
+         <td>年龄：</td>
+         <td><!--{$individual_core->age}--> </td>
+       </tr>
+       <tr>
+         <td>出生日期：</td>
+         <td><!--{$individual_core->date_of_birth}--> </td>
+       </tr>
+       <tr>
+         <td>电话：</td>
+         <td><!--{$individual_core->phone_number}--> </td>
+       </tr>
+        <tr>
+         <td>住址：</td>
+         <td><!--{$individual_core->address}--> </td>
+       </tr>
+     </table>
+   </div>
+   <!--基本健康信息-->
+   <div class="title_bg">
+     基本健康信息
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%" >
+        <tr>
+         <td>血型：</td>
+         <td><!--{$blood->abo_bloodtype}--></td>
+       </tr>
+       <tr>
+         <td width="30%">药物过敏史:</td>
+         <td><!--{$individual_core->allergy_code}--></td>
+       </tr>
+       <tr>
+         <td>暴露史:</td>
+         <td><!--{$individual_core->exposure_code}--></td>
+       </tr>
+       <!--{section loop=$clinical_array name=clinical_array}-->
+       <tr>
+         <td>确诊疾病:</td>
+         <td><!--{$clinical_array[clinical_array].mycode}--></td>
+       </tr>
+      <!--{sectionelse}-->
+      <tr>
+        <td>确诊疾病</td>
+        <td>暂无记录</td>
+      </tr>
+       <!--{/section}-->
+       <!--{section loop=$surgical_array name=surgical_array}-->
+       <tr>
+         <td>手术记录</td>
+         <td><!--{$surgical_array[surgical_array].code}--></td>
+       </tr>
+        <!--{sectionelse}-->
+      <tr>
+        <td>手术记录</td>
+        <td>暂无记录</td>
+      </tr>
+       <!--{/section}-->
+        <tr>
+         <td>遗传病史</td>
+         <td><!--{$genetic_diseases->disease_name}--></td>
+       </tr>
+       <tr>
+         <td>残疾状况</td>
+         <td><!--{$individual_core->deformity_str}--></td>
+       </tr>
+     </table>
+   </div>
+   <!--最后一次体检记录-->
+   <div class="title_bg">
+     最近一次体检记录
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+       <tr>
+         <td width="30%">体温</td>
+         <td><!--{$et_general_condition->temperature}--></td>    
+       </tr>
+       <tr>
+         <td>脉搏</td>
+         <td><!--{$et_general_condition->pulse}--></td>
+       </tr>
+       <tr>
+         <td width="30%">呼吸频率</td>
+         <td><!--{$et_general_condition->breathing_rate}--></td>     
+       </tr>
+       <tr>
+         <td>腰围</td>
+         <td><!--{$et_general_condition->waistline}--></td>
+       </tr>
+       <tr>
+         <td width="30%">血压左侧</td>
+         <td><!--{$et_general_condition->blood_pressure_left_s}-->(mmHg) </td>
+       </tr>
+       <tr>
+         <td>血压右侧</td>
+         <td><!--{$et_general_condition->blood_pressure_left_p}-->(mmHg) </td>
+       </tr>
+       <tr>
+         <td width="30%">身高</td>
+         <td><!--{$et_general_condition->height}--> </td> 
+       </tr>
+       <tr>
+         <td>体重</td>
+         <td><!--{$et_general_condition->weight}--> </td>
+       </tr>
+       <tr>
+         <td width="30%">空腹血糖</td>
+         <td><!--{$et_general_condition->fbglucoseh}--> </td> 
+       </tr>
+       <tr>
+         <td>尿微量白蛋白</td>
+         <td><!--{$et_general_condition->microurine}--> </td>
+       </tr>    
+     </table>
+   </div>
+    <!--最近一次慢病随访-->
+   <div class="title_bg">
+     最近一次慢病随访
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+       <!--{section loop=$disease_array name=disease_array}-->
+        <tr>
+          <td  colspan="2">慢病名称：<strong><!--{$disease_array[disease_array].disease_name}--></strong></td>
+        </tr>
+       <tr>
+         <td width="30%">随访时间：</td>
+         <td><!--{$disease_array[disease_array].fllowup_time}--></td> 
+       </tr>
+       <tr>
+         <td >随访结果：</td>
+         <td><!--{$disease_array[disease_array].followup_content}--></td> 
+       </tr>
+       <!--{/section}-->
+     </table>
+   </div>
+    <!--最近二次就诊记录-->
+   <div class="title_bg">
+     门诊就诊记录
+   </div>
+    <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+     <!--{section name=tb_fee loop=$tb_yl_mz_medical_record}-->
+     <tr >
+          <td colspan="2" ><strong>门诊就诊记录(<!--{$tb_yl_mz_medical_record[tb_fee].myorder}-->)</strong></td>
+     </tr>
+     <tr>
+       <td >就诊时间:</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].jzksrq}--></td>
+     </tr>
+     <tr>
+       <td width="30%">医生:</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].zzysxm}--></td>
+     </tr>
+     <tr>
+       <td>门诊诊断名称:</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].jzzdmc}--></td>
+     </tr>
+     <!--{section name=tb_fee_table loop=$tb_yl_mz_medical_record[tb_fee].fee}-->
+      <tr>
+       <td width="30%">收费时间</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].stfsj}--></td>
+      </tr>
+      <tr>
+       <td>明细费用类别</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxfylb}--></td>
+      </tr>
+      <tr>
+       <td>明细项目名称</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmmc}--></td>
+      </tr>
+       <tr>
+       <td>明细项目单位</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdw}--></td>
+      </tr>
+      <tr>
+       <td>明细项目单价</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdj}--></td>
+      </tr>
+      <tr>
+       <td>明细项目数量</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmsl}--></td>
+      </tr>
+      <tr>
+       <td>明细项目金额</td>
+       <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmje}--></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:50px;line-height:50px;"></td>
+      </tr>
+     <!--{/section}-->
+     <!--{sectionelse}-->
+      <tr>
+      <td colspan="2">没有任何记录</td>
+      </tr>
+     <!--{/section}-->
+    </table>
+    </div>
+     <!--最近二次就诊记录-->
+   <div class="title_bg">
+     门诊处方明细
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <!--{section name=tb_fee loop=$tb_cis_prescription_detail}-->
+        <tr >
+          <td colspan="2"><strong>门诊处方(<!--{$tb_cis_prescription_detail[tb_fee].myorder}-->)</strong></td>
+        </tr>
+	    <tr>
+	      <td>医疗机构</td>
+	      <td><!--{$tb_cis_prescription_detail[tb_fee].yljgdm}--></td>
+	    </tr>
+      <tr>
+       <td>患者姓名</td>
+       <td><!--{$tb_cis_prescription_detail[tb_fee].hzxm}--></td>
+      </tr>
+      <!--{section name=tb_fee_table loop=$tb_cis_prescription_detail[tb_fee].cis}-->
+      <tr>
+        <td width="30%">处方号码</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].cyh}--></td>
+     </tr>
+     <tr>
+        <td>就诊科室名称</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].jzksmc}--></td>
+    </tr>
+    <tr>
+        <td>开方医生姓名</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfysxm}--></td>
+    </tr>
+    <tr>
+        <td>开方时间</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfrq}--></td>
+    </tr>
+    <tr>
+        <td>药品名称</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].xmmc}--></td>
+    </tr>
+    <tr>
+        <td>发药数量</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypsl}--></td>
+    </tr>
+      <tr>
+        <td>发药数量单位</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypdw}--></td>
+      </tr>
+    <tr>
+        <td>用药频次</td>
+        <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].sypc}--></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="height:50px;line-height:50px;"></td>
+    </tr>
+      <!--{/section}-->
+      <!--{sectionelse}-->
+      <tr>
+      <td colspan="2">没有任何记录</td>
+      </tr>
+      <!--{/section}-->
+     </table>
+   </div>
+    <!--
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+       <td rowspan="2">门诊时间</td>
+       <td rowspan="2">医生</td>
+       <td rowspan="2">疾病名称</td>
+       <td colspan="8">费用详情</td>
+    </tr>
+    <tr >
+    <td>收费时间</td>
+    <td>明细费用类别</td>
+    <td>明细项目名称</td>
+    <td>明细项目单位</td>
+    <td>明细项目单价</td>
+    <td>明细项目数量</td>
+    <td>明细项目金额</td>
+    </tr>
+    <!--{section name=tb_fee loop=$tb_yl_mz_medical_record}-->
+    <tr>
+    <td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].jzksrq}--></td>    <td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].zzysxm}--></td>
+    <td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].jzzdmc}--></td>
+    <!--{section name=tb_fee_table loop=$tb_yl_mz_medical_record[tb_fee].fee}-->
+    <!--{if $smarty.section.tb_fee_table.rownum!=1}-->
+    <tr>
+    <!--{/if}-->
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].stfsj}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxfylb}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmmc}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdw}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdj}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmsl}--></td>
+	    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmje}--></td>
+    </tr>
+    <!--{sectionelse}-->
+      <td colspan="7">没有记录</td>
+    <!--{/section}-->
+    </tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="10">近期没有记录</td></tr>
+    <!--{/section}-->
+     </table>
+   </div>
+   -->
+</body>
+</html>

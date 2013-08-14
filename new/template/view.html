@@ -1,0 +1,60 @@
+5Dview演示  <br />
+<strong>演示输出简单变量</strong><br />
+<font color="Blue"><!--{$name}--><!--{$age}--></font><br>
+<font color="Red"><!--{$age}--></font><br>
+<strong>演示输出数组变量</strong><br />
+<font color="Green"><!--{$student['name']}--></font><br>
+<font color="Red"><!--{$student['age']}--></font><br>
+<font color="Red"><!--{$students[0]['name']}--></font><br>
+<strong>演示用foreache显示列表</strong><br />
+<table border="1">
+<tr><td>姓名</td><td>性别</td><td>职业</td></tr>
+<!--{foreach($students as $key=>$student)}-->
+	<tr><td><!--{$student['name']}--></td><td><!--{$student['sex']}--></td><td><!--{$student['occupation']}--></td></tr>
+	<tr><td colspan="3">
+	<table border="1" bgcolor="Blue">
+<!--{foreach($students as $key=>$student)}-->
+	<tr><td><!--{$student['name']}--></td><td><!--{$student['sex']}--></td><td><!--{$student['occupation']}--></td></tr>
+<!--{/foreach}-->
+	</table>
+<!--{if($student['name']=='mike' and $name=='mike' and $teacher['name']=='罗维')}-->
+	<font color="Red">if<!--{$student['name']}--><!--{$teacher['name']}--><!--{$name}--><!--{$age}--></font><br>
+<!--{/if}-->	
+	</td></tr>	
+<!--{/foreach}-->
+</table>
+<strong>演示用foreache显示男生列表</strong><br />
+<table border="1">
+<tr><td>姓名</td><td>性别</td><td>职业</td></tr>
+<!--{foreach($students as $key=>$student)}-->
+<!--{if($student['sex']=='男')}-->
+	<tr><td><!--{$student['name']}--></td><td><!--{$student['sex']}--></td><td><!--{$student['occupation']}--></td></tr>
+<!--{/if}-->
+<!--{/foreach}-->
+</table>
+
+<strong>演示用foreache显示二维数组:方法二</strong><br />
+
+<!--{foreach($students as $key=>$student)}-->
+    姓名：<!--{$student['name']}--><br />
+    性别：<!--{$student['sex']}--><br>
+    职业：<!--{$student['occupation']}--><br>
+  <!--{foreach($student as $key=>$value)}-->
+   职业：<!--{$student['occupation']}--><br />
+    键：<!--{$key}-->--值: <!--{$value}--><br>
+    数组－值<!--{$student[$key]}--><br>
+    <!--{$name}--><!--{$age}--><br />
+  <!--{/foreach}-->
+   姓名：<!--{$student['name']}--><br>
+   <!--{$name}--><!--{$age}--><br />
+<!--{/foreach}-->
+
+<strong>演示if标签</strong><br />
+<!--{if($age>10)}-->
+<font color="Red">if<!--{$name}--><!--{$age}--></font><br>
+<!--{if($name=='mike')}-->
+<font color="Red">if<!--{$name}--><!--{$age}--></font><br>
+<!--{/if}-->
+<!--{/if}-->
+
+<br />

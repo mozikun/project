@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>个人档案地理位置标注</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+	label
+	{
+        cursor: pointer;
+	}
+	.short
+	{
+		width:15px;
+		height:15px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.time
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+		width:30px;
+	}
+	#dialog_box_html li{
+		border-bottom:1px dashed #ccc;
+		line-height:28px;
+	}
+	.center table{
+		margin:0px;
+	}
+	.center td
+	{
+		text-align:center;
+	}
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:200px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position:absolute;z-index:20000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+#l-map{height:100%;height:450px;width:78%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:100%;width:20%;float:left;}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script>
+function alert_form()
+{
+    if(confirm('确定保存新的地址及地理位置吗？'))
+    {
+        return true;
+    }
+    return false;
+}
+</script>
+</head>
+<body>
+	<form name="individual_archive" enctype="multipart/form-data" id="individual_archive" method="post" action="<!--{$baseUrl}-->iha/index/mapin" onsubmit="return alert_form()">
+<table border="0" width="100%">
+		<tr>
+        <td style="width:160px;">
+        	姓名
+        </td>
+        <td style="width:80px;">
+        	<input type="hidden" name="uuid" id="uuid" value="<!--{$core->uuid}-->" /><!--{$core->name}-->
+        </td>
+        
+        <td style="width:80px;">
+        	编号
+        </td>
+        <td style="width:440px;">
+        	<!--{$core->standard_code_1}-->
+        </td>
+    </tr>
+    <tr>
+        <td class="core_identity_number">
+        	身份证号
+        </td>
+        <td>
+        	<!--{$core->identity_number}-->
+        </td>
+        <td class="archive_unit_name">
+        	本人电话
+        </td>
+        <td >
+        	<!--{$core->phone_number}-->
+        </td>
+    </tr>
+    <tr>
+        <td class="core_phone_number">
+        	现住址
+        </td>
+        <td colspan="3">
+        	<input type="text" name="address" value="<!--{$core->address}-->" id="address" class="line" size="35" />
+        </td>
+    </tr>
+    <tr>
+        <td class="core_phone_number">
+        	地图坐标
+        </td>
+        <td colspan="3">
+        	<div id="l-map"></div>
+        </td>
+    </tr>
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+    <input type="hidden" name="lat" id="lat" value="<!--{$core->position_x}-->" />
+    <input type="hidden" name="lng" id="lng" value="<!--{$core->position_y}-->" />
+	<input type="submit" name="submit" value="保存" />
+	<input type="button" name="skip" id="skip" value="返回列表" onclick="window.location='<!--{$basePath}-->iha/index/index'" />
+	</td></tr>
+    
+</table>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("l-map");
+var gc = new BMap.Geocoder();
+map.centerAndZoom("<!--{$city}-->",10);                   // 初始化地图,设置城市和地图级别。
+map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+var marker = new BMap.Marker(new BMap.Point(<!--{$core->position_y}-->, <!--{$core->position_x}-->));  // 创建标注
+map.addOverlay(marker);              // 将标注添加到地图中
+map.addEventListener("click", function(e){
+  //document.getElementById("r-result").innerHTML = e.point.lng + ", " + e.point.lat;
+  map.clearOverlays();
+  var marker = new BMap.Marker(new BMap.Point(e.point.lng,e.point.lat));  // 创建标注
+  map.addOverlay(marker);
+  $("#lat").val(e.point.lat);
+  $("#lng").val(e.point.lng);
+  //获取新的地址
+  var pt = e.point;
+  gc.getLocation(pt, function(rs){
+        var addComp = rs.addressComponents;
+        $("#address").val(addComp.province + addComp.city  + addComp.district + addComp.street + addComp.streetNumber);
+    });
+});
+</script>

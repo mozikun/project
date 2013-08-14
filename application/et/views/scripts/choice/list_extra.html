@@ -1,0 +1,60 @@
+<table border="0" width="100%">
+     <tr class="headbg">
+      <td colspan="7">
+		<strong>未进行健康体检列表</strong>
+	  </td>
+	</tr>
+	<tr class="headbg">
+	   <th>选中状态</th>
+	   <th>姓名</th>
+	   <th>性别</th>
+	   <th>家庭住址</th>
+	   <th>年龄</th>
+	   <th>责任医生</th>
+	   <th>操作</th>
+	</tr>
+<!--{section name=row loop=$row}-->
+	 <tr id="row_<!--{$row[row].uuid}-->" ondblclick="set_session('<!--{$row[row].uuid}-->')">
+	 	<td>
+	 		<!--{if $row[row].uuid==$individual_current->uuid}-->
+			<img id="img_<!--{$row[row].uuid}-->" src="<!--{$basePath}-->images/status_online.png" class="online" />
+			<!--{else}-->
+			<img id="img_<!--{$row[row].uuid}-->" src="<!--{$basePath}-->images/status_offline.png" class="online" />
+			<!--{/if}-->
+	 	</td>
+		<td id="<!--{$row[row].uuid}-->_name">
+        	<!--{$row[row].name}-->
+        </td>
+		<td>
+        	<!--{$row[row].sex}-->
+        </td>
+		<td>
+        	<!--{$row[row].address}-->
+        </td>
+		<td >
+        	<!--{$row[row].date_of_birth}-->岁
+        </td>
+		<td>
+        	<!--{$row[row].doctor_name}-->
+        </td>
+		<td>
+        	<a href="<!--{$basePath}-->iha/cover/add/action/edit/uuid/<!--{$row[row].uuid}-->/para_page/<!--{$para_page}-->/opener/index" onclick="set_session('<!--{$row[row].uuid}-->');">编辑首页</a>
+       		<a href="<!--{$basePath}-->iha/index/add/uuid/<!--{$row[row].uuid}-->/para_page/<!--{$para_page}-->/opener/index"  onclick="set_session('<!--{$row[row].uuid}-->');">编辑档案</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="7">
+        	暂时没有数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="11">
+        	<img src="<!--{$basePath}-->images/status_online.png" />选中状态
+			&nbsp;
+			<img src="<!--{$basePath}-->images/status_offline.png" />未选中状态&nbsp;<!--{$page}-->
+			<input type="hidden" name="searchinput" id="searchinput" value="<!--{$search}-->" />
+        </td>
+	</tr>
+</table>

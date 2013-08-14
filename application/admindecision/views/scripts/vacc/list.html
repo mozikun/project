@@ -1,0 +1,24 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="3" align="center"><center><strong>特殊业务统计表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="22%">地区名称</td>
+        <td width="25%">预防接种人次</td>
+        <td width="25%">婚检人次</td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].sum_vaccination}--></td>
+           <td><!--{$row[row].sum_pre_marital}--></td>
+         </tr>
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td><!--{$sum_vaccination}--></td>
+           <td><!--{$sum_pre_marital}--></td>
+        </tr>
+
+</table>

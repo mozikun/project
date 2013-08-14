@@ -1,0 +1,57 @@
+	<!--{section name=iha loop=$iha}-->
+	 <tr id="iha_<!--{$iha[iha].uuid}-->" ondblclick="set_session('<!--{$iha[iha].uuid}-->')">
+	 	<td>
+	 		<!--{if $iha[iha].uuid==$individual_current->uuid}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$baseUrl}-->images/status_online.png" class="online" />
+			<!--{else}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$baseUrl}-->images/status_offline.png" class="online" />
+			<!--{/if}-->
+	 	</td>
+        <td>
+        	<!--{$iha[iha].standard_code}-->
+        </td>
+		<td id="<!--{$iha[iha].uuid}-->_name">
+        	<!--{$iha[iha].name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].sex}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].address}-->
+        </td>
+		<td title="生日：<!--{$iha[iha].date_of_birth}-->">
+        	<!--{$iha[iha].age}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].contact_number}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].householder_name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].staff_name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].criteria_rate}-->
+        </td>
+		<td>
+        	<a href="<!--{$baseUrl}-->iha/cover/add/action/edit/uuid/<!--{$iha[iha].uuid}-->" onclick="set_session('<!--{$iha[iha].uuid}-->');">编辑首页</a>
+        	<a href="<!--{$baseUrl}-->iha/index/add/uuid/<!--{$iha[iha].uuid}-->"  onclick="set_session('<!--{$iha[iha].uuid}-->');">编辑档案</a>
+        	<a href="<!--{$baseUrl}-->iha/index/delete/uuid/<!--{$iha[iha].uuid}-->" onclick="return confirm('是否确定')">删除</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="11">
+        	暂时没有数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="11">
+        	<img src="<!--{$baseUrl}-->images/status_online.png" />选中状态
+			&nbsp;
+			<img src="<!--{$baseUrl}-->images/status_offline.png" />未选中状态&nbsp;<!--{$pager}-->
+			<input type="hidden" name="searchinput" id="searchinput" value="<!--{$search}-->" />
+        </td>
+	</tr>

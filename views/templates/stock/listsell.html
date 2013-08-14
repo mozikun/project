@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+	<table class="categoryList">
+		<tr>
+		<td colspan="9">
+			所属类别：<span id='categoryDropDownBox'></span><input type="button" name="ok" id="ok" value="确定" onclick="doQuery()" />
+		</td>
+		</tr>
+		<tr  class="title"><td>订单号</td><td>商品名称</td><td>客户名称</td><td>日期</td><!--<td>动作</td>--><!--<td>计量方式</td>--><td>数量</td><td>单价</td><td>单价×数量</td><td>实际总价</td><td>操作</td></tr>
+	<!--{section name=stockList loop=$stockList}-->
+		<tr  id="<!--{$stockList[stockList].saleId}-->">
+			<td><!--{$stockList[stockList].udfSaleNoteId}--></td>
+			<td><!--{$stockList[stockList].goodsDescription}--></td>
+			<td><!--{$stockList[stockList].factory}--></td>
+			<td><!--{$stockList[stockList].date}--></td>
+			<!--
+			<td><!--{$stockList[stockList].action}--></td>
+			<td><!--{$stockList[stockList].measurementRate}--></td>
+			-->
+			<td><!--{$stockList[stockList].amountSell}--></td>
+			<td><!--{$stockList[stockList].priceSell}--></td>
+			<td><!--{$stockList[stockList].calculatePriceTotalSell}--></td>
+			<td><!--{$stockList[stockList].priceTotalSell}--></td>
+			<td>
+				<a href="#" onclick="setFrame2('<!--{$stockList[stockList].saleId}-->')">处理订单</a>
+<!--				<a  href="/goods/stock/deletebuy/stockId/<!--{$stockList[stockList].stockId}-->/openerUrl/<!--{$openerUrl}-->" onclick="return confirm('是否确定')">删除</a>
+-->			</td>
+		</tr>
+	<!--{/section}-->
+		<tr>
+		<td colspan="6"></td>
+		<td><!--{$calculatePriceTotalSell}--></td>
+		<td><!--{$priceTotalSell}--></td>		
+		<td>&nbsp;</td>
+		</tr>
+	</table>
+	<a href="/goods/stock/sellframe">新增</a>
+	共<!--{$max_rows}-->条记录 当前第<label id='current_page' name='current_page'><!--{$current_page_display}--></label>页 共<!--{$max_page}-->页
+
+	<a href="/goods/stock/listsell/page_action/top/<!--{$url}-->" id='pre' name='pre' class="pageline">首页</a>
+	<a href="/goods/stock/listsell/page_action/pre/<!--{$url}-->" id='pre' name='pre' class="pageline">上一页</a>
+	<a href="/goods/stock/listsell/page_action/next/<!--{$url}-->" id='next' name='next' class="pageline">下一页</a>
+	<a href="/goods/stock/listsell/page_action/bottom/<!--{$url}-->" id='next' name='next' class="pageline">尾页</a>
+
+	
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	
+</body>
+</html>
+
+<script type="text/javascript" src="/views/templates/script/dropdownbox.js"></script>
+<script type="text/javascript">
+function doQuery(){
+	//alert(parentId);
+	var url='/goods/stock/listsell/categoryId/'+parentId+'/goodsId/'+goodsId+'/sid/'+Math.random();
+	document.location=url;
+}
+function add(){
+	//这里的goodsId并不是下拉框的id，而隐藏变量的id，请注意
+	if($('goodsId').value=='-9' || $('goodsId').value==''){
+		//alert($('parentId').value);
+		alert('请选择一种商品');
+		return false;
+	}
+	if($('goodsMeasurementDropDownBox')==null){
+		alert('请选择计量模式');
+		return false;
+	}
+	if($('goodsMeasurementDropDownBox').value=='-9'){
+		//alert($('parentId').value);
+		alert('请选择计量模式。如果计量模式列表框下没有值，请到商品计量模式中先定义。');
+		return false;
+	}
+
+	var goodsId=$('goodsId').value;
+	var goodsMeasurement=$('goodsMeasurementDropDownBox').value;
+	var openerUrl=$('openerUrl').value;
+	var url='/goods/stock/addbuy/goodsId/'+goodsId+'/goodsMeasurement/'+goodsMeasurement+'/openerUrl/'+openerUrl+'/sid/'+Math.random();
+	//alert(url);
+	document.location=url;
+
+}
+function setFrame2(saleId){
+	//注意，传参数时，如果要把module controller action也传过去，则参数名前加__ 处理程序在stock_controller中的getURL()
+	var para='__module-goods|__controller-stock|__action-displaysell|saleId-'+saleId;
+	var url='/goods/stock/sellframe/frame2Src/'+para;
+	//alert(url);
+	//$url="/goods/stock/displaysell/saleId/$uuid/openerUrl/$openerUrl";
+	//url='/goods/stock/displaysell/stockId/'+stockId+'/openerUrl/categoryId-1|goodsId-|current_page-0';
+	document.location=url;
+	return;
+
+	//var iframe=$('displaysell');
+	//让所有的tr恢复原色
+	var rows=document.getElementsByTagName('tr');
+	for(var i=0;i<rows.length;i++){
+		rows[i].style.backgroundColor='#EFEFEF';
+	}
+	var row=$(stockId);
+	row.style.backgroundColor='#00FFFF';
+	try{
+		var frame2=window.parent.document.getElementById('frame2');
+		if(confirm('是否新增出货记录?')){
+			//alert(frame2);
+			url='/goods/stock/addsell/stockId/'+stockId;
+			//url='/goods/stock/displaysell/stockId/'+stockId+'/openerUrl/categoryId-1|goodsId-|current_page-0';
+			frame2.src=url;
+		}else{
+			return false;
+		}
+
+	}catch(e){
+		//alert(e);
+	}
+}
+</script>
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var goodsId=$('goodsId').value;
+var xmlHttp;
+getCategoryDropDownBox();
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

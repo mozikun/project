@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+	<title><!--{$individual_core->name}--><!--{$title}--></title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%;}
+       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+</head>
+<body>
+  <div class="title_bg">
+     健康教育信息
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        	<!--{section name=he loop=$he}-->
+	     <tr>
+		 	<td>
+		 	  活动时间
+	        </td>
+			<td>
+	        	<!--{$he[he].activity_time}-->
+	        </td>
+         </tr>
+         <tr>
+            <td>活动地点</td>
+			<td>
+	        	<!--{$he[he].activity_address}-->
+	        </td>
+       	 </tr>
+       	 <tr>
+       	    <td>组织者</td>
+			<td>
+	 			<!--{$he[he].sponsor}-->
+	        </td>
+        </tr>
+        <tr>
+			<td>
+	        	负责人
+	        </td>
+			<td>
+	        	<!--{$he[he].person_in_charge}-->
+			</td>
+		</tr>
+		<tr>
+		 <td colspan="2" style="height:50px;">&nbsp;</td>
+		</tr>
+	  <!--{sectionelse}-->
+	   <tr>
+	     <td colspan="2">没有记录</td>
+	   </tr>
+      <!--{/section}-->
+     </table>
+   </div>
+   <div class="ui-footer">
+     <a id="login" href="<!--{$basePath}-->iha/login/index">返回</a>
+  </div>
+</body>
+</html>

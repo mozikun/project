@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/disease_category.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<title><!--{if ($add_tag)}-->疾病诊断名称及编码添加<!--{else}-->疾病诊断名称及编码编辑<!--{/if}--></title>
+<style type="text/css">
+ h1{margin:0;padding:30px 0;font-size:16px;}
+ ol{padding-left:30px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:300px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position:absolute;z-index:20000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#organize").suggest(disease_Array,{hot_list:disease_Array,dataContainer:'#disease_category', onSelect:function(){$.get('<!--{$basePath}-->coding/diseasename/getresult/uuid/'+$("#disease_category").val(),function(data){if($("#str").val()!=='-9'){var str=$("#str").val();}else{var str='';}$("#d_standard_code").val(data+str);});},attachObject:'#suggest'});
+});
+</script>
+</head>
+<body>
+<form action="" method="POST" onsubmit="return check_form();">
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><strong><!--{if ($add_tag)}-->疾病诊断名称及编码添加<!--{else}-->疾病诊断名称及编码编辑<!--{/if}--></strong></td>
+     </tr>
+     <tr>
+        <td>疾病分类：</td>
+        <td>
+             <input type="hidden" name="disease_category" id="disease_category" value="<!--{$category_id}-->" />
+             <input type="text" name="organize" id="organize" style="width:300px;" value="<!--{$zh_name}-->"/>
+             <div id='suggest' class="ac_results">
+             </div>
+        </td>
+     </tr>
+     <tr>
+        <td>编码连接符：</td>
+        <td>
+              <select name="str" id="str" onclick="setcode();">
+                <option value="-9">请选择....</option>
+                <!--{foreach from=$str_array item=val key=k}-->
+                <option value="<!--{$k}-->" <!--{if $result==$k}-->selected="selected"<!--{/if}-->><!--{$val}--></option>
+                <!--{/foreach}-->
+              </select>
+        </td>
+     </tr>
+    <tr>
+       <td>疾病诊断编码：</td>
+       <td><input name="d_standard_code" id="d_standard_code" type="text"  value="<!--{$d_standard_code}-->" /></td>
+    </tr>
+    <tr>
+       <td>疾病诊断名称：</td>
+       <td><input name="d_zh_name" id="d_zh_name" type="text"  value="<!--{$d_zh_name}-->" /></td>
+    </tr>
+    <tr >
+      <td colspan="2">
+      <div align="center">
+      <!--{if ($add_tag)}-->
+          <input type="submit" name="ok" value="添加" />
+          <!--{else}--><input type="submit" name="ok" value="修改" /><!--{/if}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" value="退出" onclick="window.location='<!--{$basePath}-->coding/diseasename/index'" />
+      </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    function check_form()
+  	  {
+  	  	 var standard_code = $("#standard_code");
+  	  	 var zh_name = $("#zh_name");
+  	  	 if(standard_code.val()=="")
+  	  	 {
+  	  	 	alert("疾病分类编码不能为空！");
+  	  	 	standard_code.focus();
+  	  	 	return false;
+  	  	 }
+  	  	 if(zh_name.val()=="")
+  	  	 {
+  	  	 	alert("疾病分类编码不能为空！");
+  	  	 	zh_name.focus();
+  	  	 	return false;
+  	  	 }
+  	  }
+  	 function setcode()
+  	 {
+  	 	if($("#disease_category").val()=="")
+  	 	{
+  	 		alert("未选择疾病分类");
+  	 		$("#organize").focus();
+  	 		return false;
+  	 	}
+  	 	else
+  	 	{
+  	 		
+  	 	   if($("#str").val()!=='-9')
+	  	 	{		
+		  	 	var str=$("#str").val();
+		  	 	$.get('<!--{$basePath}-->coding/diseasename/getresult/uuid/'+$("#disease_category").val(),function(data)
+		  	 	{
+		  	 		$("#d_standard_code").val(data+str);
+		  	 	});
+  	 	   } 
+  	 	   else
+  	 	   {
+  	 	   	    $("#d_standard_code").val('');
+  	 	   	  
+  	 	   }
+  	    }
+  	 }
+</script>

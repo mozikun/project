@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+.tab{
+	position:relative;
+	width:500px;
+	height:200px;
+	/*border:solid 1px #000000;*/
+	margin:1px;
+}	
+.tabMenu{
+	float:left;
+	display:block;
+	width:100px;
+	height:30px;
+	border:solid 1px #000000;
+	margin:1px 1px 0px 1px;
+	background-color:#EBF3FB
+}
+.tabMenu:hover1{
+	/*此方法在ie6下无用，改用js控制*/
+	background-color:#FFFFFF;
+}
+.tab2{
+	width:50px;
+}
+
+.tabBody{
+	display:none;
+	float:left;
+	/*tabBody的宽度一定要小于tab的宽度*/
+	width:490px;
+	height:160px;
+	border:solid 1px #000000;
+	margin:-1px 1px 1px 1px;
+	z-index:1;
+}
+#test{
+	position:absolute;
+	left:40px;
+	top:40px;
+	width:50px;
+	height:30px;
+	border:solid 1px #FF0000;
+}
+</style>
+</head>
+
+<body>
+<div id="tab1" class="tab">
+	<div class="tabMenu" divType="tabMenu">
+		menu1
+	</div>
+	<div class="tabMenu" divType="tabMenu">
+		menu2
+	</div>
+	<div class="tabMenu" divType="tabMenu">
+		menu3
+	</div>
+	<div class="tabMenu" divType="tabMenu">
+		menu4
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu1_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu2_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu3_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu4_body
+	</div>
+</div>
+
+<div id="tab2" class="tab">
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu1
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu2
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu3
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu4
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu5
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu6
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu7
+	</div>
+	<div class="tabMenu tab2" divType="tabMenu">
+		menu8
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu1_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu2_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu3_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu4_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu5_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu6_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu7_body
+	</div>
+	<div class="tabBody"" divType="tabBody">
+		menu8_body
+	</div>	
+</div>	
+</html>
+<script type="text/javascript">
+function processTab(tabID){
+	var tab=document.getElementById(tabID);
+	var tabElements=tab.getElementsByTagName('div');
+	
+	var tabMenus=new Array();
+	var tabBodys=new Array();
+	//处理选项卡标签 注意，都是从0开始编号，所以用j来作为计数器
+	for(var i=0,j=0;i<tabElements.length;i++){
+		//alert(j);
+		if(tabElements[i].getAttribute('divType')=='tabMenu'){
+			tabMenus[j]=tabElements[i];
+			tabMenus[j].onmouseover=showTabBody;
+			tabMenus[j].id=tabID+'_menu_'+j;
+			j++;
+			//alert(j);
+		}
+	}	
+	//处理选项卡
+	for(var i=0,j=0;i<tabElements.length;i++){
+		if(tabElements[i].getAttribute('divType')=='tabBody'){
+			//tabMenus[i].onmouseover=showtabBody;
+			tabBodys[j]=tabElements[i];
+			tabBodys[j].id=tabID+'_body_'+j;
+			j++;
+		}
+	}
+	//初始化第一选项卡及标签
+	tabMenus[0].style.backgroundColor='#FFFFFF';
+	tabBodys[0].style.display='block';
+	//处理下划线
+	addUnderLine(tabMenus[0]);
+}
+
+processTab('tab1');
+processTab('tab2');
+
+function showTabBody(){
+	//alert(this.parentNode.id);
+	//取父
+	var tab=this.parentNode;//parentElement
+	//处理选项卡标签
+	var tabElements=tab.getElementsByTagName('div');
+	//给所有的标签加上底色
+	for(var i=0;i<tabElements.length;i++){
+		if(tabElements[i].getAttribute('divType')=='tabMenu'){
+			tabElements[i].style.backgroundColor='#EBF3FB';
+			//alert(tabMenu.style.backgroundColor);
+		}
+	}	
+
+	//处理选项卡,先隐藏所有的tabBody
+	var tabElements=tab.getElementsByTagName('div');
+	//显示当前选项卡
+	for(var i=0;i<tabElements.length;i++){
+		if(tabElements[i].getAttribute('divType')=='tabBody'){
+			tabElements[i].style.display='none';
+		}
+	}	
+	var tempId=this.id.split('_');
+	
+	var tabMenuId=tempId[0]+'_menu_'+tempId[2];
+	var tabMenu=document.getElementById(tabMenuId);
+	tabMenu.style.backgroundColor='#ffffff';
+	//alert(tabMenu.style.backgroundColor);
+	
+	var tabBodyId=tempId[0]+'_body_'+tempId[2];
+	var tabBody=document.getElementById(tabBodyId);
+	tabBody.style.display='block';
+
+	addUnderLine(this);
+}
+function addUnderLine(obj){
+	var tab=obj.parentNode;//parentElement
+	//加一个临时的div将标签与选项卡连接起来
+	obj.style.borderBottom="solid 1px #FFFFFF";
+	//由选项卡标签的id取得选项卡的id
+	//实现原理，每个tab有一个动态添加的底线，位置在当前选中的div下面
+	//但此时父层必须要定义其position，否则位置出错
+	if(document.getElementById(tab.id+'_borderBottom')){
+		var objBorderBottom=document.getElementById(tab.id+'_borderBottom');
+		objBorderBottom.style.position='absolute';
+		objBorderBottom.style.display='block';
+		objBorderBottom.style.left=obj.offsetLeft+'px';
+	}else{
+		var objBorderBottom=document.createElement('div');
+		objBorderBottom.id=tab.id+'_borderBottom';
+		objBorderBottom.style.position='absolute';
+		objBorderBottom.style.display='block';
+		objBorderBottom.style.top=obj.offsetHeight+'px';
+		objBorderBottom.style.left=obj.offsetLeft+'px';
+		objBorderBottom.style.width=obj.offsetWidth+'px';
+		//alert(obj.offsetTop+"|"+obj.offsetLeft+"|"+obj.offsetHeight+"|"+obj.offsetWidth);
+		//alert(obj.scrollTop+"|"+obj.scrollLeft+"|"+obj.scrollHeight+"|"+obj.scrollWidth);
+		objBorderBottom.style.height='0px';
+		objBorderBottom.style.margin='0px';
+		objBorderBottom.style.padding='0px';
+		objBorderBottom.style.borderTop='solid 1px #FFFFFF';
+		objBorderBottom.zIndex=obj.zIndex+1;
+		alert(obj.zIndex);
+		tab.appendChild(objBorderBottom);
+	}		
+	
+}
+</script>

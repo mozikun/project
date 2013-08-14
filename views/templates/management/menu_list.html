@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF;
+}
+.tr{
+	background-color:#336699;
+	color:#FFFFFF;	
+}
+td{
+	border:#000000 1px solid;
+	height:18px;
+}
+.td1{
+}
+fieldset{
+	width:400px;
+	border:1px solid #33CCFF;
+	text-align:center;
+	padding:10px;
+}
+fieldset legend{
+	border:1px solid #33CCFF;
+	padding:2px;
+	margin:2px;
+	font-weight:bold;
+}
+div{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 5px 0px 5px;border:1px solid #DEDEB8;
+	font-size:12px;
+}
+div.div1{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 0px 0px 5px;border:0px;
+
+}
+a{
+	color:#0000FF;
+	text-decoration:underline;
+	font-size:12px;
+}
+a:hover{
+	color:#0000FF;
+	text-decoration:underline
+}
+</style>
+</head>
+
+<body>
+<fieldset><legend>主栏目管理</legend>
+	<table width="100%">
+	  <tr class="tr">
+	    <!--<td>栏目代码</td>-->
+	    <td>栏目名称</td>
+	    <td width="76">操作</td>
+	  </tr>
+	  !--{section name=list1}--
+	  <tr>
+	    <td id='!--{list1.td_id}--' style="display:none"  >!--{list1.menu_id}--</td>
+	<!--    <td id='!--{list1.td_menu_id}--' width="40%"   >!--{list1.menu_id}--</td>
+	-->    <td id='!--{list1.td_description}--' width="40%"    >!--{list1.description}--</td>
+	    <td  width="20%">
+		<div><a href="#" onclick="do_action(!--{list1.td_operate_edit}--,'edit')">编辑</a></div>
+		<div><a href="#" onclick="do_action(!--{list1.td_operate_delete}--,'delete')">删除</a></div>
+		</td>
+	 </tr>
+	  !--{/section}--
+	</table>
+	<div>
+	<a href="/management/menu/add" class="pageline">新增</a>
+	</div>
+	<div>
+	共!--{$max_page}--页 当前第<label id='current_page' name='current_page'>!--{$current_page}--</label>页
+	</div>
+	<div>
+	<a href="#" id='pre' name='pre' class="pageline" onclick="ajaxturnpage(this,'pre')">上一页</a>
+	</div>
+	<div>
+	<a href="#" id='next' name='next' class="pageline" onclick="ajaxturnpage(this,'next')">下一页</a>
+	</div>
+</fieldset>
+<input type="hidden" id="alert_delete" name="alert_delete" value="!--{$alert_delete}--">
+</body>
+</html>
+<script language="javascript">
+
+
+/**
+全局变量xmlHttp对象实例
+*/
+var xmlHttp = false;
+var page_obj = false;
+var page_obj_innertext='';
+
+function change_state()
+{
+
+	//
+	if(page_obj.disabled==false)
+	{
+		page_obj_innertext=page_obj.innerText;
+		page_obj.disabled=true;
+		page_obj.innerText='正在读取数据';//暂时不用
+	}
+	else
+	{
+		if (xmlHttp.readyState == 4)
+		{
+
+			if(xmlHttp.responseText=='error code 0 no data found')
+			{
+				alter('error code 0 no data found');
+				return;
+			}
+			//alert(xmlHttp.responseText);
+			var responseText = eval('('+xmlHttp.responseText+')');
+			//alert(responseText);
+			var table=responseText['table'];
+			//alert(table);
+			var current_page=responseText['state'];
+			//alert(current_page[0]['current_page']);
+			//alert(table.length);
+
+			for(var row=0;row<table.length;row++)
+			{
+				//alert(table[row].name);
+				td_change_innertext(table,'id',row);
+				//td_change_innertext(table,'menu_id',row);
+				td_change_innertext(table,'description',row);
+			}
+			var obj_current_page=document.getElementById('current_page');
+			//alert(obj_current_page.value);
+			page_obj.disabled=false;
+			obj_current_page.innerText=parseInt(current_page[0]['current_page'])+1;
+			//alert(obj_current_page.innerText);
+			page_obj.innerText=page_obj_innertext;//暂时不用，保留
+		}
+	}
+	return;
+}
+function ajaxturnpage(obj,action)
+{
+	page_obj=obj;
+	//如果本次翻页操作还没有成功，按钮还处于灰化状态，则禁止继续操作
+	if(page_obj.disabled==true)
+	{
+		return false;
+	}
+	xmlHttp =new ActiveXObject("Microsoft.XMLHTTP");
+	//xmlHttp.setRequestHeader( "Content-Type" , "multipart/form-data");
+	//alert(current_page);
+	//var obj_current_page;
+	var obj_current_page=document.getElementById('current_page');
+	//alert(obj_current_page.innerText);
+	//obj_current_page=document.all('current_page');
+	//alert(obj_current_page);
+	var current_page=parseInt(obj_current_page.innerText)-1;
+	//alert(current_page);
+	
+	get_string="/management/menu/list/page_action/"+action+"/current_page/"+current_page+"/turn_page_type/ajax/math_id/"+Math.random();
+		//这样处理的主要目的是防止缓存
+	//alert(get_string);
+	xmlHttp.open("GET", get_string, true);
+	//xmlHttp.setRequestHeader( " Content-Type " , " application/x-www-form-urlencoded " );
+	xmlHttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded" );
+	//var str=get_value();
+	//alert(get_string);
+	xmlHttp.onreadystatechange= change_state;
+
+	xmlHttp.send(get_string);
+
+	//alert('a');
+	//xmlHttp.onreadystatechange= change_state;
+	//page_obj.disabled=false;
+
+}
+function td_change_innertext(table,column,row)
+{
+	var obj_name='td_'+column+'_'+row;
+	var td_obj=document.getElementById(obj_name);
+		//alert(obj_name);
+	td_obj.innerText=table[row][column];
+	
+}
+/**
+根据不同的动作参数完成编辑或是删除操作
+row表示是哪一行的动作发生了。
+根据row提供的行号，加上'td_id_'+row形成隐藏列的列id，取得id形成url
+*/
+function do_action(row,action)
+{
+	//alert(row+action);
+
+	var obj_current_page=document.getElementById('current_page');
+	var current_page=parseInt(obj_current_page.innerText)-1;
+
+	
+	var obj_id='td_id_'+row;
+	//alert(obj_id);
+	
+	var obj_id=document.getElementById(obj_id);
+	var id=	obj_id.innerText;
+	
+	if(id.length<3)
+	{
+		alert("没有数据的空行，不能编辑或删除");
+		return false;
+	}
+	if(!confirm("确定吗？"))
+	{
+		return false;
+	}
+	if(action=='edit')
+	{
+		url="/management/menu/display/menu_id/"+id+"/current_page/"+current_page;
+		//alert(url);
+	}
+	if(action=='delete')
+	{
+		
+		url="/management/menu/delete/menu_id/"+id+"/current_page/"+current_page;
+	
+	}
+	document.location=url;
+
+}
+var temp_obj=document.getElementById('alert_delete');
+var alert_delete=temp_obj.value;
+	//alert(alert_delete);
+if(alert_delete!='')
+{
+	if(alert_delete=='prohibit')
+	{
+		alert('此数据禁止删除！');
+	}
+	if(alert_delete=='success')
+	{
+		alert('数据已成功删除！');
+	}
+	//alert(alert_delete);
+}
+</script>

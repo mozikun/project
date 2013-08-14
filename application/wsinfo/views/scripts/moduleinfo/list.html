@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+
+</head>
+<body>
+<table width="100%" align="center">
+   <tr class="headbg">
+       <td colspan="7">接口模块详细&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   </tr>
+   <form action="<!--{$basePath}-->wsinfo/moduleinfo/index" method="post">
+	   <tr>
+	     <td colspan="7">
+	              模块名称:<input type="text" name="module_search"/>
+	              表名:    <input  name="table_search" type="text"/> 
+	     <input type="hidden" name="pagenow" value="<!--{$pageCurrent}-->"/>
+	     <input name="ok" value="搜索" type="submit" style="height:25px;line-height:20px;"/>
+	     </td>
+	   </tr>
+   </form>
+   <tr class="columnbg">
+    <th width="14%">数据元标识符</strong></th>
+	<th>数据元名称</th>
+	<th>定义</th>
+	<th>模块名称</th>
+	<th>表名</th>
+	<th>字段</th>
+	<th width="14%">操作</th>
+   </tr>
+   <tbody>
+   <!--{section name=listArray loop=$listArray}-->
+    <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td width="14%"><!--{$listArray[listArray].internal_identifier}--></td>
+	<td><!--{$listArray[listArray].data_element}--></td>
+	<td><!--{$listArray[listArray].definition}--></td>
+	<td><!--{$listArray[listArray].module_name}--></td>
+	<td><!--{$listArray[listArray].table_name}--></td>
+	<td><!--{$listArray[listArray].fields}--></td>
+	<td width="14%"><a href="<!--{$basePath}-->wsinfo/moduleinfo/manage/editid/<!--{$listArray[listArray].internal_identifier}-->/currentpage/<!--{$pageCurrent}-->/module_search/<!--{$module_id}-->/table_search/<!--{$table_name}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->wsinfo/moduleinfo/del/delid/<!--{$listArray[listArray].internal_identifier}-->/currentpage/<!--{$pageCurrent}-->/module_search/<!--{$module_id}-->/table_search/<!--{$table_name}-->" onclick="return confirm('您确定删除吗?请谨慎操作');">[删除]</a></td>
+   </tr>
+   <!--{sectionelse}-->
+   <tr>
+     <td colspan="7">当前没有任何数据</td>
+   </tr>
+   <!--{/section}-->
+   </tbody>
+	  <tr  class="columnbg">
+	 <td colspan="7" align="left" width="100%">
+		<a href="<!--{$basePath}-->wsinfo/moduleinfo/manage/currentpage/<!--{$pageCurrent}-->">[添加]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}-->
+	 </td>
+	</tr>
+</table>
+</body>

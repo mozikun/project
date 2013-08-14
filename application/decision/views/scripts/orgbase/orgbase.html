@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>基本情况</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">基本情况</td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="headbg">
+	    <td rowspan="2">地区</td>
+	    <td align="center" rowspan="2">机构名称</td>
+		<td align="center" rowspan="2">年&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+		<td align="center" colspan="<!--{$org_type_nu}-->">设置/主办单位</td>
+		<td align="center" colspan="<!--{$org_under_typearr_nu}-->">政府办机构隶属关系</td>
+	</tr>
+	<tr class="headbg">
+	   <!--{foreach from=$org_typearr_get key=k  item=v}-->
+		<td><!--{$v}--></td>
+	   <!--{/foreach}-->
+	   <!--{foreach from=$org_under_typearr_get key=k  item=v}-->
+		<td><!--{$v}--></td>
+	   <!--{/foreach}-->
+	</tr>
+		<!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td rowspan="<!--{$region_array[region_array].rowspan}-->"><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/orgbase/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	    <!--{section loop=$region_array[region_array].org name=c}-->
+	    <!--{if $smarty.section.c.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td rowspan="<!--{$region_array[region_array].org[c].org_ext}-->"><!--{$region_array[region_array].org[c].zh_name}--></td>
+	   <!--{section loop=$region_array[region_array].org[c].ext name=d}-->
+	   <!--{if $smarty.section.d.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td><!--{$region_array[region_array].org[c].ext[d].year}-->年</td>
+	   <!--{foreach from=$region_array[region_array].org[c].ext[d].org_type key=k  item=v}-->
+			<td  ><!--{$v}--></td>
+			<!--{/foreach}-->
+			<!--{foreach from=$region_array[region_array].org[c].ext[d].org_under_type key=k  item=v}-->
+			<td  ><!--{$v}--></td>
+			<!--{/foreach}-->
+	  </tr>
+	  <!--{sectionelse}-->
+	    <td colspan="<!--{$rows_org_ext}-->" align="left">无机构基本信息数据</td>
+	  </tr>
+	 <!--{/section}-->
+	 <!--{sectionelse}-->
+	  <td colspan="<!--{$rows_org}-->" align="left">无机构数据</td>
+	  </tr>
+	 <!--{/section}-->
+     <!--{/section}-->
+</table>
+<hr style="color:red;height:3px;" />
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td rowspan="2">地区</td>
+	    <td align="center" rowspan="2">机构名称</td>
+		<td align="center" rowspan="2">年&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+		<td align="center" colspan="2">机构所在地是否民族自治地方</td>
+		<td align="center" colspan="2">是否公费医疗/医疗保险定点医院</td>
+		<td align="center" colspan="2">是否新型农村合作医疗定点医院</td>
+		<td align="center" colspan="2">是否直报疫情及突发公共卫生事件</td>
+		<td align="center" colspan="1">计算机台数</td>
+		<td align="center" colspan="2">是否配置健康教育录(放)像设备</td>
+		<td align="center" colspan="1">下设直属分站(院、所)个数</td>
+	</tr>
+	<tr class="headbg">
+		<td>是</td>
+		<td>否</td>
+		
+		<td>是</td>
+		<td>否</td>
+		
+		<td>是</td>
+		<td>否</td>
+
+		<td>是</td>
+		<td>否</td>
+		
+		<td>总数</td>
+		
+		<td>是</td>
+		<td>否</td>
+		
+		<td>总数</td>
+	</tr>
+		<!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td rowspan="<!--{$region_array[region_array].rowspan}-->"><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/orgbase/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	    <!--{section loop=$region_array[region_array].org name=c}-->
+	    <!--{if $smarty.section.c.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td rowspan="<!--{$region_array[region_array].org[c].org_ext}-->"><!--{$region_array[region_array].org[c].zh_name}--></td>
+	   <!--{section loop=$region_array[region_array].org[c].ext name=d}-->
+	   <!--{if $smarty.section.d.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td><!--{$region_array[region_array].org[c].ext[d].year}-->年</td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_nation_autonomy_y}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_nation_autonomy_n}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_medicare_point_hospital_y}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_medicare_point_hospital_n}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_new_point_hospital_y}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_new_point_hospital_n}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_common_event_report_y}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].is_common_event_report_n}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].computer_count}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].has_health_edu_equipment_y}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].has_health_edu_equipment_n}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].child_chss_count}--></td>
+	  </tr>
+	  <!--{sectionelse}-->
+	    <td colspan="15" align="left">无机构基本信息数据</td>
+	  </tr>
+	 <!--{/section}-->
+	 <!--{sectionelse}-->
+	  <td colspan="16" align="left">无机构数据</td>
+	  </tr>
+	 <!--{/section}-->
+     <!--{/section}-->
+</table>
+</body>
+</html>

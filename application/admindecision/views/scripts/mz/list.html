@@ -1,0 +1,16 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="2" align="center"><center><strong>地区疾病顺位统计表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="50%"><strong>疾病名称</strong></td>
+        <td width="50%"><strong>疾病数</strong></td>
+     </tr>
+       <!--{section loop=$row name=row}-->    
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">    
+            <td><!--{$row[row].jzzdmc}--></td> 
+            <td><!--{$row[row].total}--></td> 
+        </tr> 
+         <!--{/section}-->      
+</table>
+

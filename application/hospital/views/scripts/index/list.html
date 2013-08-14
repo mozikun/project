@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+    <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+	<title><!--{$individual_core->name}--><!--{$title}--></title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%;}
+       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+	<script language="javascript" src="http://api.ditu.aliyun.com/map.js" ></script>
+	<script type="text/javascript"> 
+</script>
+</head>
+<body>
+  <div class="title_bg">
+     您目前所在的位置附近有<font color="Red"><!--{$number}--></font>家医院
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        	
+	     <tr>
+		 	<td>
+		 	  医院名称
+	        </td>
+			<td >
+	          查看科室及医生
+	        </td>
+         </tr>
+         <!--{section name=orgarray loop=$orgarray}-->
+         <tr>
+            <td><!--{$orgarray[orgarray].zh_name}--></td>
+			<td>
+	        	<a href="<!--{$basePath}-->appointment/info/index/org_id/<!--{$orgarray[orgarray].id}-->/lng_lat/<!--{$orgarray[orgarray].lat_lng_url}-->">[查看科室及医生]</a>
+	        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	        	<span onclick="createmap('<!--{$orgarray[orgarray].id}-->','<!--{$orgarray[orgarray].lat_lng}-->','td_<!--{$orgarray[orgarray].id}-->');">[查看地图]</span>
+	        </td>
+       	 </tr>
+       	 <tr style="display:none;" id="td_<!--{$orgarray[orgarray].id}-->">
+       	   <td  colspan="2" align="center">
+       	        <span class="map_up" id="mapDiv_<!--{$orgarray[orgarray].id}-->" style="display:block;width:250px;height:250px;">    
+                </span>
+       	   </td>
+       	 </tr>
+	  <!--{sectionelse}-->
+	   <tr>
+	     <td colspan="2">没有记录</td>
+	   </tr>
+      <!--{/section}-->
+     </table>
+   </div>
+  
+
+   <div class="ui-footer">
+     <a id="login" href="<!--{$basePath}-->iha/login/index/device_id/<!--{$device_id}-->">返回</a>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+ function createmap(org_id,lat_lng,td_id)
+ {
+ 	if($("#"+td_id).css("display")=='none')
+ 	{
+ 	 $("#"+td_id).show();
+ 	}
+ 	else
+ 	{
+ 		$("#"+td_id).hide();
+ 	}
+ 	var map=new AliMap("mapDiv_"+org_id); //使用id为mapDiv的层创建一个地图对象
+  	//放大缩小控件
+	control=new AliMapLargeControl({hidePanBtn:true,hideZoomBtn:false,hideZoomBar:true});
+	map.addControl(control);
+	//添加鼠标滑轮的防大缩小事件 
+    control=new AliMapMouseWheelControl();
+    map.addControl(control);
+	var point = lat_lng;
+	point_arr = point.split("~");
+    var center=new AliLatLng(point_arr[0],point_arr[1]);
+    map.centerAndZoom(center,15);
+    var marker = new AliMarker(center);   
+	marker.setIcon(new AliIcon("<!--{$basePath}-->views/images/icon2.png",{x:16,y:27},{x:8,y:27}));
+	map.addOverlay(marker);
+ }
+</script>

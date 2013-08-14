@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选择收件人</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<style>
+.treeview_a{
+	text-decoration:none;
+}
+
+</style>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+</head>
+<body>
+<form action="<!--{$basePath}-->document/doc/treeviewsave" method="POST" enctype="multipart/form-data">
+
+请输入文件标题：<input type="text" id="doc_title" name="doc_title" value="" size="100"><br />
+请选择要上传的文件：<input type="file" id="upload" name="upload" value="">(文件大小不能超过2M)<br />
+<input type="hidden" id="org_string" name="org_string" value="" />
+<input type="hidden" id="region_string" name="region_string" value="" />
+收件人：<div id="show"></div>
+<input type="button" id="upload_button1" name="upload_button1" value="上传" onclick="ajaxSave();" />
+<div style="display:block;border:solid 1px #ccc;">
+请选择收文地区或机构
+<!--{$treeview}-->
+</div>
+<input type="button" id="upload_button2" name="upload_button2" value="上传" onclick="ajaxSave();" />
+</form>
+</body>
+<script type="text/javascript">
+function showSelect(){
+	var string='';
+	$("input[type='checkbox']").each(function(){
+		if($(this).attr("checked")){
+			string=string+$(this).attr("check_box_inner_text")+"&nbsp;&nbsp;";
+		}
+	});
+	$("#show").html(string);
+}
+function expand(id){
+	//alert(id);
+	var div_name="div_"+id;
+	var plus_name='plus_'+id;
+	if($("#"+div_name).css('display')!='none'){
+		$("#"+div_name).css('display','none');
+		var img="<!--{$basePath}-->views/images/treeview/plus.gif";
+		$("#"+plus_name).html("<img src='"+img+"' style='border:none' />");
+	}else{
+		$("#"+div_name).css('display','block');
+		var img="<!--{$basePath}-->views/images/treeview/minus.gif";
+		$("#"+plus_name).html("<img src='"+img+"' style='border:none' />");
+		//$("#"+plus_name).html('-');
+	}
+}
+function ajaxSave(){
+
+	//alert('save');
+	var org_string='';
+	var region_string='';
+	$("input[type='checkbox']").each(function(){
+		if($(this).attr("checked")){
+			var check_box_name=$(this).attr("name");
+			if(check_box_name.substr(0,3)=='org'){
+				org_string=org_string+$(this).val()+'|';
+			}else{
+				region_string=region_string+$(this).val()+'|';
+			}
+			//alert($(this).val());
+		}
+	});
+	
+	$('#region_string').val(region_string);
+	$('#org_string').val(org_string);
+	if(region_string=='' && org_string==''){
+		alert('请选择收件机构或是地区');
+		return true;
+	}
+	if($('#doc_title').val()==''){
+		alert('请输入公文标题或是公文说明');
+		return true;
+	}
+	if($('#upload').val()==''){
+		alert('请选择一个文件');
+		return true;
+	}
+	$('#upload_button1').attr('disabled','true');
+	$('#upload_button2').attr('disabled','true');	
+	$('form').submit();
+	
+}
+
+
+
+function ajaxSave1(){
+	$('#save').attr('disabled','true');
+	//alert('save');
+	var org_string='org_string=';
+	var region_string='region_string=';
+	$("input[type='checkbox']").each(function(){
+		if($(this).attr("checked")){
+			var check_box_name=$(this).attr("name");
+			if(check_box_name.substr(0,3)=='org'){
+				org_string=org_string+$(this).val()+'|';
+			}else{
+				region_string=region_string+$(this).val()+'|';
+			}
+			
+			//alert($(this).val());
+		}
+	});
+	
+	//$('#save').val()
+	
+	var string=org_string+'&'+region_string;
+	$.ajax({
+		type: "POST",
+		url: "<!--{$basePath}-->document/doc/treeviewsave",
+		data: string,
+		success: function(returnValue){
+			alert( "Data Saved: " + returnValue );
+			$('#save').attr('disabled','');
+		}
+		
+	});
+}
+
+</script>

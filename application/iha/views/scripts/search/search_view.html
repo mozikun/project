@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="yaachis" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+    <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="<!--{$basePath}-->views/js/kandytabs.pack.js"></script>
+    <script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/kandytabs.css" />
+	<title>区域卫生信息公众平台-【雅安】-[<!--{$core->name}-->]个人信息预览</title>
+    <style type="text/css">
+    body,div,table{
+        margin: 0;
+        padding:0;
+    }
+    #header{
+    	margin:0px;
+    	background-image:url('<!--{$basePath}-->views/images/ips.gif');
+        background-repeat: no-repeat;
+        height: 67px;
+    }
+    table
+	{
+		background:#ffffff;
+	}
+    #right
+    {
+        overflow:hidden;
+        float: right; /*浮动居右*/
+        clear: right; /*不允许右侧存在浮动*/
+
+    }
+    #content
+    {
+        width: 100%;
+    }
+    input.line{border:0px;border-bottom: 1px solid #ccc;}
+    </style>
+<script>
+$(function(){
+    $("dl").KandyTabs({trigger:"click"});
+    $("#cismain_popup").ajaxStart(function(){
+        $("#cismain_popup").html("<img src='<!--{$basePath}-->images/load.gif' />");
+    });
+    $("#image").bind('click',function(){
+        show_image();
+    });
+  })
+function show_cis_main(obj,url)
+{
+    if($("#cismain_popup").is(':hidden'))
+    {
+        $(obj).html('关闭本次详细');
+        $("#cismain_popup").show();
+        $.get(url,function(data){
+            $("#cismain_popup").html(data);
+        });
+    }
+    else
+    {
+        $(obj).html('显示本次详细');
+        $("#cismain_popup").hide();
+    }
+}
+function show_image(obj)
+{
+    if($("#image_dd").html())
+    {
+        //加载
+        $("#image_dd").html("<img src='<!--{$basePath}-->images/load.gif' />");
+        $.get('<!--{$basePath}-->iha/image/index/card/<!--{$card}-->',function(data){
+            $("#image_dd").html(data);
+        });
+    }
+    else
+    {
+        
+    }
+}
+</script>
+</head>
+
+<body>
+<div id="content">
+<div id="left" style="position: relative;clear:left;">
+<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="2"><b>基本信息</b></td>
+    </tr>
+    <tr><td style="width: 180px;"><img <!--{if $headpic}-->src="<!--{$headpic}-->"<!--{else}-->src="<!--{$basePath}-->views/images/nopic.gif"<!--{/if}--> id="headpic" style="width:95px;height: 128px;margin: 8px auto;" /></td><td style="font-size: 24px;font-weight: bold;"><!--{$core->name}--></td></tr>
+    <tr><td>性别</td><td><!--{$core->sex}--></td></tr>
+    <tr><td>年龄</td><td><!--{$core->age}--></td></tr>
+    <tr><td>电话</td><td><!--{$core->phone_number}--></td></tr>
+    <tr><td>生日</td><td><!--{$core->date_of_birth}--></td></tr>
+    <tr><td>血型</td><td><!--{$blood->abo_bloodtype}--></td></tr>
+    <tr><td>住址</td><td><!--{$core->address}--></td></tr>
+    </table>
+    <br />
+    <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="3"><b>管理医生</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>姓名</td><td>机构</td><td>联系电话</td>
+    </tr>
+    <!--{if $staff_array.name}-->
+    <td><!--{$staff_array.name}--></td><td><!--{$staff_array.org}--></td><td><!--{$staff_array.phone}--></td>
+    <!--{/if}-->
+    </table>
+<!--table border="0" cellpadding="0" cellspacing="0" style="width: 99%;clear: left;">
+<tr class="headbg">
+<td colspan="8"><b>服药情况</b></td>
+</tr>
+<tr class="columnbg">
+<td>日期</td><td>药品名称</td><td>药品类型</td><td>用法</td><td>药品规格</td><td>单位</td><td>剂量</td><td>服药周期</td>
+</tr>
+<tr><td colspan="8">近期没有服药记录</td></tr>
+</table>
+<br /-->
+<dl>
+  <dt>家庭成员</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="4"><b>家庭成员</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>姓名</td><td>关系</td><td>联系电话</td><td>住址</td>
+    </tr>
+    <!--{section name=family loop=$family}-->
+    <tr><td><!--{$family[family].name}--></td><td><!--{$family[family].realation}--></td><td><!--{$family[family].phone_number}--></td><td><!--{$family[family].address}--></td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="4">您没有家庭成员记录</td></tr>
+    <!--{/section}-->
+    </table>
+</dd>
+  <dt>近期提醒</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;float: left;margin: 0;">
+    <tr class="headbg">
+    <td colspan="2"><b>近期提醒</b></td>
+    </tr>
+    <tr class="columnbg"><td>日期</td><td>事件</td></tr>
+    <!--{section name=tips loop=$tips_array}-->
+    <tr><td><!--{$tips_array[tips].tips_time}--></td><td><!--{$tips_array[tips].tips_type}--></td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="2">近期还没有提醒记录</td></tr>
+    <!--{/section}-->
+    </table>
+    
+</dd>
+  <dt>体格检查</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;float: left;margin: 0;">
+    <tr class="headbg">
+    <td colspan="4"><b><b>体格检查</b></b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>身高(cm)</td><td>体重(kg)</td><td>收缩压(mmHg)</td><td>舒张压(mmHg)</td>
+    </tr>
+    <!--{section name=physical loop=$physical}-->
+    <tr><td><!--{$physical[physical].height}--></td><td><!--{$physical[physical].weight}--></td><td><!--{$physical[physical].s_blood_pressure}--></td><td><!--{$physical[physical].p_blood_pressure}--></td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="4">近期还没有体格检查记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>血压变化图</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td><b>血压变化图</b></td>
+    </tr>
+    <tr><td><img src="<!--{$basePath}-->iha/search/showpic/uuid/<!--{$core->uuid}-->" /></td></tr>
+  </table>
+  </dd>
+  <dt>慢病情况</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="8"><b>慢病情况</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>慢病管理类型</td><td>总随访次数</td><td>最后随访时间</td><td>最后随访结局</td><td>下次随访日期</td><td>&nbsp;</td>
+    </tr>
+    <tr><td>高血压</td><td><!--{$hy_count}--></td><td><!--{$hy->follow_time}--></td><td><!--{$hy->follow_result}--></td><td><!--{$hy->follow_next_time}--></td><td><!--{if $hy->id}--><a href="<!--{$basePath}-->cd/index/list/id/<!--{$hy->id}-->">进入查看</a><!--{/if}--></td>
+    </tr>
+    <tr><td>糖尿病</td><td><!--{$di_count}--></td><td><!--{$di->followup_time}--></td><td><!--{$di->followup_result}--></td><td><!--{$di->time_of_next_followup}--></td><td><!--{if $di->id}--><a href="<!--{$basePath}-->cd/diabetes/index/id/<!--{$di->id}-->">进入查看</a><!--{/if}--></td>
+    </tr>
+    <tr><td>重性精神分裂</td><td><!--{$sc_count}--></td><td><!--{$sc->fllowup_time}--></td><td><!--{$sc->followup_content}--></td><td><!--{$sc->next_followup_time}--></td><td><!--{if $sc->id}--><a href="<!--{$basePath}-->cd/schizophrenia/list/id/<!--{$sc->id}-->">进入查看</a><!--{/if}--></td>
+    </tr>
+  </table>
+  </dd>
+  <dt>疾病史</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="3"><b>疾病史</b></td>
+    </tr>
+    <tr class="columnbg"><td>诊断日期</td><td>诊断名称</td><td>诊断类型</td></tr>
+    <!--{section name=clinical_array loop=$clinical_array}-->
+    <tr><td><!--{$clinical_array[clinical_array].disease_date}--></td><td><!--{$clinical_array[clinical_array].disease_name}--></td><td>确诊</td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="3">您没有疾病史记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>健康教育</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="5"><b>健康教育</b></td>
+    </tr>
+    <tr class="columnbg"><td>时间</td><td>地点</td><td>教育形式</td><td>发放资料</td><td>医生</td></tr>
+    <!--{section name=health loop=$health}-->
+    <tr><td><!--{$health[health].time}--></td><td><!--{$health[health].address}--></td><td><!--{$health[health].xingshi}--></td><td><!--{$health[health].ziliao}--></td><td><!--{$health[health].doctor}--></td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="5">您没有健康教育记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>门诊情况列表</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="13"><b>门诊情况列表</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td rowspan="2">门诊时间</td><td rowspan="2">机构</td><td rowspan="2">医生</td><td rowspan="2">患者姓名</td><td rowspan="2">疾病名称</td><td colspan="8">费用详情</td>
+    </tr>
+    <tr class="columnbg">
+    <td>收费时间</td><td>明细费用类别</td><td>明细项目编码</td><td>明细项目名称</td><td>明细项目单位</td><td>明细项目单价</td><td>明细项目数量</td><td>明细项目金额</td>
+    </tr>
+    <!--{section name=tb_fee loop=$tb_yl_mz_medical_record}-->
+    <tr>
+    <td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].jzksrq}--></td><td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].yljgdm}--></td><td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].zzysxm}--></td><td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].hzxm}--></td><td rowspan="<!--{$tb_yl_mz_medical_record[tb_fee].fee_count}-->"><!--{$tb_yl_mz_medical_record[tb_fee].jzzdmc}--></td>
+    <!--{section name=tb_fee_table loop=$tb_yl_mz_medical_record[tb_fee].fee}-->
+    <!--{if $smarty.section.tb_fee_table.rownum!=1}-->
+    <tr>
+    <!--{/if}-->
+    <td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].stfsj}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxfylb}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmbm}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmmc}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdw}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmdj}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmsl}--></td><td><!--{$tb_yl_mz_medical_record[tb_fee].fee[tb_fee_table].mxxmje}--></td>
+    </tr>
+    <!--{sectionelse}-->
+    <td colspan="8">没有记录</td>
+    <!--{/section}-->
+    </tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="13">近期没有记录</td></tr>
+    <!--{/section}-->
+ </table>
+  </dd>
+  <dt>门诊处方明细表</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="11"><b>门诊处方明细表</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td rowspan="2">医疗机构</td><td rowspan="2">患者姓名</td><td colspan="8">处方详情</td>
+    </tr>
+    <tr class="columnbg">
+    <td>处方号码</td><td>就诊科室名称</td><td>开方医生姓名</td><td>开方时间</td><td>药品名称</td><td>发药数量</td><td>用药频次</td><td>发药数量单位</td>
+    </tr>
+    <!--{section name=tb_fee loop=$tb_cis_prescription_detail}-->
+    <tr>
+    <td rowspan="<!--{$tb_cis_prescription_detail[tb_fee].cis_count}-->"><!--{$tb_cis_prescription_detail[tb_fee].yljgdm}--></td><td rowspan="<!--{$tb_cis_prescription_detail[tb_fee].cis_count}-->"><!--{$tb_cis_prescription_detail[tb_fee].hzxm}--></td>
+    <!--{section name=tb_fee_table loop=$tb_cis_prescription_detail[tb_fee].cis}-->
+    <!--{if $smarty.section.tb_fee_table.rownum!=1}-->
+    <tr>
+    <!--{/if}-->
+    <td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].cyh}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].jzksmc}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfysxm}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].kfrq}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].xmmc}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypsl}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].sypc}--></td><td><!--{$tb_cis_prescription_detail[tb_fee].cis[tb_fee_table].ypdw}--></td>
+    </tr>
+    <!--{sectionelse}-->
+    <td colspan="8">没有记录</td>
+    <!--{/section}-->
+    </tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="11">近期没有记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>住院情况列表</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="11"><b>住院情况列表</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td rowspan="2">住院时间</td><td rowspan="2">患者姓名</td><td colspan="9">费用详情</td>
+    </tr>
+    <tr class="columnbg">
+    <td>收费时间</td><td>明细费用类别</td><td>明细项目编码</td><td>明细项目名称</td><td>明细项目单位</td><td>明细项目单价</td><td>明细项目数量</td><td>明细项目金额</td><td>住院机构</td>
+    </tr>
+    <!--{section name=tb_zy loop=$tb_yl_zy_medical_record}-->
+    <tr>
+    <td rowspan="<!--{$tb_yl_zy_medical_record[tb_zy].fee_count}-->"><!--{$tb_yl_zy_medical_record[tb_zy].rysj}--></td><td rowspan="<!--{$tb_yl_zy_medical_record[tb_zy].fee_count}-->"><!--{$tb_yl_zy_medical_record[tb_zy].hzxm}--></td>
+    <!--{section name=tb_zy_table loop=$tb_yl_zy_medical_record[tb_zy].fee}-->
+    <!--{if $smarty.section.tb_zy_table.rownum!=1}-->
+    <tr>
+    <!--{/if}-->
+    <td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].stfsj}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxfylb}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmbm}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmmc}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmdw}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmdj}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmsl}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].mxxmje}--></td><td><!--{$tb_yl_zy_medical_record[tb_zy].fee[tb_zy_table].yljgdm}--></td>
+    </tr>
+    <!--{sectionelse}-->
+    <td colspan="9">没有记录</td>
+    <!--{/section}-->
+    </tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="11">近期没有记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>病历记录</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="8"><b>病历记录</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>日期</td><td>主诉</td><td>现病史</td><td>体温</td><td>脉搏</td><td>呼吸</td><td>一般情况</td><td>初步诊断</td>
+    </tr>
+    <!--{section name=emr_array loop=$emr_array}-->
+    <tr><td><!--{$emr_array[emr_array].medical_records_time}--></td><td><!--{$emr_array[emr_array].complaints}--></td><td><!--{$emr_array[emr_array].present_illness}--></td><td><!--{$emr_array[emr_array].physical_t}--></td><td><!--{$emr_array[emr_array].physical_p}--></td><td><!--{$emr_array[emr_array].physical_r}--></td><td><!--{$emr_array[emr_array].physical_general}--></td><td><!--{$emr_array[emr_array].primary_diagnosis}--></td></tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="8">近期没有病历记录</td></tr>
+    <!--{/section}-->
+  </table>
+  </dd>
+  <dt>检验记录</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="headbg">
+    <td colspan="8"><b>检验记录</b></td>
+    </tr>
+    <tr class="columnbg">
+    <td>检验单号</td><td>检验单内容</td>
+    </tr>
+    <!--{foreach name=det key=key item=item from=$det_array}-->
+    <!--{if $smarty.foreach.det.iteration<=6}-->
+    <tr><td><!--{$key}--></td>
+    <td>
+    <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr>
+     <th>中文名称</th>
+     <th>英文名</th>
+     <th>结&nbsp;&nbsp;果</th>
+     <th>单&nbsp;&nbsp;位</th>
+     <th>参&nbsp;&nbsp;考</th>
+    </tr>
+    <!--{section loop=$item name=zj}-->
+    <tr>
+     <td><!--{$item[zj].zh_name}--></td>
+     <td><!--{$item[zj].en_name}--></td>
+     <td><!--{$item[zj].exam_result}--></td>
+     <td><!--{$item[zj].exam_unit}--></td>
+     <td><!--{$item[zj].reference}--></td>
+    </tr>
+    <!--{sectionelse}-->
+    <tr>
+    <td colspan="5">当前没有数据</td>
+    </tr>
+    <!--{/section}-->
+    </table>
+    </td>
+    </tr>
+    <!--{/if}-->
+    <!--{foreachelse}-->
+    <tr><td colspan="8">近期没有检验记录</td></tr>
+    <!--{/foreach}-->
+  </table>
+  </dd>
+  <dt id="image">影像记录</dt>
+  <dd id="image_dd">
+  </dd>
+  <dt>病历概要</dt>
+  <dd>&nbsp;</dd>
+  <dt>门（急）诊病历</dt>
+  <dd>&nbsp;</dd>
+  <dt>门（急）诊处方</dt>
+  <dd>&nbsp;</dd>
+  <dt>检查检验记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>一般治疗处置记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>助产记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>护理操作记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>护理评估与计划</dt>
+  <dd>&nbsp;</dd>
+  <dt>知情告知信息</dt>
+  <dd>&nbsp;</dd>
+  <dt>住院病案首页</dt>
+  <dd>
+  <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;clear: left;">
+    <tr class="columnbg">
+    <td>入院时间</td><td>住院次数</td><td>入院病区</td><td>入院科室名称</td><td>出院时间</td><td>实际住院天数</td><td>医疗机构</td><td>&nbsp;</td>
+    </tr>
+    <!--{section name=tb_sy loop=$tb_cis_mains}-->
+    <tr>
+    <td><!--{$tb_cis_mains[tb_sy].rysj}--></td><td><!--{$tb_cis_mains[tb_sy].zycs}--></td><td><!--{$tb_cis_mains[tb_sy].rybq}--></td><td><!--{$tb_cis_mains[tb_sy].ryksmc}--></td><td><!--{$tb_cis_mains[tb_sy].cysj}--></td><td><!--{$tb_cis_mains[tb_sy].sjzyts}--></td><td><!--{$tb_cis_mains[tb_sy].yljgdm}--></td><td><span id="cismain_popup_index" style="cursor: pointer;" onclick="show_cis_main(this,'<!--{$basePath}-->iha/search/cismain/id/<!--{$tb_cis_mains[tb_sy].jzlsh}-->')">查看本次详细</span></td>
+    </tr>
+    <!--{sectionelse}-->
+    <tr><td colspan="8">近期没有记录</td></tr>
+    <!--{/section}-->
+  </table>
+  <div id="cismain_popup" style="display:none;">
+  
+  </div>
+  </dd>
+  <dt>入院记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>住院病程记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>住院医嘱</dt>
+  <dd>&nbsp;</dd>
+  <dt>出院小结</dt>
+  <dd>&nbsp;</dd>
+  <dt>转诊（院）记录</dt>
+  <dd>&nbsp;</dd>
+  <dt>医疗机构信息</dt>
+  <dd>&nbsp;</dd>
+</dl>
+</div>
+</body>
+</html>

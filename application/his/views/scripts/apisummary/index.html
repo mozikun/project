@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>接口概要列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style type="text/css">
+table
+{
+	background:#ffffff;
+}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+	text-align:center;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+td,th{
+text-align:left;
+}
+</style>
+</head>
+<table border="0" width="100%">
+    <tr><th colspan='2' align='left'>
+		<!--{foreach from=$path_arr item=p}-->
+			<a href="<!--{if $p.show==1}--><!--{$basePath}-->his/apisummary/index/p_id/<!--{$p.path_id}-->/mid/<!--{$mid}--><!--{else}-->#<!--{/if}-->"><span <!--{if $current_path_id==$p.path_id}-->style="color:red" <!--{/if}-->><!--{$p.path_name}-->></span></a>
+		<!--{/foreach}-->	
+	</th></tr>
+	<!--{if $region_arr}-->
+    <tr class="headbg">
+	
+		<th  >
+			地区名称
+        </th>
+		
+        <th >
+      	  下级地区 
+        </th>            
+          
+	</tr>
+	<!--{/if}-->
+	<tbody >
+	<!--{if $region_arr}-->
+	 <!--{foreach from=$region_arr item=i key=k}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" class="lista">
+		<td>
+        	<!--{$i.region_name}-->
+        </td>         
+         <td>
+            <a   href="<!--{$basePath}-->his/apisummary/index/p_id/<!--{$i.region_id}-->/mid/<!--{$mid}-->">[进入下级地区]</>
+        </td>       
+	</tr>
+	<!--{/foreach}-->
+	
+	<!--{/if}-->
+	<!--{if $org_arr}-->
+	<tr class="headbg">
+		<th  >
+			当前地区下的机构
+        </th>
+        <th >
+      	  电子病历
+        </th>            
+          
+	</tr>
+	<!--{/if}-->
+	<!--{ if $org_arr}-->
+	 <!--{foreach from=$org_arr item=i key=k}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" class="lista">
+		<td>
+        	<!--{$i.org_name}-->
+        </td>         
+         <td>
+            <a   href="<!--{$basePath}-->his/apisummary/list/mid/<!--{$mid}-->/org_id/<!--{$i.org_id}-->">[查看电子病历]</>
+        </td>       
+	</tr>
+	<!--{/foreach}-->	
+	 <!--{/if}-->
+	</tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加工作计划维护项目</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body onbeforeunload='clowseWindow()' onload="buttonopen();" >
+<table width="100%" align="center">
+<input type="hidden" name="p_id" id="p_id" value="<!--{$pid}-->" />
+  <tr>
+	<td >计划类型所属名称:</td>
+	<td><!--{$tipszh_name}--></td>
+   </tr>
+   <tr>
+	<td>添加计划类型名称:</td>
+	<td ><input type="text" name="zh_name" id="zh_name" onKeyDow="checkzhname();"  onKeyUp="checkzhname();" /><span id="lxname"></span></td>
+   </tr>
+	<tr>
+	   <td colspan="2" align="center" width="100%">
+		<input type="button" name="save" id="save" value="保存" onclick="ajaxSave()"/>
+		<input type="button" name="exit" id="exit" value="退出" onclick="clowseWindow()"/>
+		</td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var xmlHttp;
+function buttonopen(){
+	var dispalyId = $('lxname');
+	$('save').disabled=true;
+	dispalyId.style.color = "red";
+	dispalyId.innerHTML = '请输入工作计划名称';
+}
+function clowseWindow(){
+		$('exit').disabled=true;
+		var url='<!--{$basePath}-->planmenu/planmenu/list/parent_id/<!--{$pid}-->/sid/'+Math.random();
+		window.close();
+		//opener.location.reload(url); //(好像不写这句也可以的，写了这句有错误提示)	
+}
+function ajaxSave(){
+	$('save').value='正在保存数据';
+	$('save').disabled=true;
+	var zh_name=encodeURIComponent($('zh_name').value);
+	xmlHttp=getXmlHttpObject();
+	var url='<!--{$basePath}-->planmenu/planmenu/displayadd'+'/p_id/<!--{$pid}-->/zh_name/'+zh_name+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processAjaxSave;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+}
+function processAjaxSave(){
+	//alert(xmlHttp.readyState+' '+xmlHttp.status);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//document.write(xmlHttp.responseText);
+		//alert(xmlHttp.responseText);
+		//$('save').val('保存');
+		$('save').value='数据已经保存';
+		 alert("数据已经保存");
+		$('save').disabled=true;
+	    clowseWindow();
+	}
+}
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function checkzhname(){
+	var checkname = $('zh_name');
+	var dispalyId = $('lxname');
+	if(checkname.value==""){
+		$('save').disabled=true;
+		dispalyId.style.color = "red";
+		dispalyId.innerHTML = '请输入工作计划名称';    
+		}else{
+			dispalyId.innerHTML = '';
+			$('save').disabled=false;	
+			}
+}
+function $(id){
+	return document.getElementById(id);
+}
+</script>

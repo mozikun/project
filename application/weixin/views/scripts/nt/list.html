@@ -1,0 +1,54 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            机构通知信息
+        </h3>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" data-divider-theme="b" data-inset="true">
+            <li data-role="list-divider" role="heading">
+                机构通知列表
+            </li>
+            <!--{if $row}-->
+			<!--{foreach from=$row item=item key=k}-->
+            <li data-theme="c">
+                <a href="<!--{$basePath}-->weixin/nt/detail/uuid/<!--{$item.uuid}-->" data-transition="slide">
+                      <!--{$item.title}-->&nbsp;&nbsp;<!--{$item.create_time}-->
+                </a>
+            </li>
+			 <!--{/foreach}-->
+			 <!--{else}-->
+			 <li data-theme="c">
+			 	<div style="font-size:14px">暂时没有数据</div>
+			 </li>
+			 <!--{/if}-->
+			<li data-role="list-divider" role="heading">
+
+			</li>
+        </ul>
+    </div>
+    
+    <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+           
+        </h3>
+        <a data-role="button" href="#page1" data-icon="arrow-l" data-iconpos="left"
+        class="ui-btn-left">
+            上页
+        </a>
+		 <!--{if $num}-->
+        <a data-role="button" href="<!--{$basePath}-->weixin/getnotice/list/num/<!--{$num}-->" data-icon="arrow-r" data-iconpos="right"
+        class="ui-btn-right">
+            下页
+        </a>
+		<!--{/if}-->
+    </div>
+    
+</div>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>居民健康档案信息卡</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.nobg table,td,tr
+	{
+		border:0px;
+	}
+	.line_table td
+	{
+		border:1px solid #ccc;
+		margin:2px 0px 2px 0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script>
+	function edit_card()
+	{
+		$(".line_table span").each(
+		function(){
+			if ($(this).find("input").length == 0) 
+				{
+					var ht = "<input type=\"text\" name=\"" + $(this).attr("class") + "\" value=\"" + $(this).html() + "\" />";
+					$(this).html(ht);
+					$("#submit").css("display","block");
+					//处理医生
+					$("#response_p").css("display","none");
+					$("#response_doctor").css("display","block");
+				}
+				else
+				{
+					$(this).html($(this).find("input").val());
+					$("#submit").css("display","none");
+					//处理医生
+					$("#response_p").css("display","block");
+					$("#response_p").html($("#response_doctor option:selected").html());
+					$("#response_doctor").css("display","none");
+				}
+		});
+	}
+</script>
+</head>
+<body>
+<table border="0" width="100%" class="nobg">
+    <tr style="border:0px ">
+        <td>
+        	附件 8
+        </td>
+	</tr>
+	<tr>
+		<td style="font-size:14px;font-weight:bold;text-align:center;line-height:68px;">
+        	居民健康档案信息卡
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	(正面)&nbsp;
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table">
+			    <tr>
+			        <td style="width:82px;">
+			        	姓名
+			        </td>
+					<td style="width:112px;">
+			        	<!--{$user_name}-->
+			        </td>
+					<td style="width:42px;">
+			        	性别
+			        </td>
+					<td style="width:42px;">
+			        	<!--{$core->sex}-->
+			        </td>
+					<td style="width:82px;">
+			        	出生日期
+			        </td>
+					<td>
+			        	<!--{$core->date_of_birth}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="4">
+			        	健康档案号
+			        </td>
+					<td colspan="2">
+			        	<!--{$standard_code}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td>
+			        	ABO血型
+			        </td>
+					<td colspan="3">
+			        	<!--{foreach key=k item=v from=$ABO_bloodtype}-->
+			<input type="checkbox" <!--{if $blood->abo_bloodtype==$k}--> checked="checked"<!--{/if}--> value="<!--{$k}-->" disabled="true" /><!--{$v[1]}-->&nbsp;
+			<!--{/foreach}-->
+			        </td>
+					<td>
+			        	RH血型
+			        </td>
+					<td>
+			        	<!--{foreach key=k item=v from=$rh_bloodtype_card}-->
+			<input type="checkbox" <!--{if $blood->rh_bloodtype==$k}--> checked="checked"<!--{/if}-->  value="<!--{$k}-->" disabled="true" /><!--{$v[1]}-->&nbsp;
+			<!--{/foreach}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="6">
+			        	<br />慢性病患者情况：<br />
+				<!--{$disease}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="6">
+			        	过敏史：<br />
+						<!--{$allergy}-->
+			        </td>
+				</tr>
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	&nbsp;
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	(反面)&nbsp;
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table" style="cursor:hand;" ondblclick="edit_card();">
+			    <form method="post" action="<!--{$basePath}-->iha/index/cardsave">
+				<tr>
+			        <td style="width:15%;">
+			        	家庭住址
+			        </td>
+					<td style="width:35%;">
+			        	<span class="family_address"><!--{$family->family_address}--></span>
+			        </td>
+					<td style="width:15%;">
+			        	家庭电话
+			        </td>
+					<td style="width:35%;">
+			        	<span class="telephone_number"><!--{$family->telephone_number}--></span>
+			        </td>
+				</tr>
+				<tr>
+			        <td>
+			        	紧急情况联系人
+			        </td>
+					<td>
+			        	<span class="contact"><!--{$individual->contact}--></span>
+			        </td>
+					<td>
+			        	联系人电话
+			        </td>
+					<td>
+			        	<span class="contact_number"><!--{$individual->contact_number}--></span>
+			        </td>
+				</tr>
+				<tr>
+			        <td>
+			        	建档机构名称
+			        </td>
+					<td>
+			        	<!--{$organization->zh_name}-->
+			        </td>
+					<td>
+			        	联系电话
+			        </td>
+					<td>
+			        	<!--{$chs_center->telephone_number}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td>
+			        	责任医生或护士
+			        </td>
+					<td>
+			        	<p id="response_p" style="display:block;"><!--{$staff_archive->name_real}--></p>
+						<select name="response_doctor" id="response_doctor" style="display:none;">
+							<!--{section name=response_doctor loop=$response_doctor}-->
+							<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+							<!--{/section}-->
+						</select>
+			        </td>
+					<td>
+			        	联系电话
+			        </td>
+					<td>
+			        	<!--{$staff_archive->telephone_number}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="4">
+			        	其他说明：<br />
+						<span class="card_info"><!--{$individual->card_info}--></span>
+			        </td>
+				</tr>
+				<tr id="submit" style="display:none;">
+					<td colspan="4" style="text-align:center;">
+						<input type="submit" value="保存修改" />
+						<input type="hidden" name="family_number" value="<!--{$family->uuid}-->" />
+						<input type="hidden" name="uuid" value="<!--{$uuid}-->" />
+					</td>
+				</tr>
+				</form>
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	&nbsp;
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	<b>填表说明</b><br />
+			1．居民健康档案信息卡为正反两面，根据居民信息如实填写，应与健康档案对应项目的填写内容一致。本系统正面内容从健康档案信息中读取，本页不做修改，只在健康档案详细信息中修改，反面内容可在本页做修改。<br />
+			2．过敏史：过敏主要指青霉素、磺胺、链霉素过敏，如有其他药物或食物等其他物质（如花粉、酒精、油漆等）过敏，请写明过敏物质名称。<br />
+			3．修改反面内容的时候请双击反面内容的表格即可修改，修改内容后请记得点击保存修改按钮。
+
+        </td>
+	</tr>
+</table>
+</body>
+</html>

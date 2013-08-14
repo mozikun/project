@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>住院就诊信息</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">住院就诊信息详细</th>
+</tr>
+</thead>
+<tr>
+  <td >医疗机构</td>
+  <td ><!--{$tb_yl_zy_medical_record->yljgdm}--></td>
+  <td >住院就诊流水号</td>
+  <td ><!--{$tb_yl_zy_medical_record->jzlsh}--></td>
+</tr>
+<tr>
+  <td>患者姓名</td>
+  <td><!--{$tb_yl_zy_medical_record->hzxm}--></td>
+  <td>患者属性</td>
+  <td><!--{$tb_yl_zy_medical_record->hzsx}--></td>
+</tr>
+<tr>
+  <td>卡号</td>
+  <td><!--{$tb_yl_zy_medical_record->kh}--></td>
+  <td>卡类型</td>
+  <td><!--{$tb_yl_zy_medical_record->klx}--></td>
+</tr>
+<tr>
+  <td>住院号</td>
+  <td><!--{$tb_yl_zy_medical_record->cisid}--></td>
+  <td>就诊类型</td>
+  <td><!--{$tb_yl_zy_medical_record->jzlx}--></td>
+</tr>
+<td>入院科室编码</td>
+<td><!--{$tb_yl_zy_medical_record->jzksbm}--></td>
+<td>入院科室名称</td>
+<td><!--{$tb_yl_zy_medical_record->jzksmc}--></td>
+</tr>
+<tr>
+  <td>出院科室编码</td>
+  <td><!--{$tb_yl_zy_medical_record->cyksbm}--></td>
+  <td>出院科室名称</td>
+  <td><!--{$tb_yl_zy_medical_record->cyksmc}--></td>
+</tr>
+<tr>
+  <td>入院时间</td>
+  <td><!--{$tb_yl_zy_medical_record->rysj}--></td>
+  <td>出院时间</td>
+  <td><!--{$tb_yl_zy_medical_record->cysj}--></td>
+</tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

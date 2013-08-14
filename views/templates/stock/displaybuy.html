@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/stock/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/stock/editbuy" onsubmit="return checkValue();">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />	
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	<input type="hidden" name="stockId" id="stockId" value="<!--{$stockId}-->" />
+	<input type="hidden" name="goodsMeasurementUnitNumber" id="goodsMeasurementUnitNumber" value="<!--{$goodsMeasurementUnitNumber}-->" />
+	
+
+	进货单：<br />
+	
+	购买日期:<!--{$stock_date}--><br />
+	供应商:<input type="text" name="factory" value="<!--{$factory}-->" size="40" /><br />
+
+	<table>
+	<tr>
+		<td>计量方式</td>
+		<!--{section name=goodsMeasurement loop=$goodsMeasurement}-->
+		<td><!--{$goodsMeasurement[goodsMeasurement].goodsMeasurement}--></td>
+		<!--{/section}-->
+		<td>备注</td>
+	</tr>
+	<tr>
+		<td>单位进制</td>
+		<!--{section name=measurementRate loop=$measurementRate}-->
+		<td>1<!--{$measurementRate[measurementRate].measurementRateMaxUnit}-->=
+			<input class="number" type="text" id="<!--{$measurementRate[measurementRate].name}-->" name="<!--{$measurementRate[measurementRate].name}-->" value="<!--{$measurementRate[measurementRate].value}-->" size="2" /><!--{$measurementRate[measurementRate].measurementRateMinUnit}-->
+		</td>
+		<!--{/section}-->
+		<td>&nbsp;</td>
+		<td>一旦开始出货，则所有项目就不能修改</td>
+	</tr>
+	<tr>
+		<td>购进数量</td>
+		<!--{section name=stockAmountBuy loop=$stockAmountBuy}-->
+		<td><input class="number" type="text" id="<!--{$stockAmountBuy[stockAmountBuy].name}-->" name="<!--{$stockAmountBuy[stockAmountBuy].name}-->" value="<!--{$stockAmountBuy[stockAmountBuy].value}-->" size="3" /><!--{$stockAmountBuy[stockAmountBuy].measurement}-->
+		</td>
+		<!--{/section}-->
+		<td><!--{$stockAmountBuyMinUnit}--></td>
+	</tr>
+	<tr>
+		<td>购进单价</td>
+		<!--{section name=stockPriceBuy loop=$stockPriceBuy}-->
+		<td><input class="number" type="text" id="<!--{$stockPriceBuy[stockPriceBuy].name}-->" name="<!--{$stockPriceBuy[stockPriceBuy].name}-->" value="<!--{$stockPriceBuy[stockPriceBuy].value}-->" size="3" />元/<!--{$stockPriceBuy[stockPriceBuy].measurement}-->
+		</td>
+		<!--{/section}-->
+		<td><!--{$priceBuy}--></td>
+	</tr>
+	<tr>
+		<td>实际付款</td>
+		<td colspan="<!--{$colspan}-->"><input class="number" type="text" id="priceTotalBuy" name="priceTotalBuy" value="<!--{$priceTotalBuy}-->" size="5" />元</td>
+		<td>此款与上面的购进单价合计理论上应该相等</td>
+	</tr>
+	
+	</table>	
+	
+	<input type="submit" name="ok" value="保存" <!--{$disableSave}--> />
+</form>
+<a href="/goods/stock/listbuy/<!--{$url}-->">返回</a>
+</html>
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+function checkValue(){
+	var goodsMeasurementUnitNumber=$('goodsMeasurementUnitNumber').value;
+	var controllerName;
+	//检查每一计量方式下有进货数量，是否有对应的进货单价
+	for(var i=0;i<goodsMeasurementUnitNumber;i++){
+		controllerName='amountBuy_'+i;
+		if($(controllerName).value!=0){
+			controllerName='priceBuy_'+i;
+			if($(controllerName).value==0){
+				alert('进货没有对应的单价');
+				return false;
+			}
+		}
+	}
+	//检查每一组进货单价是否符合逻辑
+	var controllerName1;
+	var controllerName2;
+	
+	for(var i=0;i<goodsMeasurementUnitNumber-1;i++){
+		controllerName1='priceBuy_'+i;
+		controllerName2='priceBuy_'+(i+1);
+		
+		if(parseInt($(controllerName1).value)<parseInt($(controllerName2).value)){
+			alert('单价有误，不可能大计量单位的单价还小于小计量单位的单价');
+			return false;
+		}
+	}
+
+
+	return true;
+}
+
+</script>
+
+
+<script type="text/javascript">
+
+if($('message').value!=''){
+	alert($('message').value);
+}
+	var frame1=window.parent.document.getElementById('frame1');
+	frame1.src='/goods/stock/listsell';
+
+//parent.location.reload();
+</script>

@@ -1,0 +1,10 @@
+<table width="100%" class="center" id="rate_table">
+		<thead>
+			<tr><th>完整率指标名称</th><th>当前状态</th></tr>
+		</thead>
+		<tbody>
+            <!--{section name=rate loop=$rate}-->
+			<tr><td><!--{$rate[rate].table_name}--></td><td><!--{if $rate[rate].status}-->已填写<!--{else}--><font color="red">未填写</font><!--{/if}--></td></tr>
+            <!--{/section}-->
+		</tbody>
+	</table>

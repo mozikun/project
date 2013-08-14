@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/organization.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+<title>会诊记录表</title>
+</head>
+<style>
+	table
+	{
+		background:#ffffff;
+		border-color:#CCCCCC;
+	}
+	.newtextarea{
+	border:solid 1px #000000;
+	overflow-y:auto;
+
+	}
+	.inputbottomlong{
+	border-left-style:none;
+	border-right-style:none;
+	border-top-style:none;
+	border-bottom-style:solid;
+	border-bottom-color:blue;
+	border-bottom-width:1px;
+	background:#FFFFFF;
+	width:340px;
+	}
+	.inputbottomshort{
+	border-left-style:none;
+	border-right-style:none;
+	border-top-style:none;
+	border-bottom-style:solid;
+	border-bottom-color:blue;
+	border-bottom-width:1px;
+	background:#FFFFFF;
+	width:100px;	
+	}
+.inputbottomshorth{
+	border-left-style:none;
+	border-right-style:none;
+	border-top-style:none;
+	border-bottom-style:solid;
+	border-bottom-color:blue;
+	border-bottom-width:1px;
+	background:#FFFFFF;
+	width:30px;	
+	}
+	.text_align_center{
+		text-align:center;
+	}
+	.text_align_right{
+		text-align:right;	
+	}
+	.text_padding_left{
+		 padding-left:60px;
+	}
+	.text_align_left{
+		text-align:left;	
+	}
+   td{
+	border:none;
+	border-collapse:collapse;
+    }
+	.havegood td{
+	  border:solid 1px;
+	  text-align:center;
+	}
+	textarea{
+	width:100%;
+	}
+ #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ span {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none; text-align:left; width:32%; margin-left:20px;} 
+ span ul{margin:0;padding:0;list-style:none;}
+ span li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+span li{border:1px solid #fff;}
+.ac_over,span li a:hover {background:#c8e3fc;}
+span li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+  <script type="text/javascript">
+	$(function(){
+		if("<!--{$tagid}-->"){
+			$.get("<!--{$basePath}-->gp/consultation/ajaxresultedit/orgid/"+$("#organize_code0").val()+"/orgall/"+$("#strname0").val(), function (data){
+				 //alert($("#strname0").val());
+				 //alert(data);
+			  $("#nowdata0").html(data);
+	          });
+			$.get("<!--{$basePath}-->gp/consultation/ajaxresultedit/orgid/"+$("#organize_code1").val()+"/orgall/"+$("#strname1").val(), function (data){
+				 //alert(textStatus);
+			  $("#nowdata1").html(data);
+	          });
+			$.get("<!--{$basePath}-->gp/consultation/ajaxresultedit/orgid/"+$("#organize_code2").val()+"/orgall/"+$("#strname2").val(), function (data){
+				 //alert(textStatus);
+			  $("#nowdata2").html(data);
+	          });
+			$.get("<!--{$basePath}-->gp/consultation/ajaxresultedit/orgid/"+$("#organize_code3").val()+"/orgall/"+$("#strname3").val(), function (data){
+				 //alert(textStatus);
+			  $("#nowdata3").html(data);
+	          });
+			$.get("<!--{$basePath}-->gp/consultation/ajaxresultedit/orgid/"+$("#organize_code4").val()+"/orgall/"+$("#strname4").val(), function (data){
+				 //alert(textStatus);
+			  $("#nowdata4").html(data);
+	          });
+			}
+		//第一行 
+		$("#orgname0").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code0',onSelect:function()
+		{
+		  $.get("<!--{$basePath}-->gp/consultation/ajaxresult/orgid/"+$("#organize_code0").val(), function (data){
+			 //alert(textStatus);
+				// alert(data);
+		  $("#nowdata0").html(data);
+          });
+		 }, attachObject:'#suggest0'
+		});
+		//第二行
+		$("#orgname1").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code1',onSelect:function()
+			{
+			  $.get("<!--{$basePath}-->gp/consultation/ajaxresult/orgid/"+$("#organize_code1").val(), function (data){
+			  $("#nowdata1").html(data);
+	          });
+			 }, attachObject:'#suggest1'
+			});
+		//第三行
+		$("#orgname2").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code2',onSelect:function()
+			{
+			  $.get("<!--{$basePath}-->gp/consultation/ajaxresult/orgid/"+$("#organize_code2").val(), function (data){
+			  $("#nowdata2").html(data);
+	          });
+			 }, attachObject:'#suggest2'
+			});
+		//第四行
+		$("#orgname3").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code3',onSelect:function()
+			{
+			  $.get("<!--{$basePath}-->gp/consultation/ajaxresult/orgid/"+$("#organize_code3").val(), function (data){
+			  $("#nowdata3").html(data);
+	          });
+			 }, attachObject:'#suggest3'
+			});
+		//第五行
+		$("#orgname4").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code4',onSelect:function()
+			{
+			  $.get("<!--{$basePath}-->gp/consultation/ajaxresult/orgid/"+$("#organize_code4").val(), function (data){
+			  $("#nowdata4").html(data);
+	          });
+			 }, attachObject:'#suggest4'
+			});
+		});
+	 function check_sub(){
+		  var doctorname = document.getElementsByName("doctor_consultation[]");
+		  var yearnow    = document.getElementById("year");
+		  var monthnow   = document.getElementById("month");
+		  var daynow     = document.getElementById("day");
+		  if(doctorname.length==0){
+			  window.alert("添加当前会诊记录无效！请选择一个医疗机构");
+			  return false;
+			  }
+		  }
+</script>
+<body>
+       <table  width="100%"  align="center"  style="border-collapse:separate;" >
+	       <form action="" method="post" onsubmit="return check_sub();">
+           <input type="hidden" value="<!--{$iha_id}-->" name="iha_id"/> 
+	     <tr>
+		   <td colspan="5" style="text-align:center; font-size:18px;"><strong>会诊记录表</strong></td>
+		 </tr>
+	     <tr> 
+		   <td width="17%"  class="text_align_left">姓名:<!--{$user_name}--></td >
+		   <td width="83%"  colspan="4" class="text_align_right">编号:<!--{$standard_code}--></td>
+	     </tr>
+           <tr> 
+              <td align="center" style="border-top:1px solid #cccccc;">会诊原因:</td>
+              <td colspan="4" style="border-top:1px solid #cccccc;"><textarea name="consultation_reason" rows="10" class="newtextarea"><!--{$consultation_reason}--></textarea></td>
+           </tr>
+           <tr> 
+              <td align="center">会诊意见:</td>
+              <td colspan="4"><textarea name="consultation_subject" rows="10"  class="newtextarea"><!--{$consultation_subject}--></textarea></td>
+           </tr>
+           <!--添加会诊医生及其所在医疗机构所在区域-->
+           <!--{if $tagid==""}-->
+           <tr> 
+		      <td align="center" colspan="5" >
+		            <table  width="100%"  cellpadding="1" cellspacing="1" bgcolor="#CCCCCC" class="havegood" id=>
+					   <tr>
+					     <td colspan="8">会诊医生及其所在医疗机构</td>
+					   </tr>
+					   <tr>
+					     <td colspan="2">医疗机构名称</td>
+					     <td colspan="3">会诊医生签字</td>
+					   </tr>
+					     <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code0" value="" />
+						       <input  type="text" name="orgname0" id="orgname0" class="inputbottomlong"/>
+						       <span id='suggest0' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata0"></div>
+						   </td>
+				        </tr>	
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code1" value="" />
+						       <input  type="text" name="orgname1" id="orgname1" class="inputbottomlong"/>
+						       <span id='suggest1' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata1"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code2" value="" />
+						       <input  type="text" name="orgname2" id="orgname2" class="inputbottomlong"/>
+						       <span id='suggest2' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata2"></div>
+						   </td>
+				        </tr>		
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code3" value="" />
+						       <input  type="text" name="orgname3" id="orgname3" class="inputbottomlong"/>
+						       <span id='suggest3' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata3"></div>
+						   </td>
+				        </tr>
+				         <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code4" value="" />
+						       <input  type="text" name="orgname4" id="orgname4" class="inputbottomlong"/>
+						       <span id='suggest4' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata4"></div>
+						   </td>
+				        </tr>	
+					</table>
+			  </td>
+           </tr>
+           <!--{else}-->
+           <!--编辑会诊医生及其所在医疗机构所在区域-->
+             <tr> 
+		      <td align="center" colspan="5" >
+		            <table  width="100%"  cellpadding="1" cellspacing="1" bgcolor="#CCCCCC" class="havegood" id=>
+					   <tr>
+					     <td colspan="8">会诊医生及其所在医疗机构</td>
+					   </tr>
+					   <tr>
+					     <td colspan="2">医疗机构名称</td>
+					     <td colspan="3">会诊医生签字</td>
+					   </tr>
+					   <!--{section loop=$allOrgArr name=allOrgArr}-->
+					     <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code<!--{$smarty.section.allOrgArr.index}-->" value="<!--{$allOrgArr[allOrgArr].orgid}-->" />
+						       <input  type="text" name="orgname<!--{$smarty.section.allOrgArr.index}-->" id="orgname<!--{$smarty.section.allOrgArr.index}-->" class="inputbottomlong" value="<!--{$allOrgArr[allOrgArr].org_name}-->"/>
+						       <input type="hidden" name="strname<!--{$smarty.section.allOrgArr.index}-->" id="strname<!--{$smarty.section.allOrgArr.index}-->" value="<!--{$allOrgArr[allOrgArr].all_org}-->"/>
+						       <span id='suggest<!--{$smarty.section.allOrgArr.index}-->' class="ac_results">
+                               </span>
+						   </td>
+						   <td colspan="3">
+						        <div id="nowdata<!--{$smarty.section.allOrgArr.index}-->"></div>
+						   </td>
+				        </tr>	
+                      <!--{/section}-->
+                      <!--{if $needNumber=="1"}-->
+                       <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code1" value="" />
+						       <input  type="text" name="orgname1" id="orgname1" class="inputbottomlong" />
+						       <span id='suggest1' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata1"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code2" value="" />
+						       <input  type="text" name="orgname1" id="orgname2" class="inputbottomlong" />
+						       <span id='suggest2' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata2"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code3" value="" />
+						       <input  type="text" name="orgname1" id="orgname3" class="inputbottomlong" />
+						       <span id='suggest3' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata3"></div>
+						   </td>
+				        </tr>
+				         <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code4" value="" />
+						       <input  type="text" name="orgname1" id="orgname4" class="inputbottomlong" />
+						       <span id='suggest4' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata4"></div>
+						   </td>
+				        </tr>
+				        <!--{/if}-->
+				        <!--{if $needNumber=="2"}-->
+                       <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code2" value="" />
+						       <input  type="text" name="orgname1" id="orgname2" class="inputbottomlong" />
+						       <span id='suggest2' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata2"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code3" value="" />
+						       <input  type="text" name="orgname1" id="orgname3" class="inputbottomlong" />
+						       <span id='suggest3' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata3"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code4" value="" />
+						       <input  type="text" name="orgname1" id="orgname4" class="inputbottomlong" />
+						       <span id='suggest4' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata4"></div>
+						   </td>
+				        </tr>
+				        <!--{/if}-->
+				        <!--{if $needNumber=="3"}-->
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code3" value="" />
+						       <input  type="text" name="orgname3" id="orgname3" class="inputbottomlong" />
+						       <span id='suggest3' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata3"></div>
+						   </td>
+				        </tr>
+				        <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code4" value="" />
+						       <input  type="text" name="orgname4" id="orgname4" class="inputbottomlong" />
+						       <span id='suggest4' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata4"></div>
+						   </td>
+				        </tr>
+				        <!--{/if}-->
+				        <!--{if $needNumber=="4"}-->
+                       <tr>
+						   <td colspan="2">
+						       <input type="hidden" name="orgname[]" id="organize_code4" value="" />
+						       <input  type="text" name="orgname4" id="orgname4" class="inputbottomlong" />
+						       <span id='suggest4' class="ac_results">
+                               </span>
+						   </td>
+						   
+						   <td colspan="3">
+						        <div id="nowdata4"></div>
+						   </td>
+				        </tr>
+				        <!--{/if}-->
+					</table>
+			  </td>
+           </tr>
+           <!--{/if}-->
+           <tr> 
+              <td colspan="5" class="text_align_right">
+                                             责任医生:<select name="doctor_responsibilities">
+                              <!--{section loop=$doctor name=doctor}-->
+                               <option value="<!--{$doctor[doctor].user_id}-->" <!--{if $current_doctor==$doctor[doctor].user_id}-->selected<!--{/if}-->><!--{$doctor[doctor].name_real}--></option>
+                              <!--{/section}-->
+                          </select>
+              </td>
+           </tr>
+           <tr> 
+              <td colspan="5" class="text_align_right">接诊日期:<input type="text" name="year" class="inputbottomshorth" onFocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" value="<!--{$year}-->"/>年<input type="text" name="month" class="inputbottomshorth" onFocus="WdatePicker({skin:'whyGreen',dateFmt:'M'})" value="<!--{$month}-->"/>月<input type="text" name="day" class="inputbottomshorth" onFocus="WdatePicker({skin:'whyGreen',dateFmt:'d'})" value="<!--{$day}-->"/>日</td>
+           </tr>
+           <tr> 
+              <td colspan="5" class="text_align_center"><input type="submit" name="ok" value="保存数据" class="inputbutton"/><!--{if $iha_id==""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td>
+           </tr>
+		      </form>
+       </table>
+
+</body>
+</html>

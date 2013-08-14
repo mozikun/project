@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+.content { height: 800px; width: 480px; margin: 0 auto; position: relative; border: solid 1px #eee; box-shadow: 0 0 3px #333; border-radius: 2px; background: url(../images/de_01.png) no-repeat; background-size: 100%; }
+.absorbs { height: 180px; width: 160px; position: absolute; }
+.bottom { line-height: 30px; color: blue; height: 30px; position: absolute; top: 0px; font-size: 18px; left: 0px; right: 0px; text-align: center; }
+.one { background-image: url(../images/sm_01.png); left: 123px; top: 171px; z-index: 2; }
+.two { background-image: url(../images/sm_02.png); left: 280px; top: 171px; z-index: 2; }
+.three { background-image: url(../images/sm_03.png); left: 202px; top: 36px; z-index: 1; }
+.four { background-image: url(../images/sm_04.png); left: 45px; top: 35px; z-index: 4; }
+.five { background-image: url(../images/sm_08.png); left: 280px; top: 443px; z-index: 1; }
+.six { background-image: url(../images/sm_07.png); left: 122px; top: 442px; z-index: 4; }
+.seven { background-image: url(../images/sm_02.png); left: 202px; top: 307px; z-index: 3; }
+.eight { background-image: url(../images/sm_02.png); left: 44px; top: 306px; z-index: 3; }
+.nine { background-image: url(../images/sm_06.png); left: 200px; top: 578px; z-index: 5; }
+.ten { background-image: url(../images/sm_09.png); left: 43px; top: 578px; z-index: 5; }
+.content .absorbs a { display: block; font-family: "微软雅黑"; font-size: 26px; color: #FFF; width: 160px; height: 30px; margin-top: 46px; text-align: center; line-height: 30px; text-decoration: none; padding-top: 60px; }
+.login { position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; background-color: #bad5f0; background-image: url(../images/ips.png); }
+.lgbox { height: 260px; width: 360px; position: absolute; left: 50%; top: 40%; border: solid 10px #ccc; border-radius: 3px; box-shadow: 0 0 10px #09F; padding: 20px; margin-top: -120px; margin-left: -200px; background-color: #3887d2; }
+.lgbox li { font-size: 16px; line-height: 50px; height: 50px; display: block; color: #FFF; text-shadow: 2px 2px 6px #fff; }
+.lgbox .yh_title { font-family: "微软雅黑"; line-height: 60px; height: 60px; font-size: 26px; text-align: center; color: #FFF; }
+.lgbox .yh_title span { font-family: Georgia, "Times New Roman", Times, serif; }
+.lgbox li #yanz { width: 60px; float:left; margin-top:12px;}
+.lgbox li label { width: 100px; display: block; float: left; text-align: right; }
+.lgbox li input[type='text'], .lgbox li input[type='password'] { font-size: 16px; line-height: 22px; box-shadow: 0 0 2px #ddd; font-family: "微软雅黑"; background-color: #FFFFFF; }
+.lgbox .li_lo { padding-left: 70px; padding-top: 15px; }
+.lgbox .li_lo input { margin-right: 20px; }
+#checkcode{ margin-top:14px; display:block; float:left; margin-left:10px;}

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>微信模块列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>	
+<table border="0" width="100%">
+    <tr class="headbg">
+    	<td colspan="8">
+        	微信模块管理
+        </td>
+	</tr>
+    <tr class="title">
+        <td>
+        	排序
+        </td>
+    	<td>
+        	模块名称
+        </td>
+        <td>
+        	模块代码
+        </td>
+        <td>
+        	列表地址
+        </td>
+        <td>
+        	处理地址
+        </td>
+        <td>
+        	首页项
+        </td>
+		<td>
+        	状态
+        </td>
+		<td>
+        	操作选项
+        </td>
+	</tr>
+	<tbody id="module">
+	<!--{section name=module loop=$modules}-->
+	 <tr id="module_<!--{$modules[module].js_uuid}-->">
+        <td>
+        	<input type="text" name="ids[<!--{$modules[module].uuid}-->][]" value="<!--{$modules[module].display}-->" style="width: 50px;" />
+        </td>
+	 	<td>
+        	<!--{$modules[module].module_name}-->
+        </td>
+		<td>
+        	<!--{$modules[module].module_code}-->
+        </td>
+        <td>
+        	<!--{$modules[module].list_url}-->
+        </td>
+        <td>
+        	<!--{$modules[module].api_url}-->
+        </td>
+        <td>
+        	<!--{$modules[module].is_index}-->
+        </td>
+        <td>
+        	<!--{$modules[module].status}-->
+        </td>
+		<td>
+       		 <a href="<!--{$basePath}-->weixin/module/edit/uuid/<!--{$modules[module].uuid}-->">编辑</a>&nbsp;|&nbsp;<a href="###" onclick="return del('<!--{$modules[module].uuid}-->','<!--{$modules[module].js_uuid}-->')">删除</a>
+		</td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="8">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="8">
+        	&nbsp;<a href="<!--{$basePath}-->weixin/module/edit">+添加模块</a>&nbsp;&nbsp;<a href="###" onclick="save_display()">修改排序</a>&nbsp;&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
+<script>
+	function del(uuid,js_uuid)
+	{
+		if(confirm("确定要删除微信模块吗？删除后，对应的请求将无法请求"))
+		{
+			 $.ajax({
+                    type: "get",
+                    url: "<!--{$basePath}-->weixin/module/delete/uuid/"+uuid,
+                    dataType: "html",
+                    data: "",
+                    success: function(data){
+                        if(data=="ok")
+						{
+							$("#module_"+js_uuid).hide();
+							alert("删除微信模块成功");
+						}
+                        else
+						{
+							alert("删除失败，未知的错误");
+						}
+                        return false;
+                    },
+                    error: function(){
+                        alert("服务器返回信息不完整，请重新点击删除");
+                        return false;
+                    }
+                });
+		}
+		return false;
+	}
+    function save_display()
+    {
+        if(confirm("确定要保存当前排序吗?"))
+		{
+			 $.ajax({
+                    type: "post",
+                    url: "<!--{$basePath}-->weixin/module/display",
+                    dataType: "html",
+                    data: $("input[name^=ids]").serialize(),
+                    success: function(data){
+                        if(data=="ok")
+						{
+							alert("保存模块排序成功");
+						}
+                        else
+						{
+							alert("保存模块排序失败");
+						}
+                        return false;
+                    },
+                    error: function(){
+                        alert("服务器返回信息不完整，请重新点击保存");
+                        return false;
+                    }
+                });
+		}
+		return false;
+    }
+</script>

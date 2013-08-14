@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>医疗服务</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">医疗服务</td>
+	</tr>
+</table>
+<!--{if $orgnewid==""}-->
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td align="center" rowspan="2">区&nbsp;&nbsp;&nbsp;&nbsp;域</td>
+		<td align="center" colspan="1">总诊疗人次数</td>
+		<td align="center" colspan="2">总诊疗人次数</td>
+	</tr>
+	<tr class="headbg">
+		<td align="center">合计</td>
+		
+		<td align="center">上级医院向下转诊人次数</td>
+		<td align="center">向上转诊人次数</td>
+	</tr>
+	<!--{if $isShow != "sum"}-->
+	<!--{section name=all_f_ar loop=$all_f_ar}-->
+		<tr class="columnbg" align="center" style="cursor:pointer" onMouseOver="this.style.backgroundColor='#E5FBFF'" onmouseout="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$all_f_ar[all_f_ar].name}--></td>
+			<!--设置/主办单位-->
+			<td class="align_right" title="总诊疗人次数"><!--{$all_f_ar[all_f_ar].registration_info_uuid_list}--></td>
+			<!--政府办机构隶属关系-->
+			<td class="align_right" title="上级医院向下转诊人次数"><!--{$all_f_ar[all_f_ar].mt_transfer_in_record_uuid_list_0}--></td>
+			<td class="align_right" title="向上转诊人次数"><!--{$all_f_ar[all_f_ar].mt_transfer_in_record_uuid_list_1}--></td>
+		</tr>
+	<!--{/section}-->
+	<!--{/if}-->
+	<tr class="columnbg">
+		<td align="center">合计</td>
+		<!--{section name=all_f_ar_conut loop=$all_f_ar_conut}-->
+			<!--设置/主办单位-->
+			<td class="align_right" style='color:red;' title="总诊疗人次数"><!--{$all_f_ar_conut[all_f_ar_conut].registration_info_uuid_count}--></td>
+			<!--政府办机构隶属关系-->
+			<td class="align_right" style='color:red;' title="上级医院向下转诊人次数"><!--{$all_f_ar_conut[all_f_ar_conut].mt_transfer_in_record_uuid_count_0}--></td>
+			<td class="align_right" style='color:red;' title="向上转诊人次数"><!--{$all_f_ar_conut[all_f_ar_conut].mt_transfer_in_record_uuid_count_1}--></td>
+		<!--{/section}-->
+	</tr>
+</table>
+<!--{else}-->
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td align="center" rowspan="2">区&nbsp;&nbsp;&nbsp;&nbsp;域</td>
+		<td align="center" colspan="1">总诊疗人次数</td>
+		<td align="center" colspan="2">总诊疗人次数</td>
+	</tr>
+	<tr class="headbg">
+		<td align="center">合计</td>
+		
+		<td align="center">上级医院向下转诊人次数</td>
+		<td align="center">向上转诊人次数</td>
+	</tr>
+	<!--{if $isShow != "sum"}-->
+	<!--{section name=all_f_ar loop=$all_f_ar}-->
+		<tr class="columnbg" align="center" style="cursor:pointer" onMouseOver="this.style.backgroundColor='#E5FBFF'" onmouseout="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$all_f_ar[all_f_ar].name}--></td>
+			<!--设置/主办单位-->
+			<td class="align_right" title="总诊疗人次数"><!--{$all_f_ar[all_f_ar].registration_info_uuid_list}--></td>
+			<!--政府办机构隶属关系-->
+			<td class="align_right" title="上级医院向下转诊人次数"><!--{$all_f_ar[all_f_ar].mt_transfer_in_record_uuid_list_0}--></td>
+			<td class="align_right" title="向上转诊人次数"><!--{$all_f_ar[all_f_ar].mt_transfer_in_record_uuid_list_1}--></td>
+		</tr>
+	<!--{/section}-->
+	<!--{/if}-->
+	<tr class="columnbg">
+		<td align="center">合计</td>
+		<!--{section name=all_f_ar_conut loop=$all_f_ar_conut}-->
+			<!--设置/主办单位-->
+			<td class="align_right" style='color:red;' title="总诊疗人次数"><!--{$all_f_ar_conut[all_f_ar_conut].registration_info_uuid_count}--></td>
+			<!--政府办机构隶属关系-->
+			<td class="align_right" style='color:red;' title="上级医院向下转诊人次数"><!--{$all_f_ar_conut[all_f_ar_conut].mt_transfer_in_record_uuid_count_0}--></td>
+			<td class="align_right" style='color:red;' title="向上转诊人次数"><!--{$all_f_ar_conut[all_f_ar_conut].mt_transfer_in_record_uuid_count_1}--></td>
+		<!--{/section}-->
+	</tr>
+</table>
+<!--{/if}-->
+</body>
+</html>

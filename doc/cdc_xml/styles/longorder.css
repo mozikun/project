@@ -1,0 +1,52 @@
+﻿#longorder
+{
+	text-align:center;
+}
+
+#longorder .lotable
+{
+	width:900px;
+	font-family:宋体;
+	font-size:10.5pt;
+	margin:0 auto;
+	line-height:20px;
+}
+
+#longorder .lohead
+{
+	font-family:宋体;
+	font-size:15pt;
+	text-align:center;
+}
+
+#longorder .lotitle
+{
+	font-family:宋体;
+	font-weight:bold;
+	font-size:18pt;
+	text-align:center;
+}
+#longorder .lobtable
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;	
+	border-collapse:collapse;
+	font-family:宋体;
+	font-size:10.5pt;
+}
+#longorder .lobtable tr
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}
+#longorder .lobtable td
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>附件上传</title>
+<style>
+	body{font-size:14px}
+</style>
+</head>
+
+<body>
+	<form action="<!--{$__BASEPATH}-->management/upload/upload" method="post" enctype="multipart/form-data" name="form1" id="form1" onsubmit="on_submit()">
+	<input type="hidden" name="newsId" id="newsId" value='<!--{$newsId}-->' />
+	  <label>
+	  <input type="file" name="file" size="60" />
+	  </label>
+	  <label>
+	  <input type="submit" name="buttton_submit" id="buttton_submit" value="上传" />
+	  </label>
+	  <br />
+	  <label><!--{$message}--></label>
+	</form>
+<span style="color:blue">已上传文件列表：</span><br />
+<!--{$fileUploaded}-->
+<br />
+<span style="color:blue">已上传但未使用图片列表：</span><br />
+<!--{$imageUploaded}-->
+</body>
+</html>
+<script language="javascript">
+function on_submit()
+{
+	obj=document.getElementById('buttton_submit');
+	obj.value='正在上传...';
+	obj.disabled=true;
+	
+}
+</script>

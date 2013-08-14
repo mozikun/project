@@ -1,0 +1,8 @@
+.alert
+	{
+		border:1px solid green;
+	}
+.errortips
+	{
+		border:1px solid red;
+	}

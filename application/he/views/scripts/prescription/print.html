@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>健康教育活动记录表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.nobg table,td,tr
+	{
+		border:0px;
+	}
+	.line_table td
+	{
+		border:1px solid #ccc;
+		margin:2px 0px 2px 0px;
+	}
+	.none
+	{
+	    border:1px solid #FFF;
+		border-bottom:1px solid #ccc;
+	}
+    .input{
+	margin-right:6px;
+    border:1px solid #ccc;
+    }
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+</head>
+<body>
+<table border="0" width="100%" class="nobg">
+	<form method="post" action="<!--{$basePath}-->he/prescription/editin" onsubmit="editor.sync()">
+	<tr>
+		<td style="font-size:14px;font-weight:bold;text-align:center;line-height:68px;">
+        	<!--{$health_education->title}-->
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table">
+                <tr>
+                    <td>处方内容:&nbsp;</td>
+                    <td>
+                          <!--{$health_education->content}-->
+			        </td>			
+				</tr>
+				<tr>
+                    <td>处方权限:&nbsp;</td>
+                    <td>
+                          <input type="radio" name="status_type" value="1" <!--{if $health_education->status_type==1}-->checked="checked"<!--{/if}--> />&nbsp;仅本机构使用&nbsp;<input type="radio" name="status_type" value="2" <!--{if $health_education->status_type==2 or $health_education->status_type!=1}-->checked="checked"<!--{/if}--> />&nbsp;开放所有机构使用&nbsp;
+			        </td>			
+				</tr>
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	<span style="float: left;">填表人:
+			<select name="people_fillin_form" id="people_fillin_form">
+							<!--{section name=people_fillin_form loop=$people_fillin_form}-->
+							<option value="<!--{$people_fillin_form[people_fillin_form].id}-->" <!--{$people_fillin_form[people_fillin_form].selected}--> ><!--{$people_fillin_form[people_fillin_form].zh_name}--></option>
+							<!--{/section}-->
+			</select>
+            </span>
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:right;">
+        	填表时间：&nbsp;<!--{if $health_education->edit_time}--><!--{$health_education->edit_time}--><!--{else}--><!--{$updated}--><!--{/if}-->
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+    &nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" class="input" onclick="javascript:window.print();"  style="height: 28px;font-size:14px;" />
+        </td>
+	</tr>
+	</form>
+</table>
+</body>
+</html>

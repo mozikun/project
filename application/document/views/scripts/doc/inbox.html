@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>收件箱</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg"><td colspan="6" style="text-align:center"><strong>收件箱</strong></td></tr>
+     <form action="" id="search" method="POST">
+     <tr>
+    	 <td colspan="6">
+    	 标题：<input type="text" name="title" size="18" value="<!--{$title}-->"/>&nbsp;
+    	 发文者：<input type="text" name="staff_name" size="18" value="<!--{$staff_name}-->"/>&nbsp;
+    	 发文机构：<input type="text" name="org_name" size="18" value="<!--{$org_name}-->"/>&nbsp;
+    	 时间:<input type="text" name="start_time" value="<!--{$start_time}-->" id="start_time" class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1,maxDate:'#F{$dp.$D(\'end_time\')||\'2030-12-31\'}'})" >
+			 -<input type="text" name="end_time" value="<!--{$end_time}-->" id="end_time" class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1,minDate:'#F{$dp.$D(\'start_time\')}',maxDate:'2030-12-31'})" >
+    	 <input type="submit" value="搜索" class="inputbutton"/>
+    	 </td>
+     </tr>
+     </form>
+     <tr class="headbg">
+    	 <td width="45%"><strong>标题</strong></td>
+    	 <td width="10%"><strong>发文者</strong></td>
+    	 <td width="14%"><strong>发文机构</strong></td>
+         <td width="16%"><strong>发文时间</strong></td>
+         <td width="5%"><strong>状态</strong></td>
+         <td width="10%"><strong>操作</strong></td>
+     </tr>
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+      	  <td><!--{$row[row].doc_title}--></td>
+          <td><!--{$row[row].staff_name}--></td>
+          <td><!--{$row[row].org_name}--></td>
+       	  <td><!--{$row[row].doc_date}--></td>
+          <td><!--{$row[row].down_load_org}--></td>
+          <td><a href="<!--{$basePath}-->document/doc/download/id/<!--{$row[row].id}-->" onclick="return confirm('您确定下载吗?确定');">[下载]</a></td>
+        </tr>
+     <!--{sectionelse}-->
+     	<tr><td colspan="6">暂时没有符合条件的数据</td></tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="6">&nbsp;<!--{$pager}--></td>
+     </tr>
+     </table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>

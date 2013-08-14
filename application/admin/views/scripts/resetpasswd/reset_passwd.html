@@ -1,0 +1,124 @@
+<!--{include file="../header.html"}-->
+<script type="text/javascript">
+ $(function(){
+ 	 var last_passwd=$("#last_passwd");//旧密码
+	 var last_passwd_token=$("#last_passwd_token");//旧密码信息提示
+	 var new_passwd=$("#new_passwd");//新密码
+	 var new_passwd_token=$("#new_passwd_token");//新密码信息提示
+	 var confirm_passwd=$("#confirm_passwd");//重新输入
+	 var confirm_passwd_token=$("#confirm_passwd_token");//重新输入
+	 //旧密码失去焦点
+	 last_passwd.blur(function (){
+	
+	 	 if(last_passwd.val()==""){
+	
+		 	last_passwd_token.html("请输入您的旧密码");
+			
+		 }else{
+		 	last_passwd_token.html("");
+		 }
+		  
+	 });
+	//新密码失去焦点
+	 new_passwd.blur(function (){
+	 
+		 if(new_passwd.val()==""){
+		 	new_passwd_token.html("请输入新密码");
+		 }else if(strCheckLength(new_passwd.val())<7 || strCheckLength(new_passwd.val())>100){
+		 	new_passwd_token.html("密码长度6-100");
+		 }else{
+		 	new_passwd_token.html("");
+		 }
+	 });
+	//确认密码失去焦点
+	 confirm_passwd.blur(function (){
+	 
+		 if(confirm_passwd.val()!=new_passwd.val()){
+		 
+		 	confirm_passwd_token.html("您两次输入的新密码不一致，请确认");
+		 }else{
+		 	confirm_passwd_token.html("");
+		 }
+	 });
+     
+ 	 //提交按钮单击事件
+	 $("input[type='submit']").click( function () {
+	 	//旧密码不能为空
+	 	if(last_passwd.val()==""){
+	
+		 	last_passwd_token.html("请输入您的旧密码");
+			return false;
+			
+		 }else{
+		 	last_passwd_token.html("");
+		 }
+	 	//新密码不能为空并且长度6-100
+	 	 if(new_passwd.val()==""){
+		 	new_passwd_token.html("请输入新密码");
+			return false;
+		 }else if(strCheckLength(new_passwd.val())<6 || strCheckLength(new_passwd.val())>100){
+		 	new_passwd_token.html("密码长度6-100");
+			return false;
+		 }else{
+		 	new_passwd_token.html("");
+		 }
+	 	//新密码与确认密码是否一致
+		 if(confirm_passwd.val()!=new_passwd.val()){
+		 
+		 	confirm_passwd_token.html("您两次输入的新密码不一致，请确认");
+			return false;
+		 }else{
+		 	confirm_passwd_token.html("");
+		 }
+		
+		
+		
+ 	      //提交表单
+         $.post("<!--{$basePath}-->admin/resetpasswd/update",$("#form1").serialize(),function (data) {
+		 		alert(data);	
+				return false;
+					
+				
+			});
+		  return false;	
+	 });		
+	
+ });
+ 
+ //检查字符串长度
+function strCheckLength(strTemp)    
+{    
+	var i,sum;    
+	sum=0;    
+	for(i=0;i<strTemp.length;i++)    
+	{    
+	  if ((strTemp.charCodeAt(i)>=0) && (strTemp.charCodeAt(i)<=255))    
+		sum=sum+1;    
+	  else   
+		sum=sum+2;    
+	}    
+	return sum;    
+}  
+
+</script>
+	<form name="form1" id="form1" method="post"/>
+	<table cellspacing="0" style="100%">
+  
+    <tr  class="headbg">
+	<th colspan="2">修改密码</th>
+	</tr>
+    
+	<tr class="columnbg">
+	<th ></th><th></th>
+	</tr>
+	  <tr><td ><span style="color:red">*</span>您的旧密码：</td><td ><input type="password" name="last_passwd" id="last_passwd"/><span style="color:red" id="last_passwd_token"></span></td></tr>
+      <tr><td ><span style="color:red">*</span>输入新密码：</td><td ><input type="password" name="new_passwd" id="new_passwd"/><span style="color:red" id="new_passwd_token"></span></td></tr>
+      <tr><td ><span style="color:red">*</span>新密码确认：</td><td ><input type="password" name="confirm_passwd" id="confirm_passwd"/><span style="color:red" id="confirm_passwd_token"></span></td></tr>
+      
+    <tr  class="columnbg">
+		<td  colspan="2" style=" text-align:center;"><input type="submit" value=" 提交 "/> <input type="reset" value=" 重填 "/><input type="button"  onclick="javascript:history.go(-1);" value=" 返回 "/></td>
+	</tr>
+	</table>
+</form>
+</div>
+<!--{include file="../footer.html"}-->

@@ -1,0 +1,96 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>菜单管理</title>
+<link href="<!--{$__BASEPATH}-->views/templates/menu/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="<!--{$__BASEPATH}-->management/menu/edit" onsubmit="return checkValue();">
+	<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	所属栏目<span id='menuDropDownBox'></span><br />
+	分类名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+	栏目属性 <input type="radio" id="property_1" name="property" value="1" <!--{$checkProperty_1}--> disabled >频道&nbsp;
+			<input type="radio" id="property_2" name="property" value="2" <!--{$checkProperty_2}--> >分类&nbsp;
+			<input type="radio" id="property_3" name="property" value="3" <!--{$checkProperty_3}--> >栏目&nbsp;
+	<br />		
+	动作<input type="radio" id="action_1" name="action" value="1" <!--{$checkAction_1}--> >显示列表&nbsp;
+	   <input type="radio" id="action_2" name="action" value="2" <!--{$checkAction_2}--> >显示内容&nbsp;
+	<br />	
+	内部排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="<!--{$__BASEPATH}-->management/menu/list/id/<!--{$parentId}-->">返回</a>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+var id=$('id').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getMenuDropDownBox();
+
+function getMenuDropDownBox(){
+	if(parentId=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/menu/menuDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	url='<!--{$__BASEPATH}-->management/menu/menuDropDownBox/parentId/'+parentId+'/sid/'+Math.random();
+	xmlHttp.onreadystatechange=handleStateChange;
+	//alert(url);
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if($('parentId').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function handleStateChange(){
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//注：firefox不支持innerText
+		var objDiv=$('menuDropDownBox');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(theValue){
+	parentId=theValue;
+	$('parentId').value=theValue;
+	getMenuDropDownBox();
+}
+
+
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+</script>

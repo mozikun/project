@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style> 
+<title>地区列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<table border="1px" align="center" width="100%">
+     <tr class="bigfont">
+     	<!--{if $model==''}-->
+       <td colspan="8" align="center"><center><strong>健康教育活动考核指标统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+	   <!--{elseif $model=='m3' or $model=='m4'}-->
+	   <td colspan="4" align="center"><center><strong>健康教育活动考核指标统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+	   <!--{else}-->
+	   <td colspan="3" align="center"><center><strong>健康教育活动考核指标统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+	   <!--{/if}-->
+     </tr>
+     <tr class="bigfont">
+       <!--{if $model==''}-->
+       <td colspan="8">
+       <!--{elseif $model=='m3' or $model=='m4'}-->
+		<td colspan="4">
+       	<!--{else}-->
+		<td colspan="3">
+		<!--{/if}-->
+         <form action="" method="POST">
+            时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_time" value="<!--{$start_time}-->"/> -
+            <input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="search_time" value="<!--{$decision_time}-->"/>          <input type="submit" value="搜索" value="okok" />
+         </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+     	<!--{if $model==''}-->
+       <td colspan="8">
+       	<!--{elseif $model=='m3' or $model=='m4'}-->
+		<td colspan="4">
+       	<!--{else}-->
+		<td colspan="3">
+		<!--{/if}-->
+		<!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->decision/he/index/model/<!--{$model}-->/parent_id/<!--{$rs[rs].id}-->/decision_time/<!--{$decision_time}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->decision/he/index/model/<!--{$model}-->/parent_id/<!--{$rs[rs].id}-->/decision_time/<!--{$decision_time}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="8%"><strong>地区名称</strong></td>
+		<!--{if $model=='' || $model=='m1'}-->
+		<td width="12%"><strong>发放印刷资料数量</strong></td>
+		<!--{/if}-->
+		<!--{if $model=='' || $model=='m2'}-->
+		<td width="12%"><strong>播放音像资料次数</strong></td>
+		<!--{/if}-->
+		<!--{if $model=='' || $model=='m3'}-->
+		<td width="12%"><strong>咨询活动次数</strong></td>
+		<td width="12%"><strong>咨询活动人数</strong></td>
+		<!--{/if}-->
+		<!--{if $model=='' || $model=='m4'}-->
+		<td width="12%"><strong>健康讲座次数</strong></td>
+		<td width="12%"><strong>健康讲座人数</strong></td>
+		<!--{/if}-->
+        <td width="16%"><strong><!--{if $td_title==1}-->查看下级地区<!--{/if}--><!--{if $td_title==2}-->建档机构<!--{/if}--></strong></td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+		   <!--{if $model=='' || $model=='m1'}-->
+		   <td><!--{$row[row].sum_txt}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m2'}-->
+		   <td><!--{$row[row].sum_video}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m3'}-->
+		   <td><!--{$row[row].sum_ask}--></td>
+		   <td><!--{$row[row].sum_ask_person}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m4'}-->
+		   <td><!--{$row[row].sum_lecture}--></td>
+		   <td><!--{$row[row].sum_lecture_person}--></td>
+		   <!--{/if}-->
+           <td>
+           <!--{if $td_title==1}--><a href="<!--{$basePath}-->decision/he/index/model/<!--{$model}-->/parent_id/<!--{$row[row].id}-->/start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->">[进入子地区]</a><!--{/if}-->
+           <!--{if $td_title==2}--><!--{$row[row].org_zh_name}--><!--{/if}-->
+           
+           </td>
+        </tr>
+     <!--{/section}-->
+        <tr class="headbg">
+           <td>小计</td>
+		   <!--{if $model=='' || $model=='m1'}-->
+		   <td><!--{$sum_txt_total}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m2'}-->
+		   <td><!--{$sum_video_total}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m3'}-->
+		   <td><!--{$sum_ask_total}--></td>
+		   <td><!--{$sum_ask_person_total}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m4'}-->
+		   <td><!--{$sum_lecture_total}--></td>
+		   <td><!--{$sum_lecture_person_total}--></td>
+		   <!--{/if}-->
+           <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <!--{if $model==''}-->
+       <td colspan="8">
+       	<!--{elseif $model=='m3' or $model=='m4'}-->
+		<td colspan="4">
+       	<!--{else}-->
+		<td colspan="3">
+		<!--{/if}-->
+        （一）发放健康教育印刷资料的数量（统计时间段内）。<br />
+        （二）播放健康教育音像资料的次数（统计时间段内）。<br />
+        （三）讲座的次数和参加人数（统计时间段内）。<br />
+        （四）健康教育咨询活动的次数和参加人数（统计时间段内）。<br />
+        <font color="red">&nbsp; &nbsp;<b>注:</b>&nbsp;</font> <b>统计时间段内：</b>表示该统计指标在所选择的统计时间段内，如选择2012-09-27，则本统计指标统计的数据为2012-01-01至2012-09-27的结果。<br/>
+
+            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<b>至统计时间：</b>表示该统计指标所统计数据至所选择的统计时间为止的之前的所有数据，如选择2012-09-26，则统计截止于2012-09-27之前的所有数据<br/>
+
+            &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<b>与时间无关：</b>表示该统计指标与所选择的统计时间完全无关，将统计数据库内的所有数据（满足其他条件）
+       
+        </td>
+        </tr>
+
+</table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+function myOpenWindow(id){
+	var url="<!--{$basePath}-->region/region/display/id/"+id+'/sid/'+Math.random();
+	//alert(url);
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:250px;DialogWidth:650px;DialogHeight:250px;help:no;status:no');
+}
+function mysubmit(){
+	if($('#region_name').val()==''){
+		alert('请输入地区名称');
+		return;
+	}
+	if($('#standard_code').val()==''){
+		alert('请输入标准码');
+		return;
+	}	
+	$('#ok').attr('disabled',true);
+	$('#popup')[0].submit();
+	return true;
+}
+if($('#errorMessage').html()!=''){
+	alert($('#errorMessage').html());
+}
+</script>
+

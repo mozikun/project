@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+
+
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+		<tr>
+        <td>
+        	ID
+        </td>
+        <td>
+        	<!--{$medicalwaste_transport->id}-->
+        </td>
+        <td>
+        	医疗机构代码
+        </td>
+        <td>
+        	<!--{$medicalwaste_transport->yljgdm}-->
+        </td>
+    </tr>
+    <tr>
+        <td>医疗废物处置单位</td><td ><!--{$medicalwaste_transport->ylfwczdw}--></td>
+        <td>转移日期</td><td><!--{$medicalwaste_transport->zyrq}--></td>
+    </tr>
+    <tr>
+        
+        <td>感染性废物及其他-体积（箱）</td><td><!--{$medicalwaste_transport->grxfwtj}--></td>
+         <td>感染性废物及其他-重量（KG）</td><td><!--{$medicalwaste_transport->grxfwzl}--></td>
+    </tr>
+    <tr>
+       
+        <td>损伤性废物-体积（盒）</td><td><!--{$medicalwaste_transport->ssxfwtj}--></td>
+        <td>损伤性废物-重量（KG）</td><td><!--{$medicalwaste_transport->ssxfwzl}--></td>
+    </tr>
+    <tr>
+        
+        <td>医疗机构交接人员</td><td><!--{$medicalwaste_transport->yljgjjry}--></td>
+         <td>废物运送人员</td><td><!--{$medicalwaste_transport->fwysry}--></td>
+    </tr>
+    <tr>
+       
+        <td>交接时间</td><td><!--{$medicalwaste_transport->jjsj}--></td>
+        <td>填报日期</td><td><!--{$medicalwaste_transport->tbrq}--></td>
+    </tr>
+    <tr>
+    	
+        <td>备注</td><td><!--{$medicalwaste_transport->bz}--></td>
+		<td></td><td></td>
+    </tr>
+
+    </tr>
+   
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

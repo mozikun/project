@@ -1,0 +1,28 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="3" align="center"><center><strong><!--{$cm_name}-->统计表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td ><strong>地区名称</strong></td>
+        <td ><strong>管理人数</strong></td>
+        <td ><strong>规范管理率(%)</strong></td>
+       
+     </tr>
+     <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].num}--></td>
+           <td><!--{$row[row].rate}--></td>
+
+         </tr>
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td><!--{$total_num}--></td>
+           <td><!--{$total_rate}--></td>
+
+        </tr>
+
+</table>
+

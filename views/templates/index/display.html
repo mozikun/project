@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$orgName}--></title>
+<link href="<!--{$__BASEPATH}-->views/templates/index/top.css" type="text/css" rel="stylesheet" />
+<link href="<!--{$__BASEPATH}-->views/templates/index/display.css" type="text/css" rel="stylesheet" />
+<link href="<!--{$__BASEPATH}-->views/templates/index/footer.css" type="text/css" rel="stylesheet" />
+</head>
+<!--太怪了，只有css文件名里有header就无法加载-->
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<!--包头-->
+	<!--{include file="./index/header.html"}-->
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div><a href="<!--{$body_1_url}-->"><!--{$body_1_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft1" userDefineClass='alterImage' interval='3000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_1_image_list loop=$body_1_image_list}-->
+					<a href="<!--{$body_1_image_list[body_1_image_list].url}-->"><img class="alterImage" src="<!--{$body_1_image_list[body_1_image_list].imagePath}-->" alt="<!--{$body_1_image_list[body_1_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_2_url}-->"><!--{$body_2_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft2" userDefineClass='alterImage' interval='6000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_2_image_list loop=$body_2_image_list}-->
+					<a href="<!--{$body_2_image_list[body_2_image_list].url}-->"><img class="alterImage" src="<!--{$body_2_image_list[body_2_image_list].imagePath}-->" alt="<!--{$body_2_image_list[body_2_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_3_url}-->"><!--{$body_3_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft3" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_3_image_list loop=$body_3_image_list}-->
+					<a href="<!--{$body_3_image_list[body_3_image_list].url}-->"><img class="alterImage" src="<!--{$body_3_image_list[body_3_image_list].imagePath}-->" alt="<!--{$body_3_image_list[body_3_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_4_url}-->"><!--{$body_4_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft4" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_4_image_list loop=$body_4_image_list}-->
+					<a href="<!--{$body_4_image_list[body_4_image_list].url}-->"><img class="alterImage" src="<!--{$body_4_image_list[body_4_image_list].imagePath}-->" alt="<!--{$body_4_image_list[body_4_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+		</div><!--bodyLeftDiv end-->
+
+		<div id="bodyRightDiv">
+			<div id="bodyNavigation">
+				当前位置 >> <a href="<!--{$__BASEPATH}-->">首页</a> >> 
+				
+<!--这个请保留
+				<a href="<!--{$__BASEPATH}-->default/index/list/menuId/<!--{$menuId}-->/currentPage/<!--{$currentPage}-->"><!--{$description}--></a> >> 
+				<a href="<!--{$__BASEPATH}-->default/index/display/id/<!--{$id}-->/currentPage/<!--{$currentPage}-->"><!--{$title}--></a> 
+-->				
+				<a href="<!--{$pathToMenu}-->"><!--{$description}--></a> >> 
+				<a href="<!--{$pathToNews}-->"><!--{$title}--></a> 
+			</div><!--bodyNavigation end-->
+			<div id="bodyTitle">
+				<!--{$title}-->
+				[<!--{$dateUpdate}-->]阅读
+				<!--{$hitTimes}-->次
+			</div>
+			<div id="bodyContent">
+				<span class="bodydd"><!--{$content}--></span><br />
+				<!--{$uploaded}-->			
+			</div>
+			<div id="attachment" style="display:<!--{$displayAttachmentDiv}-->">
+				<!--{$attachment}-->			
+			</div>
+		</div><!--bodyRightDiv end-->
+	</div>
+	<!--包脚-->
+	<!--{include file="./index/footer.html"}-->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="<!--{$__BASEPATH}-->views/templates/index/index.js"></script>
+<script type="text/javascript">
+//显示下拉菜单
+showSubMenu();
+//显示幻灯图片
+showAlterImages();
+getHitTimes('<!--{$__BASEPATH}-->');
+</script>

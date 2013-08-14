@@ -1,0 +1,12 @@
+body{
+	font-size:14px;
+	background-color:#EFEFEF;
+}
+div{
+	position:relative;
+	float:left;
+	width:100%;
+}
+input{
+	margin-top:5px;
+}

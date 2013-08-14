@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/goods/edit" onsubmit="return checkValue();">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />	
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	一种基于多计量单位的精细进销存算法设计与实现<br />
+	１。规避迭代与遍历 速度慢，计算机编程语言对迭代次数有上限
+	２。可操作性放在第一位
+	进货单：<br />
+	
+	供应商<input type="text" name="" value="" size="40" /><br />
+	购买日期<input type="text" name="" value="" size="40" /><br />
+	<table>
+	<tr>
+		<td>计量方式</td><td>箱</td><td>件</td><td>盒</td>
+	</tr>
+	<tr>
+	<td>单位进制</td>
+		<td>1箱=<input type="text" name="" value="" size="2" />件</td>
+		<td>1件=<input type="text" name="" value="" size="2" />盒</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<td>购进数量</td>
+		<td><input type="text" name="" value="" size="2" />箱</td>
+		<td><input type="text" name="" value="" size="2" />件</td>
+		<td><input type="text" name="" value="" size="2" />盒</td>
+		<td>共计2000盒</td>
+	</tr>
+	<td>购进单价</td>
+		<td><input type="text" name="" value="" size="2" />元/箱</td>
+		<td><input type="text" name="" value="" size="2" />元/件</td>
+		<td><input type="text" name="" value="" size="2" />元/盒</td>
+		<td><input type="button" name="" id="" value="辅助" />共计：20000</td>
+	</tr>
+	
+	</table>
+	<br />
+
+	出货单：<br />
+	
+	供应商：xxxxxx有限责任公司<br />
+	购买日期：２００９－７－１２<br />
+	<table>
+	<tr>
+		<td>计量方式</td><td>箱</td><td>件</td><td>盒</td>
+	</tr>
+	<tr>
+	<td>单位进制</td>
+		<td>1箱=20件</td>
+		<td>1件=20盒</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<td>剩余数量</td>
+		<td>10箱</td>
+		<td>10件</td>
+		<td>10盒</td>
+		<td>共计2000盒</td>
+	</tr>
+	<td>出库数量</td>
+		<td><input type="text" name="" value="" size="2" />箱</td>
+		<td><input type="text" name="" value="" size="2" />件</td>
+		<td><input type="text" name="" value="" size="2" />盒</td>
+		<td>共计100盒</td>
+	</tr>
+	<td>购进单价</td>
+		<td>1000元/箱</td>
+		<td>50元/件</td>
+		<td>2.5元/盒</td>
+		<td>&nbsp;</td>
+	</tr>
+	<td>出库单价</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="button" name="" id="" value="辅助" />共计：20000</td>
+	</tr>
+	
+	</table>	
+	<br />
+	供应商：xxxxxx有限责任公司<br />
+	购买日期：２００９－７－１８<br />
+	<table>
+	<tr>
+		<td>计量方式</td><td>箱</td><td>件</td><td>盒</td>
+	</tr>
+	<tr>
+	<td>单位进制</td>
+		<td>1箱=20件</td>
+		<td>1件=20盒</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+	<td>剩余数量</td>
+		<td>10箱</td>
+		<td>10件</td>
+		<td>10盒</td>
+		<td>共计2000盒</td>
+	</tr>
+	<td>出库数量</td>
+		<td><input type="text" name="" value="" size="2" />箱</td>
+		<td><input type="text" name="" value="" size="2" />件</td>
+		<td><input type="text" name="" value="" size="2" />盒</td>
+		<td>共计100盒</td>
+	</tr>
+	<td>购进单价</td>
+		<td>1000元/箱</td>
+		<td>50元/件</td>
+		<td>2.5元/盒</td>
+		<td>&nbsp;</td>
+	</tr>
+	<td>出库单价</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="text" name="" value="" size="2" />元</td>
+		<td><input type="button" name="" id="" value="辅助" />共计：20000</td>
+	</tr>
+	
+	</table>	
+	<br />			
+	测试二重samrty
+	<!--{section name=block loop=$block}-->
+	<table>
+	<tr>
+	<td>单位进制</td>
+	<!--{section name=block2 loop=$block2}-->
+	<td><!--{$block[block].$block2[block2].price}--></td>
+	<!--{/section}-->
+	</tr>
+	<tr>
+	<td>剩余数量</td>
+	<!--{section name=block3 loop=$block3}-->
+	<td><!--{$block3[block3].price}--></td>
+	<!--{/section}-->
+	</tr>
+	<tr>
+	<td>出库数量</td>
+	<!--{section name=block4 loop=$block4}-->
+	<td><!--{$block4[block4].price}--></td>
+	<!--{/section}-->
+	</tr>
+	
+	</table>
+	<br />
+	<!--{/section}-->
+	
+	
+	<br />			
+	
+	<table>
+	<tr>
+	<td>计量单位
+	</td>
+	<td>
+	1
+	<select name="measurement_master_3"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	=
+	<input type="text" name="measurement_3" value="" size="2" />
+	<select name="measurement_slave_3"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	</td>
+	<td>
+	1
+	<select name="measurement_master_2"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	=
+	<input type="text" name="measurement_2" value="" size="2" />
+	<select name="measurement_slave_2"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	</td>
+	<td>
+	1
+	<select name="measurement_master_1"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	=
+	<input type="text" name="measurement_1" value="" size="2" />
+	<select name="measurement_slave_1"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	</td>
+	</tr>
+	<tr>
+	<td>进货数量<br />进货单价
+	</td>
+	<td>
+	<input type="text" name="measurement_3" value="" size="2" />
+	<select name="measurement_slave_3"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	单价<input type="text" name="measurement_3" value="" size="2" />
+	</td>
+	<td>
+	<input type="text" name="measurement_2" value="" size="2" />
+	<select name="measurement_slave_2"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	单价<input type="text" name="measurement_3" value="" size="2" />
+	</td>
+	<td>
+	<input type="text" name="measurement_1" value="" size="2" />
+	<select name="measurement_slave_1"><option value="3">箱</option><option value="2">包</option><option value="1">件</option></select>
+	单价<input type="text" name="measurement_3" value="" size="2" />
+	</td>
+	</tr>
+	</table>
+	
+	<br />
+	
+	<table>
+	<tr>
+	<td>库存数量<br />进货单价	</td><td>4箱单价400</td><td>2包单价20</td><td>8袋单价4</td></tr></table>
+	<br />
+	<table><tr><td>饼干</td><td>每箱单价500</td><td>每包单价30</td><td>每袋单价6</td></tr></table>
+	<br />
+	<table><tr><td>饼干</td><td>每件单价100</td><td>每袋单价6</td></tr></table>
+
+	所属类别<span id='categoryDropDownBox'></span><br />
+	商品名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+	商品售价<input type="text" name="price" id="price" value="<!--{$price}-->" /><br />
+	折扣<input type="text" name="discount" id="discount" value="<!--{$discount}-->" /><br />
+	排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	实际库存:<!--{$storage_real}-->(按最小单位统计)<br />
+	理论库存:<!--{$storage_reserve}-->(按最小单位统计)<br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="/goods/goods/list/<!--{$url}-->">返回</a>
+	<table>
+		<tr  class="title"><td>类别名称</td><td>属性名称</td><td>是否启用</td><td>值</td></tr>
+	<!--{section name=propertyList loop=$propertyList}-->
+		<tr>
+			<td><!--{$propertyList[propertyList].categoryDescription}--></td>
+			<td><!--{$propertyList[propertyList].propertyDescription}--></td>
+			<td><!--{$propertyList[propertyList].checked}--></td>
+			<td><!--{$propertyList[propertyList].value}--></td>
+		</tr>
+	<!--{/section}-->
+	</table>	
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getCategoryDropDownBox();
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

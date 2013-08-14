@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>3～6岁儿童健康检查记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+td{
+ text-align:left;	
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+		$("#age").change(function(){
+			var age = $(this).val();//随访项目
+			var url		= "<!--{$basePath}-->children/threeold/add/id/<!--{$id}-->/age/"+age;
+			window.location=url;
+		});
+		//初始化检查是否转诊
+		chk_referral_features();
+		//转诊激活
+		$("#referral_features").blur(function(){
+			chk_referral_features();
+		});	
+		
+		var pneumonia= $("input[name='pneumonia']").val();
+		var diarrhea_in_hospitalized = $("input[name='diarrhea_in_hospitalized']").val();
+		var the_patient =$("input[name='the_patient']").val();
+		var prevalence_infancy_other=$("input[name='prevalence_infancy_other']").val();
+		
+		if(pneumonia=="" && diarrhea_in_hospitalized=="" && the_patient=="" && prevalence_infancy_other=="" ){
+			$("#prevalence_token").attr("checked",true);
+			$("input[name='pneumonia']").attr("disabled",true);
+			$("input[name='diarrhea_in_hospitalized']").attr("disabled",true);
+			$("input[name='the_patient']").attr("disabled",true);
+			$("input[name='prevalence_infancy_other']").attr("disabled",true);
+		}else{
+			$("#prevalence_token").attr("checked",false);
+			$("input[name='pneumonia']").attr("disabled",false);
+			$("input[name='diarrhea_in_hospitalized']").attr("disabled",false);
+			$("input[name='the_patient']").attr("disabled",false);
+			$("input[name='prevalence_infancy_other']").attr("disabled",false);
+		}
+		$("#prevalence_token").click(function(){
+			if($("#prevalence_token").attr("checked")==true){
+				$("input[name='pneumonia']").val("");
+				$("input[name='diarrhea_in_hospitalized']").val("");
+				$("input[name='the_patient']").val("");
+				$("input[name='prevalence_infancy_other']").val("");
+				$("input[name='pneumonia']").attr("disabled",true);
+				$("input[name='diarrhea_in_hospitalized']").attr("disabled",true);
+				$("input[name='the_patient']").attr("disabled",true);
+				$("input[name='prevalence_infancy_other']").attr("disabled",true);
+			}else{
+				$("input[name='pneumonia']").attr("disabled",false);
+				$("input[name='diarrhea_in_hospitalized']").attr("disabled",false);
+				$("input[name='the_patient']").attr("disabled",false);
+				$("input[name='prevalence_infancy_other']").attr("disabled",false);
+			}
+		});	
+		//检查是否转诊
+		function chk_referral_features(){
+			var referral_features_val	= $("#referral_features").val();//是否转诊的值
+			
+			if(referral_features_val=="2"){
+				$("#agencies_departments").attr("disabled",false);
+				$("#reason").attr("disabled",false);
+			}else{
+				$("#agencies_departments").attr("disabled",true);
+				$("#reason").attr("disabled",true);
+			}
+		}
+	});
+</script>
+</head>
+<body>
+<form  action="<!--{$basePath}-->children/threeold/update/id/<!--{$id}-->" method="post">  
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">3～6岁儿童健康检查记录表<img title="目前症状：填写从上次随访到本次随访期间发生的情况" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="id" value="<!--{$id}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>姓名</strong>：<!--{$name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;height:20px;"><strong>编号</strong>：<!--{$serial_num}--></div>
+	</div>
+   <table width="100%"  align="center">
+ 		<tr>
+			<td>年龄</td>
+		    <td >
+		       <select name="age" style="width:95px"  id="age">
+	     
+		       <!--{foreach key=k item=v from=$age_options}-->
+		       <option value="<!--{$k}-->" <!--{if $k==$age_current}-->selected<!--{/if}-->>
+		       <!--{$v}--></option>
+		       <!--{/foreach}-->
+		       </select>
+
+		    </td>
+	   	</tr>
+	    <tr>
+			<td>随访日期</td>
+		    <td >
+		       <input type="text" name="vist_time" value="<!--{$vist_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+		    </td>
+	   	</tr>
+	   	 <tr>
+			<td>体重<img title="指检查时实测的具体数值。并根据卫生部选用的儿童生长发育参照标准，判断儿童体格发育情况，在相应的“上”、“中”、“下”进行选择" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+		    <td>
+		           <input type="text" name="weight" value="<!--{$weight}-->"  class="inputbottomshort">&nbsp;
+				   <select name="weight_info" style="width:95px">
+			       <option value=""></option>
+			       <!--{foreach key=k item=v from=$weight_info_options}-->
+			       <option value="<!--{$v}-->" <!--{if $v==$weight_info_current}-->selected<!--{/if}-->>
+			       <!--{$v}--></option>
+			       <!--{/foreach}-->
+			       </select>
+		    </td>
+		    </tr>
+		    
+		    <tr>
+		    <td>身长<img title="指检查时实测的具体数值。并根据卫生部选用的儿童生长发育参照标准，判断儿童体格发育情况，在相应的“上”、“中”、“下”进行选择" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+		    <td>
+		          <input type="text" name="height" value="<!--{$height}-->"  class="inputbottomshort">&nbsp;
+				  <select name="height_info" style="width:95px">
+			       <option value=""></option>
+			       <!--{foreach key=k item=v from=$height_info_options}-->
+			       <option value="<!--{$v}-->" <!--{if $v==$height_info_current}-->selected<!--{/if}-->>
+			       <!--{$v}--></option>
+			       <!--{/foreach}-->
+			       </select>
+		    </td>
+	   	</tr>
+	   	<tr>
+		<td >坐高(cm)</td>
+	    <td>
+		  <input type="text" name="sitting_hight" value="<!--{$sitting_hight}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+   	<tr>
+		<td >头围(cm)</td>
+	    <td>
+		 <input type="text" name="head_size" value="<!--{$head_size}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+   	<tr>
+		<td >胸围(cm)</td>
+	    <td>
+		  <input type="text" name="bust" value="<!--{$bust}-->"  class="inputbottomshort">
+		</td>
+   	</tr>
+	   	<tr>
+			<td>体格发育评价</td>
+		    <td >
+		        <!--{foreach key=k item=v from=$developmental_assessment_options}-->
+		            <label onclick="set_input_value('<!--{$k}-->','developmental_assessment')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		        <!--{/foreach}-->&nbsp;
+		        <input type="text" name="developmental_assessment" value="<!--{$developmental_assessment_current}-->" class="inputnew" />
+		    </td>
+	   	</tr>
+	   	<tr>
+			<td rowspan="7">体格检查</td>
+		    <td>视力<img title="填写具体数据，使用国际视力表或对数视力表均可" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    <!--{if $age_current!=9}-->
+		    <input type="text" name="sight" value="<!--{$sight}-->"  class="inputbottom">
+		    <!--{else}-->
+		    —————
+		    <!--{/if}-->
+		    </td> 
+	   	<tr>
+	   	   
+		    <td>听力<img title="3岁时使用行为测听的方法进行听力筛查，将结果在相应数字上单击鼠标左键选择" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		        <!--{if $age_current==9}-->
+		    	<!--{foreach key=k item=v from=$hearing_options}-->
+		            <label onclick="set_input_value('<!--{$k}-->','hearing')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		        <!--{/foreach}-->&nbsp;		       
+		        <input type="text" name="hearing" value="<!--{$hearing_current}-->" class="inputnew" />
+		        <!--{else}-->
+		    	—————
+		    	<!--{/if}-->
+		    </td>
+		    </tr>
+		    <tr>
+		    <td> 牙数（颗）/龋齿数<img title="据实填写牙齿数和龋齿数。出现褐色或黑褐色斑点或斑块，表面粗糙，甚至出现明显的牙体结构破坏为龋齿" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    	
+		        <input type="text" name="number_of_teeth" value="<!--{$number_of_teeth}-->"  class="inputbottom"/>/
+		        <input type="text" name="number_of_caries" value="<!--{$number_of_caries}-->" class="inputbottom" />
+		    </td>
+	   	</tr>
+	   	<tr>
+		    <td>心肺<img title="当未闻及心脏杂音，肺部呼吸音也无异常时，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    	<!--{foreach key=k item=v from=$heart_lung_options}-->
+		            <label onclick="set_input_value('<!--{$k}-->','heart_lung')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		        <!--{/foreach}-->&nbsp;		       
+
+		        <input type="text" name="heart_lung" value="<!--{$heart_lung_current}-->" class="inputnew" />
+		    </td>
+		    </tr>
+		    <tr>
+		    <td>腹部<img title="肝脾触诊无异常，判断为未见异常，否则为异常" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    	<!--{foreach key=k item=v from=$abdomen_options}-->
+		            <label onclick="set_input_value('<!--{$k}-->','abdomen')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		        <!--{/foreach}-->&nbsp;		       
+
+		        <input type="text" name="abdomen" value="<!--{$abdomen_current}-->" class="inputnew" />
+		    </td>
+	   	</tr>
+	      <tr>
+		    <td>血红蛋白值<img title="填写实际测查数据" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    	       
+		        <input type="text" name="hemoglobin" value="<!--{$hemoglobin}-->"  class="inputbottom"/>g/L
+
+		    </td>
+	   	</tr>
+	   	  <tr>
+		    <td>其他<img title="将体格检查中需要记录又不在标目限制范围之内的内容时记录在此" src="<!--{$basePath}-->images/comments.png" class="vtip" />
+		    	       
+		        <input type="text" name="other" value="<!--{$other}-->"  class="inputbottom"/>
+		       
+		    </td>
+	   	</tr>
+	   	 
+		
+	   	<tr>
+	   	  <td>两次随访间患病情况<img title="在所患疾病后填写住院次数" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+	   	  <td >
+	   	     
+	   	     1、无 <input type="checkbox" id="prevalence_token"/><br/>
+	   	     2、肺炎<input type="text" name="pneumonia" value="<!--{$pneumonia}-->"  class="inputbottomlong"/>次 <br/>
+	   	   
+	   	     3、腹泻<input type="text" name="diarrhea_in_hospitalized" value="<!--{$diarrhea_in_hospitalized}-->"  class="inputbottomlong"/>次 <br/>
+	   	     4、外伤<input type="text" name="the_patient" value="<!--{$the_patient}-->"  class="inputbottomlong"/>次 <br/>
+	   	     5、其它<input type="text" name="prevalence_infancy_other" value="<!--{$prevalence_infancy_other}-->"  class="inputbottomlong"/>
+	   	     
+	   	  </td>
+	   	</tr>
+	   
+	   	
+	   	<tr>
+	   	 <td>转诊建议</td>
+   	     <td >
+   	            <!--{foreach key=k item=v from=$referral_features_options}-->
+		            <label onclick="set_input_value('<!--{$k}-->','referral_features')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+		        <!--{/foreach}-->&nbsp;	
+		              <input type="text" name="referral_features" id="referral_features" value="<!--{$referral_features_current}-->"  class="inputnew"/></br>
+		        原因:      <input type="text" name="reason" id="reason" value="<!--{$reason}-->"  class="inputbottomlong"/></br>
+		        机构及科室:<input type="text" name="agencies_departments" id="agencies_departments" value="<!--{$agencies_departments}-->"  class="inputbottomlong"/>
+		 </td>
+   	    </tr>
+   	    <tr>
+	   	 <td>指导<img title="做了哪些指导请在对应的选项上单击鼠标左键选择，可以多选，未列出的其他指导请具体填写" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+   	     <td >
+   	     		<!--{foreach key=k item=v from=$advising_options}-->
+	               <!--{$k}-->、<!--{$v[1]}-->&nbsp;
+		        <!--{/foreach}-->&nbsp;
+		        <input type="text" name="advising_other" id="advising_other_other" value="<!--{$advising_other}-->" class="inputbottomlong" />
+		        <!--{section name=customer loop=5}-->
+			  	<input type="text" id="advising" name="advising[]" value="<!--{$advising_current[customer]}-->" class="inputnew" />/
+		        <!--{/section}-->
+		 </td>
+   	    </tr>
+   	    <td>下次随访日期<img title="根据儿童情况确定下次随访的日期，并告知家长" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+   	     <td >
+   	     	<input type="text" name="next_followup_time" value="<!--{$next_followup_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+		 </td>
+		</tr>
+   	    <tr>
+	   	 <td>随访医生签名</td>
+   	     <td >
+   	       <select name="doctors_signature">
+	       <!--{section loop=$region_users name=experience}-->  
+	       
+	       <option value="<!--{$region_users[experience].user_id}-->" <!--{if $doctors_signature==$region_users[experience].user_id}-->selected<!--{/if}-->>
+	       <!--{$region_users[experience].name_real}--></option>
+	       <!--{/section}-->
+	       </select>
+
+		 </td>
+   	    </tr>
+   	     <tr>
+   	     <td colspan="3" style="text-align:center;">
+   	            <input type="submit" name="" value="保存数据"  class="inputbutton"/><!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}-->
+		 </td>
+   	    </tr>
+   </table>
+</form> 
+</body>
+</html>

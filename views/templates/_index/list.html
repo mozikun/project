@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$orgName}--></title>
+<link href="/views/templates/index/top.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/list.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/footer.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<!--包头-->
+	<!--{include file="./index/header.html"}-->
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div><a href="<!--{$body_11_url}-->"><!--{$body_11_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft1" userDefineClass='alterImage' interval='3000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_11_image_list loop=$body_11_image_list}-->
+					<a href="<!--{$body_11_image_list[body_11_image_list].url}-->"><img class="alterImage" src="<!--{$body_11_image_list[body_11_image_list].imageUrl}-->" alt="<!--{$body_11_image_list[body_11_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_12_url}-->"><!--{$body_12_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft2" userDefineClass='alterImage' interval='6000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_12_image_list loop=$body_12_image_list}-->
+					<a href="<!--{$body_12_image_list[body_12_image_list].url}-->"><img class="alterImage" src="<!--{$body_12_image_list[body_12_image_list].imageUrl}-->" alt="<!--{$body_12_image_list[body_12_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_13_url}-->"><!--{$body_13_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft3" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_13_image_list loop=$body_13_image_list}-->
+					<a href="<!--{$body_13_image_list[body_13_image_list].url}-->"><img class="alterImage" src="<!--{$body_13_image_list[body_13_image_list].imageUrl}-->" alt="<!--{$body_13_image_list[body_13_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_14_url}-->"><!--{$body_14_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft4" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_14_image_list loop=$body_14_image_list}-->
+					<a href="<!--{$body_14_image_list[body_14_image_list].url}-->"><img class="alterImage" src="<!--{$body_14_image_list[body_14_image_list].imageUrl}-->" alt="<!--{$body_14_image_list[body_14_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+		</div><!--bodyLeftDiv end-->
+		<div id="bodyCenterDiv">
+			<div id="bodyNavigation">
+				当前位置 >> <a href="/">首页</a> >> 
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->"><!--{$description}--></a> 
+			</div><!--bodyNavigation end-->
+			<div id="divNewsList">
+			<!--{section name=body_list loop=$body_list}-->
+				<a href="<!--{$body_list[body_list].url}-->" id="bodyListTitle"><!--{$body_list[body_list].title}--></a><span id="bodyListDate">[<!--{$body_list[body_list].date}-->]</span>
+			<!--{/section}-->
+			</div>
+			<div id="divPageNav">
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->/page_action/top/<!--{$url}-->" id='pre' name='pre' class="pageline">首页</a>
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->/page_action/pre/<!--{$url}-->" id='pre' name='pre' class="pageline">上一页</a>
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->/page_action/next/<!--{$url}-->" id='next' name='next' class="pageline">下一页</a>
+				<a href="/default/index/list/subMenuId/<!--{$subMenuId}-->/page_action/bottom/<!--{$url}-->" id='next' name='next' class="pageline">尾页</a>
+			</div>
+			
+		</div><!--bodyCenterDiv end-->
+		<div id="bodyRightDiv">
+			<!--热点新闻-->
+			<div>热点新闻</div>
+			<!--{section name=hot_news loop=$hot_news}-->
+				<a href="<!--{$hot_news[hot_news].url}-->" id="hot_news"><!--{$hot_news[hot_news].title}-->[<!--{$hot_news[hot_news].hit_times}-->]</a>
+			<!--{/section}-->
+		</div><!--bodyRightDiv end-->
+		
+		
+	</div>
+	<!--包脚-->
+	<!--{include file="./index/footer.html"}-->
+</div>
+<script type="text/javascript" src="/views/templates/index/index.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+//显示下拉菜单
+showSubMenu();
+//显示幻灯图片
+showAlterImages();
+</script>

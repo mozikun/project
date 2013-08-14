@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+body, td, th { font-size: 12px; color: #333; font-family: "Î¢ÈíÑÅºÚ", "ËÎÌå", "ÐÂËÎÌå", "ºÚÌå", "¿¬Ìå", Arial; }
+a:link, a:visited, a:active, a:focus { color: #1C1C1C; text-decoration: none; }
+a:hover { color: #f30; text-decoration: underline; }
+.bbk { content: ""; clear: both; font-size: 0px; line-height: 0px; height: 0px; visibility: visible; }
+img, a { border: none; }
+html, body, form, frame, iframe, frameset, input, label, h1, h2, h3, h4, h5, h6, p, ol, ul, li, dl, dt, dd, input, select, textarea, a { margin: 0px; padding: 0px; }
+ol, ul, li, dl, dt, dd { list-style: none; }
+table { border-collapse: collapse; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+p { line-height: 25px; }
+
+.ui-mobile-viewport { /*position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px;*/ background-image: url(/../views/images/de_01.png) ; background-size: 100%; position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; }
+.ui-footer { position: absolute; bottom: 0; height: 40px; left: 0px; right: 0px; background-image: url(/../views/images/sm_11.png); }
+.content { height: 655px; width: 400px; margin-left: -200px; position: absolute; left: 50%; margin-top: -262px; top: 40%; }
+.one { background-image: url(/../views/images/sm_01.png); left: 78px; top: 171px; z-index: 2; }
+.two { background-image: url(/../views/images/sm_01.png); left: 235px; top: 171px; z-index: 2; }
+.three { background-image: url(/../views/images/sm_01.png); left: 157px; top: 36px; z-index: 1; }
+.four { background-image: url(/../views/images/sm_01.png); left: 0px; top: 35px; z-index: 4; }
+.five { background-image: url(/../views/images/sm_01.png); left: 235px; top: 443px; z-index: 1; }
+.six { background-image: url(/../views/images/sm_01.png); left: 77px; top: 442px; z-index: 4; }
+.seven { background-image: url(/../views/images/sm_01.png); left: 157px; top: 307px; z-index: 3; }
+.eight { background-image: url(/../views/images/sm_01.png); left: 0; top: 306px; z-index: 3; }
+.nine { background-image: url(/../views/images/sm_01.png); left: 155px; top: 578px; z-index: 5; }
+.ten { background-image: url(/../views/images/sm_01.png); left: 0; top: 578px; z-index: 5; }
+.absorbs { height: 180px; width: 160px; position: absolute; }
+.content .absorbs a { display: block; font-family: "Î¢ÈíÑÅºÚ"; font-size: 26px; color: #FFF; width: 160px; height: 90px; margin-top: 46px; text-align: center; line-height: 90px; text-decoration: none; }
+.ui-footer a { display: block; font-size: 16px; float: left; width: 65px; margin-left: 1%; border-radius: 1em; height: 32px; margin-top: 4px; text-align: center; background-image: url(/../views/images/sm_13.png); line-height: 32px; }
+.ui-footer a:link, .ui-footer a:visited, .ui-footer a:hover, .ui-footer a:active { color: #fff; text-decoration: none; }

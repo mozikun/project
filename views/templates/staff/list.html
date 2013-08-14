@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户管理</title>
+<link href="<!--{$__BASEPATH}-->views/templates/staff/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+	所属机构<span id='organizationDropDownBox'></span>
+	<input type="button" id="search" name="search" value="确定" onclick="search()"/>
+<script type="text/javascript">
+function search(){
+	var filterOrganizationId=$('parentId').value;
+	var url="<!--{$__BASEPATH}-->management/staff/list/filterOrganizationId/"+filterOrganizationId;
+	//alert(url);
+	document.location=url;
+}
+</script>	
+	<input type="hidden" name="organizationId" id="organizationId" value="<!--{$organizationId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+
+	<table class="staffList">
+		<tr  class="title"><td>部门</td><td>姓名</td><td>角色</td><td>权限控制</td><td>操作</td></tr>
+	<!--{section name=staffList loop=$staffList}-->
+		<tr>
+			<td><!--{$staffList[staffList].organization}--></td>
+			<td><!--{$staffList[staffList].name}--></td>
+			<td><!--{$staffList[staffList].role}--></td>
+			<td><a  href="<!--{$__BASEPATH}-->management/aclStaffResource/list/id/<!--{$staffList[staffList].id}-->">进入</a></td>
+			<td>
+				<a  href="<!--{$__BASEPATH}-->management/staff/display/id/<!--{$staffList[staffList].id}-->">编辑</a>
+				<a  href="<!--{$__BASEPATH}-->management/staff/delete/id/<!--{$staffList[staffList].id}-->" onclick="return confirm('是否确定？如果该类已有子类，则不能删除。')">删除</a>
+			</td>
+		</tr>
+	<!--{/section}-->
+	</table>
+	<font color="Red"><!--{$noRecordMessage}--></font>
+
+	<a href="<!--{$__BASEPATH}-->management/staff/add/id/<!--{$id}-->">新增</a>
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+</body>
+</html>
+
+
+<script type="text/javascript">
+//所有分类的根
+var organizationId=$('organizationId').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getOrganizationDropDownBox();
+
+function getOrganizationDropDownBox(){
+	if(parentId=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	url='<!--{$__BASEPATH}-->management/organization/organizationDropDownBox/parentId/'+parentId+'/organizationId/'+organizationId+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=handleStateChange;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if($('parentId').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function handleStateChange(){
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//注：firefox不支持innerText
+		var objDiv=$('organizationDropDownBox');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(theValue){
+	parentId=theValue;
+	$('parentId').value=theValue;
+	getOrganizationDropDownBox();
+}
+
+
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+</script>
+
+
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

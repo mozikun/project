@@ -1,0 +1,822 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<script src="<!--{$basePath}-->views/js/orgext.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/FormValid.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<title>机构扩展信息</title>
+<style type="text/css">    
+#lib_Tab1 {   
+    width:100%;   
+    margin:0px;   
+    padding:0px;   
+    margin-bottom:15px;
+    text-algin:center; 
+}      
+#lib_Tab2 {   
+    width:590px;   
+    margin:0px;   
+    padding:0px;   
+    margin-bottom:15px;   
+}   
+.lib_tabborder {   
+    border:1px solid #6691DB;
+    width:100%; 
+    text-algin:center;
+}   
+.lib_Menubox {   
+    height:28px;   
+    line-height:28px;   
+    position:relative;   
+}   
+.lib_Menubox ul {   
+    margin:0px;   
+    padding:0px;   
+    list-style:none;   
+    position:absolute;   
+    top:3px;   
+    left:10%;     
+    height:25px;   
+    text-align:center; 
+}   
+.lib_Menubox li {   
+    float:left;   
+    display:block;   
+    cursor:pointer;   
+    width:95px;     
+    font-weight:bold;   
+    margin-right:2px;   
+    height:25px;   
+    line-height:25px;   
+    font-weight:bold;
+	color:#FFFFFF;
+	background-color:#6691DB;  
+}      
+.lib_Menubox li.hover {   
+    padding:0px;   
+    background:#fff;   
+    width:95px;   
+    border-left:1px solid #95C9E1;   
+    border-top:1px solid #95C9E1;   
+    border-right:1px solid #95C9E1;   
+    color:#000000;   
+    height:25px;   
+    line-height:25px;   
+}   
+.lib_Contentbox {   
+    clear:both;   
+    margin-top:0px;   
+    border-top:none;   
+    height:auto;   
+    text-align:center;   
+    padding-top:8px;   
+}    
+</style>   
+</head> 
+<script type="text/javascript">
+   //选项卡设置
+function setTab(name,cursel,n){   
+ for(i=1;i<=n;i++){   
+  var menu=document.getElementById(name+i);   
+  var con=document.getElementById("con_"+name+"_"+i);   
+  menu.className=i==cursel?"hover":"";   
+  con.style.display=i==cursel?"block":"none";   
+ }   
+ if(document.getElementById("org_year_1").value=="")
+ {
+	 alert('基本信息中年份信息不存在，请添加后再重试');
+	 window.location='<!--{$basePath}-->organization/orgext/index';
+ }
+ else
+ {
+ 	document.getElementById("org_year_"+cursel).value = document.getElementById("org_year_1").value;
+ }
+}
+$(document).ready(function(){
+	if(!<!--{$add_tag}-->)
+	{
+		$("#org_year_1").attr("readonly",true);	
+	}
+	else
+	{
+		if($("#org_year_1").val()=='')
+		{
+			$("#save_ok").attr("disabled",true);
+		}
+	}
+});
+</script>
+<body onload="getjs();">  
+<div id="lib_Tab1">  
+ <!--{if $orgtype=="3"||$orgtype=="5"}-->
+  <div class="lib_Menubox lib_tabborder">  
+    <ul>  
+      <li id="one1" onclick="setTab('one',1,7)" class="hover">基本信息</li>
+      <li id="one2" onclick="setTab('one',2,7)">床位信息</li>  
+      <li id="one3" onclick="setTab('one',3,7)">房屋与建筑</li>  
+      <li id="one4" onclick="setTab('one',4,7)">设备信息</li>  
+      <li id="one5" onclick="setTab('one',5,7)">收入与支出</li>  
+      <li id="one6" onclick="setTab('one',6,7)">资产与负债</li>
+      <li id="one7" onclick="setTab('one',7,7)">机构资源</li>
+      <li id="one7" onclick="window.location='<!--{$basePath}-->organization/orgext/list'">返回列表</li>
+    </ul>  
+  </div>  
+  <div class="lib_Contentbox lib_tabborder">  
+    <div id="con_one_1" >
+                <fieldset>
+                  <legend><strong>当前机构:<!--{$orgname}-->----->基本信息</strong></legend>
+     <form action="<!--{$basePath}-->organization/orgext/add/action/baseinfo" method="post" onsubmit="return validator(this)">
+      <table>
+		<tr>
+		    <td width="210">机构名称</td>
+		    <td colspan="3"><!--{$orgname}--></td>
+		    <input type="hidden" name="org_name" id="org_name" value="<!--{$orgname}-->"/>
+		    <input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+		</tr>
+		<tr>
+		    <td width="210">年&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+		    <td colspan="3"><input type="text" name="org_year_1" id="org_year_1" maxlength="4" style="width:60px;ime-mode: disabled;" value="<!--{$org_year}-->" onblur="return checkyear();" /><span style="color:red;" id="msg"></span></td>  
+		</tr>
+		<tr>
+			<td>组织机构代码</td>
+			<td><input type="text" name="org_code" maxlength="8" style="width:60px;" id="org_code" value="<!--{$org_code}-->" valid="isNumber" errmsg="请输入数字"/> --- <input type="text" name="org_code_last" maxlength="1" style="width:10px;" id="org_code_last" value="<!--{$org_code_last}-->" valid="isNumber" errmsg="请输入数字"/></td>
+		</tr>
+		<tr>
+		    <td>卫生机构代码</td>
+		    <td><input type="text" name="health_org_code" id="health_org_code" value="<!--{$health_org_code}-->" /></td>
+		</tr>
+		<tr>
+		    <td>行政区划代码</td>
+		    <td><input type="text" name="org_property_region_code" id="org_property_region_code" maxlength="8" style="width:60px;" value="<!--{$org_property_region_code}-->" valid="isNumber" errmsg="行政区划代码不是数字"/></td>
+		</tr>
+		<tr>
+		    <td>经济类型代码</td>
+		    <td><input type="text" name="org_property_economy_code" id="org_property_economy_code" maxlength="2" style="width:20px;" value="<!--{$org_property_economy_code}-->" valid="isNumber" errmsg="经济类型代码不是数字"/></td>
+		</tr>
+		<tr>
+		    <td>卫生机构类别代码</td>
+		    <td><input type="text" name="org_property_type_code" id="org_property_type_code" maxlength="4" style="width:40px;" value="<!--{$org_property_type_code}-->" valid="isNumber" errmsg="卫生机构类别代码不是数字"/></td>
+		</tr>
+		<tr>
+		    <td>机构分类管理代码</td>
+		    <td><input type="text" name="org_property_manage_code" id="org_property_manage_code" maxlength="1" style="width:10px;" value="<!--{$org_property_manage_code}-->" valid="isNumber" errmsg="机构分类管理代码不是数字"/></td>
+		</tr>			
+		</table>
+</fieldset>
+<fieldset>
+	<legend>中心信息--><span>基本信息</span></legend>
+		<table>
+				<tr>
+				  <td width="210">机构地址</td>
+				  <td>
+				  <input type="text" name="address" id="address" value="<!--{$address}-->"/>
+				  </td>
+				</tr>
+				<tr>
+				   <td>邮编</td>
+				   <td><input type="text" name="postal_code" id="postal_code" maxlength="6" style="width:50px;" value="<!--{$postal_code}-->" valid="isNumber" errmsg="邮编不是数字"/></td>
+				</tr>
+				<tr>
+				   <td>中心电话区号</td>
+				   <td><input type="text" name="telephone_number_area" id="telephone_number_area" value="<!--{$telephone_number_area}-->" valid="isNumber" errmsg="中心电话区号不是数字"/></td>
+				</tr>	
+				<tr>
+				    <td>中心电话</td>
+				    <td><input type="text" name="telephone_number" id="telephone_number" value="<!--{$telephone_number}-->" valid="isNumber" errmsg="中心电话不是数字"/></td>
+				</tr>	
+				<tr>
+				    <td>单位电子邮箱(E-mail)</td>
+				    <td><input type="text" name="email" id="email" value="<!--{$email}-->"/></td>
+				</tr>	
+				<tr>
+				     <td>单位网站域名</td>
+				     <td><input type="text" name="host_domain" id="host_domain" value="<!--{$host_domain}-->"/></td>
+				</tr>	
+				<tr>
+				     <td>单位开业/成立时间</td>
+				     <td><input name="build_date" id="build_date" type="text" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$build_date}-->"/></td>
+				</tr>
+				<tr>
+				     <td>社区卫生服务中心设立地</td>
+				     <td>
+				       <select  name='regionalism_adscription' id="regionalism_adscription">
+					    <!--{foreach from=$regionalismarr_get key=k item=v}-->
+					     <option value="<!--{$k+1}-->" <!--{if $regionalism_adscription==$k+1}-->selected="selected"<!--{/if}-->><!--{$v}--></option>
+					    <!--{/foreach}-->
+					   </select>		
+				     </td>
+				</tr>
+				<tr>
+				   <td>基本信息设置/主办单位</td>
+				   <td>
+				      <select name='org_type' id="org_type">
+					     <!--{foreach from=$org_typearr_get key=k item=v}-->
+					     <option value="<!--{$k+1}-->" <!--{if $org_type==$k+1}-->selected="selected"<!--{/if}-->><!--{$v}--></option>
+					    <!--{/foreach}-->
+					  </select>
+				   </td>
+				</tr>	
+				<tr>
+				   <td>政府办机构隶属关系</td>
+				   <td>
+				   <select name='org_under_type' id="org_under_type">
+					    <!--{foreach from=$org_under_typearr_get key=k item=v}-->
+					     <option value="<!--{$k+1}-->" <!--{if $org_under_type==$k+1}-->selected="selected"<!--{/if}-->><!--{$v}--></option>
+					    <!--{/foreach}-->
+					</select>
+				</td>
+				</tr>	
+				<tr>
+				    <td>注册资金(万元)</td>
+				    <td><input type="text" name="register_bankroll" id="register_bankroll" value="<!--{$register_bankroll}-->" valid="isNumber" errmsg="注册资金不是数字"/></td>
+				</tr>
+				<tr>
+				    <td>法人代表(单位负责人)</td>
+				    <td><input type="text" name="principal"id="principal" value="<!--{$principal}-->"/></td>
+				</tr>
+				<tr>
+				     <td>是否民族自治</td>
+				     <td>
+				       <input type="radio" name="is_nation_autonomy" value="1" <!--{if $is_nation_autonomy=="1"}-->checked="checked"<!--{/if}-->/> 是
+				       <input type="radio" name="is_nation_autonomy" value="0" <!--{if $is_nation_autonomy=="0"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>
+				<tr>
+				     <td>是否公费医疗/医疗保险定点医院</td>
+				     <td>
+				       <input type="radio" name="is_medicare_point_hospital" value="1" <!--{if $is_medicare_point_hospital=="1"}-->checked="checked"<!--{/if}-->/> 是
+				       <input type="radio" name="is_medicare_point_hospital" value="0" <!--{if $is_medicare_point_hospital=="0"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>
+				<tr>
+				     <td>是否新型农村合作医疗定点医院</td>
+				     <td> 
+				       <input type="radio" name="is_new_point_hospital" value="1" <!--{if $is_new_point_hospital=="1"}-->checked="checked"<!--{/if}-->/> 是
+				       <input type="radio" name="is_new_point_hospital" value="0" <!--{if $is_new_point_hospital=="0"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>
+				<tr>
+				     <td>是否直报疫情及突发公共卫生事件</td>
+				     <td>
+				        <input type="radio" name="is_common_event_report" value="1" <!--{if $is_common_event_report=="1"}-->checked="checked"<!--{/if}-->/> 是
+				        <input type="radio" name="is_common_event_report" value="0" <!--{if $is_common_event_report=="0"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>
+				<tr>
+				     <td>计算机台数</td>
+				     <td>
+				       <input type="text" name="computer_count" id="computer_count" value="<!--{$computer_count}-->" valid="isNumber" errmsg="计算机台数不是数字"/>
+				     </td>
+				</tr>
+				<tr>
+				     <td>是否配置健康教育录(放)像设备</td>
+				     <td>
+				       <input type="radio" name="has_health_edu_equipment" value="1" <!--{if $has_health_edu_equipment=="1"}-->checked="checked"<!--{/if}-->/> 是
+				       <input type="radio" name="has_health_edu_equipment" value="0" <!--{if $has_health_edu_equipment=="0"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>
+				<tr>
+				     <td>下设直属分站(院、所)个数</td>
+				     <td>
+				       <input type="text" name="child_chss_count" id="child_chss_count" value="<!--{$child_chss_count}-->" valid="isNumber" errmsg="下设直属分站(院、所)个数不是数字"/>
+				     </td>
+				</tr>
+				<tr>
+     		     <td>是否分支机构(Y是，N否) </td>
+				     <td>
+				       <input type="radio" name="is_leaf" value="Y" <!--{if $is_leaf=="Y"}-->checked="checked"<!--{/if}-->/> 是
+				       <input type="radio" name="is_leaf" value="N" <!--{if $is_leaf=="N"}-->checked="checked"<!--{/if}-->/> 否
+				     </td>
+				</tr>				
+				<tr>
+				     <td>非独立法人挂靠单位</td>
+				     <td>
+				     <select name='mount_type' id="mount_type">
+				        <!--{foreach from=$mount_typearr_get key=k item=v}-->
+					    <option value="<!--{$k+1}-->" <!--{if $mount_type==$k+1}-->selected="selected"<!--{/if}-->><!--{$v}--></option>
+					    <!--{/foreach}-->
+					</select>
+				    </td>
+				</tr>	
+				<tr>
+				     <td colspan="4" align="center"><input type="submit" name="ok" id="save_ok" value="保存数据"/></td>
+				</tr>							
+		</table>
+		</form>		
+</fieldset>
+    </div>
+    <div id="con_one_2" style="display:none">
+        <fieldset>
+            <legend><strong>当前机构:<!--{$orgname}-->----->床位信息</strong></legend>
+            <table border="1" width="100%" background="#ffffff">
+                 <form action="<!--{$basePath}-->organization/orgext/add/action/bedinfo" method="post" onsubmit="return checksubbed();">
+                    <tr>
+                       <td colspan="2">编制床位数 </td>
+                       <td>
+                          <input name="bednumber" type="text" id="bednumber" value="<!--{$bednumber_new}-->"/>
+                          <input name="org_year_2" type="hidden" id="org_year_2" value="<!--{$org_year}-->"/>
+                          <input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+                       </td>
+                    </tr>
+                    <tr>
+					    <td  rowspan="2">实有床位数</td>
+						<td >总数</td>
+						<td ><input name="bed_allnumber" type="text" id="bed_allnumber" value="<!--{$bed_allnumber_new}-->"/></td>
+					</tr>
+					<tr>
+					    <td >扶贫床位</td>
+					    <td ><input name="poverty_beds" type="text" id="poverty_beds" value="<!--{$poverty_beds_new}-->" onblur="checkbednum();"/></td>
+					</tr>
+					<tr>
+                       <td colspan="2">实际开放总床日数 </td>
+                       <td><input name="totalbed_days" type="text" id="totalbed_days" onblur="getjsup();" value="<!--{$totalbed_days_new}-->"/></td>
+                    </tr>
+                    <tr>
+					    <td  rowspan="2">实际占用床日数</td>
+						<td >总数</td>
+						<td ><input name="occupied_bed" type="text" id="occupied_bed" onblur="getjs();" value="<!--{$occupied_bed_new}-->"/></td>
+					</tr>
+					<tr>
+					    <td >扶贫床位占用床日数</td>
+					    <td ><input name="poverty_occupiedbed" type="text" id="poverty_occupiedbed" value="<!--{$poverty_occupiedbed_new}-->" onblur="checkbedrealnu();"/></td>
+					</tr>
+					<tr>
+                       <td colspan="2">出院者占用总床日数 </td>
+                       <td><input name="tbo_total" type="text" id="tbo_total" value="<!--{$tbo_total_new}-->"/></td>
+                    </tr>
+                    <tr>
+                       <td colspan="2">观察床 </td>
+                       <td><input name="observation_bed" type="text" id="observation_bed" value="<!--{$observation_bed_new}-->"/></td>
+                    </tr>
+                    <tr>
+                       <td colspan="2">全年开设家庭病床总数 </td>
+                       <td><input name="family_beds" type="text" id="family_beds" value="<!--{$family_beds_new}-->"/></td>
+                    </tr>
+                    <tr>
+                       <td colspan="2">病床使用率(%) </td>
+                       <td><div id="zhuzi"><div id="zhuzi1"style="color:#ffffff;font-weight:bold;" ></div></div></td>
+                       <input name="percentage" id="percentage" type="hidden"/>
+                    </tr>
+                    <tr>
+                       <td colspan="3" align="center"><input type="submit" value="保存数据" name="ok"/></td>
+                    </tr>
+                 </form>
+            </table>
+        </fieldset>
+    </div>  
+    <div id="con_one_3" style="display:none">
+           <fieldset>
+            <legend><strong>当前机构:<!--{$orgname}-->----->房屋与建筑</strong></legend>
+            <form action="<!--{$basePath}-->organization/orgext/add/action/building" method="post" onsubmit="return validator(this)">
+            <table>
+				<tr>
+				<td colspan="2">房屋建筑面积（平方米）</td>
+				<td><input type='text' name='area' id='area' value='<!--{$area_new}-->' length='8'  valid="isNumber" errmsg="房屋建筑面积不是数字" onblur="checkhire();"/><span id="msg"></span>
+				<input name="org_year_3" type="hidden" id="org_year_3" value="<!--{$org_year}-->"/>
+				<input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+				</td>
+				</tr>
+				<tr>
+				<td colspan="2">业务用房面积</td>
+				<td><input type='text' name='operation_area' id='operation_area' value='<!--{$operation_area_new}-->' length='8' valid="isNumber" errmsg="业务用房面积不是数字" onblur="checkhire();"/></td>
+				</tr>
+				<tr>
+				<td colspan="2">危房面积</td>
+				<td><input type='text' name='peril_area' id='peril_area' value='<!--{$peril_area_new}-->' length='8' valid="isNumber" errmsg="危房面积不是数字" onblur="checkhire();"/></td>
+				</tr>
+				<tr>
+				<td rowspan="2" width="170">租房面积</td>
+				<td width="100">总面积</td>
+				<td><input type='text' name='hire_area' id='hire_area' value='<!--{$hire_area_new}-->' length='8' valid="isNumber" errmsg="租房总面积不是数字" onblur="checkhire();" /><span id="hire"></span></td>
+				</tr>
+				<tr>
+				<td>业务用房面积</td></td>
+				<td><input type='text' name='hire_operation_area' id='hire_operation_area' value='<!--{$hire_operation_area_new}-->' length='8'  valid="isNumber" errmsg="业务用房面积不是数字" onblur="checkhire();"/></td>
+				</tr>
+				<tr>
+				<td colspan="2">本年批准基建项目(个)</td>
+				<td><input type='text' name='basic_build_pro' id='basic_build_pro' value='<!--{$basic_build_pro_new}-->' length='8' valid="isNumber" errmsg="本年批准基建项目不是数字"/></td>
+				</tr>
+				<tr>
+				<td colspan="2">本年批准基建项目建筑面积(平方米)</td>
+				<td><input type='text' name='basic_build_area' id='basic_build_area' value='<!--{$basic_build_area_new}-->' length='8' valid="isNumber" errmsg="本年批准基建项目建筑面积不是数字"/></td>
+				</tr>
+				<tr>
+				<td rowspan="4">本年实际完成投资额(万元)</td>
+				<td>总额(万元)</td>
+				<td><input type='text' name='actual_invest' id='actual_invest' value='<!--{$actual_invest_new}-->' length='8' valid="isNumber" errmsg="总额不是数字"  onblur="checkhire();" /><span id="invest"></span></td>
+				</tr>
+				<tr>
+				<td>财政性投资</td>
+				<td><input type='text' name='finance_invest' id='finance_invest' value='<!--{$finance_invest_new}-->' length='8' valid="isNumber" errmsg="财政性投资不是数字" onblur="checkhire();" /></td>
+				</tr>
+				<tr>
+					<td>单位自有资金</td>
+					<td><input type='text' name='self_invest' id='self_invest' value='<!--{$self_invest_new}-->' length='8' valid="isNumber" errmsg="单位自有资金不是数字" onblur="checkhire();" /></td>
+				</tr>
+				<tr>
+					<td>银行贷款</td>
+					<td><input type='text' name='bank_invest' id='bank_invest' value='<!--{$bank_invest_new}-->' length='8' valid="isNumber" errmsg="银行贷款不是数字" onblur="checkhire();" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">本年房屋竣工面积(平方米)</td>
+					<td><input type='text' name='finish_area' id='finish_area' value='<!--{$finish_area_new}-->' length='8' valid="isNumber" errmsg="本年房屋竣工面积不是数字"/></td>
+				</tr>
+				<tr>
+					<td colspan="2">本年新增固定资产(万元)</td>
+					<td><input type='text' name='new_fixed_assets' id='new_fixed_assets' value='<!--{$new_fixed_assets_new}-->' length='8' valid="isNumber" errmsg="本年新增固定资产不是数字"/></td>
+				</tr>
+				<tr>
+					<td colspan="2">本年因新扩建增加床位(张)</td>
+					<td><input type='text' name='new_sickbed' id='new_sickbed' value='<!--{$new_sickbed_new}-->' length='8' valid="isNumber" errmsg="本年因新扩建增加床位不是数字"/></td>
+				</tr>
+				<tr>
+                    <td colspan="3" align="center"><input type="submit" value="保存数据" name="ok" id="buildsave"/></td>
+                </tr>
+				</table>
+				</form>
+        </fieldset>      
+    </div>  
+    <div id="con_one_4" style="display:none">
+                    <fieldset>
+						<legend><strong>当前机构:<!--{$orgname}-->----->设备信息</strong></legend>
+						<form action="<!--{$basePath}-->organization/orgext/add/action/equipment" method="post" onsubmit="return validator(this)">
+						<table>
+						<tr>
+							<td colspan="2">万元以上设备总价值(万元)</td>
+							<td><input type='text' name='equipment_total_value' id='equipment_total_value' value='<!--{$equipment_total_value_new}-->' length='8' valid="isNumber" errmsg="万元以上设备总价值不是数字"/>
+							<input name="org_year_4" type="hidden" id="org_year_4" value="<!--{$org_year}-->"/>
+							<input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+							</td>
+						</tr>
+						<tr>
+							<td width="150" rowspan="3">万元以上设备台数</td>
+							<td width="150">总数</td>
+						    <td><input type='text' name='equipment_total_number' id='equipment_total_number' value='<!--{$equipment_total_number_new}-->' length='4' valid="isNumber" errmsg="总数不是数字" onblur="checkequipment();"/><span id="equipmentmsg"></span></td>
+						</tr>
+						<tr>
+							<td>50-100万元设备数</td>
+							<td><input type='text' name='total_50_to_100_equipment_number' id='total_50_to_100_equipment_number' value='<!--{$total_50_to_100_equipment_number}-->' length='4' valid="isNumber" errmsg="50-100万元设备数不是数字" onblur="checkequipment();"/></td>
+						</tr>
+						<tr>
+							<td>100万元以上设备数</td>
+							<td><input type='text' name='total_over_100_equipment_number' id='total_over_100_equipment_number' value='<!--{$total_over_100_equipment_number}-->' length='4' valid="isNumber" errmsg="100万元以上设备数不是数字" onblur="checkequipment();"/></td>
+						</tr>	
+						<tr>
+		                    <td colspan="3" align="center"><input type="submit" value="保存数据" name="ok" id="equipmentsave"/></td>
+		                </tr>
+						</table>
+						</form>
+					</fieldset>
+    </div>  
+    <div id="con_one_5" style="display:none">
+                    <fieldset>
+						<legend><strong>当前机构:<!--{$orgname}-->----->收入支出</strong></legend>
+						<form action="<!--{$basePath}-->organization/orgext/add/action/inout" method="post" onsubmit="return validator(this)">
+						<table>
+						  <tr>
+						    <td rowspan="10" width="30">收入</td>
+						    <td colspan="2">合计(千元)</td>
+						    <td>
+							<span id="total_income_text"></span>
+							<input type='hidden' name='total_income' id='total_income'/>
+							<input name="org_year_5" type="hidden" id="org_year_5" value="<!--{$org_year}-->"/>
+							<input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+							</td>
+						  </tr>
+						  <tr>
+						    <td colspan="2">财政补助收入(千元)</td>
+						    <td><input type='text' name='finance_income' id='finance_income' value='<!--{$finance_income_new}-->' length='8' valid="isNumber" errmsg="财政补助收入不是数字" onblur="checkin();"/></td>
+						  </tr>
+						  <tr>
+						    <td colspan="2">上级补助收入(千元)</td>
+						    <td><input type='text' name='superior_income' id='superior_income' value='<!--{$superior_income_new}-->' length='8' valid="isNumber" errmsg="上级补助收入不是数字" onblur="checkin();"/></td>
+						  </tr>
+						  <tr>
+						    <td rowspan="3" width="60">医疗收入<br>(千元)</td>
+						    <td>合计(千元)</td>
+						    <td>
+							<span id='medical_income_text'></span>
+							<input type='hidden' name='medical_income' id='medical_income' />
+							</td>
+						  </tr>
+						  <tr>
+						    <td width="160">医疗门诊收入(千元)</td>
+						    <td><input type='text' name='medical_outpatient_income' id='medical_outpatient_income' value='<!--{$medical_outpatient_income_new}-->' length='8' valid="isNumber" errmsg="医疗门诊收入不是数字" onblur="checkin();"/></td>
+						  </tr>
+						  <tr>
+						    <td>医疗住院收入(千元)</td>
+						    <td><input type='text' name='medical_hospital_income' id='medical_hospital_income' value='<!--{$medical_hospital_income_new}-->' length='8' valid="isNumber" errmsg="医疗住院收入不是数字" onblur="checkin();"/></td>
+						  </tr>
+						  <tr>
+						    <td rowspan="3">药品收入<br>(千元)</td>
+						    <td>合计(千元)</td>
+						    <td>
+							<span id='drug_income_text'></span>
+							<input type='hidden' name='drug_income' id='drug_income'  />
+							</td>
+						  </tr>
+						  <tr>
+							<td>药品门诊收入(千元)</td>
+							<td><input type='text' name='drug_outpatient_income' id='drug_outpatient_income' value='<!--{$drug_outpatient_income_new}-->' length='8' valid="isNumber" errmsg="药品门诊收入不是数字" onblur="checkin();"/></td>
+						</tr>
+						<tr>
+							<td>药品住院收入(千元)</td>
+							<td><input type='text' name='drug_hospital_income' id='drug_hospital_income' value='<!--{$drug_hospital_income_new}-->' length='8' valid="isNumber" errmsg="药品住院收入不是数字" onblur="checkin();"/></td>
+						</tr>
+						  <tr>
+						    <td colspan="2">其他收入(千元)</td>
+						    <td><input type='text' name='drug_other_income' id='drug_other_income' value='<!--{$drug_other_income_new}-->' length='8' valid="isNumber" errmsg="其他收入不是数字" onblur="checkin();"/></td>
+						  </tr>
+						  <tr>
+						    <td rowspan="8">支出</td>
+						    <td colspan="2">合计(千元)</td>
+						    <td>
+							<span id='total_payout_text'></span>
+							<input type='hidden' name='total_payout' id='total_payout' />
+							</td>
+						  </tr>
+						 
+						  <tr>
+						<td colspan="2">医疗支出(千元)</td>
+						<td><input type='text' name='medical_payout' id='medical_payout' value='<!--{$medical_payout_new}-->' length='8' valid="isNumber" errmsg="医疗支出不是数字" onblur="checkout();"/></td>
+						</tr>
+						  <tr>
+						    <td rowspan="2">药品支出<br>(千元)</td>
+						    <td>小计</td>
+						    <td><input type='text' name='drug_payout' id='drug_payout' value='<!--{$drug_payout_new}-->' length='8' valid="isNumber" errmsg="药品支出小计不是数字" onblur="checkout();"/></td>
+						  </tr>
+						  <tr>
+						    <td>内：药品费(千元)</td>
+						    <td><input type='text' name='drug_fee_payout' id='drug_fee_payout' value='<!--{$drug_fee_payout_new}-->' length='8' valid="isNumber" errmsg="药品费不是数字" onblur="checkout();"/></td>
+						  </tr>
+						  <tr>
+						    <td colspan="2">财政专项支出(千元)</td>
+						    <td><input type='text' name='finance_payout' id='finance_payout' value='<!--{$finance_payout_new}-->' length='8' valid="isNumber" errmsg="财政专项支出不是数字" onblur="checkout();"/></td>
+						  </tr>
+						   <tr>
+						<td colspan="2">其他支出(千元)</td>
+						<td><input type='text' name='other_payout' id='other_payout' value='<!--{$other_payout_new}-->' length='8' valid="isNumber" errmsg="其他支出不是数字" onblur="checkout();"/></td>
+						</tr>
+						<tr>
+						<td colspan="2">总支出中：人员支出(千元)</td>
+						<td><input type='text' name='hr_payout' id='hr_payout' value='<!--{$hr_payout_new}-->' length='8' valid="isNumber" errmsg="总支出中：人员支出不是数字" onblur="checkout();"/></td>
+						</tr>
+						<tr>
+						<td colspan="2">总支出中：离退休费(千元)</td>
+						<td><input type='text' name='retire_payout' id='retire_payout' value='<!--{$retire_payout_new}-->' length='8' valid="isNumber" errmsg="总支出中：离退休费不是数字" onblur="checkout();"/></td>
+						</tr>
+						   
+						  <tr>
+						    <td rowspan="2">欠费</td>
+						    <td colspan="2">病人累计欠费总额(千元)</td>
+						    <td><input type='text' name='arrear_payout' id='arrear_payout' value='<!--{$arrear_payout_new}-->' length='8' valid="isNumber" errmsg="病人累计欠费总额不是数字"/></td>
+						  </tr>
+						  <tr>
+						    <td colspan="2">年内病人欠费总额(千元)</td>
+						    <td><input type='text' name='arrear_payout_by_year' id='arrear_payout_by_year' value='<!--{$arrear_payout_by_year_new}-->' length='8' valid="isNumber" errmsg="年内病人欠费总额不是数字"/></td>
+						  </tr>
+						  <tr>
+		                    <td colspan="4" align="center"><input type="submit" value="保存数据" name="ok"/></td>
+		                  </tr>
+					</table>
+					</form>
+					</fieldset>
+    </div>  
+    <div id="con_one_6" style="display:none">
+                     <fieldset>
+						<legend><strong>当前机构:<!--{$orgname}-->----->资产与负债</strong></legend>
+						<form action="<!--{$basePath}-->organization/orgext/add/action/assets" method="post">
+						<table width="200" border="1">
+						  <tr>
+						    <td rowspan="5" width="80">总资产</td>
+						    <td colspan="2">合计(千元)</td>
+						    <td>
+								<span id="total_assets_text"></span>
+								<input type='hidden' name='total_assets' id='total_assets'/>
+								<input name="org_year_6" type="hidden" id="org_year_6" value="<!--{$org_year}-->"/>
+								<input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+							</td>
+						  </tr>
+						  <tr>
+						<td colspan="2">流动资产(千元)</td>
+						<td><input type='text' name='current_assets' id='current_assets' value='<!--{$current_assets_new}-->' length='8' valid="isNumber" errmsg="流动资产不是数字" onblur="checkassets();"/></td>
+						</tr>
+						<tr>
+						<td colspan="2">对外投资(千元)</td>
+						<td><input type='text' name='invest' id='invests' value='<!--{$invest_new}-->' length='8' valid="isNumber" errmsg="对外投资不是数字" onblur="checkassets();"/></td>
+						</tr>
+						<tr>
+						<td colspan="2">固定资产(千元)</td>
+						<td><input type='text' name='capital_asserts' id='capital_asserts' value='<!--{$capital_asserts_new}-->' length='8' valid="isNumber" errmsg="固定资产不是数字" onblur="checkassets();"/></td>
+						</tr>
+						<tr>
+						<td colspan="2">无形资产及开办费(千元)</td>
+						<td><input type='text' name='immateriality_assets' id='immateriality_assets' value='<!--{$immateriality_assets_new}-->' length='8' valid="isNumber" errmsg="无形资产及开办费不是数字" onblur="checkassets();"/></td>
+						</tr>
+						 
+						  <tr>
+						    <td rowspan="6">负债与净资产</td>
+						    <td rowspan="2" width="50">负债</td>
+						    <td>合计(千元)</td>
+						    <td><input type='text' name='owes_assets' id='owes_assets' value='<!--{$owes_assets_new}-->' length='8' valid="isNumber" errmsg="负债合计不是数字" onblur="checkcashnow();"/><span id="owes_assets_msg"></span></td>
+						  </tr>
+						  <tr>
+						    <td>长期负债(千元)</td>
+						    <td><input type='text' name='long_standing_assets' id='long_standing_assets' value='<!--{$long_standing_assets_new}-->' length='8' valid="isNumber" errmsg="长期负债不是数字" onblur="checkcashnow();"/></td>
+						  </tr>
+						  <tr>
+						    <td rowspan="4">净资产</td>
+						    <td width="140">合计(千元)</td>
+						    <td><input type='text' name='net_assets' id='net_assets' value='<!--{$net_assets_new}-->' length='8' valid="isNumber" errmsg="净资产合计不是数字" onblur="checkcashnow();"/><span id="msgshow"></span></td>
+						  </tr>
+						  <tr>
+						<td>事业基金(千元)</td>
+						<td><input type='text' name='project_assets' id='project_assets' value='<!--{$project_assets_new}-->' length='8' valid="isNumber" errmsg="事业基金不是数字" onblur="checkcashnow();"/></td>
+						</tr>
+						<tr>
+						<td>固定基金(千元)</td>
+						<td><input type='text' name='fixed_assets' id='fixed_assets' value='<!--{$fixed_assets_new}-->' length='8' valid="isNumber" errmsg="固定基金不是数字" onblur="checkcashnow();"/></td>
+						</tr>
+						<tr>
+						<td>专用基金(千元)</td>
+						<td><input type='text' name='special_assets' id='special_assets' value='<!--{$special_assets_new}-->' length='8' valid="isNumber" errmsg="专用基金不是数字" onblur="checkcashnow();"/></td>
+						</tr>	
+						<tr>
+		                    <td colspan="4" align="center"><input type="submit" value="保存数据" name="ok" id="assetsave"/></td>
+		                 </tr>
+						</table>
+						</form>	
+						</fieldset>
+    </div> 
+    <div id="con_one_7" style="display:none">
+                    <fieldset>
+						<legend><strong>当前机构:<!--{$orgname}-->----->机构资源</strong></legend>
+						<form action="<!--{$basePath}-->organization/orgext/add/action/orginfo" method="post" onsubmit="return validator(this)">
+						<table>
+						<tr><td width="150">
+							占地面积（平方米）</td><td><input type='text' name='area_now' id='area_now' value='<!--{$area_new_new}-->' length='8,2' valid="isNumber" errmsg="占地面积不是数字"/>
+							<input name="org_year_7" type="hidden" id="org_year_7" value="<!--{$org_year}-->"/>
+							<input type="hidden" name="add_tag" id="add_tag" value="<!--{$add_tag}-->"/>
+							</td></tr>
+							<tr><td>
+							床位数</td><td><input type='text' name='sickbed_number_now' id='sickbed_number_now' value='<!--{$sickbed_number_new_new}-->' length='4' valid="isNumber" errmsg="床位数不是数字"/>
+							</td></tr>
+							<tr><td>
+							病床使用率（%）</td><td><input type='text' name='sickbed_use_rate' id='sickbed_use_rate' value='<!--{$sickbed_use_rate_new}-->' length='5,2' valid="isNumber" errmsg="病床使用率不是数字"/>
+							</td></tr>
+							<tr><td>
+							年诊疗量（人次）</td><td><input type='text' name='outpatient_per_year' id='outpatient_per_year' value='<!--{$outpatient_per_year_new}-->' length='7' valid="isNumber" errmsg="年门诊量不是数字"/>
+							</td></tr>
+							<tr><td>
+							年门诊量（人次）</td><td><input type='text' name='emergency_per_year' id='emergency_per_year' value='<!--{$emergency_per_year_new}-->' length='7' valid="isNumber" errmsg="年急诊量不是数字"/>
+							</td></tr>
+							<tr><td>
+							年急诊量（人次）</td><td><input type='text' name='iatrology_man_count' id='iatrology_man_count' value='<!--{$iatrology_man_count_new}-->' length='3' valid="isNumber" errmsg="医技人员数不是数字"/>
+							</td></tr>
+							<tr><td>
+							医技人员数</td><td><input type='text' name='gp_team_count' id='gp_team_count' value='<!--{$gp_team_count_new}-->' length='2' valid="isNumber" errmsg="全科团队数不是数字"/>
+							</td></tr>
+							<tr><td>
+							社区医生数</td><td><input type='text' name='gp_count' id='gp_count' value='<!--{$gp_count_new}-->' length='3' valid="isNumber" errmsg="社区医生数不是数字"/>
+							</td></tr>
+							<tr><td>
+							社区护士数</td><td><input type='text' name='community_nurse_count' id='community_nurse_count' value='<!--{$community_nurse_count_new}-->' length='3' valid="isNumber" errmsg="社区护士数不是数字"/>
+							</td></tr>
+							<tr><td>
+							每位医生服务人数</td><td><input type='text' name='residenter_per_gp' id='residenter_per_gp' value='<!--{$residenter_per_gp_new}-->' length='5,2' valid="isNumber" errmsg="每位医生服务人数不是数字"/>
+							</td></tr>
+							<tr><td>
+							每位护士服务人数</td><td><input type='text' name='residenter_per_nurse' id='residenter_per_nurse' value='<!--{$residenter_per_nurse_new}-->' length='5,2' valid="isNumber" errmsg="每位护士服务人数不是数字"/>
+							</td></tr>	
+						</table>
+						</fieldset>
+						<fieldset class="report_table">
+						<legend >科室设置</legend>
+						  <table border="0" width="100%">
+								<!--{foreach from=$office_setting key=k item=v}-->
+								  <tr>
+								    <td>
+								      <input name="officesetting[]" type="checkbox" value="<!--{$k+1}-->" <!--{foreach from=$officeset key=ks item=vs}--><!--{if $vs==$k+1}-->checked="checked"<!--{/if}--><!--{/foreach}-->/><!--{$v}-->
+								    </td>
+								  </tr>
+								<!--{/foreach}-->
+						  </table>
+						</fieldset>
+						<fieldset class="report_table">
+						<legend>提供的服务</legend>
+							<table border="0" width="100%">
+									<!--{foreach from=$service_setting key=k item=v}-->
+									  <tr>
+									    <td>
+									      <input name="servicesetting[]" type="checkbox" value="<!--{$k+1}-->" <!--{foreach from=$serviceset key=kt item=vt}--><!--{if $vt==$k+1}-->checked="checked"<!--{/if}--><!--{/foreach}-->/><!--{$v}-->
+									    </td>
+									  </tr>
+									<!--{/foreach}-->
+							  </table>
+						</fieldset>
+						<fieldset class="report_table">
+						<legend>设备</legend>
+							<table border="0" width="100%">
+									<!--{foreach from=$equipment_setting key=k item=v}-->
+										 <tr>
+										   <td>
+										      <input name="equipmentsetting[]" type="checkbox" value="<!--{$k+1}-->" <!--{foreach from=$equipmentset key=ke item=ve}--><!--{if $ve==$k+1}-->checked="checked"<!--{/if}--><!--{/foreach}--> /><!--{$v}-->
+										   </td>
+										  </tr>
+										<!--{/foreach}-->
+							</table>
+						</fieldset>
+						<div style="clear:both;"></div>
+                          <input type="submit" name="ok" value="保存数据">
+                        </div>
+                        </form>
+    </div> 
+  </div> 
+  <!--{else}-->
+  <div class="lib_Menubox lib_tabborder">  
+    <ul>  
+      <li id="one1" onMouseover="setTab('one',1,6)" class="hover">床位信息</li>  
+      <li id="one2" onMouseover="setTab('one',2,6)">房屋与建筑</li>  
+      <li id="one3" onMouseover="setTab('one',3,6)">设备信息</li>  
+      <li id="one4" onMouseover="setTab('one',4,6)">收入与支出</li>  
+      <li id="one5" onMouseover="setTab('one',5,6)">资产与负债</li>
+      <li id="one6" onMouseover="setTab('one',6,6)">机构资源</li>
+    </ul>  
+  </div>  
+  <div class="lib_Contentbox lib_tabborder">
+	  <div id="con_one_1" >
+	                   还没需求 1      
+	    </div>  
+	    <div id="con_one_2" style="display:none">
+	                   还没需求 1      
+	    </div>  
+	    <div id="con_one_3" style="display:none">
+	                    还没需求2
+	    </div>  
+	    <div id="con_one_4" style="display:none">
+	                     还没需求3
+	    </div>
+	    <div id="con_one_5" style="display:none">
+	                     还没需求3
+	    </div>
+	    <div id="con_one_6" style="display:none">
+	                     还没需求3
+	    </div> 
+    </div>   
+  <!--{/if}--> 
+</div>  
+</body>  
+</html> 
+<!--{$msg}-->
+<script type="text/javascript">
+//验证数据的年份
+  function checkyear()
+  {
+  	var org_year = $("#org_year_1");
+  	var msg = $("#msg");
+  	if(org_year.val()=="")
+  	{
+  		msg.html('数据年份不能为空');
+  		org_year.focus();
+  		return false;
+  	}
+  	else
+  	{
+  		//当输入的数据不为空时，判断输入的是否是数字
+  		if(isNaN(org_year.val()))
+  		{
+  			msg.html('您输入的不是数字，请重试');
+  			org_year.focus();
+  			org_year.val('');
+  			return false;
+  		}
+  		else
+  		{
+  			msg.html('');//清空一下span里边的内容
+  			//ajax判断当前输入的年份是否存在数据
+  			if(<!--{$add_tag}-->)//添加的时候判断是否已经存在该年份
+  			{
+	  			$.get("<!--{$basePath}-->organization/orgext/checkyear/year/"+org_year.val()+"/org_id/"+<!--{$org_id}-->,function(data){
+	//  				alert(data);
+	  				if(data)
+	  				{
+	  					msg.html('您要添加年份的机构信息数据已经存在，请使用其他年份');
+	  					$("#save_ok").attr("disabled",true);
+	  					return false;
+	  				}
+	  				else
+	  				{
+	  					$("#save_ok").attr("disabled",false);
+	  					msg.html('');
+	  				}
+	  			});
+  			}
+  		}
+  	}
+  }
+</script>

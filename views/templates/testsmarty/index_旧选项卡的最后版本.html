@@ -1,0 +1,805 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>title</title>
+<!--<link href="index.css" type="text/css" rel="stylesheet" />-->
+<style>
+body{
+	text-align:center;
+	font-size:14px;
+}
+div{
+	position:relative;
+	float:left;
+	/*filter:alpha(opacity=100);*/
+}
+#mainDiv{
+	width:800px;
+	float:none;
+	/*ie div与文字居中*/
+	text-align:center;
+	/*以下兼容firefox居中*/
+	margin-left:auto;
+	margin-right:auto	
+}
+#topDiv{
+	border:#C5D9F1 1px solid;
+	width:800px;
+	height:150px;
+}
+#topLeft{
+	/*border:#0033CC 1px solid;*/
+	margin:0 5px 0 5px;
+	width:183px;
+	height:150px;
+}
+#topRight{
+	/*border: 1px solid #0033CC ;*/
+	/*background:#CCCCCC;*/
+	width:598px;
+	height:150px;
+	text-align:left;
+}
+/*图片样式*/
+.image{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:130px;
+}
+
+/*幻灯片图片样式*/
+.alterImage1{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:130px;
+	display:none;
+}
+
+/*幻灯片的第一张主动显示出来*/
+.initialImage{
+	display:block;
+}
+#topMenuDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	/*与页面的宽度一样，要好看一些*/
+	width:800px;
+	line-height:40px;
+	z-index:100;
+	background:#EBF3FB;
+	/*#008AE4-蓝色*/;
+	
+	
+}
+#topMenuUl{
+	float:none;
+	margin:0;
+	padding:0;
+	line-height:40px;
+	height:36px;
+	/*列表样式为无*/
+	list-style-type:none;
+	border-bottom:solid 4px #C5D9F1;
+	/*#ACACAC*/
+	width:100%;
+}
+#topMenuUl li{
+	float:left;
+	margin:0;
+	padding:0;
+	width:80px;
+	background:#EBF3FB;
+	/*当列表横起来后，充当块的右边界*/
+	border-right:solid 1px #C5D9F1;
+	/*必须要text-align:left,教学中作为调试，可修改给学生看align为right的情况*/
+	text-align:left;
+}
+
+#topMenuUl li a{
+	/*这里必须要用none,如果不用none,则下拉菜单会浮动到与主菜单同一水平位置*/
+	float:none;
+	/*a用block的方式呈现，所以a hover就成整体反色效果了*/
+	display:block;
+	/*这里必须要用100%，使每个a都充满所在的li的左右边界，否则下拉菜单的位置不对*/
+	width:100%;
+	text-decoration:none;
+	color:#000000;
+	margin:0;
+	padding:0;
+	/*必须要*/
+	text-align:center;
+}
+#topMenuUl li a:hover{
+	background:#C5D9F1;
+}
+#topMenuUl li ul{
+	/*这个ul与上面的a都是父级下面的二个块，只要处理好这两个块的关系，下拉菜单的制作就很简单了*/
+	/*此处一定为absolute，根据层的相对与绝对浮动原理，就能使下拉菜单显示在下方*/
+	position:absolute;
+	/*刚载放时，所有的下拉菜单都不显示*/
+	display:none;
+	width:80px;
+	line-height:24px;
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+}
+#topMenuUl li ul li{
+	float:left;
+	background:#EBF3FB;
+	border-left:solid 1px #C5D9F1;
+	border-right:solid 1px #C5D9F1;	
+	/*border-top:solid 1px #C5D9F1;*/
+	border-bottom:solid 1px #C5D9F1;
+	margin:0px;
+	padding:0px;
+
+}
+#topMenuUl li ul li a{
+	margin:0px;
+	padding:0px;
+
+	/*width:80px;*/
+}
+#bodyDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	width:800px;
+	height:600px;
+}
+#bodyLeftDiv{
+	border:#C5D9F1 1px solid;
+	/*
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	注意div的总宽度=border*2+width+padding+margin-left*2+margin-right
+	如，上一级div的width是800，则内部可用的宽度是800，
+	设置为float的div在ie下设置的margin-left会加倍。这是一个ie6都存在的bug。 
+	解决方案是在这个div里面加上display:inline;
+	
+	offsetWidth是整个DIV的显示宽度。不包括margin,但是包括padding,border,scrollbar的宽度。。   
+	clientWidth就是offsetWidth除去border,padding,scrollbar后里面的宽度...   
+	scrollWidth和clientWidth相关。指DIV里面东西的实际宽度
+	*/
+	margin:5px 5px 5px 3px;
+	padding:0px;
+	width:183px;
+	height:600px;
+}
+#bodyRightDiv{
+	margin:5px 0px 5px 0px;
+	/*此框不要边线*/
+	/*border:#999999 1px solid;*/
+	
+	width:598px;
+	height:600px;
+}
+#sectionBorderBottom{
+	
+}
+
+
+
+#bodyRightSection0{
+	float:left;
+	margin:0 0 2px 0;
+	padding:0;
+	width:596px;
+	height:150px;
+	border:#C5D9F1 1px solid;
+}
+#bodyRightSectionMenu0{
+	float:none;
+	margin:0;
+	padding:0;
+	/*此框没有左右边线*/
+	width:596px;
+	border-bottom:solid 1px #C5D9F1;
+	background:#EBF3FB;
+}
+#bodyRightSectionMenu0 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	line-height:26px;
+	width:190px;
+	color:#000000;
+	border-right:solid 1px #C5D9F1;
+	/*background:#CCCCFF;*/
+}
+
+
+#bodyRightSection1{
+	float:left;
+	margin:0 0 2px 0;
+	padding:0;
+	width:596px;
+	height:150px;
+	border:#C5D9F1 1px solid;
+}
+#bodyRightSectionMenu1{
+	float:none;
+	margin:0;
+	padding:0;
+	/*此框没有左右边线*/
+	width:596px;
+	border-bottom:solid 1px #C5D9F1;
+	background:#EBF3FB;
+}
+#bodyRightSectionMenu1 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	line-height:26px;
+	width:100px;
+	color:#000000;
+	border-right:solid 1px #C5D9F1;
+	/*background:#CCCCFF;*/
+}
+
+#bodyRightSection2{
+	float:left;
+	margin:0 0 2px 0;
+	padding:0;
+	width:596px;
+	height:150px;
+	border:#C5D9F1 1px solid;
+}
+
+#bodyRightSection3{
+	float:left;
+	margin:0 0 2px 0;
+	padding:0;
+	width:596px;
+	height:150px;
+	border:#C5D9F1 1px solid;
+}
+#bodyRightSectionMenu3{
+	float:none;
+	margin:0;
+	padding:0;
+	/*此框没有左右边线*/
+	width:596px;
+	border-bottom:solid 1px #C5D9F1;
+	background:#EBF3FB;
+}
+#bodyRightSectionMenu3 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	line-height:26px;
+	width:100px;
+	color:#000000;
+	border-right:solid 1px #C5D9F1;
+	/*background:#CCCCFF;*/
+}
+
+#bodyRightSection4{
+	float:left;
+	margin:0;
+	padding:0;
+	width:596px;
+	height:150px;
+	border:#C5D9F1 1px solid;
+}
+#bodyRightSectionMenu4{
+	float:none;
+	margin:0;
+	padding:0;
+	/*此框没有左右边线*/
+	width:596px;
+	border-bottom:solid 1px #C5D9F1;
+	background:#EBF3FB;
+}
+#bodyRightSectionMenu4 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	line-height:26px;
+	width:50px;
+	color:#000000;
+	border-right:solid 1px #C5D9F1;
+	/*background:#CCCCFF;*/
+}
+.category{
+	/* bodyRightSection2的width为596,减去2×2的paddin，宽度为592，但在ie下要变形，firefox正常
+	但padding会增加div整体的宽度　如width=100 padding 2 则clientWidth为104。所以在外框宽度固定的情况下，内框
+	宽度的计算要小心
+	*/
+	float:left;
+	display:none;
+	width:592px;
+	height:100%;
+	/*background:#CCCCCC;*/
+	margin:0;
+	padding:2px 2px 2px 2px;
+	text-align:left;
+}
+
+.category ul{
+	margin:0;
+	padding:0;
+	line-height:24px;
+	list-style-type:none;
+	
+}
+.initialCategory{
+	display:block;
+}
+
+#fooderDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	width:800px;
+	height:50px;
+}
+
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<div id="topDiv">
+		<div id="topLeft">
+			<a href="#"><img class="alterImage1 initialImage" id="img1" src="/images/frontpage/1.jpg" alt="这是我们的图片1" /></a>
+			<a href="#"><img class="alterImage1" id="img2" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+			<a href="#"><img class="alterImage1" id="img3" src="/images/frontpage/3.jpg" alt="这是我们的图片3" /></a>
+			<a href="#"><img class="alterImage1" id="img4" src="/images/frontpage/4.jpg" alt="这是我们的图片4" /></a>
+
+		</div>
+		<div id="topRight">
+			<a href="#"><img class="alterImage1 initialImage" id="img1" src="/images/frontpage/1.jpg" alt="这是我们的图片1" /></a>
+			<a href="#"><img class="alterImage1" id="img2" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+			<a href="#"><img class="alterImage1" id="img3" src="/images/frontpage/3.jpg" alt="这是我们的图片3" /></a>
+		</div>
+	</div>
+	<div id="topMenuDiv">
+		<ul id="topMenuUl">
+			<li><a href="#" menuClass="subMenu">首页</a>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目1</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目2</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+					<li><a href="#">子栏目5</a></li>
+					<li><a href="#">子栏目6</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目3</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目4</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目5</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目6</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+					<li><a href="#">子栏目5</a></li>
+					<li><a href="#">子栏目6</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu">主栏目7</a>
+				<ul>
+					<li><a href="#">子栏目71</a></li>
+					<li><a href="#">子栏目72</a></li>
+					<li><a href="#">子栏目73</a></li>
+					<li><a href="#">子栏目74</a></li>
+					<li><a href="#">子栏目75</a></li>
+					<li><a href="#">子栏目76</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div style="border:solid 2px #ccc;">sss</div>
+		</div>
+		<div id="bodyRightDiv">
+			<!--选项卡 标题与文章主要内容-->
+			<div id="bodyRightSection0" class="bodySection">
+				<div id="bodyRightSectionMenu0">
+					<a menuClass="initialMenuItem" href="#" onMouseOver="showCategory('bodyRightSection0','1')">关于五一放假的通知</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection0','2')">关于课题申报的说明</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection0','3')">关于研究生入学考试的制度</a>
+				</div>
+				<div class="category initialCategory" >
+					<a href="#"><img class="image" src="/images/frontpage/1.jpg" alt="这是我们的图片2" /></a>
+					子栏目1文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,
+				</div>
+				<div class="category" >
+					<a href="#"><img class="image" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+					子栏目2文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,
+				</div>
+				<div class="category">
+					<a href="#"><img class="image" src="/images/frontpage/3.jpg" alt="这是我们的图片2" /></a>
+					子栏目3文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,
+				</div>
+			</div>
+			<!--标准选项卡 栏目与标题列表-->			
+			<div id="bodyRightSection1" class="bodySection">
+				<div id="bodyRightSectionMenu1">
+					<a menuClass="initialMenuItem" href="#" onMouseOver="showCategory('bodyRightSection1','1')">子栏目1</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection1','2')">子栏目2</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection1','3')">子栏目3</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection1','4')">子栏目4</a>
+				</div>
+				<div class="category initialCategory" >
+					<a href="#"><img class="image" src="/images/frontpage/1.jpg" alt="这是我们的图片1" /></a>
+					<ul><li>子栏目1文章列表子栏目1文章列表</li><li>子栏目1文章列表子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<a href="#"><img class="image" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+					<ul><li>子栏目2文章列表子栏目1文章列表</li><li>子栏目2文章列表子栏目1文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category">
+					<a href="#"><img class="image" src="/images/frontpage/3.jpg" alt="这是我们的图片2" /></a>
+					子栏目3文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,子栏目文章列表子栏目文章列表,
+				</div>
+				<div class="category" >
+					<ul><li>子栏目4文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+			</div>
+			<div id="bodyRightSection2" class="bodySection">
+					<a href="#"><img class="image" src="/images/frontpage/1.jpg" alt="这是我们的图片1" /></a>
+					<a href="#"><img class="image" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+				
+			</div>
+			<div id="bodyRightSection3" class="bodySection">
+				<div id="bodyRightSectionMenu3">
+					<a menuClass="initialMenuItem" href="#" onMouseOver="showCategory('bodyRightSection3','1')">子栏目1</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection3','2')">子栏目2</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection3','3')">子栏目3</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection3','4')">子栏目4</a>
+				</div>
+				<div class="category initialCategory" >
+					<ul><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目3文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目4文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+			</div>
+			<div id="bodyRightSection4" class="bodySection">
+				<div id="bodyRightSectionMenu4">
+					<a menuClass="initialMenuItem" href="#" onMouseOver="showCategory('bodyRightSection4','1')">成都</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','2')">德阳</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','3')">绵阳</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','4')">栏目4</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','5')">栏目4</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','6')">栏目4</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','7')">栏目4</a>
+					<a href="#" onMouseOver="showCategory('bodyRightSection4','8')">栏目4</a>
+				</div>
+				<div class="category initialCategory" >
+					<ul><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目3文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目4文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目5文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目6文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目7文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目8文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+				<div class="category" >
+					<ul><li>子栏目9文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul>
+				</div>
+			</div>
+			<div>end</div>
+		</div>
+	</div>
+	<div id="fooderDiv"></div>	
+</div>
+<script type="text/javascript">
+
+/*显示与处理下拉菜单*/
+function showSubMenu(){
+	var objMainMenuDiv=document.getElementById('topMenuUl');
+	var aObj=objMainMenuDiv.getElementsByTagName("a");
+	for(var i=0;i<aObj.length;i++){
+		//不能直接用class 因为class是控件的内置属性，而ie与firefox取值时不兼容，因此自定义menuClass
+		if(aObj[i].getAttribute("menuClass")=="subMenu"){
+			//以a为中心,取a的外层div，通过外层div，取得a下面的内层div
+			//alert(i);
+			var outerLiObj=aObj[i].parentNode;
+			var innerUlObj=outerLiObj.getElementsByTagName("ul");
+			if(innerUlObj.length<1){
+				continue;
+			}
+			outerLiObj.onmouseover=function(){
+				var innerUlObj=this.getElementsByTagName("ul");
+				innerUlObj[0].style.display="block";
+			}
+			outerLiObj.onmouseout=function(){
+				var innerUlObj=this.getElementsByTagName("ul");
+				innerUlObj[0].style.display="none";
+			}
+		}
+	}
+}
+showSubMenu();
+//显示选项卡
+function showCategory(section,id){
+	var objSection=document.getElementById(section);
+	//取这个块下的所有div,其中第一个块是菜单，余下的是新闻列表块
+	var aObj=objSection.getElementsByTagName("div");
+	//当前块的菜单
+	var aObjMenu=aObj[0].getElementsByTagName("a");
+	//处理菜单颜色
+	for(var i=0;i<aObjMenu.length;i++){
+		aObjMenu[i].style.backgroundColor=otherSectionMenuColor;
+	}
+	//id是从１开始计数的,数组是从0开始计数的
+	aObjMenu[id-1].style.backgroundColor=initialSectionMenuColor;
+
+	//alert(aObjMenu[id-1].clientWidth+'|'+aObjMenu[id-1].scrollLeft+'|'+aObjMenu[id-1].scrollHeight);
+
+	//处理新闻标题块 i的初值为1是因为aObj[0]是菜单所在的div要跳过。
+	for(var i=1;i<aObj.length;i++){
+		aObj[i].style.display='none';
+		
+	}
+	aObj[id].style.display='block';
+	//aObj[id].style.height=aObj[id].style.height+1+'px';
+	//aObj[id].style.borderBottom='solid 1px #FFFFFF';
+	
+	//处理底线
+	//实现原理，每个section有一个动态添加的底线，位置在当前选中的div下面
+	if(document.getElementById(section+'borderBottom')){
+		var objBorderBottom=document.getElementById(section+'borderBottom');
+		objBorderBottom.style.position='absolute';
+		objBorderBottom.style.display='block';
+		objBorderBottom.style.left=aObjMenu[id-1].offsetLeft+'px';
+		//alert(objBorderBottom.style.top+"|"+objBorderBottom.style.left+"|"+objBorderBottom.style.width);
+		//alert('d');
+		//alert(aObjMenu[id-1].scrollHeight+"|"+aObjMenu[id-1].scrollLeft+"|"+aObjMenu[id-1].clientWidth);
+		//alert(aObjMenu[id-1].scrollHeight+"|"+aObjMenu[id-1].clientLeft+"|"+aObjMenu[id-1].clientWidth);
+		
+	}else{
+		var objBorderBottom=document.createElement('div');
+		objBorderBottom.id=section+'borderBottom';
+		objBorderBottom.style.position='absolute';
+		objBorderBottom.style.display='block';
+		objBorderBottom.style.top=aObjMenu[id-1].scrollHeight+'px';
+		objBorderBottom.style.left=aObjMenu[id-1].scrollLeft+'px';
+		objBorderBottom.style.width=aObjMenu[id-1].clientWidth+'px';
+		//objBorderBottom.style.width='90px';
+		objBorderBottom.style.height='0px';
+		objBorderBottom.style.margin='0px';
+		objBorderBottom.style.padding='0px';
+		
+		objBorderBottom.style.borderTop='solid 1px #FFFFFF';
+		//objBorderBottom.style.backgroundColor='#000000';
+		objBorderBottom.zIndex=objSection.zIndex+1;
+		objSection.appendChild(objBorderBottom);
+	}
+
+
+
+}
+//定义标签的初始颜色
+var initialSectionMenuColor='#FFFFFF';
+var otherSectionMenuColor='#EBF3FB';
+
+//初始化每块区域第一个选项卡标签的颜色
+function initMenuItem(){
+	var aObj=document.getElementsByTagName("a");
+	for(var i=0;i<aObj.length;i++){
+		if(aObj[i].getAttribute("menuClass")=="initialMenuItem"){
+			aObj[i].style.backgroundColor=initialSectionMenuColor;
+		}
+	}
+	//var 
+	//bodySection
+	
+	
+}
+initMenuItem();
+
+//图片轮换1
+var div='topLeft';
+var objAlterDiv=document.getElementById(div);
+objAlterDiv.myfunc=function(){
+	alterImage(objAlterDiv);
+	window.setTimeout(objAlterDiv.myfunc,2000);
+}
+objAlterDiv.myfunc();
+//图片轮换2
+var div='topRight';
+var objAlterDiv1=document.getElementById(div);
+objAlterDiv1.myfunc=function(){
+	alterImage(objAlterDiv1);
+	window.setTimeout(objAlterDiv1.myfunc,8000);
+}
+objAlterDiv1.myfunc();
+//图片轮换3
+/*
+经过实验无法在display为none里在进行图片轮换的操作了
+var div='categoryImage';
+var objAlterDiv2=document.getElementById(div);
+objAlterDiv2.myfunc=function(){
+	alterImage(objAlterDiv2);
+	window.setTimeout(objAlterDiv2.myfunc,2000);
+}
+objAlterDiv2.myfunc();
+*/
+
+
+//控制指定div中的图片幻灯片效果
+function alterImage(objDiv){
+	var nextImage=0;
+	var objId=objDiv.id
+	var aObj=objDiv.getElementsByTagName("img");
+	var objDivHeight=objDiv.offsetHeight;
+	var objDivWidth=objDiv.offsetWidth;
+	//alert(objDivWidth+"|"+objDivHeight);
+	for(var i=0;i<aObj.length;i++){
+		if(aObj[i].style.display=='block'){
+			//找到下一个应该被显示出来的图片
+			nextImage=i+1;
+			if(nextImage>=aObj.length){
+				nextImage=0;
+			}
+			break;
+		}
+	}
+	//将全部的图片设为不可见
+	for(var i=0;i<aObj.length;i++){
+		aObj[i].style.display='none'
+	}
+
+	//图片自适应div的大小
+	for(var i=0;i<aObj.length;i++){
+		aObj[i].style.heigth=(objDivHeight-30)+"px";
+		aObj[i].style.width=(objDivWidth-30)+"px";
+	}
+	//显示当前图片
+	//aObj[nextImage].style.filter="alpha(opacity=0)";
+	aObj[nextImage].style.display='block';
+	/*	for(var i=1;i<=100;i++){
+	aObj[nextImage].style.filter="alpha(opacity="+i+")";
+	}
+	*/
+	//aObj[nextImage].filters.alpha.opacity=5;
+	//	document.body.style.filter="alpha(opacity="+aaa+")";
+	//aObj[nextImage].style.filter="alpha(opacity=50)";
+
+
+	//显示相对应的tipImage
+	for(var i=0;i<aObj.length;i++){
+		try{
+			var tipDivId=objId+'tipDiv'+i;
+			if(document.getElementById(tipDivId)){
+				var objTipDiv=document.getElementById(tipDivId);
+				objTipDiv.style.backgroundColor=objTipDiv.onMouseOutColor;
+				objTipDiv.style.filter="alpha(opacity=40)";
+
+			}else{
+				var objTipDiv=document.createElement('div');
+				var objTipDivdimension=16;
+				objTipDiv.id=div+'tipDiv'+i;
+				objTipDiv.current=i;
+				objTipDiv.style.position='absolute';
+				objTipDiv.style.top=objDivHeight/4*3+'px';
+				objTipDiv.style.top=(objDivHeight-3*objTipDivdimension)+'px';
+				objTipDiv.style.left=(objDivWidth-aObj.length*objTipDivdimension)/2+(i*objTipDivdimension)+i*4+'px';
+				objTipDiv.style.width=objTipDivdimension+'px';
+				objTipDiv.style.height=objTipDivdimension+'px';;
+				objTipDiv.style.border='1px solid';
+				//objTipDiv.style.marginLeft='1px';
+				objTipDiv.onMouseOverColor='#FFFFFF';
+				objTipDiv.onMouseOutColor='#CCCCCC';
+				objTipDiv.onmouseover=tipDivOnMouseOver;
+				objTipDiv.onmouseout=tipDivOnMouseOut;
+				objTipDiv.style.backgroundColor=objTipDiv.onMouseOutColor;
+				objTipDiv.innerText=i+1;
+				objTipDiv.zIndex=objDiv.zIndex+1;
+				//改变透明度
+				objTipDiv.style.filter="alpha(opacity=40)";
+				objDiv.appendChild(objTipDiv);
+				//objTipDiv.filters.alpha.opacity=5;
+				//alert(objTipDiv.filters.alpha.opacity);
+			}
+		}catch(e){
+		}
+		if(i==nextImage){
+			//当前tipImage的背景为白色
+			objTipDiv.style.backgroundColor=objTipDiv.onMouseOverColor;
+			objTipDiv.style.filter="alpha(opacity=90)";
+		}
+	}
+
+}
+function tipDivOnMouseOut(){
+	this.style.backgroundColor=this.onMouseOutColor;
+	this.style.filter="alpha(opacity=40)";
+	this.style.cursor="default";
+	//aObj[this.current].filter="alpha(opacity=40)";
+}
+function tipDivOnMouseOver(){
+	this.style.cursor="pointer";
+	var objDiv=this.parentNode;
+	var aObj=objDiv.getElementsByTagName("img");
+	var objDivHeight=objDiv.offsetHeight;
+	var objDivWidth=objDiv.offsetWidth;
+	//alert(objDivWidth+"|"+objDivHeight);
+	for(var i=0;i<aObj.length;i++){
+		aObj[i].style.display='none';
+	}
+	aObj[this.current].style.display='block';//这个是tipDiv对应的图片
+
+	this.style.backgroundColor=this.onMouseOverColor;
+	this.style.filter="alpha(opacity=90)";
+}
+//var objtemp=document.getElementById("bodyRightDiv");
+//alert(objtemp.clientWidth+'|'+objtemp.scrollWidth+'|'+objtemp.offsetWidth);
+
+
+</script>
+</body>
+</html>

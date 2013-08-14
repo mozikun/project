@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>接口概要列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style type="text/css">
+table
+{
+	background:#ffffff;
+}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+	text-align:center;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+		<th title="姓名" >
+			姓名
+        </th>
+        <th title="性别">
+      	    性别
+        </th>            
+          <th title="身份证号">
+      	    身份证号
+        </th>        
+        <th title="文档时间">
+      	    文档时间
+        </th>
+        <th title="详细">
+			详细
+        </th>
+		
+	</tr>
+	</thead>
+	<tbody >
+	 <!--{foreach from=$rows item=i key=k}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" class="lista">
+		<td>
+        	<!--{$i.name}-->
+        </td>   
+		<td>
+            <!--{$i.sex}-->
+        </td>		
+        <td>
+            <!--{$i.identity_card}-->
+        </td>		
+        <td>
+            <!--{$i.document_time}-->
+        </td>       
+         <td>
+            <a  target="new " href="<!--{$basePath}-->his/apisummary/detail/uuid/<!--{$i.uuid}-->">查看详细</>
+        </td>
+
+	</tr>
+	<!--{/foreach}-->
+	<!--{if !$rows}-->
+	<tr><td colspan='5' style="color:red">暂无信息!</td></tr>
+	<!--{/if}-->
+	  <tr>
+	  <td colspan="5" align="center"> 
+        <!--{$page}--><button  onclick="history.go(-1);">返回</button>
+	 </td>
+	</tr>
+	</tbody>
+</table>
+
+</body>
+</html>

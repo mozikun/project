@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>信息列表</title>
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF;
+}
+.tr{
+	background-color:#336699;
+	color:#FFFFFF;
+	height:20px;
+}
+td{
+	border:#000000 1px solid;
+	height:20px;
+}
+.td1{
+}
+fieldset{
+	width:400px;
+	border:1px solid #33CCFF;
+	text-align:center;
+}
+div{
+	float:left;
+	margin:0px 0px 0px 0px;
+	padding:5px 5px 0px 5px;
+	/*border:1px solid #DEDEB8;*/
+	border:none;
+	font-size:14px;
+}
+div.div1{
+	float:left;
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 5px;
+}
+a{
+	text-decoration:none;
+	font-size:14px;
+	color:#000000;
+}
+a:hover{
+	color:#000000;
+	text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+<input type="hidden" id="currentPage" name="currentPage" value="<!--{$currentPage}-->" />
+<!--按栏目查询-->
+<select name='filterMenuId' id='filterMenuId'>
+  <!--{$menuOptions}-->
+</select>
+<!--按作者查询-->
+<select name='filterStaffId' id='filterStaffId'>
+  <!--{$staffOptions}-->
+</select>
+<!--按审核状态查询-->
+<select name='filterAuditState' id='filterAuditState'>
+  <!--{$auditStateOptions}-->
+</select>
+<!--按标题关键字查询-->
+<input type="text" name="filterKeyWord" id="filterKeyWord" value="<!--{$filterKeyWord}-->" size="20" />
+<input type="button" id="search" name="search" value="确定" onclick="search()"/>
+<br />
+<table width="100%">
+	<tr class="tr">
+		<td width="2%"><input type="checkbox" id="selectAll" name="selectAll" value="all"></td>
+		<td width="14%">所属栏目</td>
+		<td width="34%">标题</td>
+		<td width="9%">作者</td>
+		<td width="4%">附件</td>
+		<td width="12%">发表时间</td>
+		<td width="4%">点击</td>
+		<td width="4%">范围</td>
+		<td width="9%">审核</td>
+		<td width="8%">操作</td>
+	</tr>
+
+	<!--{section name=newsList loop=$newsList}-->
+	<tr>
+		<td><input type="checkbox" id="<!--{$newsList[newsList].id}-->" name="<!--{$newsList[newsList].menu}-->" value="<!--{$newsList[newsList].menu}-->"></td>
+		<td><!--{$newsList[newsList].menu}--></td>
+		<td><!--{$newsList[newsList].title}--></td>
+		<td><!--{$newsList[newsList].author}--></td>
+		<td><!--{$newsList[newsList].attachment}--></td>
+		<td><!--{$newsList[newsList].dateUpdate}--></td>
+		<td><!--{$newsList[newsList].hitTimes}--></td>
+		<td><!--{$newsList[newsList].target}--></td>
+		<td><!--{$newsList[newsList].auditor}--></td>
+		<td>
+			<a href="##" onclick="doAction('<!--{$newsList[newsList].id}-->','edit')">编</a>
+			<a href="##" onclick="doAction('<!--{$newsList[newsList].id}-->','audit')">审</a>
+			<a href="##" onclick="doAction('<!--{$newsList[newsList].id}-->','delete')">删</a>
+		</td>
+	</tr>
+	<!--{/section}-->	
+</table>
+<div style="height:20px;">
+<a href="#" class="pageline" onclick="doAction('','add')"><font color="red">新增</font></a>
+共<!--{$maxRows}-->条记录 当前第<!--{$currentPageDisplayValue}-->页 共<!--{$maxPage}-->页
+<a href="<!--{$__BASEPATH}-->management/news/list/pageAction/top/<!--{$url}-->" id='pre' name='pre' class="pageline">首页</a>
+<a href="<!--{$__BASEPATH}-->management/news/list/pageAction/pre/<!--{$url}-->" id='pre' name='pre' class="pageline">上一页</a>
+<a href="<!--{$__BASEPATH}-->management/news/list/pageAction/next/<!--{$url}-->" id='next' name='next' class="pageline">下一页</a>
+<a href="<!--{$__BASEPATH}-->management/news/list/pageAction/bottom/<!--{$url}-->" id='next' name='next' class="pageline">尾页</a>
+<a href="<!--{$__BASEPATH}-->" target="_parent">返回首页</a>
+</div>
+<input type="hidden" id="message" name="message" value="<!--{$message}-->">
+</body>
+</html>
+<script language="javascript">
+/**
+全局变量xmlHttp对象实例
+*/
+var xmlHttp = false;
+var page_obj = false;
+var page_obj_innertext='';
+/**
+根据不同的动作参数完成编辑或是删除操作
+*/
+function doAction(newsId,action){
+	//alert(newsId+action);
+	if(action=='add'){
+		var url="<!--{$__BASEPATH}-->management/news/add/openerUrlParamenter/"+getUrlParameter(2);
+		
+	}
+	if(action=='edit'){
+		var url="<!--{$__BASEPATH}-->management/news/display/id/"+newsId+"/action/"+action+'/openerUrlParamenter/'+getUrlParameter(2);
+	}
+	if(action=='audit'){
+		//url="/management/news/display/id/"+newsId+"/currentPage/"+currentPage+"/<!--{$url}-->";
+		var url="<!--{$__BASEPATH}-->management/news/display/id/"+newsId+"/action/"+action+'/openerUrlParamenter/'+getUrlParameter(2);
+	}
+	if(action=='delete'){
+		if(!confirm('是否确定删除?')){
+			return false;
+		}
+		var url="<!--{$__BASEPATH}-->management/news/delete/id/"+newsId+"/openerUrlParamenter/"+getUrlParameter(2);
+	}
+	//alert(url);
+	document.location=url;
+}
+
+function search(){
+	//发起查找到动作时，将currentPage置0
+	$('currentPage').value=0;
+	var url="<!--{$__BASEPATH}-->management/news/list";
+	//alert(getUrlParameter())
+	url=url+getUrlParameter(1);
+	document.location=url;
+}
+
+/**
+	type为1表示使用/作为参数分界符
+	type为2表示使用:作为参数分界符
+*/
+function getUrlParameter(type){
+	// type=1 构成真正的参数 type=2构成传递用的参数
+	var currentPage=$('currentPage').value;
+	var filterMenuId=$('filterMenuId').value;
+	var filterStaffId=$('filterStaffId').value;
+	var filterAuditState=$('filterAuditState').value;
+	var filterKeyWord=$('filterKeyWord').value;
+	if(type=='1'){
+		var parameter=
+		"/currentPage/"+currentPage+
+		"/first_coming/yes"+
+		"/orderBy/"+
+		"/filterMenuId/"+filterMenuId+
+		"/filterStaffId/"+filterStaffId+
+		"/filterAuditState/"+filterAuditState+
+		"/filterKeyWord/"+filterKeyWord
+		;
+	}
+	if(type=='2'){
+		var parameter=
+		"currentPage|"+currentPage+
+		":first_coming|yes"+
+		":orderBy|"+
+		":filterMenuId|"+filterMenuId+
+		":filterStaffId|"+filterStaffId+
+		":filterAuditState|"+filterAuditState+
+		":filterKeyWord|"+filterKeyWord
+		;
+	}	
+	return parameter;
+}
+
+
+
+function $(id){
+	return document.getElementById(id);
+}
+
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

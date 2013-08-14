@@ -1,0 +1,105 @@
+@charset "utf-8";
+/* CSS Document */
+body,td,th {
+	height:33px;
+	padding-right:4px;
+	padding-bottom:4px;
+	padding-left:4px;
+	padding-top:4px;
+}
+div{margin:auto;} 
+.table_bg{ background:#000;}
+.table_td_bg{ background:#FFF;}
+.num_input{ width:16px; height:16px;border: 1px solid #000000;}
+.input_move{
+ border:0; border-bottom:1px solid #000;
+ background-color:#CCDDFF;
+}
+.input_out{
+ background-color:#FFF;
+ border:0; border-bottom:1px solid #000;
+}
+
+.input_move2{
+ text-align:left;
+ border-top-style: none;
+ border-right-style: none;
+ border-left-style: none;
+ border:0;
+ background-color:#CCDDFF;
+}
+.input_out2{
+ text-align:left;
+ border-top-style: none;
+ border-right-style: none;
+ border-left-style: none;
+ border-bottom:1px solid #000;
+ background-color:#FFF;
+ border:0;
+}
+.input { border:0; border-bottom:1px solid #000;}
+.noneinput{
+    text-align:left;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+	background-color:#FFF;
+    border:0;
+}
+textarea {
+    width: 550px;
+	height:50px;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+	background-color:#FFF;
+    border:0;
+}
+a{text-decoration: none;}
+.prehistory{
+	background:#CCC;
+	}
+.right{
+    text-align: right;
+    padding-right: 4px;
+}	
+	
+/*选项控件的Span样式*/
+
+.mouseover-class
+{
+   onmouseover:expression(onmouseover=function(){this.style.backgroundColor='#CCDDFF';});
+    onmouseout:expression(onmouseout=function(){this.style.backgroundColor='';});
+    
+ 
+        
+}
+a.mh{color:Black;margin:2 0 2 0;}
+a.mh:hover{background-color: #CCDDFF;cursor:hand;}
+
+.span-class
+{
+    cursor:hand;
+    height:20;
+}	
+
+/*a按钮样式*/
+a.button{display: block;padding: 3px;float: left;}
+a.button:hover{background-color: #ccffff;border: 1px solid #3399ff;padding: 2px;}
+a.button img{border: 0px;}
+
+a{
+    margin:0 7px 0 0;
+    background-color:#f2fcfe;
+    border:1px solid #f2fcfe;
+    border-top:1px solid #f2fcfe;
+    border-left:1px solid #f2fcfe;
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:13px;
+    line-height:130%;
+    text-decoration:none;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 7px; /* Links */
+}
+

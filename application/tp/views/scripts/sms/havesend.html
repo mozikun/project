@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style> 
+<title>地区列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<table border="1px" align="center" width="100%" >
+     <tr class="bigfont">
+     	<td colspan='<!--{if $hide==1}--><!--{$type_num+1}--><!--{else}--><!--{$type_num+2}--><!--{/if}-->'></td>
+     </tr>
+     <tr class="bigfont">
+    <td colspan='<!--{if $hide==1}--><!--{$type_num+1}--><!--{else}--><!--{$type_num+2}--><!--{/if}-->'>
+         <form action="" method="POST">
+            时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_time" value="<!--{$start_time}-->"/> -
+            <input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="end_time" value="<!--{$end_time}-->"/>          <input type="submit" value="搜索" value="okok" />
+         </form>
+       </td>
+     </tr>
+	 <!-- 面包屑导航 -->
+     <tr class="headbg">
+		<td colspan='<!--{if $hide==1}--><!--{$type_num+1}--><!--{else}--><!--{$type_num+2}--><!--{/if}-->'><!--{foreach from=$path item=p}--><b><a href="<!--{$basePath}-->tp/sms/havesend/p_id/<!--{$p.region_id}-->/start_time/<!--{$start_time}-->/end_time/<!--{$end_time}-->"<!--{if $p.region_id==$current_id}-->style="color:red"<!--{/if}-->><!--{$p.zh_name}-->></a></b><!--{/foreach}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="8%"><strong>地区名称</strong></td>
+	    <!--{foreach from=$tips_type_names item=names key=key}-->
+		<td><!--{$names}--></td>
+	    <!--{/foreach}-->
+       <!--{if $hide!=1}--><td >查看下级地区</td><!--{/if}-->
+     </tr>
+       <!--{$msg}-->
+     <!--{foreach from=$result item=res key=key}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$res.region_name}--></td>
+		   <!--{foreach from=$res.num item=num key=k}-->
+		   <td><!--{$num}--></td>
+		   <!--{/foreach}-->
+           <!--{if $hide!=1}--><td ><a href="<!--{$basePath}-->tp/sms/havesend/p_id/<!--{$res.region_id}-->/url_start_time/<!--{$start_time}-->/url_end_time/<!--{$end_time}-->">[进入子地区]</a>
+           </td><!--{/if}-->
+        </tr>
+     <!--{/foreach}-->
+       
+      
+</table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+function myOpenWindow(id){
+	var url="<!--{$basePath}-->region/region/display/id/"+id+'/sid/'+Math.random();
+	//alert(url);
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:250px;DialogWidth:650px;DialogHeight:250px;help:no;status:no');
+}
+function mysubmit(){
+	if($('#region_name').val()==''){
+		alert('请输入地区名称');
+		return;
+	}
+	if($('#standard_code').val()==''){
+		alert('请输入标准码');
+		return;
+	}	
+	$('#ok').attr('disabled',true);
+	$('#popup')[0].submit();
+	return true;
+}
+if($('#errorMessage').html()!=''){
+	alert($('#errorMessage').html());
+}
+</script>
+

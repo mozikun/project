@@ -1,0 +1,314 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>title</title>
+<style>
+body{
+	text-align:center;
+	font-size:14px;
+}
+div{
+	position:relative;
+	float:left;
+}
+#mainDiv{
+	width:800px;
+	text-align:center;
+}
+#topDiv{
+	border:#999999 1px solid;
+	width:800px;
+	height:150px;
+}
+#topMenuDiv{
+	border:#999999 1px solid;
+	border-top:none;
+	width:800px;
+	height:40px;
+	z-index:20;
+}
+#topMenuUl{
+	float:left;
+	margin:0;
+	line-height:24px;
+	list-style-type:none;
+	border-bottom:solid 4px #ACACAC;
+	width:100%;
+}
+#topMenuUl li{
+	float:left;
+	width:80px;
+	background:#008AE4;
+	border-right:solid 1px #7FC5F2;
+}
+#topMenuUl li a{
+	margin:10px 10px;
+	text-decoration:none;
+	width:80px;
+	color:#000000;
+}
+#topMenuUl li a:hover{
+	background:#81A9E8;
+}
+#topMenuUl li ul{
+	position:absolute;
+	display:none;
+	width:80px;
+	line-height:25px;
+	margin:0 0 0 -40px;
+}
+#topMenuUl li ul li{
+	float:left;
+	width:80px;
+	background:#008AE4;
+	border-left:solid 1px #7FC5F2;
+	border-right:solid 1px #7FC5F2;	
+	border-top:solid 1px #7FC5F2;	
+	
+}
+#topMenuUl li ul a{
+	margin:5px 10px 5px 10px;
+	width:80px;
+}
+#bodyDiv{
+	border:#999999 1px solid;
+	border-top:none;
+	width:800px;
+	height:600px;
+}
+#bodyLeftDiv{
+	border:#999999 1px solid;
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	width:200px;
+	height:600px;
+}
+#bodyRightDiv{
+	border:none;
+	width:598px;
+	height:600px;
+}
+#bodyRightSection1{
+	float:left;
+	margin:0;
+	padding:0;
+	width:598px;
+}
+#bodyRightSectionMenu1{
+	float:left;
+	margin:0;
+	padding:0;
+	width:100%;
+	border-bottom:solid 1px #008AE4;
+}
+#bodyRightSectionMenu1 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:2;
+	text-decoration:none;
+	line-height:26px;
+	width:100px;
+	color:#000000;
+	border-right:solid 1px #CCCCCC;
+}
+
+#bodyRightSection2{
+	float:left;
+	margin:0;
+	padding:0;
+	width:598px;
+}
+#bodyRightSectionMenu2{
+	float:left;
+	margin:0;
+	padding:0;
+	width:100%;
+	border-bottom:solid 1px #008AE4;
+}
+#bodyRightSectionMenu2 a{
+	float:left;
+	display:block;
+	/*background:#008AE4;*/
+	margin:0;
+	padding:2;
+	text-decoration:none;
+	line-height:26px;
+	width:100px;
+	color:#000000;
+	border-right:solid 1px #CCCCCC;
+}
+
+#fooderDiv{
+	border:#999999 1px solid;
+	border-top:none;
+	width:800px;
+	height:50px;
+}
+</style>
+<style>
+.category{
+	float:left;
+	width:595px;
+	height:200px;
+	background:#CCCCCC;
+	margin:0;
+	padding:0;
+	display:none;
+
+}
+.initialCategory{
+	display:block;
+}
+</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<div id="topDiv">图片</div>
+	<div id="topMenuDiv">
+		<ul id="topMenuUl">
+			<li><a href="#" class="subMenu">首页</a>
+			</li>
+			<li><a href="#" class="subMenu">主栏目1</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+				</ul>
+			</li>
+			<li><a href="#" class="subMenu">主栏目2</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+					<li><a href="#">子栏目5</a></li>
+					<li><a href="#">子栏目6</a></li>
+				</ul>
+			</li>
+			<li><a href="#" class="subMenu">主栏目3</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" class="subMenu">主栏目4</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" class="subMenu">主栏目5</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" class="subMenu">主栏目6</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+					<li><a href="#">子栏目5</a></li>
+					<li><a href="#">子栏目6</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div id="alterImage"></div>
+		</div>
+		<div id="bodyRightDiv">
+			<div id="bodyRightSection1">
+				<div id="bodyRightSectionMenu1">
+					<a class="initialMenuItem" href="#" onmouseover="showCategory('bodyRightSection1','1')">子栏目1</a>
+					<a href="#" onmouseover="showCategory('bodyRightSection1','2')">子栏目2</a>
+					<a href="#" onmouseover="showCategory('bodyRightSection1','3')">子栏目3</a>
+				</div>
+				<div class="category initialCategory" ><ul><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li></ul></div>
+				<div class="category" ><ul><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul></div>
+				<div class="category" >子栏目3文章列表</div>
+			</div>
+			<div id="bodyRightSection2">
+				<div id="bodyRightSectionMenu2">
+					<a class="initialMenuItem" href="#" onmouseover="showCategory('bodyRightSection2','1')">子栏目1</a>
+					<a href="#" onmouseover="showCategory('bodyRightSection2','2')">子栏目2</a>
+				</div>
+				<div class="category initialCategory" ><ul><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li><li>子栏目1文章列表</li></ul></div>
+				<div class="category" ><ul><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li><li>子栏目2文章列表</li></ul></div>
+				<div class="category" >子栏目3文章列表</div>
+			</div>
+			<div>ddddddddddddddddddddd</div>
+		</div>
+	</div>
+	<div id="fooderDiv"></div>	
+</div>
+<script type="text/javascript">
+//定义标签的初始颜色
+var initialColor='#008AE4';
+var initialBackgroundColor='#FFFFFF';
+
+function showSubMenu(){
+	var objMainMenuDiv=document.getElementById('topMenuUl');
+	var aObj=objMainMenuDiv.getElementsByTagName("a");
+	for(var i=0;i<aObj.length;i++){
+		if(aObj[i].getAttribute("className")=="subMenu"){
+			//以a为中心,取a的外层div，通过外层div，取得a下面的内层div
+			var outerLiObj=aObj[i].parentNode;
+			var innerUlObj=outerLiObj.getElementsByTagName("ul");
+			if(innerUlObj.length<1){
+				continue;
+			}
+			outerLiObj.onmouseover=function(){
+				var innerUlObj=this.getElementsByTagName("ul");
+				innerUlObj[0].style.display="block";
+			}
+			outerLiObj.onmouseout=function(){
+				var innerUlObj=this.getElementsByTagName("ul");
+				innerUlObj[0].style.display="none";
+			}
+		}
+	}
+}
+showSubMenu();
+function showCategory(section,id){
+	var objSection=document.getElementById(section);
+	//取这个块下的所有div,其中第一个块是菜单，余下的是新闻列表块
+	var aObj=objSection.getElementsByTagName("div");
+	//当前块的菜单
+	var aObjMenu=aObj[0].getElementsByTagName("a");
+	//处理菜单颜色
+	for(var i=0;i<aObjMenu.length;i++){
+		aObjMenu[i].style.backgroundColor=initialBackgroundColor;
+	}
+	aObjMenu[id-1].style.backgroundColor=initialColor;
+	//处理新闻标题块
+	for(var i=1;i<aObj.length;i++){
+		aObj[i].style.display='none';
+	}
+	aObj[id].style.display='block';
+}
+//初始化一些选项卡标签的颜色
+function initMenuItem(){
+	var aObj=document.getElementsByTagName("a");
+	for(var i=0;i<aObj.length;i++){
+		if(aObj[i].getAttribute("className")=="initialMenuItem"){
+			//以a为中心,取a的外层div，通过外层div，取得a下面的内层div
+			aObj[i].style.backgroundColor=initialColor;
+		}
+	}	
+}
+initMenuItem();
+</script>
+</body>
+</html>

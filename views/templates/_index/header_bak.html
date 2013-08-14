@@ -1,0 +1,73 @@
+	<div id="topDiv">
+		<div id="topLeft" userDefineClass='alterImage' interval='2000'>
+			<!--{section name=body_image_list_23 loop=$body_image_list_23}-->
+				<a href="<!--{$body_image_list_23[body_image_list_23].url}-->"><img class="alterImage" src="<!--{$body_image_list_23[body_image_list_23].imageUrl}-->" alt="<!--{$body_image_list_23[body_image_list_23].title}-->" /></a>
+			<!--{/section}-->
+		</div>
+		<div id="topRight" userDefineClass='alterImage' interval='6000'>
+			<a href="#"><img class="alterImage" src="/images/frontpage/1.jpg" alt="这是我们的图片1" /></a>
+			<a href="#"><img class="alterImage" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+			<a href="#"><img class="alterImage" src="/images/frontpage/3.jpg" alt="这是我们的图片3" /></a>
+		</div>
+	</div>
+	<div id="topMenuDiv">
+		<ul id="topMenuUl">
+			<li><a href="/" menuClass="subMenu" class="subMenu">首&nbsp;&nbsp;&nbsp;&nbsp;页</a>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu"><!--{$menu_1}--></a>
+				<ul>
+					<!--{section name=sub_menu_1 loop=$sub_menu_1}-->
+						<li><a href="<!--{$sub_menu_1[sub_menu_1].url}-->"><!--{$sub_menu_1[sub_menu_1].subMenuName}--></a></li>
+					<!--{/section}-->
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu"><!--{$menu_2}--></a>
+				<ul>
+					<!--{section name=sub_menu_2 loop=$sub_menu_2}-->
+						<li><a href="<!--{$sub_menu_2[sub_menu_2].url}-->"><!--{$sub_menu_2[sub_menu_2].subMenuName}--></a></li>
+					<!--{/section}-->
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu"><!--{$menu_3}--></a>
+				<ul>
+					<!--{section name=sub_menu_3 loop=$sub_menu_3}-->
+						<li><a href="<!--{$sub_menu_3[sub_menu_3].url}-->"><!--{$sub_menu_3[sub_menu_3].subMenuName}--></a></li>
+					<!--{/section}-->
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu">主栏目4</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu">主栏目5</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu">主栏目6</a>
+				<ul>
+					<li><a href="#">子栏目1</a></li>
+					<li><a href="#">子栏目2</a></li>
+					<li><a href="#">子栏目3</a></li>
+					<li><a href="#">子栏目4</a></li>
+					<li><a href="#">子栏目5</a></li>
+					<li><a href="#">子栏目6</a></li>
+				</ul>
+			</li>
+			<li><a href="#" menuClass="subMenu" class="subMenu">主栏目7</a>
+				<ul>
+					<li><a href="#">子栏目71</a></li>
+					<li><a href="#">子栏目72</a></li>
+					<li><a href="#">子栏目73</a></li>
+					<li><a href="#">子栏目74</a></li>
+					<li><a href="#">子栏目75</a></li>
+					<li><a href="#">子栏目76</a></li>
+				</ul>
+			</li>
+		</ul>	
+	</div>

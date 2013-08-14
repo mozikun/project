@@ -1,0 +1,7 @@
+RewriteEngine On
+#如果移动目录，请修改RewriteBase，并且直接用xxx/default/login/login登陆后重新生成静态化网页
+
+#RewriteBase /5dcms1/5dcms
+RewriteBase /
+RewriteRule !\.(js|ico|gif|jpg|png|css|rar|html|xml|JPG|swf|txt|css|mp3|mwf|phtml|doc|xls)$ index.php
+#RewriteRule \.(php)$ index.php

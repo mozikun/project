@@ -1,0 +1,69 @@
+	<!--{section name=iha loop=$iha}-->
+	 <tr id="iha_<!--{$iha[iha].uuid}-->" ondblclick="set_session('<!--{$iha[iha].uuid}-->')" class="status_<!--{$iha[iha].status_flag}-->">
+	 	<td>
+	 		<!--{if $iha[iha].uuid==$individual_current->uuid}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$baseUrl}-->images/status_online.png" class="online" />
+			<!--{else}-->
+			<img id="img_<!--{$iha[iha].uuid}-->" src="<!--{$baseUrl}-->images/status_offline.png" class="online" />
+			<!--{/if}-->
+	 	</td>
+        <td class="vtip" title="档案最后更新时间：<!--{$iha[iha].updated}-->，建档时间为：<!--{$iha[iha].filing_time}-->">
+        	<!--{$iha[iha].standard_code}-->
+        </td>
+		<td id="<!--{$iha[iha].uuid}-->_name">
+        	<a href="<!--{$basePath}-->iha/search/search/username/<!--{$iha[iha].name}-->/card/<!--{$iha[iha].standard_code_base}-->" target="_blank"><!--{$iha[iha].name}--></a>
+        </td>
+		<td>
+        	<!--{$iha[iha].sex}-->
+        </td>
+		<td>
+        	<a href="<!--{$basePath}-->iha/index/map/uuid/<!--{$iha[iha].uuid}-->" class="vtip" title="点击在地图上标注家庭地址，同时将修改家庭地址"><!--{$iha[iha].address}--></a>
+        </td>
+		<td title="生日：<!--{$iha[iha].date_of_birth}-->">
+        	<!--{$iha[iha].age}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].contact_number}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].householder_name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].staff_name}-->
+        </td>
+		<td onclick="showrate('<!--{$basePath}-->iha/index/showrate/uuid/<!--{$iha[iha].uuid}-->')" style="cursor: pointer;">
+        	<!--{$iha[iha].criteria_rate}-->
+        </td>
+        <td>
+        	<img src="<!--{$basePath}-->images/credit-card_<!--{$iha[iha].card_status}-->.png" title="<!--{$iha[iha].card_status_info}-->" alt="<!--{$iha[iha].card_status_info}-->" />
+        </td>
+		<td>
+        	<a href="<!--{$baseUrl}-->iha/cover/add/action/edit/uuid/<!--{$iha[iha].uuid}-->/para_page/<!--{$para_page}-->/opener/index" onclick="set_session('<!--{$iha[iha].uuid}-->');">编辑首页</a>
+       		<a href="<!--{$basePath}-->iha/index/add/uuid/<!--{$iha[iha].uuid}-->/para_page/<!--{$para_page}-->/opener/index"  onclick="set_session('<!--{$iha[iha].uuid}-->');">编辑档案</a>
+        	<a href="###" onclick="delete_iha('<!--{$basePath}-->iha/index/delete/uuid/<!--{$iha[iha].uuid}-->')">删除</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="12">
+        	暂时没有数据
+        </td>
+	</tr>
+	<!--{/section}-->
+    <tr>
+		<td colspan="12">
+        <img src="<!--{$basePath}-->images/status_online.png" />选中状态
+		&nbsp;
+		<img src="<!--{$basePath}-->images/status_offline.png" />未选中状态&nbsp;
+        <img src="<!--{$basePath}-->images/credit-card_1.png" />已发卡&nbsp;
+        <img src="<!--{$basePath}-->images/credit-card_2.png" />未发卡&nbsp;
+        <img src="<!--{$basePath}-->images/credit-card_3.png" />补卡&nbsp;
+        
+    </td>
+	</tr>
+	<tr>
+		<td colspan="12">
+        	<span class="flag status_6">死亡</span> <span class="flag status_4">临时</span> <span class="flag status_8">转出</span>&nbsp;<!--{$pager}-->
+			<input type="hidden" name="searchinput" id="searchinput" value="<!--{$search}-->" />
+        </td>
+	</tr>

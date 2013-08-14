@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>个人健康档案封面</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/tabs.css">
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+
+</head>
+<body>
+请输入户主相关信息进行查询：
+<input type="text" name="search" id="search" value="" onkeypress="startSearch()" />
+<input type="button" name="ok" id="ok" value="确定" onclick="search()" />
+<input type="checkbox" name="region" id="region" value="" checked />限制仅在本区域内查询<br />
+注：可输入户主的拼音缩写进行查询，也能输入汉字姓名与电话进行查询。
+<div id="result"></div>
+</body>
+</html>
+<script type="text/javascript">
+function startSearch(){
+	var keyEvent=window.event||e;
+	var keyCode=keyEvent.keyCode||keyEvent.which;
+	if(keyCode==13){
+		search();
+	}	
+}
+function search(){
+
+	var searchString=$('search').value;
+	//var
+	if(searchString==''){
+		alert('请输入查询内容');
+		searchString=$('search').focus();
+		return;
+	}
+	$('ok').disabled=true;
+	var searchString=encodeURIComponent(searchString);
+	xmlHttp=getXmlHttpObject();
+	//考虑是否要限制查询区域
+	var region='510000';
+	var url='<!--{$basePath}-->iha/cover/startsearch'+
+	'/search_string/'+searchString+
+	'/region/'+region+
+	'/sid/'+Math.random();
+	//alert(url);
+
+	xmlHttp.onreadystatechange=processAjaxSearch;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+}
+function processAjaxSearch(){
+	//alert(xmlHttp.readyState+' '+xmlHttp.status);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//alert(xmlHttp.responseText);
+		if(xmlHttp.responseText=='no_data'){
+			//alert('没有找到相关的数据');
+			$('result').innerHTML='没有找到相关的数据';
+			$('ok').disabled=false;
+			return;
+		}
+/*		alert(xmlHttp.responseText);
+		var json=eval(xmlHttp.responseText);
+		for(var i=0;i<json.length;i++){
+			alert(json[i].name);
+		}*/
+		//alert(json.score.computer);
+		$('result').innerHTML=xmlHttp.responseText;
+		$('ok').disabled=false;
+	}
+
+}
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+//通过ajax加载进来的页面里的js function要写在主调程序中，否则不能执行
+function setHouseholder(name,familyNumber,familyInnerId){
+	//alert(name);
+	//alert(familyInnerId+'|'+familyNumber);
+	window.dialogArguments.setValue(name,familyNumber,familyInnerId);
+	window.close();
+}
+</script>

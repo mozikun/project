@@ -1,0 +1,30 @@
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">卫生人力资源</td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="columnbg">
+		<td align="center" >地区</td>
+		<td align="center" >执业医师</td>
+		<td align="center" >注册护士</td>
+		<td align="center" >药师</td>
+		<td align="center" >技师</td>
+	</tr>
+	<!--{section name=regionarr loop=$regionarr}-->
+	<tr  align="center"  onMouseOver="this.style.backgroundColor='#E5FBFF'" onMouseOut="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$regionarr[regionarr].axisname}--></td>
+			<td  title="执业医师数"><!--{$regionarr[regionarr].lonezyys}--></td>
+			<td  title="注册护士数"><!--{$regionarr[regionarr].lonezchs}--></td>
+			<td  title="药师数"><!--{$regionarr[regionarr].loneys}--></td>
+			<td  title="技师数"><!--{$regionarr[regionarr].lonejs}--></td>
+	</tr>
+	<!--{/section}-->
+	<tr class="title">
+		    <td align="center">合计</td>
+			<td align="center" title="执业医师数"><!--{$staffcountzyys}--></td>
+			<td align="center" title="注册护士数"><!--{$staffcountzchs}--></td>
+			<td align="center" title="药师数"><!--{$staffcountys}--></td>
+			<td align="center" title="技师数"><!--{$staffcountjs}--></td>
+	</tr>	
+</table>

@@ -1,0 +1,77 @@
+<?php /* Smarty version 2.6.14, created on 2013-05-13 15:10:15
+         compiled from main_index.html */ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->_tpl_vars['title']; ?>
+</title>
+<link rel="stylesheet" type="text/css" id="css" href="<?php echo $this->_tpl_vars['basePath']; ?>
+views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<?php echo $this->_tpl_vars['basePath']; ?>
+views/styles/tabs.css" />
+<style type="text/css">
+body{
+	margin:0px;padding:0px
+}
+</style>
+
+</head>
+
+<body>
+<div style="text-align:center; padding-top:60px;"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/main.jpg" border=0/></div>
+<div style="padding-left:30px;">
+	<ul>
+    	<li>真正实现区域卫生信息数据交换模式</li>
+    </ul>
+	<ul>
+    	<li>完全实现基于区域的数据管理模式</li>
+    </ul>
+	<ul>
+    	<li>完全按《国家基本公共卫生服务规范》设计数据收集点</li>
+    </ul>
+	<ul>
+    	<li>更为灵活的区域定义模式及机构管理模式</li>
+    </ul>
+	<ul>
+    	<li>与国家、省级平台一脉相承</li>
+    </ul>    
+    
+    <ul>
+    	<li>实现与医院等机构的双向接口</li>
+    </ul>
+
+	<ul>
+    	<li>基于区域的统计与决策支持...</li>
+    </ul>
+    
+
+    
+   <!-- 
+	<ul>
+    	<li>1.通过左菜单"健康档案"->"个人档案"->"个人档案列表"功能查询居民档案是否已建立(可先按姓名拼音如王钢输入wg粗查，在通过列出的身份证号码判断是否是此人。也可直接通过身份证号精确查询)</li>
+    </ul>
+	<ul>
+    	<li>2.已建立个人档案的通过左菜单"健康档案"->"个人档案"->"个人档案列表"中的"编辑功能"修改、维护与完善其个人信息</li>
+    </ul>
+	<ul>
+    	<li>3.未建档人员通过左菜单"健康档案"->"个人档案"->"新增档案封面"完成档案的建立</li>
+    </ul>
+	<ul>
+    	<li>4.请先建立户主档案，再建立家庭其它成员的档案</li>
+    </ul>
+	<ul>
+    	<li>5.如果是户主，并且已有家庭成员，此户主不能删除</li>
+    </ul>
+	<ul>
+    	<li>6.如果修改其所在的地区，则档案号要自动变化</li>
+    </ul>
+	<ul>
+    	<li>7.如果在建立的过程中发现重档，则不能保存数据</li>
+    </ul>
+    -->
+</div>
+</body>
+</noframes>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+      
+
+        <title><!--{$title}--></title>
+
+    </head>
+    <body>
+
+        <script language="javascript">
+            function savedata(){ 
+			    
+                data=$("form").serialize(); 
+                $.post("<!--{$basePath}-->appointment/index/zz_table_edit",data, function(e){
+                    alert(e);
+                    window.location.reload()
+              
+                });
+            }
+          
+        </script>
+        <form method="post" name="form">
+        <input type="hidden" name="action" value="save"/>
+        <input type="hidden" name="user_id" value="<!--{$user_id}-->"/>
+            <table  cellspacing="0">
+                <tr  class="headbg">
+                    <th colspan="2">修改坐诊表</th>
+                </tr>	
+                <tbody id='tbody'>
+                    <tr >
+                        <td width="3%" align="left"  >医务人员:</td>
+                        <td    > <!--{$name}--></td>
+                        
+                    </tr>
+                    <tr >
+                        <td  rowspan="8" align="left"  >坐诊时间:</td>
+                        <td ><font color="red">以下为从当天开始近7天的坐诊表</font></td>
+                      
+                            <!--{foreach from=$rows key=k item=v }-->
+                            <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'" ><td>
+                            <font color="green">日期:</font><!--{$v.date}-->   <input type="checkbox"  name="datas[<!--{$v.consulting_time}-->][day]" value="1" 
+                            <!--{if $v.week>-1}-->
+                            checked<!--{/if}--> 
+                            >
+                          
+                            <font  color="blue"> 时间:</font>
+                                 <label>
+                                   <input type="radio" name="datas[<!--{$v.consulting_time}-->][time]" value="1" id="time_0" 
+                            <!--{if $v.week>-1}-->     
+                            <!--{if $v.day==1}-->
+                            checked<!--{/if}--> 
+                            <!--{/if}--> 
+                          
+                           
+                                   />
+                                   上午</label>
+
+                                 <label>
+                                   <input type="radio" name="datas[<!--{$v.consulting_time}-->][time]" value="2" id="time_1" 
+                            
+                            <!--{if $v.week>-1}-->       
+                            <!--{if $v.day==2}-->
+                            checked<!--{/if}--> 
+                            <!--{/if}--> 
+                          
+                           
+                                   />
+                                   下午</label>
+                               
+                                 <label>
+                                   <input type="radio" name="datas[<!--{$v.consulting_time}-->][time]" value="3" id="time_2" 
+                                   
+                          <!--{if $v.week>-1}-->
+                            <!--{if $v.day==3}-->
+                            checked<!--{/if}--> 
+                            <!--{/if}--> 
+                          
+                             
+                                   />
+                                   全天
+                                   
+              &nbsp;&nbsp;科室：                     
+            <select name="datas[<!--{$v.consulting_time}-->][department]"id="department">
+            <!--{foreach from=$department  item=dp}-->
+            <option value="<!--{$dp.uuid}-->"<!--{if $dp.uuid==$v.department}-->selected<!--{/if}-->>    <!--{$dp.department_name}--> </option>
+            <!--{/foreach}-->
+            </select>  
+            诊室：
+            <select name="datas[<!--{$v.consulting_time}-->][clinic]" id="clinic">
+            <!--{foreach from=$clinic item=cl}-->
+            <option value="<!--{$cl.uuid}-->" <!--{if $cl.uuid==$v.clinic}-->selected<!--{/if}-->><!--{$cl.clinic_name}--> </option>
+            <!--{/foreach}-->
+            </select>
+            号种：
+             <select name="datas[<!--{$v.consulting_time}-->][number_species]" id="number_species">
+            <!--{foreach from=$number_species item=number}-->
+            <option value="<!--{$number.uuid}-->" <!--{if $number.uuid==$v.number_species}-->selected<!--{/if}-->><!--{$number.no_species_name}--> </option>
+            <!--{/foreach}-->
+            </select>
+                         </label>          
+                                   
+                                </td>
+                            </tr>
+                                   
+            <!--{/foreach}-->
+                             
+                     
+                         
+
+                    </tr>
+
+                </tbody>
+                <tr  class="columnbg">
+                
+                    <td height="167" colspan="5"  align="center" ><input type="button" onclick="savedata();" name="save"  value="保存"/><input type="button"  onclick="javascript:window.location='/appointment/index/dictionary_list';"value="返回"/> </td>
+                </tr>
+            </table>
+        </form>
+
+
+    </body>
+
+</html>

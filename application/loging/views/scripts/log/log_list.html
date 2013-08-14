@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>健康体检列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basepath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basepath}-->views/styles/tabs.css">
+<script src="<!--{$basepath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basepath}-->views/js/jquery-1.4.2.js" type="text/javascript"></script> 
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>系统登录日志列表</strong>
+	  </td>
+	</tr>
+		
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="columnbg">
+    	<th>&nbsp;
+        	
+        </th>
+        <th title="姓名">
+        	姓名
+        </th>
+		<th title="登录日期" >
+        	登录日期
+        </th>
+		<th title="IP">
+        	IP
+        </th>
+		<th title="登录信息">
+        	登录信息
+        </th>
+		
+	</tr>
+	</thead>
+	<tbody >
+    <form action="" id='form1'>
+     <!--{section loop=$row name=experience}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+	  
+	 	<td>
+	 		<input type="checkbox" value="<!--{$row[experience].uuid}-->" name="selectFlag[]" id="selectFlag"/>
+	 	</td>
+        <td>
+           <!--{$row[experience].user_name}--> 
+        </td>
+		<td >
+        	<!--{$row[experience].login_time}-->
+        </td>
+		<td>
+        	<!--{$row[experience].ip_address}-->
+        </td>
+		<td>
+        	<!--{$row[experience].remark}-->
+        </td>
+	
+	</tr>
+	  <!--{/section}-->
+
+	  <tr>
+	  <td colspan="6" align="center">
+	   <div style="float:left"><label><input type="checkbox" value="" name="ifAll" id="ifAll" onClick="return checkselect();"/>全选 </label>
+	        &nbsp;&nbsp;<!--{$page}-->&nbsp;&nbsp;</div>
+	   
+	   <div style="float:right"><!--{$out}--></div>
+	</td>
+	</tr>
+	</form> 
+	</tbody>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+//全选、反选
+function checkselect() {
+	  for (var i = 0; i < document.getElementsByName("selectFlag[]").length; i++) {
+	   document.getElementsByName("selectFlag[]")[i].checked = document.getElementById("ifAll").checked;
+	  }
+	 }
+//选中与否，有选中项才执行删除	 
+function checkselected(){
+	var token=0;//标志
+	$("input[name='selectFlag[]']").each(function(){
+		//alert($(this).attr('checked'));
+		
+		if($(this).attr('checked')==true){
+			token=1;//有选中项
+		}
+	
+		
+	});
+	if(token==1){
+		if(confirm('你真的要删除选中项么？删除后将不能恢复！')){
+			//执行删除操作
+			  $.post("<!--{$basepath}-->loging/log/del",$("#form1").serialize(),function (msg) {
+			  	
+			     alert(msg);
+			     window.location='<!--{$basepath}-->loging/log/index/page/pageCurrent';	///更新删除后页面
+		 });
+		 return false;
+		}else{
+			//取消删除
+			return false;
+		}
+		//return false;
+	}else{
+		alert('没有选中要删除的项！');
+		return false;
+	}
+	
+}
+</script>

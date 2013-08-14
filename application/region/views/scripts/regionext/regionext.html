@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<title>地区扩展信息</title>
+<style type="text/css">    
+#lib_Tab1 {   
+    width:100%;   
+    margin:0px;   
+    padding:0px;   
+    margin-bottom:15px;
+    text-algin:center; 
+}      
+#lib_Tab2 {   
+    width:590px;   
+    margin:0px;   
+    padding:0px;   
+    margin-bottom:15px;   
+}   
+.lib_tabborder {   
+    border:1px solid #6691DB;
+    width:100%; 
+    text-algin:center;
+}   
+.lib_Menubox {   
+    height:28px;   
+    line-height:28px;   
+    position:relative;   
+}   
+.lib_Menubox ul {   
+    margin:0px;   
+    padding:0px;   
+    list-style:none;   
+    position:absolute;   
+    top:3px;   
+    left:15%;     
+    height:25px;   
+    text-align:center; 
+}   
+.lib_Menubox li {   
+    float:left;   
+    display:block;   
+    cursor:pointer;   
+    width:150px;     
+    font-weight:bold;   
+    margin-right:2px;   
+    height:25px;   
+    line-height:25px;   
+    font-weight:bold;
+	color:#FFFFFF;
+	background-color:#6691DB;  
+}      
+.lib_Menubox li.hover {   
+    padding:0px;   
+    background:#fff;   
+    width:150px;   
+    border-left:1px solid #95C9E1;   
+    border-top:1px solid #95C9E1;   
+    border-right:1px solid #95C9E1;   
+    color:#000000;   
+    height:25px;   
+    line-height:25px;   
+}   
+.lib_Contentbox {   
+    clear:both;   
+    margin-top:0px;   
+    border-top:none;   
+    height:auto;   
+    text-align:center;   
+    padding-top:8px;   
+}    
+</style>  
+<script>   
+function setTab(name,cursel,n){   
+ for(i=1;i<=n;i++){   
+  var menu=document.getElementById(name+i);   
+  var con=document.getElementById("con_"+name+"_"+i);   
+  menu.className=i==cursel?"hover":"";   
+  con.style.display=i==cursel?"block":"none";   
+ }   
+}    
+</script>  
+</head>  
+<body>  
+<div id="lib_Tab1">  
+  <div class="lib_Menubox lib_tabborder">  
+    <ul>  
+      <li id="one1" onMouseover="setTab('one',1,4)" class="hover">地区扩展基本信息</li>  
+      <li id="one2" onMouseover="setTab('one',2,4)">地区扩展信息1</li>  
+      <li id="one3" onMouseover="setTab('one',3,4)">地区扩展信息2</li>  
+      <li id="one4" onMouseover="setTab('one',4,4)">地区扩展信息3</li>  
+    </ul>  
+  </div>  
+  <div class="lib_Contentbox lib_tabborder">  
+    <div id="con_one_1" >
+         <table border="1px" align="center" width="100%">
+		     <tr >
+		       <td colspan="7" align="left"><strong>当前所在地区:<font color="red"><!--{$region_name}--></font></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->region/region/listregion/parent_id/<!--{$parentId}-->/page/<!--{$oldpage}-->">返回地区列表</a></td>
+		     </tr>
+		     <tr class="headbg">
+		        <td><strong>信息年限</strong></td>
+		        <td><strong>人口总数</strong></td>
+		       <!-- <td><strong>城市人口</strong></td>
+		        <td><strong>农业人口</strong></td>-->
+		        <td><strong>地理面积</strong></td>
+		        <td ><strong>编辑</strong></td>
+		        <td ><strong>删除</strong></td>
+		     </tr>  
+		     <!--{if $allnumber>0}-->
+		     <!--{section loop=$extarr name=extarr}-->
+		        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+		           
+		           <td><!--{$extarr[extarr].region_year}--></td>
+		           <td><!--{$extarr[extarr].population}--></td>
+		           <!--<td><!--{$extarr[extarr].urban_population}--></td>
+		           <td><!--{$extarr[extarr].agral_population}--></td>-->
+		           <td><!--{$extarr[extarr].graph_area}--></td>
+		           <td><a id="btn_<!--{$row[row].id}-->" href="<!--{$basePath}-->region/regionext/add/region_id/<!--{$currentid}-->/id/<!--{$extarr[extarr].uuid}-->/pageoldid/<!--{$oldpage}-->" >[编辑地区扩展基本信息]</a>
+		           </td>
+		           <td><a href="<!--{$basePath}-->region/regionext/del/region_id/<!--{$currentid}-->/id/<!--{$extarr[extarr].uuid}-->" onclick="return confirm('您确定删除吗?确定');">[删除地区扩展基本信息]</a></td>
+		        </tr>
+		     <!--{/section}-->
+		     <!--{else}-->
+		      <tr>
+		           <td colspan="7"><!--{$basemessage}--></td>
+		      </tr>
+		      <!--{/if}-->
+		     <tr>
+		       <td colspan="7" align="left"><a  href="<!--{$basePath}-->region/regionext/add/region_id/<!--{$currentid}-->"><strong>[添加地区扩展基本信息]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+		     </tr>
+     </table>
+    </div>  
+    <div id="con_one_2" style="display:none">
+                   还没需求 1      
+    </div>  
+    <div id="con_one_3" style="display:none">
+                    还没需求2
+    </div>  
+    <div id="con_one_4" style="display:none">
+                     还没需求3
+    </div>  
+  </div>  
+</div>  
+</body>  
+</html> 

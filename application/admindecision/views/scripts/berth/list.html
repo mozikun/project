@@ -1,0 +1,120 @@
+<table  width="100%" >
+     <tr class="columnbg">
+     <td align="center">地区名称</td>
+     <!--{if $field eq 'edcw'}-->
+     <td align="center">编制床位数</td>
+     <!--{/if}-->
+     <!--{if $field eq 'sjcws'}-->
+     <td align="center">每日实际床位数</td>
+      <!--{/if}-->
+      <!--{if $field eq 'sjkfcws'}-->
+     <td align="center">每日实际开放床位数</td>
+      <!--{/if}-->
+      <!--{if $field eq 'sycw'}-->
+     <td align="center">每日实际使用床位数</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrry'}-->
+     <td align="center">今日入院</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrcy'}-->
+     <td align="center">今日出院</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrzr'}-->
+     <td align="center">今日转入</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrzc'}-->
+     <td align="center">今日转出</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrbz'}-->
+     <td align="center">今日病重</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrbw'}-->
+     <td align="center">今日病危</td>
+      <!--{/if}-->
+      <!--{if $field eq 'jrsw'}-->
+     <td align="center">今日死亡</td>
+      <!--{/if}-->
+      <!--{if $field eq 'zyrs'}-->
+     <td align="center">住院人数</td>
+      <!--{/if}-->
+    <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><!--{$row[row].zh_name}--></td>
+    <!--{if $field eq 'edcw'}-->
+    <td align="center"><!--{$row[row].edcw}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'sjcws'}-->
+    <td align="center"><!--{$row[row].sjcws}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'sjkfcws'}-->
+    <td align="center"><!--{$row[row].sjkfcws}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'sycw'}-->
+    <td align="center"><!--{$row[row].sycw}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrry'}-->
+    <td align="center"><!--{$row[row].jrry}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrcy'}-->
+    <td align="center"><!--{$row[row].jrcy}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrzr'}-->
+    <td align="center"><!--{$row[row].jrzr}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrzc'}-->
+    <td align="center"><!--{$row[row].jrzc}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrbz'}-->
+    <td align="center"><!--{$row[row].jrbz}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrbw'}-->
+    <td align="center"><!--{$row[row].jrbw}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jrsw'}-->
+    <td align="center"><!--{$row[row].jrsw}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyrs'}-->
+    <td align="center"><!--{$row[row].zyrs}--></td>
+    <!--{/if}-->
+   </tr>
+  <!--{/section}-->
+   <tr align="center" class="title">
+     <td>合计</td>
+     <!--{if $field eq 'edcw'}-->
+     <td><!--{$total.sum_edcw}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'sjcws'}-->
+     <td><!--{$total.sum_sjcws}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'sjkfcws'}-->
+     <td><!--{$total.sum_sjkfcws}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'sycw'}-->
+     <td><!--{$total.sum_sycw}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrry'}-->
+     <td><!--{$total.sum_jrry}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrcy'}-->
+     <td><!--{$total.sum_jrcy}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrzr'}-->
+     <td><!--{$total.sum_jrzr}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrzc'}-->
+     <td><!--{$total.sum_jrzc}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrbz'}-->
+     <td><!--{$total.sum_jrbz}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrbw'}-->
+     <td><!--{$total.sum_jrbw}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jrsw'}-->
+     <td><!--{$total.sum_jrsw}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyrs'}-->
+     <td><!--{$total.sum_zyrs}--></td>
+     <!--{/if}-->
+   </tr>
+</table>

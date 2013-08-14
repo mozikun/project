@@ -1,0 +1,22 @@
+#doctorsprescription
+{
+	text-align:center;
+}
+#doctorsprescription .dpheader
+{
+	font-family: ËÎÌו;
+	font-size: 15pt;
+}
+#doctorsprescription .dptitle
+{
+	font-family: ËÎÌו;
+	font-size: 18pt;
+	font-weight:bold;
+}
+#doctorsprescription .dptable
+{
+	border: 0px;
+	width: 600px;
+	margin: 0 auto;
+	font-size: 10.5pt;
+}

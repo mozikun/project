@@ -1,0 +1,11 @@
+<?php
+//数据库连接配置文件
+$databaseConfig['host']='localhost';
+$databaseConfig['user']='root';
+$databaseConfig['password']='123456';
+//字符集设置。注意不要把这个给搞掉了，否则无法登陆
+$databaseConfig['charset']='utf8';
+$databaseConfig['database']='5dcms1';
+//$databaseConfig['database']='student';
+//1为mysql_connect连接2为mysql_pconnect长连接
+$databaseConfig['connectType']=2;

@@ -1,0 +1,716 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TABLE</title>
+
+<style type="text/css">
+	
+	body{
+		background-color:#FFFFFF;
+		font-size:14px;	
+	
+	}
+	
+	table,tr,td,th{
+		height:26px;
+		font-size:13px;  /*表格*/
+		padding-left:5px;
+		border-collapse:collapse;
+		border:#CCC 1px solid
+	}
+	body img{
+		margin:0 0 0 5px;
+		padding:0;
+		border:0;
+		width:25px;
+		height:15px;
+	}
+	.style_top_r{
+		background-color:#fff;
+		width:135px;
+		border-right:#fff 1px solid;
+	}
+	
+	.style_top{
+		border-left:#fff 1px solid;
+		border-right:#fff 1px solid;
+	}
+	
+	.style_tlr{
+		border-bottom:#fff 1px solid;
+	}
+	
+	.style_lr{
+		border-top:#fff 1px solid;
+		border-bottom:#fff 1px solid;
+	}
+	
+	.style_lrb{
+		border-bottom:#ccc 1px solid;
+		border-left:#ccc 1px solid;
+		border-right:#ccc 1px solid;
+		width:135px;
+	}
+	
+	body .stylea{
+		background-color:#E1E7E8;
+		font-weight:bold;
+		font-size:16px;
+	}
+	body .dbka{
+		background-color:#E1E7E8;
+		font-weight:bold;
+		font-size:14px;
+		color:#ff0000;
+	}
+.align_right {
+text-align:right;    
+}
+
+</style>
+
+<script type="text/javascript">
+//表格元素添加样式
+window.onload=function()
+{
+	//获取操作的元素
+	var tablelist=document.getElementsByTagName('TABLE');
+
+	for (var i = 0; i < tablelist.length; i++) {
+		//从当前元素的第二级起开始执行
+		var thislist=tablelist.item(i).getElementsByTagName('TR');
+		for(var j=0;j<thislist.length;j++){
+			thislist.item(j).onmouseover=addstyle;
+			thislist.item(j).onmouseout=delstyle;
+			thislist.item(j).ondblclick=liststyle;
+		}
+	}
+}
+//add styles
+function addstyle(){
+	this.className="stylea";
+}
+//del styles
+function delstyle(){
+	this.className="";
+}
+//add liststyle
+function liststyle(){
+	var int=this;
+	//set id;
+	var mdate=new Date();
+	var sid=mdate.toUTCString();
+	
+	//获取当前并赋id值
+	var targ= window.event;
+	targ.srcElement.setAttribute('id',sid); //srcElement ie element
+	
+	//判断当前所属的list index
+	var listindex=null;
+	var inttd=int.getElementsByTagName('TD');
+	for(var i=0;i<inttd.length;i++){
+		if(inttd.item(i).id==sid){
+			listindex=i;
+			break;
+			//alert(i);
+		}
+	}
+	
+	//获取parent
+	var myp=this.parentNode.getElementsByTagName('TR');
+	for (var yi = 0; yi < myp.length; yi++) {
+		//从当前元素的第二级起开始执行
+		var thistd=myp.item(yi).getElementsByTagName('TD');
+			for(var j=listindex;j<listindex+1;j++){
+				thistd.item(j).className="dbka";
+			}
+	}
+}
+
+//全部展开与全部折叠
+function thisdisplay(str){
+	//获取操作的元素
+	var tablelist=document.getElementsByTagName('TABLE');
+	var act="";
+	if (str == "none") {
+		act="none";
+	}else if(str=="block"){
+		act="block";
+	}	
+	for (var i = 0; i < tablelist.length; i++) {
+		//从当前元素的第二级起开始执行
+		var thislist=tablelist.item(i).getElementsByTagName('TR');
+			for(var j=2;j<thislist.length;j++){
+				thislist.item(j).style.display=act;	
+			}
+	}
+}
+
+//操作树形
+function displaynode(obj){
+	
+	//元素列表
+	var nodelists=obj.parentNode.parentNode.parentNode.childNodes;
+	
+	//得到当前的id
+	var thisnodeid=obj.parentNode.parentNode.id;
+
+	//获取当前元素的节点树形
+	var thisnodelist=selectnode(obj,thisnodeid);
+	//通过id来获得当前的级数
+	var thisid=thisnodelist.split('|');
+	//alert(thisid);
+	
+	//得到级别数
+	var thisnodelistid="";
+	for(var i=0;i<thisid.length;i++){
+		for(var j=0;j<thisid.length;j++){
+			if(thisid[i].length>thisid[j].length || thisid[i].length==thisid[j].length){
+				thisnodelistid=thisnodelistid+"~"+thisid[j];
+			}			
+		}
+		break;
+	}
+	
+	//取出级别数后的数组
+	var subnodelist=thisnodelistid.substr('1');	
+	//alert(subnodelist);
+	
+	//分割数组
+	var splitnodelist=subnodelist.split('~');
+	
+	//得到当前操作的那个的idnex
+	var fristindex=selectindex(obj,thisnodeid);
+	//alert(fristindex);
+	
+	//得到需要操作的最后的那个idnex
+	var lastidnex=selectindex(obj,splitnodelist['1'])
+	//alert(lastidnex);
+	
+	//判断最后的index是否有值(有值则说明后面有级数,无值则说明这是最大的值)
+	var indexlists=null;
+	if(lastidnex==null){
+		indexlists=nodelists.length;
+	}else{
+		indexlists=lastidnex;
+	}	
+	
+		//显示以及隐藏
+		if (nodelists.item(fristindex + 1).style.display == "none") {
+			//修改图片
+			obj.lastChild.setAttribute('src','<!--{$basePath}-->images/work_off.gif');		
+			for (var i = (fristindex + 1); i < indexlists; i++) {
+				nodelists.item(i).style.display = "block";	
+			}
+		}else {
+			//修改图片
+			obj.lastChild.setAttribute('src','<!--{$basePath}-->images/work_on.gif');			
+			for (var i = (fristindex + 1); i < indexlists; i++) {
+				nodelists.item(i).style.display = "none";
+			}
+		}
+}
+
+
+//获取当前元素后的元素id
+function selectnode(obj,str){
+	//元素列表
+	var nodelists=obj.parentNode.parentNode.parentNode.childNodes;
+	//alert(nodelists.length);
+	
+	var strs="";
+	for(var i=selectindex(obj,str); i<nodelists.length;i++){
+		if(nodelists.item(i).id!=""){
+			strs=strs+"|"+nodelists.item(i).id;
+			//alert(nodelists.item(i).id);
+		}
+	}
+	//alert(strs.substr(1));
+	return strs.substr(1);
+}
+
+//检索索引号
+function selectindex(obj,vod){
+	//元素列表
+	var nodelists=obj.parentNode.parentNode.parentNode.childNodes;
+	//alert(nodelists.length);
+
+	//利用设置的自定义id来获取当前在元素列表中的索引
+	var tindex=null;
+	for(var i=0; i<nodelists.length;i++){
+		if(nodelists.item(i).id==vod){
+			tindex=i;
+		}	
+	}
+	return tindex;
+}
+
+</script>
+
+
+</head>
+<body>
+
+<!--健康档案-->  	
+<table width="100%" border="1">
+<!--健康档案-->  
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+    <tr id="a">
+    <td class="style_top_r">健康档案<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+    
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">个人档案<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">建档人数</td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].counter}--></td>
+    <!--{/section}-->
+  </tr>
+ <tr id="a_b">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">家庭档案<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_b_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">家庭档案数</td>
+    <!--{section name=section loop=$family_archive}-->
+    <td><!--{$family_archive[section].counter}--></td>
+    <!--{/section}-->
+  </tr>
+
+</table>
+	
+	
+<!--健康体检-->  	
+<table width="100%" border="1">
+<!--健康体检-->  
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+    <tr id="a">
+    <td class="style_top_r">健康体检<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+   <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">健康体检<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">体检人数</td>
+    <!--{section name=section loop=$examination_table_}-->
+    <td><!--{$examination_table_[section].counter}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">体检次数</td>
+    <!--{section name=section loop=$examination_table}-->
+    <td><!--{$examination_table[section].counter}--></td>
+    <!--{/section}-->
+  </tr>
+
+</table>
+	
+	
+<!--诊疗记录-->
+<table width="100%" border="1">
+    <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+    </tr>
+	 <tr id="a">
+    	<td class="style_top_r">诊疗记录<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <!--{section name=individual_core loop=$individual_core}-->
+	    <td><!--{$individual_core[individual_core].name_real}--></td>
+	    <!--{/section}-->
+    </tr>
+	<tr id="a_a">
+    	<td class="style_tlr"></td>
+		<td class="style_top_r">诊疗记录<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+		<td></td>
+       
+    </tr>	
+	<tr>
+    	<td class="style_lr"></td>
+		<td class="style_lrb"></td>
+		<td class="style_lrb">门诊病历数</td>
+        <!--{section name=section loop=$patient_history}-->
+	    <td><!--{$patient_history[section].counter}--></td>
+	    <!--{/section}-->
+ 	</tr>    
+   		
+	<tr>
+    	<td class="style_lr"></td>
+		<td class="style_lr"></td>
+		<td class="style_lrb">出院证明数</td>
+        <!--{section name=section loop=$hos_discharge_certificate}-->
+	    <td><!--{$hos_discharge_certificate[section].counter}--></td>
+	    <!--{/section}-->
+ 	</tr>  
+</table>
+	
+	
+<!--其它医疗服务-->	
+<table width="100%" border="1">
+<!--其它医疗服务-->
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+  <tr id="a">
+    <td class="style_top_r">其它医疗服务<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">其它医疗服务<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$qTotal}-->
+  </tr>
+  <tr>
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">接诊记录数</td>
+    <!--{section name=section loop=$diagnosis_table}-->
+    <td><!--{$diagnosis_table[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr>
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">会诊记录数</td>
+    <!--{section name=section loop=$consultation_table}-->
+    <td><!--{$consultation_table[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr>
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">双向转诊转入</td>
+    <!--{section name=section loop=$patient_referral_in}-->
+    <td><!--{$patient_referral_in[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr>
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">双向转诊转出</td>
+    <!--{section name=section loop=$patient_referral_out}-->
+    <td><!--{$patient_referral_out[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+
+  
+</table>
+	
+	
+<!--健康教育-->	
+<table width="100%" border="1">
+<!--健康教育-->
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+  <tr id="a">
+    <td class="style_top_r">健康教育<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a>
+	</td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">健康教育<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" />
+	</a></td>
+    <td class="style_lrb"></td>
+    <!--{$tufaTotal1}-->
+  </tr>
+  <tr>
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">健康教育数</td>
+    <!--{section name=section loop=$health_education}-->
+    <td><!--{$health_education[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+
+  </tr>
+
+</table>
+	
+	
+
+<!--保健-->  	
+<table width="100%" border="1">
+<!--保健-->  
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+    <tr id="a">
+    <td class="style_top_r">保健<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">儿童保健<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr >
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">新生儿家庭访视次数</td>
+    <!--{section name=section loop=$child_visits}-->
+    <td><!--{$child_visits[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr >
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">3岁以内健康检查次数 </td>
+    <!--{section name=section loop=$child_physical}-->
+    <td><!--{$child_physical[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr >
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">3岁儿童健康检查次数</td>
+    <!--{section name=section loop=$child_physical_age_three}-->
+    <td><!--{$child_physical_age_three[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+<tr id="a_b">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">孕产妇健康<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+
+  <tr >
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">医学婚检证明次数 </td>
+    <!--{section name=section loop=$certificate_premartial_exam}-->
+    <td><!--{$certificate_premartial_exam[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr >
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">婚前医学检查次数 </td>
+    <!--{section name=section loop=$premarital_examination}-->
+    <td><!--{$premarital_examination[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+</table>
+	
+	
+<!--预防-->  	
+<table width="100%" border="1">
+<!--预防-->  
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+    <tr id="a">
+    <td class="style_top_r">预防<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">预防<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">预防接种次数</td>
+    <!--{section name=section loop=$vac_card}-->
+    <td><!--{$vac_card[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  
+
+</table>
+<!--慢病管理-->  	
+<table width="100%" border="1">
+<!--慢病管理-->  
+   <tr id="showlists">
+    	<td class="style_top_r">模块名</td>
+		<td class="style_top"></td>
+		<td class="style_lrb"></td>
+        <td>总计</td>
+        <!--{$doctorList}-->
+  </tr>
+    <tr id="a">
+    <td class="style_top_r">慢病管理<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_top"></td>
+    <td class="style_lrb"></td>
+    <!--{section name=individual_core loop=$individual_core}-->
+    <td><!--{$individual_core[individual_core].name_real}--></td>
+    <!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">确症人数<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">高血压</td>
+    <!--{section name=section loop=$hypertension_num}-->
+    <td><!--{$hypertension_num[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">糖尿病</td>
+    <!--{section name=section loop=$diabetes_num}-->
+    <td><!--{$diabetes_num[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">精神分裂</td>
+    <!--{section name=section loop=$schizophrenia_num}-->
+    <td><!--{$schizophrenia_num[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_a">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">随访人数<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">高血压</td>
+    <!--{section name=section loop=$hypertension_follow_up_}-->
+    <td><!--{$hypertension_follow_up_[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">糖尿病</td>
+    <!--{section name=section loop=$diabetes_core_}-->
+    <td><!--{$diabetes_core_[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_a_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">精神分裂</td>
+    <!--{section name=section loop=$schizophrenia_}-->
+    <td><!--{$schizophrenia_[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+<tr id="a_b">
+    <td class="style_tlr"></td>
+    <td class="style_top_r">随访次数<a href="###" onclick="displaynode(this)"><img src="<!--{$basePath}-->images/work_off.gif" width="29" height="18" /></a></td>
+    <td class="style_lrb"></td>
+    <!--{$gpSubTotal}-->
+  </tr>
+  <tr id="a_b_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">高血压</td>
+    <!--{section name=section loop=$hypertension_follow_up}-->
+    <td><!--{$hypertension_follow_up[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_b_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">糖尿病</td>
+    <!--{section name=section loop=$diabetes_core}-->
+    <td><!--{$diabetes_core[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+  <tr id="a_b_a">
+    <td class="style_lr"></td>
+    <td class="style_tlr"></td>
+    <td class="style_lrb">精神分裂</td>
+    <!--{section name=section loop=$schizophrenia}-->
+    <td><!--{$schizophrenia[section].counter}--></td>
+	<!--{/section}-->
+  </tr>
+</table>
+
+</body>
+</html>

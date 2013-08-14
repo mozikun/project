@@ -1,0 +1,259 @@
+/*主样式区 index list display 都要用到 phpchengdu*/
+/*引入header区的css*/
+#bodyDiv{
+	position:relative;
+	float:left;
+	/*#C5D-9F1*/
+	border:solid 1px #C5D9F1;
+	border-top:none;
+	width:798px;
+	/*height:600px;*/
+}
+#bodyLeftDiv{
+	/*border:#C5D9F1 1px solid;*/
+	/*
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	注意div的总宽度=border*2+width+padding+margin-left*2+margin-right
+	
+	注意div的总宽度=border*2+width+padding+margin-left+margin-right IE7,8中已没有margin-left的bug了
+	
+	如，上一级div的width是800，则内部可用的宽度是800，
+	设置为float的div在ie下设置的margin-left会加倍。这是一个ie6都存在的bug。 
+	解决方案是在这个div里面加上display:inline;
+	
+	offsetWidth是整个DIV的显示宽度。不包括margin,但是包括padding,border,scrollbar的宽度。。   
+	clientWidth就是offsetWidth除去border,padding,scrollbar后里面的宽度...   
+	scrollWidth和clientWidth相关。指DIV里面东西的实际宽度
+	*/
+	position:relative;
+	float:left;	
+	margin:15px 5px 5px 5px;
+	padding:0px;
+	width:180px;
+	/*height:600px;*/
+	text-align:center;
+}
+#bodyLeftDiv a{
+	text-decoration:none;
+	color:#000000;	
+}
+
+#bodyRightDiv{
+	position:relative;
+	float:left;
+	margin:5px 0px 5px 0px;
+	/*此框不要边线*/
+	/*border:#999999 1px solid;*/
+	width:600px;
+	/*height:600px;*/
+}
+.tab{
+	/*一组选项卡*/
+	position:relative;
+	float:none;
+	width:600px;
+	height:200px;
+	/*border:solid 1px #000000;*/
+	margin:0px;
+}
+.tab .image{
+	/*选项卡下图片样式*/
+	padding:2px;
+	margin:5px;
+	border:1px solid #CCCCCC ;/*#D8EBD8*/
+	float:right;
+	width:100px;
+	height:120px;
+}
+.tabMenu{
+	/*选项卡标签样式*/
+	float:left;
+	display:block;
+	/*每一个选项卡标签的宽度*/
+	width:110px;
+	height:30px;
+	border:solid 1px #C5D9F1;
+	margin:1px 1px 0px 1px;
+	z-index:1;/*没有实际用处*/
+	background-color:#EBF3FB;
+	background-color:#FFFFFF;
+	line-height:30px
+}
+.tabMenu a{
+	text-decoration:none;
+	color:#000000;	
+}
+.tabMenu a:hover{
+	text-decoration:none;	
+}
+.tabMenu2{
+	width:50px;
+}
+.tabMenu3{
+	width:180px;
+}
+.tabBody{
+	/*选项卡体签样式*/
+	position:relative;
+	float:left;	
+	display:none;
+	float:left;
+	/*tabBody的宽度一定要小于tab的宽度 如果太宽，有可能导致第二个tab里的内容被挤到下方*/
+	width:596px;
+	/*tabBody的高度一定要小于tab的高度*/
+	height:140px;
+	border:solid 1px #C5D9F1;
+	/*-1px是关键，才能让选项卡标签与标签卡融为一体*/
+	margin:-1px 1px 1px 1px;
+	padding:4px;
+	z-index:1;
+	text-align:left;
+	line-height:20px
+	/*background-color:#FF0000;*/
+}
+.tabBody a{
+	display:block;
+	text-decoration:none;
+	color:#000000;
+	margin:2px 0px 2px 0px;
+}
+.tabBody a:hover{
+	text-decoration:underline;	
+}
+.tabBody #bodyListTitle{
+	display:block;
+	float:left;
+	width:340px;
+	text-decoration:none;
+	color:#000000;
+	margin:2px 0px 2px 0px;
+	/*border:solid #FF0000 1px;*/
+}
+.tabBody #bodyListTitle:hover{
+	text-decoration:underline;	
+}
+.tabBody #bodyListDate{
+	display:block;
+	float:right;
+	width:80px;
+	color:#000000;
+	margin:2px 0px 2px 0px;
+	/*border:solid #00FF00 1px;	*/
+}
+
+.tabBody .imageList{
+	position:relative;
+	float:left;
+	width:160px;
+	height:110px;
+	padding:2px 2px 20px 2px;
+	margin:5px;
+	background-color:#EBF3FB;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+}
+.imageList{
+	/*
+	position:relative;
+	float:left;
+	*/
+	/*tabBody的宽度一定要小于tab的宽度*/
+	width:540px;
+	/*tabBody的高度一定要小于tab的高度*/
+	height:130px;
+	/*border:solid 1px #C5D9F1;*/
+	margin:0px;
+	/*padding:4px 10px 4px 10px;*/
+	padding:0px;
+}
+
+.imageList img{
+	position:relative;
+	float:left;
+	width:160px;
+	height:110px;
+	padding:2px 0px 20px 0px;
+	background-color:#EBF3FB;
+	border:1px solid #CCCCCC ;/*#D8EBD8*/
+}
+
+.scrollImages{
+
+}
+.middleScrollImagesDiv{
+	/*border:solid 1px #FF0000;*/
+	/*height:110px;*/
+}
+.middleScrollImagesDiv img{
+	width:160px;
+	height:110px;
+	border:1px solid #CCCCCC ;/*#D8EBD8*/
+
+}
+
+
+.content-right-list a:hover{
+	text-decoration:underline;	
+}
+#slide{
+	position:absolute;
+	display:none;
+	right:0px;
+	bottom:-150px;
+	width:240px;
+	height:150px;
+	border:solid 1px #8F1500;
+	background-color:#FFFFFF;
+	z-index:1;
+}
+#slideMenu{
+	position:relative;
+	float:left;	
+	width:240px;
+	background-color:#8F1500;
+	color:#FFFFFF;
+	font-weight:bold;
+	padding:2px;
+}
+#slideBody{
+	position:relative;
+	float:left;
+	width:238px;
+	text-align:left;
+	padding:2px;
+}
+#slide #slideMenuLeft{
+	position:relative;
+	float:left;
+
+}
+#slide #slideMenuRight{
+	position:relative;
+	float:right;
+}
+#slideBody a{
+	display:block;
+	text-decoration:none;
+	color:#000000;
+	margin:2px 0px 2px 0px;
+}
+
+
+fieldset{
+
+}
+fieldset legend{
+	padding:4px;
+	border:#C5D9F1 1px solid;
+	/*font-weight:bold;*/
+}
+fieldset legend a{
+	text-decoration:none;
+	color:#000000;	
+}
+fieldset legend a:hover{
+	text-decoration:none;	
+}
+/*以上部分是用于index.html的css代码*/
+

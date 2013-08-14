@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>工作计划名称编辑</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body  onbeforeunload='clowseWindow()' >
+<div id="message" align="center" style="color:red;"></div>
+<table width="100%" align="center">
+<input type="hidden" name="id" id="id" value="<!--{$currenteditid}-->" />
+<input type="hidden" name="p_id" id="p_id" value="<!--{$currentpid}-->" />
+   <tr>
+	<td>当前工作计划名称:</td>
+	<td><input type="text" name="zh_name" id="zh_name" value="<!--{$currentzhname}-->"/></td>
+   </tr>
+   <tr>
+     
+		<td>工作计划所属分类:</td>
+		<td><span id="menuDropDownBox"></span><font color="red">(请不要随便移动分类)</font></td>
+    </tr>
+	<tr>
+	   <td colspan="2" align="center" width="100%">
+		<input type="button" name="save" id="save" value="保存" onclick="ajaxSave()"/>
+		<input type="button" name="exit" id="exit" value="退出" onclick="clowseWindow()"/>
+	  </td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var id=$('id').value;
+var p_id=$('p_id').value;
+var xmlHttp;
+getDropDownBox();
+
+function clowseWindow(){
+		//alert(window.dialogArguments.location);
+		$('exit').disabled=true;
+		//alert('s');
+		window.close();
+		var url='<!--{$basePath}-->region/region/listregion'+
+		'/parent_id/'+p_id+
+		'/sid/'+Math.random();
+		window.dialogArguments.location=url;
+}
+function getDropDownBox(){
+	if(p_id=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/menu/menuDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	var url='<!--{$basePath}-->planmenu/planmenu/ajaxresult/p_id/'+p_id+'/id/'+id+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processDropDownBox;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function processDropDownBox(){
+	//alert(xmlHttp.readyState);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//window.alert('<!--{$message}-->');
+		//alert(xmlHttp.readyState);
+		//注：firefox不支持innerText
+		var objDiv=$('menuDropDownBox');
+		//alert('1');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function ajaxSave(){
+	$('save').value='正在保存数据......';
+	$('save').disabled=true;
+	var zh_name=encodeURIComponent($('zh_name').value);
+	xmlHttp=getXmlHttpObject();
+	var url='<!--{$basePath}-->planmenu/planmenu/myresult'+
+	'/p_id/'+p_id+
+	'/id/'+id+
+	'/zh_name/'+zh_name+
+	'/sid/'+Math.random();
+	//alert(url);
+	//alert(p_id);
+	xmlHttp.onreadystatechange=processAjaxSave;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+	//
+}
+function processAjaxSave(){
+	//alert(xmlHttp.readyState+' '+xmlHttp.status);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//alert(xmlHttp.responseText);
+		var message = $('message');
+		 message.innerHTML = xmlHttp.responseText;
+		$('save').value='保存';
+		$('save').disabled=false;
+	}
+}
+function changeValue(obj,oldValue,currentValue){
+	var tempValue=currentValue.split("|")
+	if(tempValue[0]=='-9'){
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		p_id=tempValue[1];
+		$('p_id').value=tempValue[1];
+
+	}else{
+		p_id=tempValue[0];
+		$('p_id').value=tempValue[0];
+
+	}
+	getDropDownBox();
+}
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+</script>

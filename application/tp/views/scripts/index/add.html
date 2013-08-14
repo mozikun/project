@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>工作计划</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	/*左上角*/
+.Left_top {right:0;top:0;position:fixed;+position:absolute;top:expression(parseInt(document.body.scrollTop));}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script>
+$(document).ready(function(){
+	 $("form").submit( function () {
+	 	var title = $("#title");
+	 	var tips_time =  $("#tips_time");
+	 	if(title.val()==""){
+	 		alert("工作计划标题不能为空！");
+	 		title.focus();
+	 		return false;
+	 	}
+	  	if(tips_time.val()==""){
+	 		alert("工作计划时间不能为空！");
+	 		tips_time.focus();
+	 		return false;
+	 	}
+	 });
+	 //计划类型改变时
+	$("select[name=tips_type]").live("change",function(){
+        
+	 	var current_val=$(this).val();
+	 	var this_obj=$(this);
+	 	if(current_val!=""){
+	 		    $.get("<!--{$basePath}-->tp/index/tipstypeajax/parent_id/"+current_val, function(data){
+			 	 //alert("Data Loaded: " + data);
+			 	//var old_tips_type=$("#tips_type_content").html();
+			 	if(data!=""){
+			 		$("#tips_type_content").html(data);			
+			 	}else{
+			 		//var old_tip_type_content=$("#tips_type_content").html();
+			 		//alert(old_tip_type_content);
+			 		
+			 		//var sel_tips_type_arr =$("select[name=tips_type]");
+			 		
+			 		this_obj.nextAll("select").remove();
+			 		
+			 	} 	
+			 	//alert(data);
+
+			});			
+	 	}
+
+	 });
+});
+</script>
+</head>
+<body>
+<div id="search_list"></div>
+<form action="<!--{$basePath}-->tp/index/update" id="form1" method="POST">
+    <input type="hidden" name="user_token" value="<!--{$user_token}-->"/>
+	<table border="0" width="100%">
+		<tr  class="headbg"><td colspan="2"  style="text-align:center;"><!--{$title_token}--></td></tr>
+		<!--{if $user_token!="group"}-->
+		<tr><td >居民姓名</td><td><!--{$name}--></td></tr>
+		<tr><td >性别</td><td><!--{$sex}--></td></tr>
+		<tr><td >年龄</td><td><!--{$age}--></td></tr>
+		<tr><td>电话</td><td><!--{$telphone}--></td></tr>
+		<tr><td>详细地址</td><td><!--{$faminy_add}--></td></tr>
+		<tr><td  colspan="2"></td></tr>
+		<!--{/if}-->
+		<tr><td width="30%">标题</td><td><input type='text' name='title' id='title' value='<!--{$title}-->' length=''  /></td></tr>
+		<tr><td>计划类型</td><td>
+		
+		<span id="tips_type_content">
+			<select id="tips_type" name="tips_type" >
+			<option value="">请选择</option>
+			<!--{foreach  key=k item=v from=$tips_type_array}-->
+			<option value="<!--{$v->id}-->"><!--{$v->tipszh_name}--></option>
+			<!--{/foreach}-->
+			</select>
+		</span>
+		</td></tr>
+		<tr><td>计划预定执行时间</td><td><input type="text" name="tips_time" id="tips_time"  class="Wdate"  value='<!--{$tips_time}-->' onfocus="WdatePicker({firstDayOfWeek:1})"  MINDATE="1930-1-1" MAXDATE="2015-12-31" readonly="readonly" /></td></tr>
+		
+		<tr><td>计划参与人员</td>
+		<td>
+		    <!--{section loop=$region_users name=experience}-->
+			  <!--{assign var="checked" value=""}--> 
+			  <!--{foreach key=k item=v from=$tips_framer}-->
+				 <!--{if $v==$region_users[experience].user_id}--> <!--{assign var="checked" value="checked"}--><!--{/if}-->
+			  <!--{/foreach}-->
+			  
+			<label><input type="checkbox" name="tips_framer[]" value="<!--{$region_users[experience].user_id}-->" <!--{$checked}-->/><!--{$region_users[experience].name_real}--></label>&nbsp;
+			<!--{assign var="checked" value=""}--> 			
+			<!--{/section}-->
+		</td>
+		</tr>
+		<tr><td>计划备注</td><td><textarea name="tips_info" rows="6" cols="40"><!--{$tips_info}--></textarea></td></tr>
+		<tr><td>计划制定者</td>
+		<td>
+		    <!--{section loop=$region_users name=experience}-->
+		    <!--{assign var="checked" value=""}--> 
+		    <!--{foreach key=k item=v from=$current_doctor}-->			        		
+				<!--{if $v==$region_users[experience].user_id}--> <!--{assign var="checked" value="checked"}--><!--{/if}-->
+				
+			<!--{/foreach}-->
+			<label><input type="checkbox" name="tips_serial[]" value="<!--{$region_users[experience].user_id}-->"  <!--{$checked}-->/><!--{$region_users[experience].name_real}--></label>&nbsp;
+			<!--{assign var="checked" value=""}--> 
+			<!--{/section}-->
+		</td>
+		</tr>
+		<tr><td  colspan="2"  style="text-align:center;"><input type="submit"  value=" 提交 "/> &nbsp;<input name="fh" type="button" value=" 返回 " onClick="window.history.go(-1);" /></td></tr>
+	</table>	
+
+</form>
+</body>
+</html>

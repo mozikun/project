@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<definitions name="wsdl_hisorg" targetNamespace="urn:wsdl_hisorg" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:wsdl_hisorg" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="wsdl_hisorgPort"><operation name="ws_select">
+<input message="tns:ws_selectRequest" />
+<output message="tns:ws_selectResponse" />
+</operation>
+<operation name="login">
+<input message="tns:loginRequest" />
+<output message="tns:loginResponse" />
+</operation>
+<operation name="insert_api_logs">
+<input message="tns:insert_api_logsRequest" />
+<output message="tns:insert_api_logsResponse" />
+</operation>
+</portType>
+<binding name="wsdl_hisorgBinding" type="tns:wsdl_hisorgPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="ws_select">
+<soap:operation soapAction="urn:wsdl_hisorg#hisorg#ws_select" />
+<input><soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="login">
+<soap:operation soapAction="urn:wsdl_hisorg#hisorg#login" />
+<input><soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="insert_api_logs">
+<soap:operation soapAction="urn:wsdl_hisorg#hisorg#insert_api_logs" />
+<input><soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_hisorg" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="wsdl_hisorg">
+<documentation />
+<port name="wsdl_hisorgPort" binding="tns:wsdl_hisorgBinding"><soap:address location="http://yaanchis/api/hisorg/index" />
+</port>
+</service>
+<message name="ws_selectRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_request" type="xsd:string" />
+</message>
+<message name="ws_selectResponse">
+<part name="ws_select" type="xsd:string" />
+</message>
+<message name="loginRequest">
+<part name="org_id" type="xsd:string" />
+<part name="password" type="xsd:string" />
+</message>
+<message name="loginResponse">
+<part name="login" type="xsd:string" />
+</message>
+<message name="insert_api_logsRequest">
+<part name="logs_array" type="xsd:string" />
+</message>
+<message name="insert_api_logsResponse">
+<part name="insert_api_logs" type="xsd:string" />
+</message>
+</definitions>

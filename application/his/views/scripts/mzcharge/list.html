@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>诊疗收费一览表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>诊疗收费一览表</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->his/mzcharge/list" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="patientname"  value="<!--{$search.xm}-->"/>&nbsp;
+				身份证号:<input type="text" name="identity_number" value="<!--{$search.identity_number}-->"/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th title="姓名">
+        	姓名
+        </th>
+		<th title="性别" >
+        	性别
+        </th>
+        <th title="门诊就诊流水号" >
+        	门诊就诊流水号
+        </th>
+		<th title="收/退费日期">
+        	收/退费日期
+        </th>
+        <th title="退费标志">
+        	退费标志
+        </th>
+        <th title="收/退费时间">
+        	收/退费时间
+        </th>
+		<th title="收/退费总额">
+        	收/退费总额
+        </th>
+        <th title="医保范围外自费">
+        	医保范围外自费
+        </th>
+        <th title="医疗机构名称">
+        	医疗机构名称
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	<!--{section loop=$mz_charge_list name=mz_reg_list}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+        <td>
+         <!--{$mz_charge_list[mz_reg_list].xm}-->
+        </td>
+		<td >
+        	<!--{$mz_charge_list[mz_reg_list].xb}-->
+        </td>
+        <td >
+        	<!--{$mz_charge_list[mz_reg_list].ghbm}-->
+        </td>
+		<td>
+        	<!--{$mz_charge_list[mz_reg_list].stfrq}-->
+        </td>
+        <td>
+        	<!--{$mz_charge_list[mz_reg_list].stfbz}-->
+        </td>
+        <td>
+           <!--{$mz_charge_list[mz_reg_list].stfsj}-->
+        </td>
+		<td>
+            <!--{$mz_charge_list[mz_reg_list].stfze}-->
+        </td>
+        <td>
+            <!--{$mz_charge_list[mz_reg_list].ybfwwzf}-->
+        </td>
+        <td>
+            <!--{$mz_charge_list[mz_reg_list].yljgdm}-->
+        </td>
+		<td >
+        	<a href="<!--{$basePath}-->his/mzcharge/display/ghbm/<!--{$mz_charge_list[mz_reg_list].ghbm}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<td colspan="9" align="center">
+	   当前没有符合条件的数据！
+	</tr>
+	<!--{/section}-->
+	  <tr>
+	  <td colspan="9" align="center"> 
+         <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

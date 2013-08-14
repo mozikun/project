@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>新生儿家庭访视记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+div{
+  
+}
+td{
+ text-align:left;	
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	//眼睛情况
+	control_enable('eye_bottom','eye_new',2);
+	//四肢活动度
+	control_enable('limb_bottom','limb_new',2);
+	//耳朵情况
+	control_enable('ear_bottom','ear_new',2);
+	//颈部包块
+	control_enable('cervical_mass_bottom','cervical_mass_new',2);
+	//鼻子
+	control_enable('nose_bottom','nose_new',2);
+	//口腔
+	control_enable('oral_cavity_bottom','oral_cavity_new',2);
+	//肛门
+	control_enable('gmzz_bottom','gmzz_new',2);
+	//心肺
+	control_enable('heart_lung_bottom','heart_lung_new',2);
+	//外生殖器
+	control_enable('pudendum_bottom','pudendum_new',2);
+	//腹部
+	control_enable('abdomen_bottom','abdomen_new',2);
+	//脊柱
+	control_enable('rachis_bottom','rachis_new',2);
+	//母亲妊娠患病疾病情况
+	control_enable_lone('disease_other','disease','<!--{$disease_pregnancy_json}-->');
+	//是否畸形
+	control_enable('deformity_info','deformity',2);
+	//前囟
+	control_enable_lone('bregma_bottom','bregma_new','<!--{$bregma_json}-->');
+	//脐带
+	control_enable_lone('umbilical_cord_bottom','umbilical_cord_new','<!--{$bregma_json}-->');
+});
+//母亲妊娠患病疾病情况
+function disease_pregnancy_good(inputval,inputnew,bottomid){
+	var disease_pregnancy_array=jQuery.parseJSON('<!--{$disease_pregnancy_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" || disease_pregnancy_array[inputval][0]!=="-99"){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled = "";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+function loadinput_rs(inputid,bottomid){
+	var inputnewid  = document.getElementById(inputid);
+	var bottomnewid = document.getElementById(bottomid);
+	var jsonarray   = jQuery.parseJSON('<!--{$disease_pregnancy_json}-->');
+	//alert(jsonarray[inputnewid.value]);
+	if(inputnewid.value==""||jsonarray[inputnewid.value]==undefined){
+		inputnewid.value="";
+		bottomnewid.disabled="disabled";
+		return false;
+	}
+	if(jsonarray[inputnewid.value][0]=="-99"){
+		bottomnewid.disabled="";
+		bottomnewid.focus();
+		}else{
+	    bottomnewid.disabled="disabled";
+			}
+}
+//新生儿窒息
+function sleepy_baby_bad(inputval,inputnew,bottomid){
+	var sleepy_baby_array=jQuery.parseJSON('<!--{$sleepy_baby_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	var apgar  = document.getElementById('apgar');
+	inputid.value = inputval;
+	if(inputval="" || sleepy_baby_array[inputval][0]!=="2"){
+		bottomnow.disabled ="disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+		apgar.disabled = "disabled";
+		apgar.value='';
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+		apgar.disabled = "";
+	}
+}
+function myapgar(parentId,currentId,currentval){
+	var myparentId  = document.getElementById(parentId);
+	var mycurrentId = document.getElementById(currentId);
+	//alert(myparentId.value);
+	if(myparentId.value==2){
+		mycurrentId.value=currentval;
+	}else{
+		mycurrentId.value='';
+	}
+}
+//是否畸形
+function deformity_new(inputval,inputnew,bottomid){
+	var deformity_array=jQuery.parseJSON('<!--{$deformity_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" || deformity_array[inputval][0]!=="2"){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+//前囟
+function bregma_man(inputval,inputnew,bottomid){
+	var bregma_array=jQuery.parseJSON('<!--{$bregma_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" || bregma_array[inputval][0]!=="-99"){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+function loadinput_qx(inputid,bottomid){
+	var inputnewid  = document.getElementById(inputid);
+	var bottomnewid = document.getElementById(bottomid);
+	var jsonarray   = jQuery.parseJSON('<!--{$bregma_json}-->');
+	//alert(jsonarray[inputnewid.value]);
+	if(inputnewid.value==""||jsonarray[inputnewid.value]==undefined){
+		inputnewid.value="";
+		bottomnewid.disabled="disabled";
+		return false;
+	}
+	if(jsonarray[inputnewid.value][0]=="-99"){
+		bottomnewid.disabled="";
+		bottomnewid.focus();
+		}else{
+	    bottomnewid.disabled="disabled";
+			}
+}
+//是否异常
+function exception(inputval,inputnew,bottomid){
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" ||inputval!==2){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+//转诊
+function referral_featuresgood(inputval,inputnew,bottomid1,bottomid2){
+	var inputid = document.getElementById(inputnew);
+	var bottomnow1 = document.getElementById(bottomid1);
+	var bottomnow2 = document.getElementById(bottomid2);
+	inputid.value = inputval;
+	if(inputval="" ||inputval!==2){
+		bottomnow1.disabled = "disabled";
+		bottomnow2.disabled = "disabled";
+		bottomnow1.value="";
+		bottomnow2.value="";
+		bottomnow1.style.background="#FFFFFF";
+		bottomnow2.style.background="#FFFFFF";
+	}else{
+		bottomnow1.disabled ="";
+		bottomnow1.style.background="#cccccc";
+		bottomnow2.disabled ="";
+		bottomnow2.style.background="#cccccc";
+		bottomnow1.focus();
+	}
+}
+//脐带
+function umbilical_cord_now(inputval,inputnew,bottomid){
+	var umbilical_cord_array=jQuery.parseJSON('<!--{$umbilical_cord_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" || umbilical_cord_array[inputval][0]!=="-99"){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+function loadinput_qd(inputid,bottomid){
+	var inputnewid  = document.getElementById(inputid);
+	var bottomnewid = document.getElementById(bottomid);
+	var jsonarray   = jQuery.parseJSON('<!--{$umbilical_cord_json}-->');
+	//alert(jsonarray[inputnewid.value]);
+	if(inputnewid.value==""||jsonarray[inputnewid.value]==undefined){
+		inputnewid.value="";
+		bottomnewid.disabled="disabled";
+		return false;
+	}
+	if(jsonarray[inputnewid.value][0]=="-99"){
+		bottomnewid.disabled="";
+		bottomnewid.focus();
+		}else{
+	    bottomnewid.disabled="disabled";
+			}
+}
+function lone(inputval,inputnew){
+	var inputid = document.getElementById(inputnew);
+	inputid.value = inputval;
+}
+function neonatal(inputval,inputnew,bottomid){
+	var deformity_array=jQuery.parseJSON('<!--{$neonatal_json}-->');
+	var inputid = document.getElementById(inputnew);
+	var bottomnow = document.getElementById(bottomid);
+	inputid.value = inputval;
+	if(inputval="" || deformity_array[inputval][0]!=="3"){
+		bottomnow.disabled = "disabled";
+		bottomnow.value="";
+		bottomnow.style.background="#FFFFFF";
+	}else{
+		bottomnow.disabled ="";
+		bottomnow.style.background="#cccccc";
+		bottomnow.focus();
+	}
+}
+</script>
+</head>
+<body>
+<form  action="" method="post">  
+   <input type="hidden" name="ihaid" value="<!--{$currentihaid}-->"/>
+   <input type="hidden" name="uuid" value="<!--{$edituuid}-->"/>
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">新生儿家庭访视记录表</div>
+      <div  style=" text-align:center; width:100%; ">
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF; height:20px;"><strong>姓名</strong>：<!--{$name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;  height:20px;"><strong>编号</strong>：<!--{$invaluid}--></div>
+	  </div>
+  <table width="100%"  align="center">
+    <tr>
+		<td>性别</td>
+	    <td colspan="2">
+	      <!--{foreach from=$sexarray key=k item=v}-->
+	        <!--{if $v[0]==$currentsex}-->
+	          <!--{$v[1]}-->
+	        <!--{/if}-->
+	      <!--{/foreach}-->
+	    </td>
+	    <td>出生日期</td>
+	    <td><!--{$birthday}--></td>
+   	</tr>
+   	<tr>
+		<td>身份证号</td>
+	    <td colspan="2"><!--{$identity_number}--></td>
+	    <td>家庭住址</td>
+	    <td><!--{$address}--></td>
+   	</tr>
+   	<tr>
+   	  <td>父亲</td>
+   	  <td>姓名 ：         <input type="text" name="father_name" value="<!--{$father_name}-->" class="inputnone2"/></td>
+   	  <td>职业：          <input type="text" name="father_occupation" value="<!--{$father_occupation}-->" class="inputnone2"/></td>
+   	  <td>联系电话：<input type="text" name="father_phone" value="<!--{$father_phone}-->" class="inputnone2" maxlength="12"/></td>
+   	  <td>出生日期：<input type="text" name="father_birth" value="<!--{$father_birth}-->" class="inputnone2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+   	</tr>
+   	<tr>
+   	  <td>母亲</td>
+   	  <td>姓名 ：         <input type="text" name="mum_name" value="<!--{$mum_name}-->" class="inputnone2"/></td>
+   	  <td>职业 ：         <input type="text" name="mum_occupation" value="<!--{$mum_occupation}-->" class="inputnone2"/></td>
+   	  <td>联系电话：<input type="text" name="mum_phone" value="<!--{$mum_phone}-->" class="inputnone2" maxlength="12"/></td>
+   	  <td>出生日期：<input type="text" name="mum_birth" value="<!--{$mum_birth}-->" class="inputnone2" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">出生孕周      &nbsp;<input type="text" name="gestational_week" value="<!--{$gestational_week}-->" class="inputbottomshort" maxlength="7"/>周</td>
+   	  <td colspan="3">母亲妊娠患病疾病情况
+   	  <!--{foreach from=$disease_pregnancy item=v key=k}-->
+   	     <label onclick="disease_pregnancy_good(<!--{$k}-->,'disease','disease_other');"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+   	  <!--{/foreach}-->
+   	  <input type="text" name="disease_pregnancy_other" value="<!--{$disease_pregnancy_other_edit}-->" class="inputbottom" id="disease_other"/>&nbsp;<input type="text" name="disease_pregnancy" value="<!--{$disease_pregnancy_edit}-->" class="inputnew" id="disease" onblur="loadinput_rs('disease','disease_other');"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">助产机构名称     &nbsp;<input type="text" name="midwifery_name" value="<!--{$midwifery_name}-->" class="inputbottom"/></td>
+   	  <td colspan="3">出生情况
+   	  <!--{foreach item=v key=k from=$birth_complexion}--> 
+   	    <label onclick="set_input_many('<!--{$k}-->','birth_complexion[]');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="birth_complexion_other" value="<!--{$birth_complexion_other_edit}-->" class="inputbottom"/>  
+   	  <!--{section name=customer loop=2}-->
+   	   <input type="text" name="birth_complexion[]" value="<!--{$birth_complexion_edit[customer]}-->" class="inputnew"/>/
+   	  <!--{/section}-->
+   	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">新生儿窒息
+   	  <!--{foreach key=k item=v from=$sleepy_baby}-->
+   	  <label onclick="sleepy_baby_bad(<!--{$k}-->,'sleepy_baby_new','selectid');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <select name="sleepy_baby_info"  id="selectid">
+   	     <!--{foreach from=$sexcategory key=k item=v}-->
+   	      <option value="<!--{$k}-->" <!--{if $k==$sleepy_baby_info_edit}-->selected<!--{/if}-->><!--{$v}--></option>
+   	     <!--{/foreach}-->
+   	  </select>
+   	  <input type="text" name="sleepy_baby" value="<!--{$sleepy_baby_edit}-->" class="inputnew" id="sleepy_baby_new"/><br>
+   	  (Apgar)评分  
+   	  <!--{foreach from=$children_apgar item=v key=k}-->
+   	  <label onclick="myapgar('sleepy_baby_new','apgar','<!--{$k}-->');"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;&nbsp;
+   	  <!--{/foreach}-->
+   	  <input type="text" name="apgar" class="inputnew" id="apgar" value="<!--{$apgar_edit}-->"/>
+   	  </td>
+   	  <td colspan="2">
+   	   是否有畸形
+   	  <!--{foreach key=k item=v from=$deformity}-->
+   	  <label onclick="deformity_new(<!--{$k}-->,'deformity','deformity_info');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="deformity_info" value="<!--{$deformity_info_edit}-->" class="inputbottom" id="deformity_info"/>  <input type="text" name="deformity" value="<!--{$deformity_edit}-->" class="inputnew" id="deformity" onblur="control_enable('deformity_info','deformity',2);"/>
+   	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="5">新生儿听力筛查  
+   	  <!--{foreach from=$hearing_screening item=v key=k}-->
+   	  <label onclick="lone(<!--{$k}-->,'hearing_new');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="hearing_screening" value="<!--{$hearing_screening_edit}-->" class="inputnew" id="hearing_new"/>
+   	  </td>
+   	</tr>
+   	<tr>
+   	<td colspan="5">
+   	 新生儿疾病筛查 
+   	 <!--{foreach key=k item=v from=$neonatal_screening}-->
+   	   <label onclick="neonatal('<!--{$k}-->','neonatal_new','neonatal_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	 <!--{/foreach}-->
+   	 <input type="text" name="neonatal_bottom" value="<!--{$neonatal_bottom_edit}-->" class="inputbottom" id="neonatal_bottom"/> 
+   	 <input type="text" name="neonatal_new" value="<!--{$neonatal_new_edit}-->" class="inputnew" id="neonatal_new" />
+   	</td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">新生儿出生体重  <input type="text" name="weight" value="<!--{$weight_edit}-->" class="inputbottomshort"/>kg</td>
+   	  <td colspan="2">目前体重 <input type="text" name="current_weight" value="<!--{$current_weight_edit}-->" class="inputbottomshort"/>kg</td>
+   	  <td>
+   	  出生身长 <input type="text" name="height" value="<!--{$height_edit}-->" class="inputbottomshort"/>cm
+   	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">喂养方式      
+   	  <!--{foreach item=v key=k from=$breast_milk}-->
+   	  <label onclick="lone(<!--{$k}-->,'breast_milk_new');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="breast_milk" value="<!--{$breast_milk_edit}-->" class="inputnew" id="breast_milk_new"/></td>
+   	  <td colspan="2">*吃奶量<input type="text" name="feeding_amount" value="<!--{$feeding_amount_edit}-->" class="inputbottomshort"/>ml/次</td>
+   	  <td>*吃奶次数<input type="text" name="feeding_times" value="<!--{$feeding_times_edit}-->" class="inputbottomshort"/>次/日</td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2">*呕吐
+   	    <!--{foreach item=v key=k from=$children_vomit}-->
+   	       <label onclick="lone('<!--{$k}-->','vomit_new')"><!--{$k}-->、<!--{$v[1]}--></label>
+   	    <!--{/foreach}-->
+   	    <input type="text" value="<!--{$vomit_new_edit}-->" name="vomit_new" id="vomit_new" class="inputnew"/>	  
+      </td>
+   	  <td colspan="2">*大便
+   	    <!--{foreach item=v key=k from=$children_defecate}-->
+   	       <label onclick="lone('<!--{$k}-->','defecate_new')"><!--{$k}-->、<!--{$v[1]}--></label>
+   	    <!--{/foreach}-->
+   	    <input type="text" value="<!--{$defecate_new_edit}-->" name="defecate_new" id="defecate_new" class="inputnew"/>
+   	  </td>
+   	  <td>*大便次数<input type="text" name="stool_frequency" value="<!--{$stool_frequency_edit}-->" class="inputbottomshort"/>次/日</td>
+   	</tr>
+    <tr>
+   	  <td colspan="2">体温                <input type="text" name="body_temperature" value="<!--{$body_temperature_edit}-->" class="inputbottomshort" maxlength="5"/>℃</td>
+   	  <td>脉搏                <input type="text" name="pulses" value="<!--{$pulses_edit}-->" class="inputbottomshort" maxlength="5"/>次/分钟</td>
+   	  <td colspan="2">呼吸频率      <input type="text" name="respiratory_rate" value="<!--{$respiratory_rate_edit}-->" class="inputbottomshort" maxlength="5"/>次/分</td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">面色     
+   	  <!--{foreach from=$complexion item=v key=k}-->
+   	  <label onclick="set_input_many('<!--{$k}-->','complexion[]');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->    
+   	   <input type="text" name="complexion_other" value="<!--{$complexion_other_edit}-->" class="inputbottom"/>  
+   	   <!--{section name=customer loop=2}-->    
+   	   <input type="text" name="complexion[]" value="<!--{$complexion_edit[customer]}-->" class="inputnew"/>/
+   	   <!--{/section}--></td>
+   	  <td colspan="2">
+   	    黄疸部位
+   	    <!--{foreach from=$children_jaundice item=v key=k}-->
+   	      <label onclick="lone('<!--{$k}-->','jaundice_new');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	    <!--{/foreach}-->
+   	    <input type="text" name="jaundice_new" value="<!--{$jaundice_site_edit}-->" class="inputnew" id="jaundice_new"/>
+   	   </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="5">前囟     
+   	   <input type="text" name="bregma_width" value="<!--{$bregma_width_edit}-->" class="inputbottomshort" maxlength="7"/>cm×  &nbsp;<input type="text" name="bregma_height" value="<!--{$bregma_height_edit}-->" class="inputbottomshort" maxlength="7"/>cm 
+   	  <!--{foreach from=$bregma item=v key=k}-->
+   	  <label onclick="bregma_man(<!--{$k}-->,'bregma_new','bregma_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}--> 
+   	  <input type="text" name="bregma_other" value="<!--{$bregma_other_edit}-->" class="inputbottom" id="bregma_bottom"/><input type="text" name="bregma" value="<!--{$bregma_edit}-->" class="inputnew" id="bregma_new" onblur="loadinput_qx('bregma_new','bregma_bottom')"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">眼
+   	  <!--{foreach from=$eye item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'eye_new','eye_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->                                    
+   	  <input type="text" name="eye_info" value="<!--{$eye_info_edit}-->" class="inputbottom" id="eye_bottom"/><input type="text" name="eye" value="<!--{$eye_edit}-->" class="inputnew" id="eye_new" onblur="control_enable('eye_bottom','eye_new',2);"/>
+   	  </td>
+   	  <td colspan="2">四肢活动度
+   	  <!--{foreach from=$limb item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'limb_new','limb_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->                
+   	   <input type="text" name="limb_info" value="<!--{$limb_info_edit}-->" class="inputbottom" id="limb_bottom"/><input type="text" name="limb" value="<!--{$limb_edit}-->" class="inputnew" id="limb_new" onblur="control_enable('limb_bottom','limb_new',2);"/>
+   	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">耳 
+   	  <!--{foreach from=$ear item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'ear_new','ear_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}--> 
+   	  <input type="text" name="ear_info" value="<!--{$ear_info_edit}-->" class="inputbottom" id="ear_bottom"/><input type="text" name="ear" value="<!--{$ear_edit}-->" class="inputnew" id="ear_new" onblur="control_enable('ear_bottom','ear_new',2);"/>
+   	  </td>
+   	  <td colspan="2">颈部包块
+   	  <!--{foreach from=$cervical_mass item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'cervical_mass_new','cervical_mass_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->                      
+   	  <input type="text" name="cervical_mass_info" value="<!--{$cervical_mass_info_edit}-->" class="inputbottom" id="cervical_mass_bottom"/><input type="text" name="cervical_mass" value="<!--{$cervical_mass_edit}-->" class="inputnew" id="cervical_mass_new" onblur="control_enable('cervical_mass_bottom','cervical_mass_new',2);"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">鼻 
+   	  <!--{foreach from=$nose item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'nose_new','nose_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}--> 
+   	  <input type="text" name="nose_info" value="<!--{$nose_info_edit}-->" class="inputbottom" id="nose_bottom"/><input type="text" name="nose" value="<!--{$nose_edit}-->" class="inputnew" id="nose_new" onblur="control_enable('nose_bottom','nose_new',2);"/>
+   	  </td>
+   	  <td colspan="2">皮肤
+   	  <!--{foreach from=$skin item=v key=k}-->
+   	  <label onclick="set_input_many('<!--{$k}-->','skin[]');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}--> 
+   	  <input type="text" name="skin_other" value="<!--{$skin_other_edit}-->" class="inputbottom" id=""/>
+   	  <!--{section name=customer loop=2}-->
+   	  <input type="text" name="skin[]" value="<!--{$skin_edit[customer]}-->" class="inputnew" />/
+   	  <!--{/section}-->
+   	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">口腔
+   	  <!--{foreach from=$oral_cavity item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'oral_cavity_new','oral_cavity_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="oral_cavity_info" value="<!--{$oral_cavity_info_edit}-->" class="inputbottom" id="oral_cavity_bottom"/><input type="text" name="oral_cavity" value="<!--{$oral_cavity_edit}-->" class="inputnew" id="oral_cavity_new" onblur="control_enable('oral_cavity_bottom','oral_cavity_new',2);"/></td>
+   	  <td colspan="2">肛门
+   	  <!--{foreach from=$gmzz item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'gmzz_new','gmzz_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="gmzz_info" value="<!--{$gmzz_info_edit}-->" class="inputbottom" id="gmzz_bottom"/><input type="text" name="gmzz" value="<!--{$gmzz_edit}-->" class="inputnew" id="gmzz_new" onblur="control_enable('gmzz_bottom','gmzz_new',2);"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">心肺
+   	  <!--{foreach from=$heart_lung item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'heart_lung_new','heart_lung_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="heart_lung_info" value="<!--{$heart_lung_info_edit}-->" class="inputbottom" id="heart_lung_bottom"/><input type="text" name="heart_lung" value="<!--{$heart_lung_edit}-->" class="inputnew" id="heart_lung_new" onblur="control_enable('heart_lung_bottom','heart_lung_new',2);"/></td>
+   	  <td colspan="2">外生殖器
+   	  <!--{foreach from=$pudendum item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'pudendum_new','pudendum_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	   <input type="text" name="pudendum_info" value="<!--{$pudendum_info_edit}-->" class="inputbottom" id="pudendum_bottom"/><input type="text" name="pudendum" value="<!--{$pudendum_edit}-->" class="inputnew" id="pudendum_new" onblur="control_enable('pudendum_bottom','pudendum_new',2);"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">腹部
+   	  <!--{foreach from=$abdomen item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'abdomen_new','abdomen_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <input type="text" name="abdomen_info" value="<!--{$abdomen_info_edit}-->" class="inputbottom" id="abdomen_bottom"/><input type="text" name="abdomen" value="<!--{$abdomen_edit}-->" class="inputnew" id="abdomen_new" onblur="control_enable('abdomen_bottom','abdomen_new',2);"/></td>
+   	  <td colspan="2">脊柱
+   	  <!--{foreach from=$rachis item=v key=k}-->
+   	  <label onclick="exception(<!--{$k}-->,'rachis_new','rachis_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	   <input type="text" name="rachis_info" value="<!--{$rachis_info_edit}-->" class="inputbottom" id="rachis_bottom"/><input type="text" name="rachis" value="<!--{$rachis_edit}-->" class="inputnew" id="rachis_new" onblur="control_enable('rachis_bottom','rachis_new',2);"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="5">脐带
+   	  <!--{foreach from=$umbilical_cord item=v key=k}-->
+   	  <label onclick="umbilical_cord_now(<!--{$k}-->,'umbilical_cord_new','umbilical_cord_bottom');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	   <input type="text" name="umbilical_cord_other" value="<!--{$umbilical_cord_other_edit}-->" class="inputbottom" id="umbilical_cord_bottom"/> <input type="text" name="umbilical_cord" value="<!--{$umbilical_cord_edit}-->" class="inputnew" id="umbilical_cord_new" onblur="loadinput_qd('umbilical_cord_new','umbilical_cord_bottom');"/></td>
+   	</tr>
+   	<tr>
+   	   <td colspan="5">
+		         转诊          
+	  <!--{foreach from=$referral_features item=v key=k}-->
+   	  <label onclick="referral_featuresgood(<!--{$k}-->,'referral_features_new','referral_features_bottom1','referral_features_bottom2');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+		         <input type="text" name="referral_features" value="<!--{$referral_features_edit}-->"  class="inputnew" id="referral_features_new"/></br>
+		        原因:      <input type="text" name="reason" value="<!--{$reason_edit}-->"  class="inputbottomlong" id="referral_features_bottom1"/></br>
+		        机构及科室:<input type="text" name="agencies_departments" value="<!--{$agencies_departments_edit}-->"  class="inputbottomlong" id="referral_features_bottom2"/>
+		</td>
+   	</tr>
+   	<tr>
+   	   <td colspan="5">
+		       指导         
+	  <!--{foreach from=$advising item=v key=k}-->
+   	  <label onclick="set_input_many('<!--{$k}-->','advising[]');"><!--{$k}-->、<!--{$v[1]}--></label>
+   	  <!--{/foreach}-->
+   	  <!--{section name=customer loop=5}-->
+	  <input type="text" name="advising[]" value="<!--{$advising_edit[customer]}-->"  class="inputnew"/>/
+	  <!--{/section}-->
+		</td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3">本次访视日期    
+   	    <input type="text" name="followup_time_year" value="<!--{$followup_time_edit_y}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="followup_time_month" value="<!--{$followup_time_edit_m}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="followup_time_day" value="<!--{$followup_time_edit_d}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+   	  </td>
+   	  <td colspan="2">下次随访地点    <input type="text" name="next_followup_address" value="<!--{$next_followup_address_edit}-->" class="inputnone2"/></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="3"> 下次访视日期    
+   	    <input type="text" name="next_followup_time_year" value="<!--{$next_followup_time_edit_y}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" class="inputnone">年
+		<input type="text" name="next_followup_time_month" value="<!--{$next_followup_time_edit_m}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'MM'})" class="inputnone" >月
+		<input type="text" name="next_followup_time_day" value="<!--{$next_followup_time_edit_d}-->" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'dd'})" class="inputnone" >日
+   	  </td>
+   	  <td colspan="2">
+   	         随访医生签名  <select name="doctors_signature"> 
+   	                <option value="<!--{$currentstaffid}-->"><!--{$currentorgName}-->:<!--{$currentstaffname_real}--></option>
+   	                <!--{section loop=$stafflist name=stafflist}-->
+   	                  <option value="<!--{$stafflist[stafflist].user_id}-->" <!--{if $doctors_signature_edit==$stafflist[stafflist].user_id}-->selected<!--{/if}-->><!--{$stafflist[stafflist].name_real}--></option>
+   	                <!--{/section}-->
+   	               </select>
+   	  </td>
+   	</tr>
+   	<!--{if $edituuid==""}-->
+   	  <tr>
+   	  <td style="text-align:center;" colspan="5" ><input name="ok" type="submit" value="保存数据" class="inputbutton" style="line-height:18px;"/></td>
+   	 </tr>
+   	<!--{else}-->
+   	  <tr id="no_print">
+   	    <td style="text-align:center;" colspan="5" >
+   	         <input name="edit" type="submit" value="更新数据" class="inputbutton"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   	         <input name="del" type="button" value="删除数据" class="inputbutton" onclick="delnow();" /><!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="print_info();" class="inputbutton"/><!--{/if}-->
+   	         &nbsp;&nbsp;<input type="button" value="返回" class="inputbutton" onclick="history.go(-1);" />
+   	    </td>   
+   	 </tr>
+   	<!--{/if}-->
+   </table>
+</form> 
+</body>
+</html>
+<script type="text/javascript">
+ function delnow(){
+	 if(confirm('确实要删除当前的数据吗？'))
+		 {
+		   window.location='<!--{$basePath}-->children/newborn/del/delid/<!--{$edituuid}-->';
+		   return true;
+		 }else
+	    {
+		    return false;
+	    }
+	 }
+ function  print_info(){
+ 	$("#no_print").hide();
+ 	window.print();
+ 	$("#no_print").show();
+ }
+</script>

@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+.index { background-color: #fff; border-radius: 5px; box-shadow: 0 0 1000px #fff; position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; }
+.left { box-shadow: 1px 0 1px #ddd; position: fixed; left: 0px; top: 0px; bottom: 0px; background-color: #fefefe; overflow-y: scroll; scrollbar-face-color: #e6eaf0; scrollbar-highlight-color: #e6eaf0; scrollbar-shadow-color: #9eaeb9; scrollbar-darkshadow-color: #9eaeb9; scrollbar-3dlight-color: #9eaeb9; scrollbar-arrow-color: #ffffff; scrollbar-track-color: #9eaeb9; right: 0px; }
+.aside  { padding: 10px; }
+.tops  { position: fixed; left: 0px; top: 0px; right: 0px; background-image: url(../../images/lead/ya_24.png); background-position: left top; box-shadow: 0 4px 12px #aaa; background-repeat: no-repeat; height: 67px; }
+.tops .admis { line-height: 25px; height: 25px; padding-right: 10px; position: absolute; right: 100px; bottom: 4px; text-shadow: 0 0 3px #fff; font-size: 12px; }
+.middle  { float: left; width: 48%; }
+.right  { width: 48%; float: right; }
+.aside .bottom { clear: both; height: 180px; margin-top: 10px; }
+.main_menu { margin-right: 10px; margin-bottom: 4px; }
+.main_menu h3 { line-height: 30px; height: 30px; display: block; font-size: 14px; padding-left: 10px; color: #055094; background-image: url(../../images/lead/ss_03.png); cursor: pointer; border: solid 1px #6899d3; border-bottom: none; overflow: hidden; border-radius: 4px 0; margin-top: 4px; }
+.main_menu h3 span { background-image: url(../../images/lead/ss_04.png); display: block; float: right; height: 20px; width: 20px; margin-top: 5px; margin-right: 5px; cursor: pointer; }
+.main_menu ul { display: none; border: 1px solid #ddd; padding-bottom: 6px; }
+.main_menu li { line-height: 25px; height: 25px; display: block; }
+fieldset { border: 1px solid #ddd; background-color: #fff; padding: 10px; }
+.feld { height: 380px; }
+fieldset legend { line-height: 25px; height: 25px; border: 1px solid #ddd; padding: 0 5px; }
+.felde { height: 170px; }
+.main_menu ul li a { display: block; height: 100%; background-image: url(../../images/lead/ss_06.png); background-repeat: no-repeat; background-position: center bottom; padding-left: 20px; }
+.main_menu ul li a:hover { background-image: url(../../images/lead/ss_07.png); }
+.tds td { line-height: 25px; height: 25px; padding-right: 3px; padding-left: 3px; border: 1px solid #dedede; }
+.lmo_ctone .haslist { height: auto; }
+.list_ls { display: none; }
+.lmo_ctone .haslist .list_ls { font-size: 12px; }
+.lmo_ctone .haslist .list_ls p a { padding-left: 28px; color: #FFA466; background-image: url(../../images/lead/ya_25.png); background-repeat: no-repeat; background-position: 20px center; }
+

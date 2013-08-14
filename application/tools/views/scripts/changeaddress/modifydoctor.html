@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>title</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<fieldset>
+<legend>中坝乡转建档医生</legend>
+<form action="" method="POST">
+	中坝乡建档医生：
+	<select name="staff_id">
+		<!--{section loop=$staff name=v}-->
+		<option value="<!--{$staff[v].id}-->" <!--{if $current_staff eq $staff[v].id}--> selected='selected' <!--{/if}--> ><!--{$staff[v].name}--></option>
+		<!--{/section}-->
+	</select>
+	灵关镇建档医生：
+	<select name='new_staff_id'>
+		<!--{section loop=$staff2 name=v}-->
+		<option value="<!--{$staff2[v].id}-->" <!--{if $new_current_staff eq $staff2[v].id}--> selected="selected" <!--{/if}--> ><!--{$staff2[v].name}--></option>
+		<!--{/section}-->
+	</select><br />
+	<input type="submit" name="ok" value="转换" />
+</form>
+当前医生共有档案数：<!--{$num}--><br />
+修改成功：<!--{$i}-->条<br />
+没有修改：<!--{$j}-->条
+</fieldset>
+</body>
+</html>

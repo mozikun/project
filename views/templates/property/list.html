@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>属性管理</title>
+<link href="/views/templates/category/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+	<table class="categoryList">
+		<tr>
+		<td colspan="3">
+			<!--{$navigation}-->
+		</td>
+		</tr>
+		<tr  class="title"><td>类别名称</td><td>属性名称</td><td>操作</td></tr>
+	<!--{section name=propertyList loop=$propertyList}-->
+		<tr>
+			<td><!--{$propertyList[propertyList].categoryDescription}--></td>
+			<td><!--{$propertyList[propertyList].propertyDescription}--></td>
+			<td>
+				<a  href="/goods/property/display/categoryId/<!--{$propertyList[propertyList].categoryId}-->/propertyId/<!--{$propertyList[propertyList].propertyId}-->">编辑</a>
+				<a  href="/goods/property/delete/categoryId/<!--{$propertyList[propertyList].categoryId}-->/propertyId/<!--{$propertyList[propertyList].propertyId}-->" onclick="return confirm('是否确定')">删除</a>
+			</td>
+		</tr>
+	<!--{/section}-->
+	</table>
+	</div>
+	<a href="/goods/property/add/categoryId/<!--{$categoryId}-->">新增</a>
+	<a href="/goods/category/list/categoryId/<!--{$parentId}-->">返回</a>
+	<table class="categoryList">
+		<tr>
+		<td colspan="3">
+			其父类已定义属性
+		</td>
+		</tr>
+		<tr  class="title"><td>类别名称</td><td>属性名称</td><td>操作</td></tr>
+	<!--{section name=parentPropertyList loop=$parentPropertyList}-->
+		<tr>
+			<td><!--{$parentPropertyList[parentPropertyList].categoryDescription}--></td>
+			<td><!--{$parentPropertyList[parentPropertyList].propertyDescription}--></td>
+			<td>&nbsp;</td>
+		</tr>
+	<!--{/section}-->
+	</table>
+	
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+	<br />
+	注：在更为高级的系统里，应该提供定义属性值的功能　比如　cpu的主频　内存的型号等，这样更有利于商品属性的标准化，有利于
+	用户更好的选择商品与比较商品
+</body>
+</html>
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

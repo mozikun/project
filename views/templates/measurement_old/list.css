@@ -1,0 +1,20 @@
+/*以下是list所特有的样式区*/
+.categoryList a{
+	/*display:block;*/
+	text-decoration:none;
+	color:#000000;	
+}
+.categoryList a:hover{
+	text-decoration:underline;
+	color:#000000;
+}
+.title{
+	background-color:#EBF3FB;
+}
+table{
+	/*border:solid 1px #EBF3FB;*/
+}
+td{
+	border:solid 1px #EBF3FB;
+}
+/*以下是list所特有的样式区-end*/

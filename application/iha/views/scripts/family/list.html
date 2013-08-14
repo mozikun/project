@@ -1,0 +1,498 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>家庭档案列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script>
+	$(document).ready(function(){
+		//定义鼠标经过样式
+		//定义搜索样式
+		//$("#search_lable").toggle(function(){$("#tbody_search").show();$("#tbody_search input").attr("disabled",false);$("#tbody_search select").attr("disabled",false);$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");},function(){$("#tbody_search").hide();$("#tbody_search input").attr("disabled",true);$("#tbody_search select").attr("disabled",true);$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");});
+		$("#search_lable").toggle(function(){$("#tbody_search").show();$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");},function(){$("#tbody_search").hide();$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");});
+		//当选择全选的时候，把与其名字一样的所有字段全部选中
+		$(".all").bind("click",function(){
+			var input_name=$(this).attr("name");
+			$("input[name='"+input_name+"']").attr("checked",$(this).attr("checked"));
+		});
+	});
+	function ajaxload(gurl,obj,tp)
+	{
+		//移除原来的img标签
+		$("th>img").remove();
+		$("th").unbind();
+		var order=$(obj).attr("class");
+		//alert(order);
+		if(tp=='undefind')
+		{
+			tp="POST";
+		}
+		tp="POST";
+		var searchv=$("#searchinput").val();
+		$.ajax({
+			type:tp,
+			url:gurl+order+searchv,
+			dataType:"html",
+			data:$("#search").serialize(),
+			beforeSend:function(){
+				$("#iha").html("<tr><td colspan='11'>数据查询中，请耐心等待...</td></tr>");
+				},
+			success:function(data){
+				//document.write(data);
+				if(order=="asc")
+				{
+					$(obj).attr("class","desc");
+				}
+				else
+				{
+					$(obj).attr("class","asc");
+				}
+				$(obj).html("<img src='<!--{$basePath}-->images/"+order+".png' />"+$(obj).text());
+				$("#iha").html(data);
+				//增加鼠标移动样式
+				$("th").bind("mouseover mouseout",function(){
+				var sr=$(this).find("img").attr("src");
+				if(sr=="<!--{$basePath}-->images/asc.png")
+				{
+					$(this).find("img").attr("src","<!--{$basePath}-->images/desc.png");
+				}
+				else
+				{
+					$(this).find("img").attr("src","<!--{$basePath}-->images/asc.png");
+				}
+				});
+			},
+			error:function(){
+				$("#iha").html("<tr><td colspan='11'>数据查询失败，请刷新页面重试...</td></tr>")
+			}
+		});
+	}
+	function ajaxpage(gurl)
+	{
+		//alert(gurl);
+		//alert($("#search").serialize());
+		$.ajax({
+			type:"POST",
+			url:gurl,
+			dataType:"html",
+			data:$("#search").serialize(),
+			beforeSend:function(){$("#iha").html("<tr><td colspan='11'>数据查询中，请耐心等待...</td></tr>")},
+			success:function(data){
+				//alert(data);
+				//document.write(data);
+				$("#iha").html(data);
+			},
+			error:function(){
+				$("#iha").html("<tr><td colspan='11'>数据查询失败，请刷新页面重试...</td></tr>")
+			}
+		});
+	}
+	function ajaxsearch(gurl)
+	{
+		$.ajax({
+			type:"POST",
+			url:gurl,
+			dataType:"html",
+			data:$("#search").serialize(),
+			beforeSend:function(){$("#iha").html("<tr><td colspan='11'>数据查询中，请耐心等待...</td></tr>")},
+			success:function(data){
+				//alert(data);
+				//document.write(data);
+				$("#iha").html(data);
+				return false;
+			},
+			error:function(){
+				$("#iha").html("<tr><td colspan='11'>数据查询失败，请刷新页面重试...</td></tr>");
+				return false;
+			}
+		});
+	}
+	function set_session(uid)
+	{
+		$.ajax({
+			type:"get",
+			url:"<!--{$basePath}-->iha/index/setsession/uuid/"+uid,
+			dataType:"html",
+			data:"",
+			success:function(data){
+				//alert(data);
+				if($.trim(data)=="ok")
+				{
+					//设置图标
+					//移除已经标志为选中状态的数据
+					$(".online").attr("src","<!--{$basePath}-->images/status_offline.png");
+					//将选中用户置为在线状态
+					//alert(uid);
+					//var obj1=document.getElementById("iha_"+uid);
+					//var obj2=obj1.getElementByTagname('img');
+					//document.getElementById('')
+					var id='img_'+uid;
+					$("img[id='"+id+"']").attr("src","<!--{$basePath}-->images/status_online.png");
+					//设置顶部医生提示
+					id=uid+"_name";
+					$(window.top.frames["right_top"].document).find('#patient').html($("td[id='"+id+"']").text());
+				}
+				//return false;
+			}
+		});
+		return true;
+	}
+	//alert($('#i_4c4ba61e71cc14.67049524_name').text());
+</script>
+</head>
+<body>
+<table border="0" width="100%">
+		<form action="" id="search" method="post">
+			<tr><td>
+				姓名<img title="“可以输入汉字也可以输入姓名拼音的首字母，比如要查找'王高兴',那么可以输入姓名汉字中的“王”，“王高”或者“王高兴”均可，也可以依次输入‘wgx’几个字母进行搜索查找，比如“w”,“wg”，或者“wgx””" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />：<input type="text" name="username" class="line" size="10">&nbsp;
+				档案号<img title="“依次输入标准档案号里的全部或者部分数字,比如档案号为“510100-888-888-88-8888-88”，则可以录入“5加任意数字的格式进行查找””" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />:<input type="text" name="standard_code" class="line" size="10">&nbsp;
+				身份证号<img title="“可以依次输入完整或者部分身份证号”" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />:<input type="text" name="identity_number" class="line" size="12">&nbsp;
+				年龄:<input type="text" name="age_start" class="line" style="width:28px" size="6">
+				~<input type="text" name="age_end" class="line" style="width:28px" size="6">&nbsp;
+				无身份证号<input type="checkbox" name="nocard" value='1' />&nbsp;
+<!--				<input type="button" value="搜索" onclick="return ajaxsearch('<!--{$basePath}-->iha/index/list');">
+-->				<input type="button" value="搜索" onclick="return ajaxsearch('<!--{$basePath}-->iha/family/list');">
+				
+				<label id="search_lable" style="cursor:pointer;"><img src="<!--{$basePath}-->images/zoom_in.png" />高级搜索<img title="请尽量使用普通搜索，并且限制搜索条件详细一些，否则会耗费过长的时间" src="<!--{$baseUrl}-->images/comments.png" class="vtip" /></label>
+				</td>
+			</tr>
+		<tbody id="tbody_search" style="display:none;">
+			<tr>
+				<td>
+					所属地区:<br /><span id="menuDropDownBox"></span>	
+					<input type="hidden" name="region_id" id="region_id" value="<!--{$region_id}-->" />
+					<input type="hidden" name="region_p_id" id="region_p_id" value="<!--{$region_p_id}-->" />
+					
+					</td>
+			</tr>
+		<tr>
+				<td>
+				建档医生：
+		<select name="staff_id" id="staff_id">
+			<!--{section name=response_doctor loop=$response_doctor}-->
+			<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+			<!--{/section}-->
+		</select>&nbsp;联系电话:<input type="text" name="phone_number" class="line" size="10">&nbsp;工作单位：<input type="text" name="unit_name" class="line" size="30">&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				常住类型:<input type="checkbox" class="all" name="residence[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$registered_permanent_residence}-->
+				<input type="checkbox" name="residence[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				性别:<input type="checkbox" class="all" name="sex[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$sex}-->
+				<input type="checkbox" name="sex[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				文化程度:<input type="checkbox" class="all" name="school_type[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$school_type}-->
+				<input type="checkbox" name="school_type[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				职业:<input type="checkbox" class="all" name="occupation[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$occupation}-->
+				<input type="checkbox" name="occupation[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				婚姻状况:<input type="checkbox" class="all" name="marriage[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$marriage}-->
+				<input type="checkbox" name="marriage[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				药物过敏史:<input type="checkbox" class="all" name="allergy_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="allergy_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				疾病史:<input type="checkbox" class="all" name="disease_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="disease_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				手术史:<input type="checkbox" class="all" name="surgery_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="surgery_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				外伤史:<input type="checkbox" class="all" name="trauma_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="trauma_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				输血史:<input type="checkbox" class="all" name="blood_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="blood_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				遗传病史:<input type="checkbox" class="all" name="genetic_diseases_history[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="genetic_diseases_history[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>
+				残疾状况:<input type="checkbox" class="all" name="disability[]" value="all">&nbsp;全部&nbsp;
+				<!--{foreach key=k item=v from=$comm}-->
+				<input type="checkbox" name="disability[]" value="<!--{$v[0]}-->"><!--{$v[1]}-->&nbsp;
+				<!--{/foreach}-->&nbsp;
+				</td>
+			</tr>
+			</tbody>
+			</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>
+        	&nbsp;
+        </th>
+        <th>家庭档案号</th>
+<!--        <th title="按档案号排序" style="cursor:pointer;" class="asc" onclick="ajaxload('<!--{$basePath}-->iha/index/list/page/<!--{$page}-->/order/standard_code/turn/',this)">
+        	<img src='<!--{$basePath}-->images/asc.png' />档案号
+        </th>
+-->		<th title="按姓名排序" style="cursor:pointer;" class="asc" onclick="ajaxload('<!--{$basePath}-->iha/index/list/page/<!--{$page}-->/order/name_pinyin/turn/',this)">
+        	户主姓名
+        </th>
+		<th>
+        	性别
+        </th>
+		<th>
+        	家庭地址
+        </th>
+		<th>
+        	联系电话
+        </th>
+		<th>
+        	建档医生
+        </th>
+<!--		<th>
+        	操作
+        </th>-->
+	   <th>
+	   		家庭成员
+	   </th>
+       <th>
+        	选项
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+	<!--{section name=iha loop=$iha}-->
+	 <tr id="iha_<!--{$iha[iha].uuid}-->">
+	 	<td>
+	 		<input type="checkbox" name="uuids[]" value="<!--{$iha[iha].family_number_edit}-->" /> 
+	 	</td>
+        <td>
+        	<!--{$iha[iha].family_number}-->
+        </td>
+	 	
+<!--        <td>
+        	<!--{$iha[iha].standard_code}-->
+        </td>-->
+		<td id="<!--{$iha[iha].uuid}-->_name">
+        	<!--{$iha[iha].name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].sex}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].address}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].contact_number}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].staff_name}-->
+        </td>
+        <td>
+        	<!--{$iha[iha].family_member_list}-->
+        </td>
+        <td>
+        	<a href="<!--{$basePath}-->iha/family/edit/uuid/<!--{$iha[iha].family_number_edit}-->">编辑</a> | <a href="<!--{$basePath}-->iha/family/move/uuid/<!--{$iha[iha].family_number_edit}-->">转出家庭</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="11">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="11">
+        	<input type="checkbox" onclick="select_all(this)" />全选 &nbsp;&nbsp;<a href="###" onclick="do_select('<!--{$basePath}-->iha/family/move')">转出选中家庭</a>&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+    <tr>
+		<td colspan="11">
+        	<span class="red">* 转出家庭，会将家庭所有成员转出到新的地区和机构，家庭内部关系不做变更，请谨慎操作</span>
+        </td>
+	</tr>
+	</tbody>
+</table>
+<input type="hidden" id="error_message" name="error_message" value="<!--{$error_message}-->" />
+</body>
+</html>
+<script type="text/javascript">
+var region_id=document.getElementById('region_id').value;
+var region_p_id=document.getElementById('region_p_id').value;
+var xmlHttp;
+getDropDownBox();
+function getDropDownBox(){
+	//alert(parentId+id);
+	if(region_p_id=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	//url='/management/menu/menuDropDownBox/parentId/'+parentId+'/id/'+id+'/sid/'+Math.random();
+	var url='<!--{$basePath}-->region/region/menuDropDownBox/p_id/'+region_p_id+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processDropDownBox;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if(document.getElementById('region_p_id').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function processDropDownBox(){
+	//alert(xmlHttp.readyState);
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//alert(xmlHttp.readyState);
+		//注：firefox不支持innerText
+		var objDiv=document.getElementById('menuDropDownBox');
+		//alert('1');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(obj,oldValue,currentValue){
+	var tempValue=currentValue.split("|")
+	if(tempValue[0]=='-9'){
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		region_p_id=tempValue[1];
+		document.getElementById('region_p_id').value=tempValue[1];
+
+	}else{
+		region_p_id=tempValue[0];
+		document.getElementById('region_p_id').value=tempValue[0];
+
+	}
+	getDropDownBox();
+}
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+if(document.getElementById('error_message').value!=''){
+	alert(document.getElementById('error_message').value);
+}
+function select_all(frm) {
+	$("#iha td").find("input").each(function(){
+		if(this.type) {
+			if(this.type=="checkbox") {
+				if(frm.checked) {
+					$(this).attr("checked","checked");
+				}else{
+					$(this).removeAttr("checked");
+				}
+			}
+		}
+	});
+}
+function do_select(furl)
+{
+    if($("input[type='checkbox']:checked").length<1)
+    {
+        alert("请选择要转出的家庭");
+        return false;
+    }
+	$.ajax({
+     		type:"post",
+     		url:"<!--{$basePath}-->iha/family/moveselect",
+     		dataType:"html",
+     		data:$("input[name='uuids[]']:checked").serialize(),
+     		success:function(data)
+            {
+				//alert(data);
+	            window.location=furl;
+	     	},
+	        error:function()
+	        {
+	            alert('连接服务器错误');
+	        }
+      });
+}
+</script>

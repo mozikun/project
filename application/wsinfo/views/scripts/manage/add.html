@@ -1,0 +1,69 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+        <link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+        <title><!--{$title}--></title>
+
+    </head>
+    <body>
+
+        <script language="javascript">
+            function savedata(){
+				if($("#name").val()==""){
+					alert("模块名称不能为空");
+					return;
+				}
+				if($("#id").val()==""){
+					alert("模块id不能为空");
+					return;
+				}
+				if($("#order_by").val()==""){
+					alert("排序号不能为空");
+					return;
+				}
+				if($("#xml").val()==""){
+					alert("模板路径不能为空");
+					return;
+				}
+                data=$("form").serialize(); 
+                $.post("<!--{$basePath}-->wsinfo/manage/savedata/action/add/",data, function(e){
+                    alert(e);
+                    window.location="<!--{$basePath}-->wsinfo/manage/index";
+              
+                });
+            }
+          
+        </script>
+        <form method="post" name="form">
+            <table  cellspacing="0" width="100%">
+                <thead>
+
+                </thead>
+                <tr  class="headbg">
+                    <th style="width:20%" colspan="2">添加模块</th>
+                </tr>	
+                <tbody id='1'>
+					<tr><td style="width:100px;">模块名称</td><td><input name="name" id="name" type="text" value="<!--{$row.module_name}-->"/></td></tr>
+					<tr><td style="width:100px;">模块代码</td><td><input name="id" type="text" id="id" value="<!--{$row.module_id}-->"/></td></tr>
+					<tr><td style="width:100px;">排序号</td><td><input name="order_by" id="order_by" type="text"value="<!--{$row.order_by}-->"/></td></tr>
+					<tr><td style="width:100px;">模板路径</td><td><input name="xml"  id="xml" type="text"value="<!--{$row.xml_template}-->"/></td></tr>
+
+                </tbody>
+                <tr  class="columnbg">
+                
+                    <td  align="center"style="width:20%" colspan="2"><input type="button" onclick="savedata();" name="save"  value="保存"/><input type="button"  onclick="javascript:window.location='<!--{$basePath}-->wsinfo/manage/index';"value="返回"/> </td>
+                </tr>
+            </table>
+        </form>
+
+
+    </body>
+
+</html>

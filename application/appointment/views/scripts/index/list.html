@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+<title><!--{$title}--></title>
+
+</head>
+<body>
+
+<script type="text/javascript">
+ $(function(){
+ });
+ 
+  function del_record(id){
+	 if(confirm("你真的要删除吗？")){
+	 	
+		$.get("<!--{$basePath}-->admin/users/delete/id/"+id, function(data){
+		  	alert(data);
+			if(data=="删除成功！"){
+				window.location="<!--{$basePath}-->admin/users/index/region_id/<!--{$region_id}-->/org_id/<!--{$org_id}-->";
+			}
+		}); 
+	 }
+	 
+ }
+</script>
+	
+	<table cellspacing="0" width="100%">
+    <thead>
+    <tr >
+	<th  colspan="10" align="left" style="background-color: #F3F3F3">&nbsp;</th>
+	</tr>
+	</thead>
+    <tr  class="headbg">
+	<th style="width:40%" colspan="10" align="center" >医生坐诊表</th>
+	</tr>
+ 
+	<tr class="columnbg">
+	<th width="124"  >登录名</th>
+	<th  align="center" >门诊时间</th>
+    <th>挂号数</th>
+    <th  >网络挂号数</th>
+    <th  >挂号费</th>
+    <th  >诊疗费</th>
+    <th  >手续费</th>
+    <th >状态</th>
+    
+	
+    
+   
+	</tr>	
+	<tbody id=''>
+      <!--{section name=v loop=$row}-->
+     
+      <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+			<td ><!--{$row[v].name}--></td>
+            <td width="146">
+            <!--{section name=day loop=$row[v].menzhen}-->
+           <span style="color:#F00"> <!--{$row[v].menzhen[day].day}-->日</span>
+            <span >
+            <!--{$row[v].menzhen[day].week}--></span>
+           <span style="color:#093"> <!--{$row[v].menzhen[day].time}--></span>
+            <!--{/section}--></td>
+			<td width="102"><!--{$row[v].register_num_total}--></td>
+            <td width="124"><!--{$row[v].register_num_net }--></td>
+            <td width="124"><!--{$row[v].registration_fee}--></td>
+            <td width="125"><!--{$row[v].medical_fees}--></td>
+            <td width="125"><!--{$row[v].fee}--></td>
+            <td width="125"><!--{if $row[v].flag eq 1}-->开启<!--{else}-->关闭<!--{/if}-->
+            
+            </td>
+		</tr>
+    
+	    <!--{/section}-->	
+	</tbody>
+	
+  
+    <tr  class="columnbg">
+		<td  colspan="10"><div style=" float:left"></div><div style="float:right"><!--{$out}--></div></td>
+	</tr>
+	</table>
+
+
+		<br />
+	</body>
+</html>

@@ -1,0 +1,22 @@
+#footerDiv{
+	float:left;
+	border:#C5D9F1 1px solid;
+	/*border-top:none;*/
+	margin:0px;
+	margin-top:10px;
+	padding:10px;
+	width:778px;
+	height:100%;
+	/*ie div与文字居中*/
+	text-align:center;
+	/*以下兼容firefox居中*/
+	margin-left:auto;
+	margin-right:auto;	
+}
+#footerDiv div{
+	/*background-color:#ff0000;*/
+	width:40%;
+	float:right;
+	text-align:left;
+	border:none;
+}

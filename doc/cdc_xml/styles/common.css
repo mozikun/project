@@ -1,0 +1,81 @@
+﻿.alignleft
+{
+	text-align:left;
+}
+.alignright
+{
+	text-align:right;
+}
+.aligncenter
+{
+	text-align:center;
+}
+.seplinelevel2top
+{
+	border-top:0.75pt solid #000000;
+	border-left:0;
+	border-right:0;
+	border-bottom:0;
+}
+.splinelevel2bottom
+{
+	border-bottom:0.75pt solid #000000;
+}
+.splinelevel3top
+{
+	border-top:0.25pt dashed #000000;
+	border-left:0;
+	border-right:0;
+	border-bottom:0;
+}
+.splinelevel3bottom
+{
+	border-top:0;
+	border-left:0;
+	border-right:0;
+	border-bottom:0.25pt dashed #000000;
+}
+.fontbold
+{
+	font-weight:bold;
+}
+.tableborders
+{
+	border:1px solid #000000;
+	border-collapse:collapse;
+	font-family:宋体;
+	font-size:10.5pt;
+}
+.tableborders tr
+{
+	border:1px solid #000000;
+}
+.tableborders td
+{
+	border:1px solid #000000;
+}
+
+.tableordersnotop
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;	
+	border-collapse:collapse;
+	font-family:宋体;
+	font-size:10.5pt;
+}
+.tableordersnotop tr
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}
+.tableordersnotop td
+{
+	border-top:0px;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+}

@@ -1,0 +1,130 @@
+/* CSS Document */
+body{
+  margin:0 auto;
+  padding:0 auto;
+  font-size:12px;
+  background:#FFFFFF;
+ 
+}
+a{
+text-decoration:none; 
+color:black;	
+}
+a:hover{ text-decoration:underline; color:red;}	
+div{
+ margin:0 auto;
+ padding:0 auto;
+}
+.maindiv{
+ width:543px;
+ height:453px;
+ background-image:url(../images/9zxw_htbj.jpg);
+ margin-top:63px;
+ text-align:center;
+ border:1px solid #ffffff;
+}
+.toptextdiv{
+  width:300px;
+  height:30px;
+  margin-top:45px;
+  text-align:left;
+  color:#FFFFFF;
+  font-size:25px;
+}
+.topdiv{
+  background-image:url(../images/9zxw_s.gif);
+  width:535px;
+  height:13px;
+  margin-top:5px;
+  text-align:left;
+  color:#FFFFFF;
+}
+.topcenter{
+  background-image:url(../images/9zxw_ztbj.png);
+  width:472px;
+  height:228px;
+  margin-top:20px;
+  margin-bottom:12px;
+  text-align:left;
+  font-size:14px;
+}
+.topbottom{
+  background-image:url(../images/9zxw_x.gif);
+  width:535px;
+  height:13px;
+}
+.bottomtextdiv{
+margin-top:5px;
+}
+.lefttop{
+ background-image:url(../images/logo.gif);
+ position:relative;
+ margin-left:10px;
+ height:50px;
+ width:280px;
+}
+.divform{
+height:100px;
+width:220px;
+margin-left:40px;
+margin-top:10px;
+font-size:12px;
+}
+.inputclass{
+height:14px;
+width:135px;
+}
+table,tr,td{
+		margin:0px;
+		padding:0px;
+		height:23px;
+		font-size:14px;
+	}
+	form{
+		padding:0px;
+		margin:0px;
+	}
+
+	.ap{
+		height:30px;
+
+		text-align:right
+	}
+	.ap input{
+		font-size:14px;
+		width:70px;
+		height:29px;
+		margin-top:30px;
+	}
+	#Layer1 {
+		position:absolute;
+		left:0px;
+		top:130px;
+		width:100%;
+		height:100px;
+		z-index:1;
+		text-align:center;
+		display:none;				
+	}
+	#chsc_password,#user_password{
+		width:85px;
+		color:#0000FF
+	}
+	.font{
+		color:#CCCCCC;
+	}
+	.width{width:140px;}
+	.width_cp{width:90px;}
+	
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+#box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+
+
+.box th { 
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72; 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    border-top: 1px solid #C1DAD7; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    text-align: left; 
+    padding: 6px 6px 6px 12px; 
+    background: #CAE8EA url(images/bg_header.jpg) no-repeat; 
+} 
+
+.box th.nobg { 
+    border-top: 0; 
+    border-left: 0; 
+    border-right: 1px solid #C1DAD7; 
+    background: none; 
+} 
+
+.box td { 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    background: #fff; 
+    font-size:11px; 
+    padding: 6px 6px 6px 12px; 
+    color: #4f6b72; 
+    padding: 5px 2px 5px 2px;
+	 empty-cells : show
+} 
+</style>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+	<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+	<title><!--{$individual_core->name}--><!--{$title}--></title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%; }
+       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+<script type='text/javascript'>
+	$(document).ready(function(){
+		$("#department").change(function(){
+		
+			var department_id=$(this).val();
+			window.location.href="<!--{$basePath}-->appointment/info/index/org_id/<!--{$org_id}-->/department/"+department_id;
+		})
+	})
+</script>	
+</head>
+<body>
+ 
+   <div class="title_bg">
+     <!--{$organization.zh_name}-->
+   </div>
+   <div style="padding-left:2px;padding-right:2px">
+    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="marg" >
+  <tbody><tr>
+    <td width="770" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tbody><tr>
+	  
+        <td colspan='4'> <strong>选择科室:</strong>
+		<select id="department">
+		<option>--请选择--</option>
+		<!--{foreach from=$department_rows item=i key=k}-->
+		<option value="<!--{$i.uuid}-->"<!--{if $department_id==$i.uuid}-->selected<!--{/if}-->><!--{$i.department_name}--></option>
+		<!--{/foreach}-->
+		</select>
+		</td>
+       
+      </tr>
+    </tbody></table>
+	<table width="100%"  border="0"cellspacing="0" cellpadding="0"  class="box" style="border:1px #d2d2d2  solid;border-bottom:none; border-top:none;border-collapse:collapse;">
+    <tbody><tr>
+    <td width="14%" align="center" rowspan="2">医生坐诊信息</td>
+    <!--{foreach from=$days  key=k item=v}-->
+    <td align="center" colspan="2"><strong><!--{$v.day}--><br/><!--{$v.week}--></strong></td>
+    
+    <!--{/foreach}-->
+
+    
+    </tr>
+    <tr>
+    <td border="1" width="8%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    <td width="6%" style="background-color:#E0EEEE; width:6%">上午</td>
+    <td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
+    
+  </tr>
+  <!--{if $rows}--> 
+  <!--{foreach from=$rows key=r item=value}-->
+  <tr>
+    <td align="center" height="29"><b class="red12"><!--{$value.name}--></b> </td>
+ 
+  <!--{foreach from=$value.cols key=a item=v}-->
+    <td  align="center"valign="middle">
+	
+   <!--{if $v.day==1||$v.day==3}-->
+                               <!--当天已经启用-->
+                                <!--{if $v.week!=-1}-->
+								<!--挂号已经满了-->
+                                <!--{if $v.register_num_net>0}-->
+    <a href="<!--{$basePath}-->appointment/reservation/info/day/<!--{$v.consulting_time}-->/doctor_id/<!--{$v.user_id}-->/org_id/<!--{$v.org_id}-->/user_name/<!--{$value.name}-->"><img title="剩余号源个数：<!--{$v.register_num_net}-->" src="<!--{$basePath}-->images/index_files/yy.jpg" /></a>  
+  <!--{else}--> 
+   <img  src="<!--{$basePath}-->images/index_files/full.jpg" />   
+  <!--{/if}--> 
+  <!--{/if}--> 
+  <!--{/if}-->
+  &nbsp;
+    </td>
+    <td  align="center"valign="middle">
+    <!--{if $v.day==2||$v.day==3}-->
+                                <!--{if $v.week!=-1}-->
+                                <!--{if $v.register_num_net>0}-->
+    <a href="<!--{$basePath}-->appointment/reservation/info/day/<!--{$v.consulting_time}-->/doctor_id/<!--{$v.user_id}-->/org_id/<!--{$v.org_id}-->/user_name/<!--{$value.name}-->"><img title="剩余号源个数：<!--{$v.register_num_net}-->" src="<!--{$basePath}-->images/index_files/yy.jpg" /></a>  
+  <!--{else}--> 
+   <img  src="<!--{$basePath}-->images/index_files/full.jpg" />   
+  <!--{/if}--> 
+  <!--{/if}--> 
+  <!--{/if}-->
+   &nbsp;
+    </td>
+  
+   <!--{/foreach}--> 
+  
+  </tr>
+  <!--{/foreach}-->
+   <!--{else}-->
+   <tr>
+   <td  align="center"colspan="15">暂时没有信息！</td></tr>
+   <!--{/if}-->
+    </tbody></table>
+   </div>
+   <div class="ui-footer">
+     <a id="login" onclick="history.go(-1)">返回</a>
+  </div>
+</body>
+</html>

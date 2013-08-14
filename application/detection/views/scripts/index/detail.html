@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>调查报告单</title>
+<style>
+ body,h2,table,hr{
+    margin:0px;
+	padding:0px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	size:14px;
+	line-height:25px;
+ }
+ .topdiv{
+  margin-top:10px;
+ }
+ hr{
+ width:80%;
+ margin-top:10px;
+ color:#000000;
+ }
+ .centerdiv {
+ margin-left:30px;
+ }
+ .centerdiv table{
+ text-align:left;
+ }
+.bottomdiv{
+ margin-left:60px;
+ }
+ .bottomdiv table{
+   text-align:left;
+ }
+</style>
+</head>
+
+<body>
+   <div class="topdiv">
+       <h2>检验报告表</h2>
+   </div>
+   <hr />
+   <div class="centerdiv"> 
+     <table width="80%">
+         <tr>
+           <th >姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</th>
+           <td  ><!--{$name}--></td>
+           <th >门&nbsp;&nbsp;诊&nbsp;&nbsp;ID:</th>
+           <td ><!--{$outpatient}--></td>
+           <th  >标本序号:</th>
+           <td ><!--{$spe_number}--></td>
+           <th >标本种类:</th>
+           <td ><!--{$spe_type}--></td>
+         </tr>
+         <tr>
+           <th>科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;室:</th>
+           <td><!--{$departments}--></td>
+           <th>床&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号:</th>
+           <td><!--{$bed_number}--></td>
+           <th>申请医生:</th>
+           <td><!--{$medical_doctor}--></td>
+           <th>检验仪器:</th>
+           <td><!--{$test_equipment}--></td>
+         </tr>
+         <tr>
+           <th>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</th>
+           <td><!--{$gender}--></td>
+           <th>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</th>
+           <td><!--{$age}--></td>
+           <th>检验单号:</th>
+           <td><!--{$lis_id}--></th>
+           <th>采样日期:</th>
+           <td><!--{$created}--></td>
+         </tr>
+         <tr>
+           <th>备注信息:</th>
+           <td colspan="7">	
+		      <!--{$remarks}-->
+           </td>
+         </tr>
+       </table>
+   </div>
+   <hr/>
+   <div class="bottomdiv">
+     <table width="80%">
+       <tr>
+         <th >中文名称</th>
+         <th >英文名</th>
+         <th >结&nbsp;&nbsp;果</th>
+         <th >单&nbsp;&nbsp;位</th>
+         <th >参&nbsp;&nbsp;考</th>
+       </tr>
+	   <!--{section loop=$currentArr name=currentArr}-->
+       <tr>
+         <td><!--{$currentArr[currentArr].zh_name}--></td>
+         <td><!--{$currentArr[currentArr].en_name}--></td>
+         <td><!--{$currentArr[currentArr].exam_result}--></td>
+         <td><!--{$currentArr[currentArr].exam_unit}--></td>
+         <td><!--{$currentArr[currentArr].reference}--></td>
+       </tr>
+	   <!--{sectionelse}-->
+	   <tr>
+	   	<td colspan="5">当前没有数据</td>
+	   </tr>
+	  <!--{/section}-->
+     </table>
+   </div>
+</body>
+</html>

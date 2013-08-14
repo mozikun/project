@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script>
+
+<title>高血压患者随访服务记录表</title>
+<style type="text/css">
+	td
+	{
+		height:28px;
+		padding:2px 2px 2px 4px;
+	}
+	body
+	{
+		
+	}
+
+<!--
+*{margin:0; padding:0}
+.STYLE2 {font-size: 18px}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+.other_sym{ width:40px;}
+.other_txtsym{ width:120px; overflow:hidden;}
+.other_sym,other_txtsym{ float:left;}
+.inputs{background:none repeat scroll 0 0 #FFFFFF;
+border-style:none;
+width:40px;}
+-->
+</style>
+</head>
+<body >
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">【<!--{$user_name}-->】高血压随访服务记录一览表(共<!--{$nums}-->次)<img title="“本表为高血压患者在接受随访服务时由医生填写。每年的综合评估填写居民健康档案的健康体检表。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:30%; text-align:left; float:left;background:#FFFFFF;"><span class="STYLE2" style="padding-left:4px;">姓名</span>：<!--{$user_name}--></div>
+      <div  style=" width:40%; text-align:left; float:left;background:#FFFFFF;"><span class="STYLE2">身份证号</span>：<!--{$identity_number}--></div>
+	  <div  style=" width:30%; text-align:left; float:left;background:#FFFFFF;"><span class="STYLE2">编号</span>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+   	<tr>
+		<td colspan="2">随访日期</td>
+		<!--{section name=follow_time_year loop=$nums}-->
+	    <td colspan="2">
+		<!--{$hypertension_array[follow_time_year].follow_time}-->
+		</td>
+	    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2">随访方式</td>
+	  <!--{section name=follow_type loop=$nums}-->
+      <td colspan="2">	
+	 <!--{foreach key=k item=v from=$follow_type}-->
+			<!--{$k}-->、<!--{$v[1]}-->&nbsp;
+	<!--{/foreach}-->&nbsp;
+	  <input type="text" name="follow_type[0][0]" value="<!--{$hypertension_array[follow_type].follow_type}-->" class="inputnew" /></td>
+     <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="2"><p>症</p>
+      <p>状</p></td>
+      <td width="90" rowspan="2">
+	  	<!--{foreach key=k item=v from=$symptom_code}-->
+			<!--{$k}-->、<!--{$v[1]}--><br />
+		<!--{/foreach}-->	  </td>
+		<!--{section name=symptom_code loop=$nums}-->
+      <td height="30" colspan="2" align="center">
+	  	<!--{section name=inp loop=8}-->
+			<input type="text" class="inputnew" name="symptom_code[<!--{$smarty.section.symptom_code.rownum-1}-->][]" value="<!--{$hypertension_array[symptom_code].symptom_code[inp].symptom_code}-->" />/
+		<!--{/section}-->	  </td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+   		<!--{section name=symptom_other loop=$nums}-->
+   	  <td colspan="2" valign="top">
+	  	<div>
+			<div class="other_sym">其他：</div>
+			<div class="other_txtsym">
+				<textarea class="newtextarea" name="symptom_other[<!--{$smarty.section.symptom_other.rownum-1}-->]" rows="6" cols="10">
+					<!--{$hypertension_array[symptom_other].symptom_other}-->
+				</textarea>
+			</div>
+		</div>	  </td>
+		<!--{/section}-->
+   	</tr>
+    <!--{if $sex_code==3}-->
+    <tr>
+   	  <td colspan="2">是否妊娠期或哺乳期</td>
+	  <!--{section name=pregnancy loop=$nums}-->
+      <td colspan="2">
+      <!--{foreach key=k item=v from=$pregnancy_array}-->
+			<label onclick="set_input_value('<!--{$k}-->','pregnancy')" class="blur"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+	       <!--{/foreach}-->&nbsp;
+	       <input type="text" name="pregnancy" value="<!--{$hypertension_array[pregnancy].pregnancy}-->" class="inputnew" />
+        </td>
+	  <!--{/section}-->
+   	</tr>
+    <!--{/if}-->
+   	<tr>
+   	  <td rowspan="7"><p>体</p>
+      <p>征</p></td>
+      <td align="center">血压(mmHg)</td>
+	  <!--{section name=blood_pressure loop=$nums}-->
+      <td colspan="2"><input type="text" name="blood_pressure[<!--{$smarty.section.blood_pressure.rownum-1}-->]" value="<!--{$hypertension_array[blood_pressure].blood_pressure}-->" class="inputnone1" style="width:35px;" />/<input type="text" name="blood_pressure[<!--{$smarty.section.blood_pressure.rownum-1}-->]" value="<!--{$hypertension_array[blood_pressure].diastolic_blood_pressure}-->" class="inputnone1"></td>
+	  <!--{/section}-->
+   	</tr>
+    <tr>
+   	  <td align="center">双侧血压相差值</td>
+	  <!--{section name=blood_difference loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="blood_difference[<!--{$smarty.section.blood_difference.rownum-1}-->]" value="<!--{$hypertension_array[blood_difference].blood_difference}-->" class="inputnone" />
+		  <!--{/section}-->
+   	</tr>
+    <tr>
+   	  <td align="center">身高(cm)</td>
+	  <!--{section name=height loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="height[<!--{$smarty.section.height.rownum-1}-->]" value="<!--{$hypertension_array[height].height}-->" class="inputnone">/
+		  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">体重(kg)</td>
+	  <!--{section name=weight_begin loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="weight_begin[<!--{$smarty.section.weight_begin.rownum-1}-->]" value="<!--{$hypertension_array[weight_begin].weight_begin}-->" class="inputnone">/
+		  <input type="text" name="weight_after[<!--{$smarty.section.weight_begin.rownum-1}-->]" value="<!--{$hypertension_array[weight_begin].weight_after}-->" class="inputnone"></td>
+		  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">体质指数</td>
+	  <!--{section name=body_mass_index loop=$nums}-->
+      <td colspan="2"><input type="text" name="body_mass_index[<!--{$smarty.section.body_mass_index.rownum-1}-->]" value="<!--{$hypertension_array[body_mass_index].body_mass_index}-->" class="inputnone1"></td>
+   	  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">心率</td>
+	  <!--{section name=heart_rate_begin loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="heart_rate_begin[<!--{$smarty.section.heart_rate_begin.rownum-1}-->]" value="<!--{$hypertension_array[heart_rate_begin].heart_rate_begin}-->" class="inputnone">/
+		  <input type="text" name="heart_rate_after[<!--{$smarty.section.heart_rate_begin.rownum-1}-->]" value="<!--{$hypertension_array[heart_rate_begin].heart_rate_after}-->" class="inputnone"></td>
+		   <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">其他</td>
+	  <!--{section name=signs_other loop=$nums}-->
+      <td colspan="2"><input type="text" name="signs_other[<!--{$smarty.section.signs_other.rownum-1}-->]" value="<!--{$hypertension_array[signs_other].signs_other}-->" class="inputnone1"></td>
+   	  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="7"><p>生</p>
+      <p>活</p>
+      <p>方</p>
+      <p>式</p>
+      <p>指</p>
+      <p>导</p></td>
+      <td align="center">日吸烟量(支)</td>
+	  <!--{section name=smoking_begin loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="smoking_begin[<!--{$smarty.section.smoking_begin.rownum-1}-->]" value="<!--{$hypertension_array[smoking_begin].smoking_begin}-->" class="inputnone">/
+		  <input type="text" name="smoking_after[<!--{$smarty.section.smoking_begin.rownum-1}-->]" value="<!--{$hypertension_array[smoking_begin].smoking_after}-->" class="inputnone"></td>
+		  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">日饮酒量(两)</td>
+	  <!--{section name=drinking_begin loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" name="drinking_begin[<!--{$smarty.section.drinking_begin.rownum-1}-->]" value="<!--{$hypertension_array[drinking_begin].drinking_begin}-->" class="inputnone">/
+		  <input type="text" name="drinking_after[<!--{$smarty.section.drinking_begin.rownum-1}-->]" value="<!--{$hypertension_array[drinking_begin].drinking_after}-->" class="inputnone"></td>
+     <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center">运动</td>
+	  <!--{section name=sport_amount_begin loop=$nums}-->
+      <td colspan="2" align="center">
+	  	<input type="text" name="sport_amount_begin[<!--{$smarty.section.sport_amount_begin.rownum-1}-->]" value="<!--{$hypertension_array[sport_amount_begin].sport_amount_begin}-->" class="inputnone">次/周
+	  <input type="text" name="sport_time_begin[<!--{$smarty.section.sport_amount_begin.rownum-1}-->]" value="<!--{$hypertension_array[sport_amount_begin].sport_time_begin}-->" class="inputnone">分钟/次	  </td> 
+	  <!--{/section}-->
+	  </tr>
+   	<tr>
+   	<!--{section name=sport_amount_after loop=$nums}-->	
+	  <td colspan="2" align="center">
+	  	<input type="text" name="sport_amount_after[<!--{$smarty.section.sport_amount_after.rownum-1}-->]" value="<!--{$hypertension_array[sport_amount_after].sport_amount_after}-->" class="inputnone">次/周
+	  <input type="text" name="sport_time_after[<!--{$smarty.section.sport_amount_after.rownum-1}-->]" value="<!--{$hypertension_array[sport_amount_after].sport_time_after}-->" class="inputnone">分钟/次	  </td> 
+	  <!--{/section}-->
+	  </tr>
+   	<tr>
+   	  <td align="center"><p>摄盐情况</p>
+      <p>(咸淡)</p></td>
+	  <!--{section name=salt_intake_begin loop=$nums}-->
+      <td colspan="2">
+         
+          <input type="radio" name="salt_intake_begin[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="1" <!--{if $hypertension_array[salt_intake_begin].salt_intake_begin==1}--> checked="checked"<!--{/if}--> />轻
+          <input type="radio" name="salt_intake_begin[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="2" <!--{if $hypertension_array[salt_intake_begin].salt_intake_begin==2}--> checked="checked"<!--{/if}--> />中
+          <input type="radio" name="salt_intake_begin[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="3" <!--{if $hypertension_array[salt_intake_begin].salt_intake_begin==3}--> checked="checked"<!--{/if}--> />重
+		  /
+          <input type="radio" name="salt_intake_after[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="1" <!--{if $hypertension_array[salt_intake_begin].salt_intake_after==1}--> checked="checked"<!--{/if}--> />轻
+          <input type="radio" name="salt_intake_after[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="2" <!--{if $hypertension_array[salt_intake_begin].salt_intake_after==2}--> checked="checked"<!--{/if}--> />中
+          <input type="radio" name="salt_intake_after[<!--{$smarty.section.salt_intake_begin.rownum-1}-->]" value="3" <!--{if $hypertension_array[salt_intake_begin].salt_intake_after==3}--> checked="checked"<!--{/if}--> />重
+          </td>
+		  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">心理调整</td>
+	  <!--{section name=psychology loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=c from=$psychology}-->
+			<!--{$k}-->、<!--{$c[1]}-->
+		<!--{/foreach}-->
+		<input type="text" name="heart_adjustment[<!--{$smarty.section.psychology.rownum-1}-->]" class="inputnew" name="" value="<!--{$hypertension_array[psychology].psychology}-->" />	  </td>
+	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">遵医行为</td>
+	  <!--{section name=treatment_compliance loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=v from=$treatment_compliance}-->
+			<!--{$k}-->、<!--{$v[1]}-->
+		<!--{/foreach}-->
+		<input type="text" name="treatment_compliance[<!--{$smarty.section.treatment_compliance.rownum-1}-->]" class="inputnew" name="" value="<!--{$hypertension_array[treatment_compliance].treatment_compliance}-->" />	  </td>
+	  <!--{/section}-->
+   	</tr>
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">辅助检查*</td>
+	  <!--{section name=auxiliary_check loop=$nums}-->
+      <td colspan="2"><input type="text" name="auxiliary_check[<!--{$smarty.section.auxiliary_check.rownum-1}-->]" class="inputnone1" value="<!--{$hypertension_array[auxiliary_check].auxiliary_check}-->"></td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">服药依从性</td>
+	  <!--{section name=medication_compliance loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=v from=$medication_compliance}-->
+			<!--{$k}-->、<!--{$v[1]}-->
+		<!--{/foreach}-->
+		<input type="text" name="medication_compliance[<!--{$smarty.section.medication_compliance.rownum-1}-->]" class="inputnew" name="" value="<!--{$hypertension_array[medication_compliance].medication_compliance}-->" />	  </td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">药物不良反应</td>
+	  <!--{section name=adverse_drug loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=v from=$adverse_drug}-->
+			<!--{$k}-->、<!--{$v[1]}-->
+		<!--{/foreach}-->
+		<input type="text" name="adverse_drug_info[<!--{$smarty.section.adverse_drug.rownum-1}-->]" value="<!--{$hypertension_array[adverse_drug].adverse_drug_info}-->" class="inputbottom" />
+		<input type="text" name="adverse_drug[<!--{$smarty.section.adverse_drug.rownum-1}-->]" class="inputnew" value="<!--{$hypertension_array[adverse_drug].adverse_drug}-->" />	  </td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">随访分类</td>
+	  <!--{section name=follow_up_result loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=v from=$follow_up_result}-->
+			<!--{$k}-->、<!--{$v[1]}-->
+		<!--{/foreach}-->
+		<input type="text" name="follow_up_result[<!--{$smarty.section.follow_up_result.rownum-1}-->]" class="inputnew" value="<!--{$hypertension_array[follow_up_result].follow_up_result}-->" />	  </td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="8"><p>用</p>
+      <p>药</p>
+      <p>情</p>
+      <p>况</p></td>
+	  <!--{section name=drug loop=$nums}-->
+	  <!--{section name=drug_show loop=4}-->
+	  <!--{if $smarty.section.drug.rownum==1}-->
+	  <!--{if $smarty.section.drug_show.rownum==1}-->
+      <td align="center">药物名称<!--{$smarty.section.drug_show.rownum}--></td>
+	  <!--{section name=drug_name loop=$hypertension_array}-->
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value="<!--{$hypertension_array[drug_name].drug[drug_show].drug_name}-->"></td>
+   	  <!--{/section}-->
+	</tr>
+   	<tr>
+   	  <td align="center">用法用量</td>
+	  <!--{section name=drug_name loop=$hypertension_array}-->
+       <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="<!--{$hypertension_array[drug_name].drug[drug_show].drug_frequency}-->">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="<!--{$hypertension_array[drug_name].drug[drug_show].drug_amount}-->">mg</td>
+   	  <!--{/section}-->
+	</tr>
+	<!--{elseif $smarty.section.drug.rownum>1 && $smarty.section.drug.rownum<4}-->
+	<!--{elseif $smarty.section.drug_show.rownum>1 && $smarty.section.drug_show.rownum<4}-->
+   		<tr>
+      <td align="center">药物名称<!--{$smarty.section.drug_show.rownum}--></td>
+	  <!--{section name=drug_two loop=$hypertension_array}-->
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value="<!--{$hypertension_array[drug_two].drug[drug_show].drug_name}-->"></td>
+   	  <!--{/section}-->
+	</tr>
+   	<tr>
+   	  <td align="center">用法用量</td>
+	  <!--{section name=drug_frequency loop=$hypertension_array}-->
+       <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="<!--{$hypertension_array[drug_frequency].drug[drug_show].drug_frequency}-->">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="<!--{$hypertension_array[drug_frequency].drug[drug_show].drug_amount}-->">mg</td>
+   	  <!--{/section}-->
+	</tr>
+	<!--{elseif $smarty.section.drug.rownum==4}-->
+	<!--{elseif $smarty.section.drug_show.rownum==4}-->
+   	<tr>
+      <td align="center">其他药物</td>
+	  <!--{section name=drug_amount loop=$hypertension_array}-->
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value="<!--{$hypertension_array[drug_amount].drug[drug_show].drug_name}-->"></td>
+   	  <!--{/section}-->
+	</tr>
+   	<tr>
+   	  <td align="center">用法用量</td>
+	  <!--{section name=drug_other loop=$hypertension_array}-->
+       <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="<!--{$hypertension_array[drug_other].drug[drug_show].drug_frequency}-->">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="<!--{$hypertension_array[drug_other].drug[drug_show].drug_amount}-->">mg</td>
+   	  <!--{/section}-->
+	</tr>
+	<!--{/if}-->
+	<!--{/if}-->
+	<!--{/section}-->
+	<!--{/section}-->
+   	<tr>
+   	  <td rowspan="2" align="center">转诊</td>
+      <td align="center">原因</td>
+	  <!--{section name=referral_reason loop=$nums}-->
+      <td colspan="2"><input type="text" name="referral_reason" class="inputnone1" value="<!--{$hypertension_array[referral_reason].referral_reason}-->"></td>
+	  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">机构及科别</td>
+	  <!--{section name=organization loop=$nums}-->
+   	  <td colspan="2"><input type="text" name="organization" class="inputnone1" value="<!--{$hypertension_array[organization].organization}-->"></td>
+	  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">下次随访日期</td>
+	  <!--{section name=follow_next_time loop=$nums}-->
+      <td colspan="2"><input type="text" name="follow_next_time" class="inputnone1" value="<!--{$hypertension_array[follow_next_time].follow_next_time}-->"></td>
+	  <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">随访结果</td>
+	  <!--{section name=follow_result loop=$nums}-->
+      <td colspan="2"><!--{$hypertension_array[follow_result].follow_result}--></td>
+      <!--{/section}-->
+   	</tr>
+    <tr>
+   	  <td colspan="2" align="center">随访医生签名</td>
+	  <!--{section name=staff_id loop=$nums}-->
+      <td colspan="2"><!--{$hypertension_array[staff_id].staff_name}--></td>
+      <!--{/section}-->
+   	</tr>
+	<tr>
+	<td colspan="2" align="center">操作选项</td>
+	  <!--{section name=do loop=$nums}-->
+      <td colspan="2"><a href="<!--{$basePath}-->cd/index/edit/uuid/<!--{$hypertension_array[do].uuid}-->">编辑</a>&nbsp;|&nbsp;<a href="<!--{$basePath}-->cd/index/delete/uuid/<!--{$hypertension_array[do].uuid}-->">删除</a>&nbsp;|&nbsp;
+      <a href="#" onclick="window.open('<!--{$basePath}-->cd/index/print/uuid/<!--{$hypertension_array[do].uuid}-->')">打印</a></td>
+      <!--{/section}-->
+	</tr>
+   </table>
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;">
+            <input type="button" name="return" id="return" value="返回列表" class="inputbutton" onclick="javascript:window.location='<!--{$basePath}-->cd/index/index';" />
+   </div>
+</body>
+</html>

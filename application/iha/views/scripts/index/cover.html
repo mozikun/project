@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>个人健康档案封面</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$baseUrl}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid #ccc;
+	}
+	tr,td
+	{
+		border:0px;
+		text-align:left;
+		padding-left:200px;
+		line-height:30px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.short
+	{
+		width:12px;
+		height:12px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$baseUrl}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->/views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+<link href="<!--{$basePath}-->/views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table border="0" width="100%" cellspacing="0">
+	<thead>
+    <tr class="headbg">
+        <th colspan="6">
+        	居民健康档案封面
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+		<tr>
+		<td style="text-align:right;padding-right:8px;">编号：
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		-
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		-
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		-
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		-
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		-
+		<input type="text" name="standard_code[]" class="short" />
+		<input type="text" name="standard_code[]" class="short" />
+		</td>
+		</tr>
+		<tr>
+		<td style="padding-left:270px;font-size:20px">居民健康档案</td>
+		</tr>
+		<tr>
+		<td>&nbsp;&nbsp;</td>
+		</tr>
+		<tr>
+		<td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<input type="text" name="name" id="name" size="25" class="line" /></td>
+		</tr>
+		<tr>
+		<td>现&nbsp;&nbsp;住&nbsp;&nbsp;址：<input type="text" name="address" id="address" size="35" class="line" /></td>
+		</tr>
+		<tr>
+		<td>户籍地址：<input type="text" name="address_home" id="address_home" size="35" class="line" /></td>
+		</tr>
+		<tr>
+		<td>联系电话：<input type="text" name="phone" id="phone" size="25" class="line" /></td>
+		</tr>
+		<tr>
+		<td>乡镇（街道）名称：
+		<select name="town">
+			<!--{foreach name=town item=item from=$town}-->
+			<option value="<!--{$key}-->"><!--{$item}--></option>
+			<!--{/foreach}-->
+		</select></td>
+		</tr>
+		<tr>
+		<td>村（居委会）名称：
+		<select name="neighborhood">
+			<!--{foreach name=town item=item from=$neighborhood}-->
+			<option value="<!--{$key}-->"><!--{$item}--></option>
+			<!--{/foreach}-->
+		</select></td>
+		</tr>
+		<tr>
+		<td>&nbsp;&nbsp;</td>
+		</tr>
+		<tr>
+		<td>建档单位:<input type="text" name="phone" id="phone" size="15" class="line" /></td>
+		</tr>
+		<tr>
+		<td>建&nbsp;&nbsp;档&nbsp;&nbsp;人:<input type="text" name="doctor_name" id="doctor_name" value="<!--{$doctor_name}-->" size="15" class="line" /></td>
+		</tr>
+		<tr>
+		<td>责任医生:<input type="text" name="phone" id="phone" size="15" class="line" /></td>
+		</tr>
+		<tr>
+		<td>建档日期:<input type="text" name="phone" id="phone" size="15"  onClick="WdatePicker({firstDayOfWeek:1})" class="line" /></td>
+		</tr>
+		<tr>
+		<td>&nbsp;&nbsp;</td>
+		</tr>
+		<tr>
+		<td style="padding-left:270px;font-size:20px"><input type="button" name="submit" value="保存建档" /></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>

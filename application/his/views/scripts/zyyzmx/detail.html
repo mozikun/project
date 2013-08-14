@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>住院医嘱明细信息</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">住院医嘱明细信息详细</th>
+</tr>
+</thead>
+<tr>
+  <td >医疗机构</td>
+  <td ><!--{$tb_cis_dradvice_detail->yljgdm}--></td>
+  <td >住院就诊流水号</td>
+  <td ><!--{$tb_cis_dradvice_detail->jzlsh}--></td>
+</tr>
+<tr>
+  <td>患者姓名</td>
+  <td><!--{$tb_yl_patient_information->xm}--></td>
+  <td>患者性别</td>
+  <td><!--{$tb_yl_patient_information->xb}--></td>
+</tr>
+<tr>
+  <td>卡号</td>
+  <td><!--{$tb_cis_dradvice_detail->kh}--></td>
+  <td>卡类型</td>
+  <td><!--{$tb_cis_dradvice_detail->klx}--></td>
+</tr>
+<tr>
+  <td>病区</td>
+  <td><!--{$tb_cis_dradvice_detail->bq}--></td>
+  <td>下达科室编码</td>
+  <td><!--{$tb_cis_dradvice_detail->xdksbm}--></td>
+</tr>
+<td>下达科室名称</td>
+<td><!--{$tb_cis_dradvice_detail->xdksmc}--></td>
+<td>医嘱下达人工号</td>
+<td><!--{$tb_cis_dradvice_detail->xdrgh}--></td>
+</tr>
+<tr>
+  <td>医嘱下达人姓名</td>
+  <td><!--{$tb_cis_dradvice_detail->xdrxm}--></td>
+  <td>医嘱下达时间</td>
+  <td><!--{$tb_cis_dradvice_detail->yzxdsj}--></td>
+</tr>
+<tr>
+  <td>执行科室编码</td>
+  <td><!--{$tb_cis_dradvice_detail->zxksbm}--></td>
+  <td>执行科室名称</td>
+  <td><!--{$tb_cis_dradvice_detail->zxksmc}--></td>
+</tr>
+<tr>
+  <td>医嘱执行人工号</td>
+  <td><!--{$tb_cis_dradvice_detail->zxrgh}--></td>
+  <td>医嘱执行人姓名</td>
+  <td><!--{$tb_cis_dradvice_detail->zxrxm}--></td>
+</tr>
+<tr>
+  <td> 医嘱开始时间</td>
+  <td><!--{$tb_cis_dradvice_detail->yzzxsj}--></td>
+  <td>医嘱终止时间</td>
+  <td><!--{$tb_cis_dradvice_detail->yzzzsj}--></td>
+</tr>
+<tr>
+  <td>医嘱说明</td>
+  <td><!--{$tb_cis_dradvice_detail->yzsm}--></td>
+  <td>医嘱组号</td>
+  <td><!--{$tb_cis_dradvice_detail->yzzh}--></td>
+</tr>
+<tr>
+  <td>医嘱类别</td>
+  <td><!--{$tb_cis_dradvice_detail->yzlb}--></td>
+  <td>医嘱明细编码</td>
+  <td><!--{$tb_cis_dradvice_detail->yzmxbm}--></td>
+</tr>
+<tr>
+  <td>医嘱明细名称</td>
+  <td><!--{$tb_cis_dradvice_detail->yzmxmc}--></td>
+  <td>医嘱项目分类编码</td>
+  <td><!--{$tb_cis_dradvice_detail->yzxmfldm}--></td>
+</tr>
+<tr>
+  <td>医嘱项目分类名称</td>
+  <td><!--{$tb_cis_dradvice_detail->yzxmflmc}--></td>
+  <td>是否药品</td>
+  <td><!--{$tb_cis_dradvice_detail->yzlx}--></td>
+</tr>
+<tr>
+  <td>药品规格</td>
+  <td><!--{$tb_cis_dradvice_detail->ypgg}--></td>
+  <td>药品用法</td>
+  <td><!--{$tb_cis_dradvice_detail->ypyf}--></td>
+</tr>
+<tr>
+  <td>用药频度</td>
+  <td><!--{$tb_cis_dradvice_detail->yypd}--></td>
+  <td>每次使用剂量</td>
+  <td><!--{$tb_cis_dradvice_detail->jl}--></td>
+</tr>
+<tr>
+  <td>每次使用剂量单位</td>
+  <td><!--{$tb_cis_dradvice_detail->dw}--></td>
+  <td>每次使用数量</td>
+  <td><!--{$tb_cis_dradvice_detail->mcsl}--></td>
+</tr>
+<tr>
+  <td>每次使用数量单位</td>
+  <td><!--{$tb_cis_dradvice_detail->mcdw}--></td>
+  <td>给药途径(用法)</td>
+  <td><!--{$tb_cis_dradvice_detail->yf}--></td>
+</tr>
+<tr>
+  <td>用药天数</td>
+  <td><!--{$tb_cis_dradvice_detail->yyts}--></td>
+  <td>皮试判别</td>
+  <td><!--{$tb_cis_dradvice_detail->sfps}--></td>
+</tr>
+<tr>
+  <td>发药数量</td>
+  <td><!--{$tb_cis_dradvice_detail->ypsl}--></td>
+  <td>发药数量单位</td>
+  <td><!--{$tb_cis_dradvice_detail->ypdw}--></td>
+</tr>
+<tr>
+  <td>中药煎煮法代码</td>
+  <td><!--{$tb_cis_dradvice_detail->jydm}--></td>
+  <td>检查部位</td>
+  <td><!--{$tb_cis_dradvice_detail->jcbw}--></td>
+</tr>
+<tr>
+  <td colspan="2">备注</td>
+  <td colspan="2"><!--{$tb_cis_dradvice_detail->bz}--></td>
+</tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>房屋及基本建设</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="14">房屋及基本建设</td>
+	</tr>
+<table width="100%" border="0">
+	<tr class="headbg">
+	    <td align="center" rowspan="2">地区</td>
+	    <td align="center" rowspan="2">机构名称</td>
+		<td align="center" rowspan="2">年&nbsp;&nbsp;&nbsp;&nbsp;代</td>
+		<td align="center" colspan="1">房屋建筑面积（平方米）</td>
+		<td align="center" colspan="1">业务用房面积</td>
+		<td align="center" colspan="1">危房面积</td>
+		<td align="center" colspan="1">租房面积</td>
+		<td align="center" colspan="1">租房面积业务用房面积</td>
+		<td align="center" colspan="1">本年批准基建项目(个)</td>
+		<td align="center" colspan="1">本年批准基建项目建筑面积(平方米)</td>
+		<td align="center" colspan="1">本年实际完成投资额(万元)</td>
+		<td align="center" colspan="1">其中: 财政性投资</td>
+		<td align="center" colspan="1">单位自有资金</td>
+		<td align="center" colspan="1">银行贷款</td>
+		<td align="center" colspan="1">本年房屋竣工面积(平方米)</td>
+		<td align="center" colspan="1">本年新增固定资产(万元)</td>
+		<td align="center" colspan="1">本年因新扩建增加床位(张)</td>
+	</tr>
+	<tr class="headbg">
+		<!--房屋建筑面积-->
+		<td align="center">合计</td>
+		<!--业务用房面积-->
+		<td align="center">合计</td>
+		<!--危房面积-->
+		<td align="center">合计</td>
+		<!--租房面积-->
+		<td align="center">合计</td>
+		<!--其中：业务用房面积-->
+		<td align="center">合计</td>
+		<!--本年批准基建项目-->
+		<td align="center">合计</td>
+		<!--本年批准基建项目建筑面积-->
+		<td align="center">合计</td>
+		<!--本年实际完成投资额-->
+		<td align="center">合计</td>
+		<!--其中: 财政性投资-->
+		<td align="center">合计</td>
+		<!--单位自有资金-->
+		<td align="center">合计</td>
+		<!--银行贷款-->
+		<td align="center">合计</td>
+		<!--本年房屋竣工面积-->
+		<td align="center">合计</td>
+		<!--本年新增固定资产-->
+		<td align="center">合计</td>
+		<!--本年因新扩建增加床位-->
+		<td align="center">合计</td>
+	</tr>
+		<!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td rowspan="<!--{$region_array[region_array].rowspan}-->"><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/orgbuild/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	    <!--{section loop=$region_array[region_array].org name=c}-->
+	    <!--{if $smarty.section.c.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td rowspan="<!--{$region_array[region_array].org[c].org_ext}-->"><!--{$region_array[region_array].org[c].zh_name}--></td>
+	   <!--{section loop=$region_array[region_array].org[c].ext name=d}-->
+	   <!--{if $smarty.section.d.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td><!--{$region_array[region_array].org[c].ext[d].year}-->年</td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].operation_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].peril_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].hire_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].hire_operation_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].basic_build_pro}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].basic_build_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].actual_invest}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].finance_invest}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].self_invest}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].bank_invest}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].finish_area}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].new_fixed_assets}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].new_sickbed}--></td>
+	  </tr>
+	  <!--{sectionelse}-->
+	    <td colspan="15" align="left">无机构建筑信息数据</td>
+	  </tr>
+	 <!--{/section}-->
+	 <!--{sectionelse}-->
+	  <td colspan="16" align="left">无机构数据</td>
+	  </tr>
+	 <!--{/section}-->
+     <!--{/section}-->
+</table>
+
+</body>
+</html>

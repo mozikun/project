@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+.body1{
+    filter:Alpha(Opacity=20);
+}
+</style>
+<title>工作计划维护列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="6"><!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->planmenu/planmenu/list/parent_id/<!--{$rs[rs].id}-->"><!--{if $realid eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].tipszh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->planmenu/planmenu/list/parent_id/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].tipszh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td><strong>ID</strong></td>
+        <td ><strong>计划类型名称</strong></td>
+        <td><strong>进入子类</strong></td>
+        <td width="<!--{$firstcu}-->"><strong>编辑</strong></td>
+        <td width="<!--{$secondcu}-->"><strong>删除</strong></td>
+     </tr>
+       <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].id}--></td>
+           <td><!--{$row[row].tipszh_name}--></td>
+           <td><a href="<!--{$basePath}-->planmenu/planmenu/list/parent_id/<!--{$row[row].id}-->">[进入子类]</a></td>
+           <td><!--{$row[row].edit}--></td>
+           <td><!--{$row[row].del}--></td>
+        </tr>
+        <!--{sectionelse}-->
+        <tr>
+          <td colspan="5">当前没有任何数据</td>
+        </tr>
+       <!--{/section}--> 
+     <tr>
+       <td colspan="5"><a id="btn1" href="javascript:" onclick="addmywindow('<!--{$realid}-->');"><strong>[添加工作计划名称]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$pager}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+<script type="text/javascript">
+function addmywindow(id){
+	$("body").addClass("body1");
+	var url="<!--{$basePath}-->planmenu/planmenu/displayadd/id/"+id+'/sid/'+Math.random();
+	window.showModalDialog(url,window,'DialogTop:350px;DialogLeft:450px;DialogWidth:430px;DialogHeight:180px;help:no;status:no');
+	$("body").removeClass("body1");
+	location.reload();
+}
+function editmywindow(id,pid){
+	$("body").addClass("body1");
+	var url="<!--{$basePath}-->planmenu/planmenu/displayedit/editid/"+id+'/pid/'+pid+'/sid/'+Math.random();
+	window.showModalDialog(url,window,'DialogTop:350px;DialogLeft:300px;DialogWidth:830px;DialogHeight:180px;help:no;status:no');
+	$("body").removeClass("body1");
+	location.reload();
+}
+</script>

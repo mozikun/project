@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>title</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form action="" method="POST">
+	机构名称：<input type="text" id="zh_name" name="zh_name" />注意：输入机构 如 中坝乡卫生院  蜂桶寨中心卫生院<br/>
+	<input type="submit" value="查询" />
+</form>
+<!--{if ($org_id)}-->
+<span id="show"><!--{$name}-->的机构id:<!--{$org_id}--></span>
+<!--{else}-->
+<span id="show">注意：没有查询地区名称</span>
+<!--{/if}--><br />
+修改成功：<!--{$i}-->条
+没有修改：<!--{$j}-->条
+</body>
+</html>

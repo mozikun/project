@@ -1,0 +1,218 @@
+@charset "utf-8";
+*{
+	margin:0px;
+	padding:0px;
+}
+body{
+	
+}
+.content{
+
+
+}
+.center{
+	margin:0px auto;
+	width:300px;
+	
+}
+.yuan{
+width:300px;
+height:300px;
+overflow:hidden;
+background:url(/views/images/android/bg_dy.png) no-repeat center center;
+background-size:300px 300px;
+position:absolute;
+top:100px;
+
+}
+.zhaoyy{
+	
+}
+.hospital{
+	background-color:red;
+}
+.hospital ul{
+	list-style:none;
+}
+.hospital ul li{
+	list-style:none;
+	float:left;
+	margin:30px;
+}
+.hospital ul li a{
+ text-decoration: none;
+
+       
+}
+.title{
+	text-align:center;
+}
+.clear{
+	both:clear;
+}
+a {text-decoration: none; color: black;}
+a:link { text-decoration: none}
+
+a:active { text-decoration: none }
+
+a:visited { text-decoration: none }
+
+
+li.lie:hover {background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(6,159,213)), to(rgb(13,127,169)));}
+ .lie{
+   text-align:center; 
+   font-size:30px;
+   margin:1px; 
+   padding:6px;
+   padding-left:20px;
+   background: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(rgb(140,170,160)));
+   font-weight:bolder;
+   height:33px;
+   line-height:33px;
+   list-style:none;
+   }
+ .lie span{
+	
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(green));
+	border:1px solid yellow;
+    border-radius:5px;
+	padding:0px;
+	margin-left:20px;
+	font-size:18px;
+	margin-top:0px;
+	width:44px;
+	height:24px;
+	line-height:24px;
+	position:absolute;
+	
+   }  
+
+.ui-footer { position: absolute; bottom: 0; height: 40px; left: 0px; right: 0px; background-image: url(/views/images/sm_11.png); }   
+.ui-footer a { display: block; font-size: 16px; float: left; width: 65px; margin-left: 1%; border-radius: 1em; height: 32px; margin-top: 4px; text-align: center; background-image: url(/views/images/sm_13.png); line-height: 32px; }
+.ui-footer a:link, .ui-footer a:visited, .ui-footer a:hover, .ui-footer a:active { color: #fff; text-decoration: none; }
+
+.head{
+	padding-top:10px;
+	text-align:center;
+	
+	
+}
+.header{
+	margin:0px;
+	padding:0px;
+	height:45px;
+	text-align:center;
+	font-size:30px;
+	color:white;
+	line-height:45px;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(6,159,213)), to(rgb(13,127,169)));
+}
+#login{
+	background:lightblue;
+	font-size:20px;
+	border-radius:10px;
+	height:400px;
+}
+#login input{
+	
+}
+
+.button{
+	width:120px;
+	height:40px;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(6,159,213)), to(rgb(13,127,169)));
+	border-radius:3px;
+	border:none;
+	
+}
+
+ .info {
+	padding:10px;
+}
+.input{
+	width:100%;
+	height:37px;
+	line-height:30px;
+	padding:0px;
+	text-align:center;
+	border-radius:4px;
+	border:1px solid gray;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(rgb(188,212,222)));
+	border:2px solid rgb(6,159,213);
+}
+.input:hover{
+	background:rgb(6,159,213);
+	
+}
+
+select{
+	width:100%;
+	height:40px;
+	line-height:40px;
+	padding:0px;
+	margin:0px;
+    text-align:center;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(rgb(188,212,222)));
+	border:2px solid rgb(6,159,213);
+}
+select:hover{
+	background:rgb(6,159,213);
+}
+.foot{
+	margin-top:30px;
+	text-align:center;
+	padding:10px;
+}
+
+.navdiv{
+	position:absolute;
+	margin:3px;
+	margin-left:10px;
+}
+
+.slidetoggle{
+	position:absolute;
+	display:none;
+}
+
+.infobox{
+	width:150px;
+	
+	border:1px solid rgb(20,113,151);
+	background:rgb(20,113,151);
+	border-radius:5px;
+}
+.infobox li{
+	list-style:none;
+	line-height:30px;
+	font-size:18px;
+	text-align:center;
+}
+.infobox li a{
+	
+	list-style:none;
+	text-align:center;
+	color:white;
+}
+.infobox li a:hover{
+	background:rgb(20,113,200);
+}
+ .triangle {  
+                /*三角型 下边边有颜色，其他透明*/  
+                border-color: transparent transparent rgb(20,113,151) transparent;  
+                border-style: solid;  
+                border-width: 10px 10px 10px 10px;  
+                padding: 0;  
+                width: 0;  
+                height: 0;  
+				margin-top:-10px;
+				margin-left:15px;
+                /* ie6 height fix */  
+                font-size: 0;  
+                line-height: 0;  
+                /* ie6 transparent fix */  
+                _border-top-color: #dddddd;  
+                _border-bottom-color: #dddddd;  
+                _filter: chroma( color = #dddddd);
+					
+            }  

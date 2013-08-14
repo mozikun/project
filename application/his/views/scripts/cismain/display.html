@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+	label
+	{
+        cursor: pointer;
+	}
+	.short
+	{
+		width:15px;
+		height:15px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.time
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+		width:30px;
+	}
+	#dialog_box_html li{
+		border-bottom:1px dashed #ccc;
+		line-height:28px;
+	}
+	.center table{
+		margin:0px;
+	}
+	.center td
+	{
+		text-align:center;
+	}
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:200px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position:absolute;z-index:20000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+	<tr>	
+	<td>住院就诊流水号</td><td colspan="3"><!--{$tb_cis_main->jzlsh}--></td> 
+    </tr><tr> 
+        <td>医疗机构代码</td><td><!--{$tb_cis_main->yljgdm}--></td><td>入院时间</td><td><!--{$tb_cis_main->rysj}--></td> 
+    </tr><tr> 
+        <td>入院类型（途径）</td><td><!--{$tb_cis_main->rylx}--></td><td>卡号</td><td><!--{$tb_cis_main->kh}--></td> 
+    </tr><tr> 
+        <td>卡类型</td><td><!--{$tb_cis_main->klx}--></td><td>保险类型</td><td><!--{$tb_cis_main->bxlx}--></td> 
+    </tr><tr> 
+        <td>住院次数</td><td><!--{$tb_cis_main->zycs}--></td><td>病案号</td><td><!--{$tb_cis_main->bah}--></td> 
+    </tr><tr> 
+        <td>床号</td><td><!--{$tb_cis_main->ch}--></td><td>入院病区</td><td><!--{$tb_cis_main->rybq}--></td> 
+    </tr><tr> 
+        <td>出院病区</td><td><!--{$tb_cis_main->cybq}--></td><td>姓名</td><td><!--{$tb_cis_main->xm}--></td> 
+    </tr><tr> 
+        <td>性别</td><td><!--{$tb_cis_main->xb}--></td><td>出生日期</td><td><!--{$tb_cis_main->csny}--></td> 
+    </tr><tr> 
+        <td>婚姻状况</td><td><!--{$tb_cis_main->hyzk}--></td><td>民族</td><td><!--{$tb_cis_main->mz}--></td> 
+    </tr><tr> 
+        <td>国籍</td><td><!--{$tb_cis_main->gj}--></td><td>出生地</td><td><!--{$tb_cis_main->csd}--></td> 
+    </tr><tr> 
+        <td>身份证号</td><td><!--{$tb_cis_main->sfz}--></td><td>联系电话</td><td><!--{$tb_cis_main->lxdh}--></td> 
+    </tr><tr> 
+        <td>工作单位</td><td><!--{$tb_cis_main->gzdw}--></td><td>工作单位邮编</td><td><!--{$tb_cis_main->gzdwyb}--></td> 
+    </tr><tr> 
+        <td>职业</td><td><!--{$tb_cis_main->zybm}--></td><td>居住地</td><td><!--{$tb_cis_main->jzd}--></td> 
+    </tr><tr> 
+        <td>户口电话</td><td><!--{$tb_cis_main->hkdh}--></td><td>地区</td><td><!--{$tb_cis_main->dqbm}--></td> 
+    </tr><tr> 
+        <td>区县</td><td><!--{$tb_cis_main->qxbm}--></td><td>街道</td><td><!--{$tb_cis_main->jdbm}--></td> 
+    </tr><tr> 
+        <td>联系人姓名</td><td><!--{$tb_cis_main->lxrxm}--></td><td>联系人关系</td><td><!--{$tb_cis_main->lxrgx}--></td> 
+    </tr><tr> 
+        <td>联系人电话</td><td><!--{$tb_cis_main->lxrdh}--></td><td>联系人通信地址</td><td><!--{$tb_cis_main->lxrtxdz}--></td> 
+    </tr><tr> 
+        <td>入院科室编码</td><td><!--{$tb_cis_main->ryksbm}--></td><td>入院科室名称</td><td><!--{$tb_cis_main->ryksmc}--></td> 
+    </tr><tr> 
+        <td>转科科室编码1</td><td><!--{$tb_cis_main->zkksbm1}--></td><td>转科科室名称1</td><td><!--{$tb_cis_main->zkksmc1}--></td> 
+    </tr><tr> 
+        <td>转科科室编码2</td><td><!--{$tb_cis_main->zkksbm2}--></td><td>转科科室名称2</td><td><!--{$tb_cis_main->zkksmc2}--></td> 
+    </tr><tr> 
+        <td>转科科室编码3</td><td><!--{$tb_cis_main->zkksbm3}--></td><td>转科科室名称3</td><td><!--{$tb_cis_main->zkksmc3}--></td> 
+    </tr><tr> 
+        <td>所转病区</td><td><!--{$tb_cis_main->szbq}--></td><td>出院时间</td><td><!--{$tb_cis_main->cysj}--></td> 
+    </tr><tr> 
+        <td>出院科室编码</td><td><!--{$tb_cis_main->cyksbm}--></td><td>出院科室名称</td><td><!--{$tb_cis_main->cyksmc}--></td> 
+    </tr><tr> 
+        <td>实际住院天数</td><td><!--{$tb_cis_main->sjzyts}--></td><td>出院方式</td><td><!--{$tb_cis_main->cyfs}--></td> 
+    </tr><tr> 
+        <td>入院时情况</td><td><!--{$tb_cis_main->ryqk}--></td><td>入院前经外院诊治</td><td><!--{$tb_cis_main->ryqwyzz}--></td> 
+    </tr><tr> 
+        <td>确诊日期</td><td><!--{$tb_cis_main->qzrq}--></td><td>医疗机构感染名称</td><td><!--{$tb_cis_main->yygrmc}--></td> 
+    </tr><tr> 
+        <td>医疗机构感染结果</td><td><!--{$tb_cis_main->yygrjg}--></td><td>门诊出院诊断符合编码</td><td><!--{$tb_cis_main->mzcyzd}--></td> 
+    </tr><tr> 
+        <td>入院出院诊断符合编码</td><td><!--{$tb_cis_main->rycyzd}--></td><td>术前术后诊断符合编码</td><td><!--{$tb_cis_main->sqshzd}--></td> 
+    </tr><tr> 
+        <td>临床病理诊断符合编码</td><td><!--{$tb_cis_main->lcblzd}--></td><td>放射病理诊断符合编码</td><td><!--{$tb_cis_main->fsblzd}--></td> 
+    </tr><tr> 
+        <td>损伤中毒的外部因素</td><td><!--{$tb_cis_main->sszd}--></td><td>药物过敏</td><td><!--{$tb_cis_main->ywgm}--></td> 
+    </tr><tr> 
+        <td>HBSAG检查结果编码</td><td><!--{$tb_cis_main->hbsag_jg}--></td><td>HCVab检查结果编码</td><td><!--{$tb_cis_main->hcvab_jg}--></td> 
+    </tr><tr> 
+        <td>HIVab检查结果编码</td><td><!--{$tb_cis_main->hivab_jg}--></td><td>抢救次数</td><td><!--{$tb_cis_main->qjcs}--></td> 
+    </tr><tr> 
+        <td>成功次数</td><td><!--{$tb_cis_main->cgcs}--></td><td>住院是否出现危重、急症、疑难</td><td><!--{$tb_cis_main->sfcxwjn}--></td> 
+    </tr><tr> 
+        <td>手术治疗检查诊断为本院第一例</td><td><!--{$tb_cis_main->ssdyl}--></td><td>血型</td><td><!--{$tb_cis_main->xx}--></td> 
+    </tr><tr> 
+        <td>红细胞输血量</td><td><!--{$tb_cis_main->hxbsxl}--></td><td>血小板输血量</td><td><!--{$tb_cis_main->xxbsxl}--></td> 
+    </tr><tr> 
+        <td>血浆输血量</td><td><!--{$tb_cis_main->xjsxl}--></td><td>全血输血量</td><td><!--{$tb_cis_main->qxsxl}--></td> 
+    </tr><tr> 
+        <td>其它输血量</td><td><!--{$tb_cis_main->qtsxl}--></td><td>有输血反应</td><td><!--{$tb_cis_main->sxfy}--></td> 
+    </tr><tr> 
+        <td>有传染病报告</td><td><!--{$tb_cis_main->crbbg}--></td><td>有肿瘤报告</td><td><!--{$tb_cis_main->zlbg}--></td> 
+    </tr><tr> 
+        <td>有新生儿死亡报告</td><td><!--{$tb_cis_main->xsebg}--></td><td>孕产妇死亡报告</td><td><!--{$tb_cis_main->swbg}--></td> 
+    </tr><tr> 
+        <td>有其它报告</td><td><!--{$tb_cis_main->qtbg}--></td><td>是否随诊</td><td><!--{$tb_cis_main->sz}--></td> 
+    </tr><tr> 
+        <td>随诊期限</td><td><!--{$tb_cis_main->szqx}--></td><td>随诊期限单位</td><td><!--{$tb_cis_main->szqxdw}--></td> 
+    </tr><tr> 
+        <td>是否示教病例</td><td><!--{$tb_cis_main->sjbl}--></td><td>是否尸检</td><td><!--{$tb_cis_main->sj}--></td> 
+    </tr><tr> 
+        <td>是否妊娠梅毒筛查</td><td><!--{$tb_cis_main->rsmdsc}--></td><td>新生儿疾病筛查</td><td><!--{$tb_cis_main->xsejbsc}--></td> 
+    </tr><tr> 
+        <td>产后出血量</td><td><!--{$tb_cis_main->chcyl}--></td><td>新生儿性别</td><td><!--{$tb_cis_main->xse_xb}--></td> 
+    </tr><tr> 
+        <td>新生儿体重</td><td><!--{$tb_cis_main->xse_tz}--></td><td>主任医师工号</td><td><!--{$tb_cis_main->zrysgh}--></td> 
+    </tr><tr> 
+        <td>主任医师姓名</td><td><!--{$tb_cis_main->zrysxm}--></td><td>主治医师工号</td><td><!--{$tb_cis_main->zzysgh}--></td> 
+    </tr><tr> 
+        <td>主治医师姓名</td><td><!--{$tb_cis_main->zzysxm}--></td><td>住院医师工号</td><td><!--{$tb_cis_main->zyysgh}--></td> 
+    </tr><tr> 
+        <td>住院医师姓名</td><td><!--{$tb_cis_main->zyysxm}--></td><td>护士长工号</td><td><!--{$tb_cis_main->hszgh}--></td> 
+    </tr><tr> 
+        <td>护士长姓名</td><td><!--{$tb_cis_main->hszxm}--></td><td>病案质量</td><td><!--{$tb_cis_main->bazl}--></td> 
+    </tr><tr> 
+        <td>病理号</td><td><!--{$tb_cis_main->blh}--></td><td>死亡根本原因</td><td><!--{$tb_cis_main->swgbyy}--></td> 
+    </tr><tr> 
+        <td>死亡时间</td><td><!--{$tb_cis_main->swsj}--></td><td>门诊医师工号</td><td><!--{$tb_cis_main->mzysgh}--></td> 
+    </tr><tr> 
+        <td>门诊医师姓名</td><td><!--{$tb_cis_main->mzysxm}--></td><td>输液反应</td><td><!--{$tb_cis_main->syfy}--></td> 
+    </tr><tr> 
+        <td>是否为科研病案</td><td><!--{$tb_cis_main->sfkyba}--></td><td>住院费</td><td><!--{$tb_cis_main->zyf}--></td> 
+    </tr><tr> 
+        <td>诊疗费</td><td><!--{$tb_cis_main->zlf}--></td><td>治疗费</td><td><!--{$tb_cis_main->zhf}--></td> 
+    </tr><tr> 
+        <td>护理费</td><td><!--{$tb_cis_main->hlf}--></td><td>手术材料费</td><td><!--{$tb_cis_main->ssclf}--></td> 
+    </tr><tr> 
+        <td>检查费</td><td><!--{$tb_cis_main->jcf}--></td><td>化验费</td><td><!--{$tb_cis_main->hyf}--></td> 
+    </tr><tr> 
+        <td>透视费</td><td><!--{$tb_cis_main->tsf}--></td><td>摄片费</td><td><!--{$tb_cis_main->spf}--></td> 
+    </tr><tr> 
+        <td>输血费</td><td><!--{$tb_cis_main->sxf}--></td><td>输氧费</td><td><!--{$tb_cis_main->syf}--></td> 
+    </tr><tr> 
+        <td>西药费</td><td><!--{$tb_cis_main->xyf}--></td><td>中成药费</td><td><!--{$tb_cis_main->zcyf}--></td> 
+    </tr><tr> 
+        <td>中草药费</td><td><!--{$tb_cis_main->zcaf}--></td><td>其他费用</td><td><!--{$tb_cis_main->qtf}--></td> 
+    </tr><tr> 
+        <td>密级</td><td><!--{$tb_cis_main->mj}--></td><td>修改标志</td><td><!--{$tb_cis_main->xgbz}--></td> 
+    </tr>
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

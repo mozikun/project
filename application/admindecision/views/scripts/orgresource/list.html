@@ -1,0 +1,31 @@
+<table width="100%" border="0">
+    <tr class="headbg">
+		<td colspan="6">卫生机构资源</td>
+	</tr>
+	<tr class="columnbg">
+		<td align="center" >地区</td>
+		<td align="center" >行政机构</td>
+		<td align="center" >执法机构</td>
+		<td align="center" >医院</td>
+		<td align="center" >社区</td>
+		<td align="center" >卫生院</td>
+	</tr>
+	<!--{section name=regionArr loop=$regionArr}-->
+	<tr  align="center"  onMouseOver="this.style.backgroundColor='#E5FBFF'" onMouseOut="this.style.backgroundColor='#E4EDF9'">
+			<td align="center"><!--{$regionArr[regionArr].axisname}--></td>
+			<td  title="卫生行政部门数"><!--{$regionArr[regionArr].alladmin}--></td>
+			<td  title="卫生执法部门数"><!--{$regionArr[regionArr].allzfjg}--></td>
+			<td  title="医院数"><!--{$regionArr[regionArr].allhospital}--></td>
+			<td  title="社区卫生服务中心数"><!--{$regionArr[regionArr].communitycount}--></td>
+			<td  title="乡镇卫生院数"><!--{$regionArr[regionArr].orgtowncount}--></td>
+	</tr>
+	<!--{/section}-->
+	<tr class="title">
+		    <td align="center">合计</td>
+			<td align="center" title="卫生行政部门数合计"><!--{$alladmin}--></td>
+			<td align="center" title="卫生执法部门数合计"><!--{$allzfjg}--></td>
+			<td align="center" title="医院数合计"><!--{$allhospital}--></td>
+			<td align="center" title="社区卫生服务中心数合计"><!--{$communitycount}--></td>
+			<td align="center" title="乡镇卫生院数合计"><!--{$orgtowncount}--></td>
+	</tr>	
+</table>

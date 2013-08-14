@@ -1,0 +1,122 @@
+<!--{include file="../header.html"}-->
+<script type="text/javascript">
+
+$(function(){
+ 	//清空资源列表
+	//$("#resource_content").hidden;
+    //按钮单击
+    /*
+     $("input[type='submit']").click( function () {
+     	 alert("ad");
+     	 //提交表单
+	     $.post("<!--{$basePath}-->admin/grant/update",$("#form1").serialize(),function (msg) {
+			  alert(msg);		
+		 });
+		 return false;
+     });
+     */
+ });
+ function post_form(){
+ 	     //alert("ad");
+     	 //提交表单
+	     $.post("<!--{$basePath}-->admin/grant/update",$("#form1").serialize(),function (msg) {
+			  alert(msg);		
+		 });
+		 return false;
+ }
+ 
+ 
+ function display_resource(role_id,role_name){
+ 
+ 	$.get("<!--{$basePath}-->admin/grant/resource/role_id/"+role_id, function(msg){
+ 		//alert(msg);
+		$("#resource_content").html(msg);
+		$("#role_id").val(role_id);
+		$("#role_name").text(role_name);
+		//alert($("#resource_content").html());
+		//alert(role_id);
+		//alert($("#role_id").val());
+	});
+   
+ }
+//显示或者隐藏
+function toggleInfo(obj,id){
+	
+    
+	var title_val=$(obj).html().replace("+","");
+	var title_val=title_val.replace("-","");
+	
+	
+		  if($(obj).html().indexOf("+")!=-1) {
+		    $("#"+id).show();
+		    $(obj).html(title_val+"-");
+		    
+		  }else if($(obj).html().indexOf("-")!=-1) {
+		    $("#"+id).hide();
+		    $(obj).html(title_val+"+");
+		    
+		  }
+	
+	
+}
+
+//选择一个module 里的所有checkbox
+function selectModule(id,obj){
+	if($(obj).attr('checked')==true){
+		//alert("1");
+		$("#"+id).find("input").attr('checked',true);
+		
+	}else{
+		//alert("2");
+		$("#"+id).find("input").attr('checked',false);
+	}
+
+	
+}
+</script>
+<div style="float:left;width:30%">
+<fieldset  >
+	<legend>角色</legend>
+	<table cellspacing="0">
+	<thead>
+	<tr class="headbg">
+	<th >角色名列表</th>
+	</tr>
+	</thead>
+	<tbody id='role_list'>
+         <!--{section name=contact loop=$roles_arr}-->
+		<tr style=" cursor:pointer" >
+			<td  onclick="display_resource('<!--{$roles_arr[contact].role_id}-->','<!--{$roles_arr[contact].role_zh_name}-->')"><span  style="float:left"><!--{$roles_arr[contact].role_zh_name}--></span><span style="color:red; float:right; padding-right:10px;"><!--{$roles_arr[contact].role_en_name}--></span></td>
+						
+		</tr>
+        <!--{/section}-->		
+	</tbody>
+	</table>
+</fieldset>
+</div>
+<div style="width:70%;float:left">
+<form name="form1" id="form1" method="POST" action="<!--{$basePath}-->admin/grant/update" >
+<fieldset >
+<legend><span id='role_name'></span>　授权</legend>
+	<table cellspacing="0">
+	<thead>
+	<tr class="headbg">
+	<th width="40%">资源中文名</th><th width="40%">资源英文名</th><th width="10%">读</th><th width="10%">写</th>
+	</tr>
+	</thead>
+	
+    
+	<tbody id="resource_content" >
+    
+	</tbody>
+	
+	
+	</table>
+</fieldset>
+</form>
+</div>
+
+
+
+
+<!--{include file="../footer.html"}-->

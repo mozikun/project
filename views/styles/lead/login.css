@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+body { position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; background-image: url(../../images/lead/ya_16.png); background-repeat: no-repeat; background-position: center top; }
+.login_box { height: 260px; width: 360px; position: absolute; left: 50%; top: 40%; border: solid 10px #ccc; border-radius: 3px; box-shadow: 0 2px 20px #02204D; padding: 20px; margin-top: -120px; margin-left: -200px; background-color: #fefefe; }
+.title { height: 45px; }
+.title h1 { font-size: 24px; line-height: 30px; text-align: center; color: #103470; letter-spacing: -2px; text-shadow: 2px 2px 3px #ccc, -2px -2px 3px #ccc; }
+.login_conts { height: auto; margin-top: 10px; }
+.nes td { line-height: 40px; height: 40px; padding-right: 3px; padding-left: 3px; font-size: 18px; font-weight: bold; }
+.nes tr td #select, .nes tr td #select option { font-size: 18px; font-weight: bold; font-family: "微软雅黑"; }
+.nes tr td input[type="text"], .nes tr td input[type="password"], .nes tr td input[type="button"], .nes tr td input[type="submit"] { height: 25px; line-height: 25px; font-size: 18px; font-family: "微软雅黑"; }
+.nes tr td input[type="button"], .nes tr td input[type="submit"] { padding: 0 5px; line-height: 25px; }
+.nes td .image { display: block; float: left; width:65px; height:30px; margin-top:7px; margin-right:10px; }

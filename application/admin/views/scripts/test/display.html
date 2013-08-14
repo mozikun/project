@@ -1,0 +1,77 @@
+<!--{include file="../header.html"}-->
+<script type="text/javascript">
+ $(function(){
+ 	 //提交按钮单击事件
+	
+ });
+ function chk_form(){
+ 	var user_name	=	$("#user_name");
+	var user_name_token=$("#user_name_token");
+	var passwd		=	$("#passwd");
+	var passwd_token=	$("#passwd_token");
+	
+    if(user_name.val().length<5){
+		user_name_token.html("用户不能短于5个字母");
+		user_name.focus();
+		return false;
+	}else{
+		
+		if(user_name.val().match(/^[a-zA-Z0-9_\-]{2,60}$/)){
+			
+		}else{
+			user_name_token.html("用户名只能由 数字,字母,下划线和减号组成");
+			user_name.focus();
+			return false;
+		}
+	}
+	
+	if(passwd.val().length<5){
+		passwd_token.html("密码不能短于5个字母");
+		passwd.focus();
+		return false;
+	}else{
+		
+		if(passwd.val().match(/^[a-zA-Z0-9_\-]{2,60}$/)){
+			
+		}else{
+			passwd_token.html("密码只能由 数字,字母,下划线和减号组成");
+			passwd.focus();
+			return false;
+		}
+	}
+ }
+</script>
+<div>
+<fieldset  >
+<legend>管理员登录</legend>
+	<table cellspacing="0">
+	<thead>
+	<tr class="headbg">
+	<th colspan="2"></th>
+	</tr>
+	</thead>
+	<form name="form1" id="form1" method="POST" action="<!--{$basePath}-->admin/test/chklogin">
+	
+	<tbody >
+		<tr>
+		<td>用户名</td><td><input type="text" id="user_name" name="user_name"/><span id="user_name_token" style=" color:red"></span></td>
+		</tr>
+		<tr>
+		<td>密码</td><td><input type="password" id="passwd" name="passwd"/><span id="passwd_token" style=" color:red"></span></td>
+		</tr>
+		<tr>
+		<td></td><td><input type="submit"  onclick="return chk_form();"　 value="提交"/></td>
+		</tr>
+
+	
+	</tbody>
+	</form>
+	</table>
+</fieldset>
+<fieldset  >
+</div>
+
+
+
+
+<!--{include file="../footer.html"}-->

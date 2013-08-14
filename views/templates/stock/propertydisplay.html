@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/goods/propertyEdit">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />	
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	<table>
+		<tr  class="title"><td>类别名称</td><td>属性名称</td><td>是否启用</td><td>值</td></tr>
+	<!--{section name=propertyList loop=$propertyList}-->
+		<tr>
+			<td><!--{$propertyList[propertyList].categoryDescription}--></td>
+			<td><!--{$propertyList[propertyList].propertyDescription}--></td>
+			<td><input type="checkbox" name="<!--{$propertyList[propertyList].checkBoxName}-->" id="<!--{$propertyList[propertyList].checkBoxName}-->" value="1" <!--{$propertyList[propertyList].checked}--> /></td>
+			<td><input type="text" name="<!--{$propertyList[propertyList].textBoxName}-->" id="<!--{$propertyList[propertyList].textBoxName}-->" value="<!--{$propertyList[propertyList].value}-->"/></td>
+		</tr>
+	<!--{/section}-->
+	</table>	
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="/goods/goods/list/<!--{$url}-->">返回</a>
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

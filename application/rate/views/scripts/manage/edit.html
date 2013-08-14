@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>档案完整率指标设置</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script>
+	function checkall(status)
+	{
+		$(".input_checkbox").each(function(){
+			$(this).attr("checked",status);
+		});
+	}
+	function change_input(uuid)
+	{
+		if(uuid!="")
+		{
+			$("#rate_"+uuid+" span").each(
+			function(){
+				if ($(this).find("input").length == 0) 
+				{
+					var ht = "<input type=\"text\" name=\"" + $(this).attr("class") + "\" value=\"" + $(this).html() + "\" />";
+					$(this).html(ht);
+					$("#submit_"+uuid).css("display","block");
+				}
+				else
+				{
+					$(this).html($(this).find("input").val());
+					$("#submit_"+uuid).css("display","none");
+				}
+			}
+			);
+			return false;
+		}
+		return false;
+	}
+	function del_rate(colsname,uid)
+	{
+		if(confirm("确定要删除本条记录吗？"))
+		$.ajax({
+			type:"get",
+			url:"<!--{$basePath}-->rate/manage/del/uuid/"+uid,
+			dataType:"html",
+			data:"",
+			success:function(data){
+				//alert(data);
+				if($.trim(data)=="ok")
+				{
+					alert("选中数据已删除");
+					$("#rate_"+colsname).hide();
+				}
+				else
+				{
+					alert("选中数据删除失败");
+				}
+				return false;
+			}
+		});
+		return false;
+	}
+</script>
+</head>
+<body>
+	<table border="0" width="100%">
+			<tr><td>
+				<!--{section name=region loop=$region}-->
+				<!--{if $region[region].path==$region_path}-->
+				<img src="<!--{$basePath}-->images/checked.png" />
+				<!--{/if}-->
+				<span <!--{if $region[region].path==$region_path}-->
+				style="font-weight:bold;"
+				<!--{/if}-->>
+				<a href="<!--{$basePath}-->rate/manage/list/path/<!--{$region[region].path}-->"><!--{$region[region].name}--></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</span>
+				<!--{if $smarty.section.region.rownum%6==0}-->
+				<br />
+				<!--{/if}-->
+				<!--{/section}-->
+				</td>
+			</tr>
+			<tr><td>
+				<form name="search" method="POST" action="<!--{$basePath}-->rate/manage/list">
+					<input type="hidden" name="path" value="<!--{$search_array.path}-->" />
+				模块中文名：&nbsp;
+				<select name="search_model_zh_name">
+					<option value="">请选择</option>
+					<!--{section name=search loop=$search}-->
+					<option value="<!--{$search[search].module_name}-->" <!--{if $search_array.search_cols_zh_name==$search[search].module_name}--> selected="selected"<!--{/if}-->><!--{$search[search].module_zh_name}--></option>
+					<!--{/section}-->
+				</select>
+				&nbsp;表名：&nbsp;<input type="text" name="search_table_name" value="<!--{$search_array.search_table_name}-->" />&nbsp;&nbsp;表中文名称：&nbsp;<input type="text" name="search_table_zh_name" value="<!--{$search_array.search_table_zh_name}-->" />&nbsp;&nbsp;指标名称：&nbsp;<input type="text" name="search_cols_zh_name" value="<!--{$search_array.search_cols_zh_name}-->" />&nbsp;<input type="submit" value="搜索" />
+				</form>
+				</td>
+			</tr>
+</table>		
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>
+        	&nbsp;<img title="单击本行编辑图标或者双击行内任意位置，均可编辑内容，再次单击图标或者双击行内任意位置可撤销编辑状态，但所编辑的内容不会保存到数据库中" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />
+        </th>
+		<th>
+        	表名
+        </th>
+		<th>
+        	表中文名
+        </th>
+		<th>
+        	模块名<img title="就是存储完整率字段的主表名" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />
+        </th>
+		<th>
+        	模块中文名称
+        </th>
+		<th>
+        	指标名称
+        </th>
+        <th>
+        	字段名
+        </th>
+		<th>
+        	是否必填
+        </th>
+		<th>
+        	取值范围
+        </th>
+		<th>
+        	操作选项
+        </th>
+	</tr>
+	</thead>
+	<tbody id="rate">
+		<form action="<!--{$basePath}-->rate/manage/edit" method="POST">
+	<!--{section name=rate loop=$rate}-->
+	 <tr id="rate_<!--{$rate[rate].column_name}-->" ondblclick="return change_input('<!--{$rate[rate].column_name}-->')">
+	 	<td>
+        	<img src="<!--{$basePath}-->images/application_edit.png" style="cursor:hand;" onclick="return change_input('<!--{$rate[rate].column_name}-->')" />
+        </td>
+		<td>
+        	<!--{$rate[rate].table_name}-->
+			<input type="hidden" name="table_name_<!--{$rate[rate].uuid}-->" value="<!--{$rate[rate].table_name}-->" />
+        </td>
+		<td>
+        	<span class="table_zh_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].table_zh_name}--></span>
+        </td>
+		<td>
+        	<span class="module_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].module_name}--></span>
+        </td>
+		<td>
+        	<span class="module_zh_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].module_zh_name}--></span>
+        </td>
+		<td>
+        	<span class="column_zh_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].column_zh_name}--></span>
+        </td>
+        <td>
+        	<!--{$rate[rate].column_name}-->
+        </td>
+		<td>
+			<input type="hidden" name="uuid[]" value="<!--{$rate[rate].uuid}-->" />
+        	<input type="checkbox" class="input_checkbox" name="criteria_<!--{$rate[rate].uuid}-->" value="1" <!--{if $rate[rate].criteria}--> checked="checked"<!--{/if}-->  /> &nbsp;是
+        </td>
+		<td>
+        	&nbsp;
+        </td>
+		<td>
+        	<input type="submit" id="submit_<!--{$rate[rate].column_name}-->" name="submit_<!--{$rate[rate].column_name}-->" value="保存修改" style="display:none;" />&nbsp;&nbsp;<a href="###" onclick="return del_rate('<!--{$rate[rate].column_name}-->','<!--{$rate[rate].uuid}-->');">删除</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="10">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="10" style="text-align:center;">
+        	<input type="button" name="all" id="all" onclick="return checkall('checked');" value="全选" />&nbsp;&nbsp;<input type="button" name="noall" id="noall" onclick="return checkall('');" value="取消全选" />&nbsp;&nbsp;<input type="submit" name="submit" value="批量修改" />
+        </td>
+	</tr>
+	<tr>
+		<td colspan="10">
+        	&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+	</form>
+	</tbody>
+</table>
+</body>
+</html>

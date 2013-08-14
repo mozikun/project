@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+body
+{
+margin:0 auto;
+padding:0;
+algin:center;
+}
+
+ul{
+list-style:none;
+margin:0 auto;
+padding:0;
+text-align:center;
+width:90%;
+height:100%;
+position:relative;
+border:1px solid white;
+}
+li
+{
+margin-top:23px;
+height:20px;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<script type="text/javascript">
+
+</script>
+<title>医用耗材列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="7"><strong>医用耗材列表</strong></td>
+     </tr>
+     <tr class="bigfont">
+        <td ><strong>品名编码</strong></td>
+        <td ><strong>标准编码</strong></td>
+        <td><strong>医用耗材名称</strong></td>
+        <td><strong>所属类别</strong></td>
+        <td><strong>是否国产</strong></td>
+        <td><strong>医保等级</strong></td>
+        <td ><strong>操作</strong></td>
+     </tr>
+     <!--{section loop=$row name=cus}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[cus].name_encod}--></td>
+           <td><!--{$row[cus].standard_code}--></td>
+           <td><!--{$row[cus].zh_name}--></td>
+           <td><!--{$row[cus].str}--></td>
+           <td><!--{$row[cus].domestic_array}--></td>
+           <td><!--{$row[cus].medicare_array}--></td>
+           <td>
+           <a href="<!--{$basePath}-->coding/materials/add/uuid/<!--{$row[cus].uuid}-->/page/<!--{$currentpage}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->coding/materials/del/uuid/<!--{$row[cus].uuid}-->" onclick="return confirm('您确定删除吗?确定');">[删除]</a>
+           </td>
+        </tr>
+     <!--{sectionelse}-->
+     <tr>
+        <td colspan="7">当前没有任何数据!</td>
+     </tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="7"><a id="btn1" href="<!--{$basePath}-->coding/materials/add"><strong>[添加耗材]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+

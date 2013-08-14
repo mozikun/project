@@ -1,0 +1,26 @@
+﻿#testrecord
+{
+	text-align:center;
+}
+
+#testrecord .trtable
+{
+	border:0px;
+	width:700px;
+	font-family:宋体;
+	font-size:10.5pt;
+	margin:0 auto;
+}
+
+#testrecord .trheader
+{
+	font-size:15pt;
+	text-align:center;
+}
+
+#testrecord .trtitle
+{
+	font-size:16pt;
+	font-weight:normal;
+	text-align:center;
+}

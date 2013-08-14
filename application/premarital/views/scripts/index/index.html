@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>健康体检列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>婚前检查证明列表</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->premarital/index/index" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="username" size="18" value="<!--{$realname}-->"/>&nbsp;
+				档案号:<input type="text" name="standard_code" value="<!--{$serialnumber}-->"/>&nbsp;
+				身份证号:<input type="text" name="identity_number" size="18" value="<!--{$nowdate}-->"/>&nbsp;
+				责任医生:<select name="staff_id" id="staff_id">
+			<!--{section name=response_doctor loop=$response_doctor}-->
+			<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+			<!--{/section}-->
+			</select>
+				<input type="submit" value="搜索" class="inputbutton"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th title="姓名">
+   	        姓名</th>
+		<th title="对方姓名" >
+        	    对方姓名    </th>
+		<th title="身份证号码">身份证号码</th>
+		<th title="登记时间">登记时间</th>
+		<th>
+        	操作        </th>
+	</tr>
+	</thead>
+	<tbody >
+	 <!--{foreach key=k item=li from=$exam_list}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+	  <form action="<!--{$basepath}-->et/list/del/actionname/delall" method="post">
+        <td><!--{$li.name}--></td>
+		<td><!--{$li.moreinfo->partner_name}--></td>
+		<td><!--{$li.indent}--></td>
+		<td><!--{$li.moreinfo->record_time}--></td>
+		<td >
+        	<a href="<!--{$basePath}-->premarital/index/edit/id/<!--{$li.id}-->">[ 进入编辑 ]</a> 
+			<a href="<!--{$basePath}-->premarital/index/delete/id/<!--{$li.id}-->" onClick="javascript:if(confirm('确定要删除 <!--{$li.name}--> 的证明吗')){return true;}else{return false;}">[ 删除记录 ]</a>
+		</td>
+	</tr>
+	<!--{foreachelse}-->
+	<tr>
+		<td colspan="5">对不起，未找到您要查询的内容！</td>
+	</tr>
+	 <!--{/foreach}-->
+	  <!--{$str}-->
+	  <tr>
+	  <td colspan="5" align="center">
+	   <!--{$pager}--></td>
+	</tr>
+	</form> 
+	</tbody>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+function checkselect() {
+	  for (var i = 0; i < document.getElementsByName("selectFlag[]").length; i++) {
+	   document.getElementsByName("selectFlag[]")[i].checked = document.getElementById("ifAll").checked;
+	  }
+	 }
+</script>

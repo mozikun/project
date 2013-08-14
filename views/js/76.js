@@ -1,0 +1,17 @@
+var organizationArray=new Array();
+organizationArray[0]=new Array('177','天全县卫生局','tqxwsj','001');
+organizationArray[1]=new Array('95','城厢镇卫生院','cxzwsy','001');
+organizationArray[2]=new Array('96','始阳镇卫生院','syzwsy','74225127');
+organizationArray[3]=new Array('97','小河乡卫生院','xhxwsy','001');
+organizationArray[4]=new Array('98','思经乡卫生院','sjxwsy','001');
+organizationArray[5]=new Array('99','鱼泉乡卫生院','yqxwsy','001');
+organizationArray[6]=new Array('100','紫石乡卫生院','zsxwsy','001');
+organizationArray[7]=new Array('101','两路乡卫生院','llxwsy','001');
+organizationArray[8]=new Array('102','大坪乡卫生院','dpxwsy','001');
+organizationArray[9]=new Array('103','乐英乡卫生院','lyxwsy','001');
+organizationArray[10]=new Array('104','多功乡卫生院','dgxwsy','001');
+organizationArray[11]=new Array('105','仁义乡卫生院','ryxwsy','001');
+organizationArray[12]=new Array('106','老场乡卫生院','lcxwsy','001');
+organizationArray[13]=new Array('107','新华乡卫生院','xhxwsy','001');
+organizationArray[14]=new Array('108','新场乡卫生院','xcxwsy','001');
+organizationArray[15]=new Array('109','兴业乡卫生院','xyxwsy','001');

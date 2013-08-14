@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs_search.css" />
+    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+	<title><!--{$individual_core->name}--><!--{$title}--></title>
+	<style type="text/css">
+       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%;}
+       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
+       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
+       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
+    </style>
+</head>
+<body>
+   <div >
+      <!--基本健康信息-->
+   <div class="title_bg">
+     <!--{$title}-->
+   </div>
+   <div>
+     <table border="0" cellpadding="0" cellspacing="0" width="100%" >
+        <tr>
+         <td>血型：</td>
+         <td><!--{$blood->abo_bloodtype}--></td>
+       </tr>
+       <tr>
+         <td width="30%">药物过敏史:</td>
+         <td><!--{$individual_core->allergy_code}--></td>
+       </tr>
+       <tr>
+         <td>暴露史:</td>
+         <td><!--{$individual_core->exposure_code}--></td>
+       </tr>
+       <!--{section loop=$clinical_array name=clinical_array}-->
+       <tr>
+         <td>确诊疾病:</td>
+         <td><!--{$clinical_array[clinical_array].mycode}--></td>
+       </tr>
+      <!--{sectionelse}-->
+      <tr>
+        <td>确诊疾病</td>
+        <td>暂无记录</td>
+      </tr>
+       <!--{/section}-->
+       <!--{section loop=$surgical_array name=surgical_array}-->
+       <tr>
+         <td>手术记录</td>
+         <td><!--{$surgical_array[surgical_array].code}--></td>
+       </tr>
+        <!--{sectionelse}-->
+      <tr>
+        <td>手术记录</td>
+        <td>暂无记录</td>
+      </tr>
+       <!--{/section}-->
+        <tr>
+         <td>遗传病史</td>
+         <td><!--{$genetic_diseases->disease_name}--></td>
+       </tr>
+       <tr>
+         <td>残疾状况</td>
+         <td><!--{$individual_core->deformity_str}--></td>
+       </tr>
+     </table>
+   </div>
+   <div class="ui-footer">
+     <a id="login" href="<!--{$basePath}-->iha/login/index">返回</a>
+  </div>
+</body>
+</html>

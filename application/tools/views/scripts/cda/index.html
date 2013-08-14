@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>导入健康档案标准集</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script>
+function display_excel()
+{
+    if($("input[name='filename']").val()!='')
+    {
+        return true;
+    }
+    else
+    {
+        alert("请输入文件名称");
+        $("input[name='filename']").focus();
+        return false;
+    }
+    return false;
+}
+</script>
+</head>
+<body>
+<table border="0" width="100%">
+<tr class="headbg"><td>输入导入文件属性</td></tr>
+		<form action="<!--{$basePath}-->tools/cda/display" id="search" method="POST" onsubmit="return display_excel();">
+			<tr><td>文件名称：<input type="text" name="filename" value="cda.xls" size="35" /></td></tr>
+            <tr><td>标签序号：<input type="text" name="tab" value="" /></td></tr>
+            <tr><td>开始行数：<input type="text" name="rows" value="" /></td></tr>
+            <tr><td><input type="submit" name="submit" value="获取表格内容" class="inputnone_more" /></td></tr>
+		</form>
+</table>
+</body>
+</html>

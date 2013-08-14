@@ -1,0 +1,35 @@
+
+  <!--{section name=modeule_ loop=$module_array}-->
+ 
+
+  <tr >
+  	   <td colspan="3"> 
+	  	   <fieldset>
+			  	   <legend>
+	  	           <span  style=" cursor:pointer">
+	  	            <input type="checkbox" onclick="selectModule('<!--{$module_array[modeule_]}-->',this);" />
+			  	    <strong onclick="toggleInfo(this,'<!--{$module_array[modeule_]}-->')"><!--{$module_array[modeule_]}-->-</strong>
+			  	    </span>
+			  	    </legend>
+			  	    
+				    <table id="<!--{$module_array[modeule_]}-->" >
+					
+				    <!--{section name=contact loop=$row}-->
+				        <!--{if ($row[contact].resource_en_name|regex_replace:"/[_]+[a-z0-9]*/":"") == ($module_array[modeule_])}-->
+						<tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+						    <td style="width:40%">
+							    <label><input type="checkbox" value="<!--{$row[contact].resource_id}-->" name="selectFlag[]" id="selectFlag"/>
+							    <span  id="en_<!--{$row[contact].resource_id}-->"><!--{$row[contact].resource_en_name}--></span>
+							    </label>
+						    </td style="width:40%">
+							<td  style="width:40%" id="zh_<!--{$row[contact].resource_id}-->"><!--{$row[contact].resource_zh_name}--></td>	
+							<td><a href="###" onclick="add_record()">[添加]</a> <a href="###" onclick="update_record('<!--{$row[contact].resource_id}-->')">[修改]</a> <a href="###" onclick="del_record('<!--{$row[contact].resource_id}-->',this)">[删除]</a></td>
+						</tr>
+						<!--{/if}-->
+				        <!--{/section}-->	
+				     </table>
+			 </fieldset>
+    	</td>
+    </tr> 
+   <!--{/section}-->	
+     

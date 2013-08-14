@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>双向转诊(转出)单</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.dimensions.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/organization.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
+<style>
+table
+{
+
+	background:#ffffff;
+	border-color:#FF0000;
+}
+td{
+	border:none;
+	border-collapse:collapse;
+}
+
+hr{
+    border-color:#000000;
+	border:solid dotted;
+   
+}
+.input_bottom_line{
+	border-left-style:none;
+	border-right-style:none;
+	border-top-style:none;
+	border-bottom:1px solid #000000;
+	background:#FFFFFF;
+	width:120px;
+}
+.input_none_line{
+	border-left-style:none;
+	border-right-style:none;
+	border-top-style:none;
+	border-bottom-style:none;
+	background:#FFFFFF;
+	width:120px;
+}
+.inputbutton{
+	border: 1px solid blue;
+	width:80px;
+	background:#FFFFFF;
+}
+.text_title{
+	text-align:center; 
+	font-size:16px;
+	 padding:6px;
+	 font-weight:bold;
+}
+.text_align_center{
+	text-align:center;
+}
+.text_align_right{
+	text-align:right;	
+}
+.text_padding_left{
+	 padding-left:60px;
+}
+.intable,.intable tr,.intable tr td{ border:0}
+body,table{ margin-left:auto; margin-right:auto; text-align:center;}
+//=====
+table,tr,td{
+		margin:0px;
+		padding:0px;
+		height:23px;
+		font-size:14px;
+	}
+	form{
+		padding:0px;
+		margin:0px;
+	}
+
+	.ap{
+		height:30px;
+
+		text-align:right
+	}
+	.ap input{
+		font-size:14px;
+		width:70px;
+		height:29px;
+		margin-top:30px;
+	}
+	#Layer1 {
+		position:absolute;
+		left:0px;
+		top:130px;
+		width:100%;
+		height:100px;
+		z-index:1;
+		text-align:center;
+		display:none;				
+	}
+	#chsc_password,#user_password{
+		width:85px;
+		color:#0000FF
+	}
+	.font{
+		color:#CCCCCC;
+	}
+	.width{width:140px;}
+	.width_cp{width:90px;}
+	
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:300px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;width:260px;text-align:left}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+<script type="text/javascript">
+	 $(function(){
+		 $("#stub_unit").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#stub_unit_code',onSelect:function(){$("#stub_doccol").focus();}, attachObject:'#suggest'});
+		 $("#dst_org_name").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#dst_org_code', attachObject:'#dst_org_suggest'});
+		 $("#my_org_name").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#my_org_code', attachObject:'#my_org_suggest'});
+	 	 if($("#stub_unit").val()=="中文/拼音"){
+	 	 	$("#stub_unit").val('');//默认清空
+	 	 }
+	 	  if($("#dst_org_name").val()=="中文/拼音"){
+	 	 	$("#dst_org_name").val('');//默认清空
+	 	 }
+	 	  if($("#my_org_name").val()=="中文/拼音"){
+	 	 	$("#my_org_name").val('');//默认清空
+	 	 }
+	 	 //存根接诊医生
+	 	 $("#in_of_doctor").focus(function(){
+	 	 	 var org_id				=$("#stub_unit_code").val();//机构id
+	 	 	 var section_office_id	=$("#stub_doccol").val();
+	 	 	 if(org_id!="" && section_office_id!=""){
+	 	 	 	$.get("<!--{$basePath}-->gp/transout/getusers/org_id/"+org_id+"/section_office_id/"+section_office_id, function(data){
+				  	$("#in_of_doctor").html(data);
+				}); 
+	 	 	 	
+	 	 	 }
+	 	 });
+	 	 //提交单击时 存根转入单位要与转到的机构一致
+	 	 $("#submit").click(function(){
+	 	 	 if($("#stub_unit_code").val()!=$("#dst_org_code").val()){
+	 	 	 	alert("存根转入单位应与转出单的机构一致！");
+	 	 	 	return false;
+	 	 	 }
+	 	 });
+	});
+	
+</script>	
+</head>
+<body>
+<div style=" text-align:center; background-color:#FFFFFF; margin-left:auto; margin-right:auto;">
+  <form method="POST" action="<!--{$basePath}-->gp/transout/update">
+  <input  type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+  <table class="intable" style="width:800px;">
+  <tr><td  class="text_title">双向转诊</td></tr>
+  <tr><td><hr></td></tr>  
+  <tr><td  class="text_title">存  根</td></tr>
+  <tr>
+  	<td class="text_align_center">
+ 		患者姓名<input type="text"  class="input_bottom_line"   value="<!--{$name}-->" disabled="disabled"/>
+ 		性别<input type="text"  class="input_bottom_line"  style="width:51px;"  value="<!--{$sex}-->" disabled="disabled"/> 
+  		年龄<input type="text" class="input_bottom_line" name="age" style="width:51px;"   value="<!--{$age}-->"/> 
+ 		档案编号<input type="text"  class="input_bottom_line"  style="width:260px;"  value="<!--{$serial_num}-->" disabled="disabled"/>  	</td>
+  </tr>
+  <tr>
+  	<td  class="text_align_center">
+  		家庭地址<input type="text"  class="input_bottom_line"  style="width:420px;"  value="<!--{$faminy_add}-->" disabled="disabled"/> 联系电话
+  		<input type="text"  class="input_bottom_line"   value="<!--{$telphone}-->" disabled="disabled"/>  	</td>
+  </tr>  
+  <tr>
+  	<td  class="text_align_center">
+  		于<input type="text"  class="input_bottom_line"  style="width:60px;"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" name="referral_out_time_year" value="<!--{$referral_out_time_year}-->"/>
+  		年<input type="text"  class="input_bottom_line"  style="width:50px;" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'M'})"   name="referral_out_time_month" value="<!--{$referral_out_time_month}-->"/>
+  		月<input type="text"  class="input_bottom_line"  style="width:50px;" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'d'})"  name="referral_out_time_day" value="<!--{$referral_out_time_day}-->"/>
+   		日 因病情需要，转入<input type="text"  class="input_bottom_line"  style="width:290px;" id="stub_unit"  name="stub_unit" value="<!--{$stub_unit}-->"/>
+   		<div id='suggest' class="ac_results"></div><input type="hidden" name="stub_unit_code" id="stub_unit_code" value="<!--{$stub_unit_code}-->"/>单位   	</td>
+  </tr>  
+  <tr>
+ 	 <td  class="text_align_center">
+ 	    <select name='stub_doccol'  style="width:290px;"  id='stub_doccol' _note='科室ID|select|1=>预防保健科,2=>全科医疗科,3=>药房,4=>检验室,5=>X光室,6=>B超室,7=>心电图室,8=>消毒供应室,9=>信息资料室,10=>其它'>
+ 	    <!--{html_options options=$section_office_id_options selected=$section_office_id_current }--> 
+ 	    </select>
+  		科室
+  		<select name="in_of_doctor" id="in_of_doctor"   style="width:280px;" >  	
+  		<option value="<!--{$in_of_doctor}-->"><!--{$in_of_doctor_name}--></option>	
+  		</select>
+  		 接诊医生 	 </td>
+  </tr> 
+  <tr><td></td></tr>
+  <tr><td class="text_align_right">
+  	转诊医生（签字）:
+ 	<select name="stub_of_doctor" >
+    <!--{section loop=$region_users name=experience}-->
+    <option value="<!--{$region_users[experience].user_id}-->" <!--{if $out_of_doctor==$region_users[experience].user_id}-->selected<!--{/if}-->><!--{$region_users[experience].name_real}--></option>
+    <!--{/section}-->
+    </select> 
+  	</td></tr>
+  <tr>
+  	<td  class="text_align_right">
+   
+    <input type="text"  class="input_none_line"  style="width:50px;"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})"  name="stub_fill_time_year" value="<!--{$stub_fill_time_year}-->"/>年
+    <input type="text"  class="input_none_line"  style="width:50px;"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'M'})"  name="stub_fill_time_month" value="<!--{$stub_fill_time_month}-->"/>月
+    <input type="text"  class="input_none_line"  style="width:50px;"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'d'})"  name="stub_fill_time_day" value="<!--{$stub_fill_time_day}-->"/>日    </td></tr>
+   	<tr><td><hr/></td></tr>
+    <tr><td  class="text_title">双向转诊（转出）单</td></tr>
+    <tr><td  ><input type="text"  class="input_bottom_line" name="dst_org_name"  style="width:200px;" id="dst_org_name" value="<!--{$dst_org_name}-->"/>
+    <div id='dst_org_suggest' class="ac_results"></div><input type="hidden" name="dst_org_code" id="dst_org_code" value="<!--{$dst_org_code}-->"/>(机构名称)</td></tr>
+    <tr>
+    	<td class="text_padding_left">现有患者 <input type="text"  class="input_bottom_line"  value="<!--{$name}-->" disabled="disabled" />
+            性别<input type="text"  class="input_bottom_line"   value="<!--{$sex}-->" disabled="disabled"/> 
+            年龄<input type="text"  class="input_bottom_line"   value="<!--{$age}-->" /> 
+            因病情需要，需要转入    	</td>
+     </tr>
+    <tr><td  >贵单位，请予以接诊。</td></tr>
+    <tr>
+    	<td  class="text_padding_left">
+        <div  style="float:left; " >初步诊断:<div>
+        <div style="float:right; ">
+            <textarea cols="89" name="firefight"><!--{$firefight}--></textarea>
+        </div>        </td>
+    </tr>
+    <tr>
+    	<td  class="text_padding_left">
+    	<div  style="float:left; " >主要现病史(转出原因):<div>
+        <div style="float:right; ">
+            <textarea cols="89" name="present_illness"><!--{$present_illness}--></textarea>
+        </div>    	</td>
+    </tr>
+    <tr>
+    	<td  class="text_padding_left">
+    
+    	<div  style="float:left; " >主要既往史:<div>
+        <div style="float:right; ">
+            <textarea cols="89" name="past_history"><!--{$past_history}--></textarea>
+        </div>    	</td>
+    </tr>
+    <tr>
+   	  <td  class="text_padding_left">
+    
+    	<div  style="float:left; " >治疗经过:<div>
+        <div style="float:right; ">
+          <textarea  cols="89" name="course_and_treatment" ><!--{$course_and_treatment}--></textarea>
+        </div>   	  </td>
+    </tr>
+    <tr><td  class="text_align_right">转诊医生(签名):
+    <select name="out_of_doctor" >
+    <!--{section loop=$region_users name=experience}-->
+    <option value="<!--{$region_users[experience].user_id}-->" <!--{if $out_of_doctor==$region_users[experience].user_id}-->selected<!--{/if}-->><!--{$region_users[experience].name_real}--></option>
+    <!--{/section}-->
+    </select>
+    </td></tr>
+    <tr><td  class="text_align_right">联系电话:<input type="text" name="phone"  class="input_none_line"  style="width:130px;" value="<!--{$phone}-->"/></td></tr>
+    <tr><td  class="text_align_right"><input type="text" name="my_org_name"  id="my_org_name" class="input_bottom_line"  style="width:200px;" value="<!--{$my_org_name}-->"/>
+    <div id='my_org_suggest'  class="ac_results"></div><input type="hidden" name="my_org_code" id="my_org_code" value="<!--{$my_org_code}-->"/>(机构名称)</td></tr>
+    <tr><td  class="text_align_right">
+    	<input type="text"  name="fill_time_year" class="input_none_line"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})"   style="width:50px;" value="<!--{$fill_time_year}-->"/>年
+        <input type="text"  name="fill_time_month" class="input_none_line"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'M'})"  style="width:50px;" value="<!--{$fill_time_month}-->"/>月
+        <input type="text"  name="fill_time_day" class="input_none_line"  onfocus="WdatePicker({skin:'whyGreen',dateFmt:'d'})"  style="width:50px;"  value="<!--{$fill_time_day}-->"/>日
+        </td>
+    </tr>
+    <tr><td  ><hr/></td></tr>
+    <tr><td  style="text-align:center"><input type="submit" id="submit" value=" 提交 " name="submit" class="inputbutton"/><!--{if $uuid!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td></tr>
+    </table>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>栏目列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>		
+<table border="0" width="100%">
+    <tr class="headbg">
+    	<td colspan="3">
+        	门户栏目管理(<a href="<!--{$basePath}-->web/sort/index">顶级栏目</a><!--{section name=path loop=$path}-->-><a href="<!--{$basePath}-->web/sort/index/uuid/<!--{$path[path].uuid}-->"><!--{$path[path].sortname}--></a><!--{/section}-->)
+        </td>
+	</tr>
+    <tr class="title">
+    	<td>
+        	栏目标题
+        </td>
+		<td>
+        	栏目拼音
+        </td>
+		<td>
+        	操作选项
+        </td>
+	</tr>
+	<tbody id="sort">
+	<!--{section name=sort loop=$sort}-->
+	 <tr id="sort_<!--{$sort[sort].js_uuid}-->">
+	 	<td>
+        	<!--{$sort[sort].sortname}-->
+        </td>
+		<td>
+        	<!--{$sort[sort].sortname_py}-->
+        </td>
+		<td>
+       		 <a href="<!--{$basePath}-->web/sort/index/uuid/<!--{$sort[sort].uuid}-->">查看下一级</a>&nbsp;|&nbsp;<a href="<!--{$basePath}-->web/sort/edit/uuid/<!--{$sort[sort].uuid}-->">编辑</a>&nbsp;|&nbsp;<a href="<!--{$basePath}-->web/sort/edit/pid/<!--{$sort[sort].uuid}-->">添加子分类</a>&nbsp;|&nbsp;<a href="###" onclick="return del('<!--{$sort[sort].uuid}-->','<!--{$sort[sort].js_uuid}-->')">删除</a>
+		</td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="3">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="3">
+        	&nbsp;<a href="<!--{$basePath}-->web/sort/edit/pid/<!--{$current_id}-->">+添加栏目</a>
+        </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
+<script>
+	function del(uuid,js_uuid)
+	{
+		if(confirm("确定要删除本栏目吗？"))
+		{
+			 $.ajax({
+                    type: "get",
+                    url: "<!--{$basePath}-->web/sort/delete/uuid/"+uuid,
+                    dataType: "html",
+                    data: "",
+                    success: function(data){
+                        if(data=="ok")
+						{
+							$("#sort_"+js_uuid).hide();
+							alert("删除栏目成功");
+						}
+						else if(data=='article')
+                        {
+                            alert("该栏目下已发布文章，不能被删除");
+                        }
+                        else if(data=='sort')
+                        {
+                            alert("该栏目存在子栏目，不能被删除");
+                        }
+                        else
+						{
+							alert("删除失败，未知的错误");
+						}
+                        return false;
+                    },
+                    error: function(){
+                        alert("服务器返回信息不完整，请重新点击删除");
+                        return false;
+                    }
+                });
+		}
+		return false;
+	}
+</script>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>门诊收费详细</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">门诊收费详细</th>
+</tr>
+</thead>
+<tr>
+  <td colspan="4">退费类型:<font color="Red"><!--{$xgbzstr}--></font></td>
+</tr>
+<tr>
+  <td colspan="4">医疗机构:<!--{$yljgmc}--></td>
+</tr>
+<tr>
+  <td>姓名</td>
+  <td><!--{$xm}--></td>
+  <td>性别</td>
+  <td><!--{$xbstr}--></td>
+</tr>
+<tr>
+  <td>卡号</td>
+  <td><!--{$kh}--></td>
+  <td>卡类型</td>
+  <td><!--{$klx}--></td>
+</tr>
+<tr>
+  <td>处方号</td>
+  <td><!--{$cfh}--></td>
+  <td>发票号</td>
+  <td><!--{$fph}--></td>
+</tr>
+<td>明细费用类别</td>
+<td><!--{$mxfylb}--></td>
+<td>收费/退费时间</td>
+<td><!--{$stfsj}--></td>
+</tr>
+<tr>
+  <td>明细项目编码</td>
+  <td><!--{$mxxmbm}--></td>
+  <td>明细项目名称</td>
+  <td><!--{$mxxmmc}--></td>
+</tr>
+<tr>
+  <td>明细项目单位</td>
+  <td><!--{$mxxmdw}--></td>
+  <td>项目分类编码</td>
+  <td><!--{$xmflbm}--></td>
+</tr>
+<tr>
+  <td>项目分类名称</td>
+  <td><!--{$xmflmc}--></td>
+  <td>明细项目单价</td>
+  <td><!--{$mxxmdj}--></td>
+</tr>
+<tr>
+  <td>明细项目数量</td>
+  <td><!--{$mxxmsl}--></td>
+  <td>明细项目金额</td>
+  <td><!--{$mxxmje}--></td>
+</tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

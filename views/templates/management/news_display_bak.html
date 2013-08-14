@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>栏目管理</title>
+<link rel="stylesheet" type="text/css" href="/styles/mycss.css">
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF
+}
+.tr{
+background-color:#336699;
+}
+td{
+border:#000000 1px solid;
+}
+.td1{
+}
+fieldset{
+width:300px;
+}
+</style>
+</head>
+
+<body>
+<form method="post" action="/management/news/edit" >
+<input type="hidden" name="news_id" id="news_id" value='!--{$news_id}--' />
+<input type="hidden" name="current_page" id="current_page" value='!--{$current_page}--' />
+<table width="95%">
+<tr>
+<td>
+所属栏目
+</td>
+<td>
+<select name='sub_menu_id' id='sub_menu_id'>
+  !--{$menu_id}--
+</select>
+</td>
+</tr>
+
+<tr>
+<td>
+是否显示
+</td>
+<td>
+<input type='radio' name='visible[]' id='visible_1' value='1' !--{$visible_0}-- _note='可见性|radio|1=>正常,2=>隐藏'>正常
+<input type='radio' name='visible[]' id='visible_2' value='2' !--{$visible_1}-- _note='可见性|radio|1=>正常,2=>隐藏'>隐藏
+</td>
+</tr>
+
+<tr>
+<td>
+标题
+</td>
+<td>
+<input type='text' name='title' id='title' value='!--{$title}--' size="100" maxlength="100" _note='标题|text'/>
+</td>
+</tr>
+
+<tr>
+<td>
+内容
+</td>
+<td>
+<textarea id="content" name="content" style="display:none">
+!--{$content}--
+</textarea>
+<textarea id="FCKeditor" name="FCKeditor" style="display:none">
+</textarea>
+<script type="text/javascript" src="/FCKeditor/fckeditor.js"></script>
+<script type="text/javascript">
+var obj_content=document.getElementById('content');
+var obj_FCKeditor=document.getElementById('FCKeditor');
+obj_FCKeditor.value=obj_content.value;
+var FCKeditor = new FCKeditor("FCKeditor");
+FCKeditor.BasePath = "/FCKeditor/"; 
+FCKeditor.Height = 400;
+FCKeditor.ToolbarSet = "Default";
+FCKeditor.Create() ; 
+//FCKeditor.ReplaceTextarea();
+</script>
+</td>
+</tr>
+<tr>
+<td>
+附件
+</td>
+<td>
+<label id="uploaded">
+!--{$uploaded}--
+</label>
+</td>
+</tr>
+</table>
+
+<br />
+
+<!--<input type="button" name="ajaxsave" id="ajaxsave" value="保存" onclick="ajax_save()"/>-->
+<input type="submit" name="ajaxsave" id="ajaxsave" value="保存" />
+
+<input type="button" name="show" id="show" value="退出" onclick="document.location='/management/news/list/current_page/!--{$current_page}--/first_coming/yes'"/>
+
+<input type="button" name="upload" id="upload" value="附件管理" onclick="file_upload('!--{$news_id}--')"/>
+</form>
+</body>
+
+
+
+<script language="javascript">
+var old_value;
+/**
+全局变量xmlHttp对象实例
+*/
+var xmlHttp = false;
+
+/**
+上传文件
+*/
+function file_upload(news_id)
+{
+	//oWindow = window.showModalDialog("upload.html?url="+url+"&sid="+Math.random(),window,"dialogWidth:" + width + "px;dialogheight:" + height + "px;center: yes; help: no; resizable: no; status: no;");
+	//oWindow = window.showModalDialog("/management/upload/display/news_id/"+news_id+"/sid/"+Math.random(),window,"dialogWidth:" + width + "px;dialogheight:" + height + "px;center: yes; help: no; resizable: no; status: no;");
+	
+	oWindow = window.open("/management/upload/display/news_id/"+news_id+"/message//sid/"+Math.random(),'window',"Width=500,Height=260,top=300,left=300,help=no,resizable=yes,status=yes");
+	return;
+
+}
+
+/**
+本函数实现用ajax的方法保存表单数据
+ */
+function change_state()
+{
+	obj_save_button=document.getElementById('ajaxsave');
+	if(obj_save_button.value=='保存')
+	{
+		obj_save_button.value='正在保存数据';
+		obj_save_button.disabled=true;
+	}
+	else
+	{
+		if (xmlHttp.readyState == 4)
+		{
+			obj_save_button.value='保存';
+			obj_save_button.disabled=false;
+			alert(xmlHttp.responseText);//显示保存成功
+		}
+	}
+	return;
+}
+/**
+客户端有效性检查
+*/
+function valid()
+{
+	var $obj=document.getElementById('sub_menu_id');
+	if($obj.value=='0')
+	{
+		alert('必须指定一个栏目');
+		return false;
+	}
+	return true;
+}
+function ajax_save()
+{
+	if(!valid())//有无效的数据
+	{
+		return false;
+	}
+	xmlHttp=xmlhttp_factory();
+	//xmlHttp.setRequestHeader( "Content-Type" , "multipart/form-data");
+	post_string="/management/news/edit/id="+Math.random();
+	//这样处理的主要目的是防止缓存
+	xmlHttp.open("POST", post_string, true);//true为异步，false为同步
+	//xmlHttp.setRequestHeader("Content-Length",'65000000');//post提交设置项
+
+	xmlHttp.setRequestHeader( " Content-Type " , " application/x-www-form-urlencoded " );
+	var editor = FCKeditorAPI.GetInstance("FCKeditor");
+	var content=editor.EditorDocument.body.innerHTML;
+	//alert(content);
+
+	var obj_content=document.getElementById('content');
+	obj_content.value=content.replace(/&nbsp;/g,' ');
+	var str=get_value();
+	//var cc=FCKeditorAPI.GetInstance('frmEntity_editor_content').GetXHTML(FCKConfig.FormatOutput);
+	//alert(str);
+	xmlHttp.onreadystatechange = change_state;
+	xmlHttp.send(str);
+	//xmlHttp.onreadystatechange= change_state;
+}
+function get_value()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//判断值是否被修改，如果修改才上传
+			//if(obj.value==old_value[obj.id])
+			//{
+				
+				//continue;
+			//}
+			if(obj.name=='FCKeditor')
+			{
+				continue;
+			}
+			if(obj.type=='radio' || obj.type=='checkbox')
+			{
+				if(obj.checked)
+				{
+					value=value+obj.name+'='+obj.value+"&";
+				}
+			}
+			else
+			{
+				value=value+obj.name+'='+obj.value+"&";
+			}
+		}
+		//	str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}
+	value=value+"end=end";	
+	//alert(value);
+	return value;
+
+}
+function get_obj()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+			value=value+obj.name+'='+obj.value
+			if(i<document.all.length-1)
+			{
+				value=value+"&";
+			}
+		}
+			str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}	
+		alert(str);
+
+}
+/**
+实例化一个http对象
+*/
+function xmlhttp_factory()
+{
+	/*@cc_on @*/
+	/*@if (@_jscript_version >= 5)
+	try {
+		xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+		try {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (e2) {
+			xmlHttp = false;
+		}
+	}
+	@end @*/
+	if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+		xmlHttp = new XMLHttpRequest();
+	}	
+	return xmlHttp;
+}
+/**
+本程序用于保存表单被修改前的所有值。以数组的形式存储在old_value里
+但实际意思不大，因为即时少提交数据上去，在服务器端也要花时间来判断哪些提交上去，哪些没有提交上去了。
+*/
+function save_old_value()
+{
+	old_value=="{"
+	//alert(old_value);
+	var i;
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//old_value[obj.id]=obj.value;
+			old_value=old_value+"'"+obj.id+"':'"+obj.value+"',"
+		}
+	}
+	//alert(old_value.length);
+	old_value=old_value.substring(0,old_value.length-1);
+	old_value=old_value+"}";
+	old_value=eval('('+old_value+')');
+	//alert(old_value);
+	//alert(old_value['name']);
+}
+</script>

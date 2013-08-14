@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+body
+{
+margin:0 auto;
+padding:0;
+algin:center;
+}
+
+ul{
+list-style:none;
+margin:0 auto;
+padding:0;
+text-align:center;
+width:90%;
+height:100%;
+position:relative;
+border:1px solid white;
+}
+li
+{
+margin-top:23px;
+height:20px;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+    $("#btn1").click(function(){
+        $.dialog(350,200,'<form id="popup" action="<!--{$basePath}-->coding/index/add/flag_tag/0/id/<!--{$current_id}-->/mypage/<!--{$mypage}-->" method="POST" onsubmit="return checkform();"><ul><li>编码编号：<input type="text" name="coding_code" /></li><li>编码名称：<input type="text" name="coding_name" /></li><li><input type="submit" name="ok" value="添加" /></li></ul></form>','','添加编码分类');
+    });
+});
+//设置属性
+function set_sx(id)
+{
+     $.dialog(350,200,'<form id="popup2" action="<!--{$basePath}-->coding/index/add/flag_tag/1/id/'+id+'/mypage/<!--{$mypage}-->" method="POST" onsubmit="return checkform();"><ul><li>属性编号：<input type="text" name="coding_code" /></li><li>属性名称：<input type="text" name="coding_name" /></li><li><input type="submit" name="ok" value="添加" /></li></ul></form>','','添加属性分类');
+}   
+function editajax(id,flag_tag)
+{
+	$.ajax({
+		type:"get",
+		url:"<!--{$basePath}-->coding/index/ajax/id/"+id,
+		beforeSend:function()
+		{
+			$.dialog(350,200,'<form id="popupedit" action="<!--{$basePath}-->coding/index/edit/flag_tag/'+flag_tag+'/id/'+id+'/mypage/<!--{$mypage}-->" method="POST" onsubmit="return checkform();"></form>','','<!--{if $tag_val}-->编辑分类属性<!--{else}-->编辑编码分类<!--{/if}-->');
+			$("#popupedit").html('<img src="<!--{$basePath}-->views/images/ajax-loader.gif" width="350px" height="100px"/>');
+		},
+		dataType:"html",
+		data:"",
+		success:function(data)
+		{
+		   $("#popupedit").html(data);
+		}
+	});
+}
+function checkform()
+{
+	var coding_code = $("input[name=coding_code]");
+	var coding_name = $("input[name=coding_name]");
+	if(coding_code.val()=="")
+	{
+        alert("编码不能为空");
+        coding_code.focus();
+        return false;
+	}
+	if(coding_name.val()=="")
+	{
+        alert("编码名称为空");
+        coding_name.focus();
+        return false;
+	}
+}
+</script>
+<title>编码列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><!--{foreach from=$view_array key=k item=val}--><!--{$val}--><!--{/foreach}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="20%"><strong><!--{if $tag_val}-->属性名称<!--{else}-->编码名称<!--{/if}--></strong></td>
+        <td width="20%"><strong>编码代码</strong></td>
+        <!--{if $tag_val}-->
+        <!--{else}-->
+        <td width="20%"><strong>下级药品分类</strong></td>
+        <!--{/if}-->
+        <td width="<!--{$firstcu}-->"><strong>操作</strong></td>
+     </tr>
+     <!--{section loop=$row name=cus}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[cus].code_name}--></td>
+           <td><!--{$row[cus].standard_code}--></td>
+           <!--{if $row[cus].flag_tag}-->
+           <!--{else}-->
+           <td><a href="<!--{$basePath}-->coding/index/index/id/<!--{$row[cus].code_id}-->/page/<!--{$mypage}-->/flag_tag/0">[进入下级]</a>&nbsp;&nbsp;&nbsp;&nbsp;<!--<a href="<!--{$basePath}-->coding/index/index/id/<!--{$row[cus].code_id}-->/page/<!--{$mypage}-->/flag_tag/1">[属性列表]</a>--></td>
+           <!--{/if}-->
+           <td>
+           <a href="javascript:void(0)" onclick="editajax('<!--{$row[cus].code_id}-->','<!--{$row[cus].flag_tag}-->');">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->coding/index/del/current_id/<!--{$row[cus].code_id}-->" onclick="return confirm('您确定删除吗?确定');">[删除]</a>
+           </td>
+        </tr>
+     <!--{sectionelse}-->
+     <tr>
+        <td colspan="4">当前没有任何数据!</td>
+     </tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="5"><!--{if $tag_val}--><a href="javascript:void(0)" onclick="set_sx('<!--{$current_id}-->');"><strong>[设置属性]</strong></a><!--{else}--><a id="btn1" href="javascript:void(0)"><strong>[添加编码分类]</strong></a><!--{/if}--></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+	label
+	{
+        cursor: pointer;
+	}
+	.short
+	{
+		width:15px;
+		height:15px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.time
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+		width:30px;
+	}
+	#dialog_box_html li{
+		border-bottom:1px dashed #ccc;
+		line-height:28px;
+	}
+	.center table{
+		margin:0px;
+	}
+	.center td
+	{
+		text-align:center;
+	}
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:200px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position:absolute;z-index:20000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+    <tr>
+        <td width="20%">疾病序号</td><td colspan="3"><!--{$id}--></td>
+    </tr>
+    <tr>
+    	 <td width="20%">疾病上级编码</td><td><!--{$fdmz}--></td>
+    </tr>   
+    <tr>
+    	 <td width="20%">疾病编码</td><td><!--{$dmxz}--></td>
+    </tr> 
+     <tr>
+    	 <td width="20%">疾病名称</td><td><!--{$dmxmc}--></td>
+    </tr>
+      <tr>
+    	 <td width="20%">拼音助记码</td><td><!--{$pyzjm}--></td>
+    </tr>
+ 
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

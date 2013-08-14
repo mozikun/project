@@ -1,0 +1,382 @@
+@charset "utf-8";
+
+/*   Add new album   */
+div#main02{
+	width:698px;
+	vertical-align: bottom;
+	text-align: right;
+    margin: 20px 5px 20px 0px;
+}
+
+a:link,a:visited{color: #800000;}
+a:hover,a:active{color: #474FB4;}
+
+/*   Add new album   */
+div#align{
+	width:698px;
+	text-align: left;
+    margin: 20px 5px 20px 130px;
+}
+    
+table{ text-align: left;
+       font-size: 14px;
+       color: #444444;
+       width:98%;       
+}
+.table_mouseover{
+	background:#ccc;
+}
+.table_mouseout{
+	background:#fff;
+}
+.about1{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #60B1D6;
+	}
+.about1 td{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #E2E3E4;
+	}
+
+.about2{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #A1CB02;
+	}
+.about2 td{
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #E2E3E4;
+	}
+	
+/**list
+-------------------------------------------------*/
+#system_chsc_edit{
+	width:600px;
+}
+
+#grant_role_list,#system_gove_add ul,#regionbar ul{
+	list-style:none;
+	margin:0;
+	padding:0;	
+}
+#grant_role_list li,#system_gove_add li,#regionbar li{
+	padding:2px;	
+	padding-left:25px;
+	background:url("../images/role.gif") no-repeat left center;
+}
+#grant_role_list li a,#system_gove_add li a,#regionbar a{
+	text-decoration:none;
+	display:block;
+}
+/**管理员页面又帧布局
+-------------------------------------------------*/
+
+#right_wrapper{
+	width:950px;
+}
+#right_wrapper #add{
+	width:240Px;
+	float:left;
+}
+#right_wrapper #list{
+	width:500Px;
+	float:left;
+}
+/**管理员页面又帧布局-->tree layout
+-------------------------------------------------*/
+#right_wrapper #tree{
+	width:200Px;
+	float:left;
+}
+
+.gray{
+	background:#eee;
+	color:#ccc;
+}
+#gray{
+	background:#eee;
+	color:#ccc;
+}
+.clear{
+	clear:both;
+}
+/**fieldset
+---------------------------------------------------*/
+fieldset{
+	background:#fff;
+	border:1px solid #ccc;
+	padding:10px;
+}
+legend{
+	font-weight:bold;
+}
+/**iframe
+---------------------------------------------------*/
+iframe{
+	border:none;
+	margin-left:5px;
+	width:800px;
+	height:1000px;
+	float:left;
+}
+/**login
+---------------------------------------------------*/
+.login{
+	border:2px solid #ccc;
+	background:#8a8a8a;
+	width:450px;
+	margin:0 auto;
+}
+.login div{
+	padding:10px; 
+	margin-left:50px;
+}
+.login label{
+	display:block;
+}
+/**error
+---------------------------------------------------*/
+.error{
+	border:2px solid #ccc;
+	background:#ffffff;
+	width:450px;
+	margin:0 auto;
+	color:#ff0000;
+}
+
+/**decision
+---------------------------------------------------*/
+#sqzd,.nav_ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	width:100%;
+	float:left;
+	background:url("../images/dh_bg.png") repeat-x bottom;
+}
+#sqzd li,.nav_ul li{
+	float:left;	
+	margin-left:10px;
+}
+
+#sqzd li a,.nav_ul li a{
+	display:block;
+	text-decoration:none;
+	color:#111;
+	padding:5px;
+}
+/*社区诊断导航*/
+#sqzd_index .index a,#sqzd_rksl .rksl a,#sqzd_rkjg .rkjg a,#sqzd_jkzk .jkzk a
+
+,#sqzd_zyjkwt .zyjkwt a,#sqzd_zysy .zysy a,#sqzd_gwrq .gwrq a,#sqzd_top20 .top20 a,#sqzd_rkjzt .rkjzt a
+,#chsc_base .base a,#chsc_assets .assets a,#chsc_build .build a,#chsc_inout .inout a,#chsc_sickbed .sickbed a,#chsc_equipment .equipment a
+,#or .or a,#chss_base .chss a
+{
+	color:#fff;
+	background:#555 url("../images/dh_back_bg.png") repeat-x bottom;
+	
+}
+
+/**doctor
+---------------------------------------------------*/
+#visit_left{
+	width:40%;
+	float:left;
+}
+#visit_right{
+	width:49%;
+	float:left;
+	margin-left:2px;
+}
+#visit_div{	
+	position:absolute;
+	top:0;
+	left:150px;
+	z-index:2;
+	border:1px solid #000;
+	background:#ccc url("../images/visit_div.png");
+	width:800px;
+}
+iframe#visit{
+	width:800px;
+	height:500px;
+	margin:0;
+}
+#visit_main_nav{
+	width:50px;	
+	height:20px;
+	position:absolute;
+	top:0;
+	left:0;
+	border:1px solid #000;
+	background:#ccc url("../images/visit_div.png");
+}
+#visit_menu{
+	width:200px;
+	float:left;
+	border:1px solid #000;
+	background:#fff;
+}
+
+.nav_ul_y{
+	list-style:none;
+	margin:0;
+	padding:0;	
+}
+.nav_ul_y li{
+	padding:2px;	
+	padding-left:25px;
+	background:url("../images/role.gif") no-repeat left center;
+}
+.nav_ul_y li a{
+	text-decoration:none;
+	display:block;
+}
+/**统计报表
+-----------------------------------------------------------*/
+#report_region{
+	width:250px;
+	float:left;
+}
+#report_table_panel{
+	float:left;
+}
+.report_table{
+	height:auto;
+	width:30%;
+	float:left;
+}
+
+table,th,td{	
+    border: 1px solid #999999;
+    border-collapse:collapse;
+    padding: 1px 4px;
+}
+table{
+	width:100%;
+	background:#fff;
+}
+/*admin_chsc
+---------------------------------*/
+#admin_chsc{
+	width:700px;
+	float:left;
+}
+
+/*admin_chss
+---------------------------------*/
+#chss_base_info{
+	width:350px;
+	float:left;
+}
+#chss_other{
+	width:300px;
+	float:left;
+}
+.link_button{
+	margin-top:5px;
+	padding:5px;
+	text-decoration:none;
+	color:#111;
+	display:block;
+	border:1px solid #000;
+	width:100px;
+	background:#999;
+}
+
+/*node
+---------------------------------*/
+#treeRoot{
+	width:700px;
+}
+#treeRoot .prefix{
+	cursor:pointer;
+}
+
+.node_type{
+padding-left:15px;
+}
+.node_type_a{
+	background:url("../images/node_type_a.gif") no-repeat left center;
+}
+.node_type_b{
+	background:url("../images/node_type_b.gif") no-repeat left center;
+}
+.node_type_c{
+	background:url("../images/node_type_c.gif") no-repeat left center;
+}
+.node_type_d{
+	background:url("../images/node_type_d.gif") no-repeat left center;
+}
+.node_type_e{
+	background:url("../images/node_type_e.gif") no-repeat left center;
+}
+.node_type_f{
+	background:url("../images/node_type_f.gif") no-repeat left center;
+}
+.node_type_g{
+	background:url("../images/node_type_g.gif") no-repeat left center;
+}
+.node_type_h{
+	background:url("../images/node_type_h.gif") no-repeat left center;
+}
+.node_type_i{
+	background:url("../images/node_type_h.gif") no-repeat left center;
+}
+.node_type_j{
+	background:url("../images/node_type_h.gif") no-repeat left center;
+}
+.del_action{
+	background:url("../images/del.png") no-repeat left center;
+}
+.config_action{
+	background:url("../images/config.png") no-repeat left center;
+}
+.community{
+	background:url("../images/community.png") no-repeat left center;
+}
+
+#treeRoot a{
+	text-decoration:none;
+	cursor:default;
+	color:#111;
+}
+
+#treeRoot a:hover{
+	text-decoration:underline;
+	color:#666;
+}
+
+/**system
+------------------------------------------------------------*/
+#rolebar{
+	width:180px;
+	float:left;
+}
+#grantbar{
+	width:400px;
+	float:left;
+}
+/*system_government_index
+----------------------------*/
+#system_gove_add,#system_chsc_add{
+	width:180px;
+	float:left;
+}
+#system_gove_list,#system_chsc_list{
+	width:560px;
+	float:left;
+}
+
+/*tree
+---------------------------------------------------*/
+
+#div_510000 label{
+	margin-left:10px;
+}
+#div_510000 div label{
+	margin-left:45px;
+}

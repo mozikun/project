@@ -1,0 +1,31 @@
+<!--{section name=modeule_ loop=$module_array}-->
+<tr >
+  	   <td colspan="4"> 
+	  	   <fieldset>
+			  	   <legend>
+	  	           <span  style=" cursor:pointer">
+	  	            <input type="checkbox" onclick="selectModule('<!--{$module_array[modeule_]}-->',this);" />
+			  	    <strong onclick="toggleInfo(this,'<!--{$module_array[modeule_]}-->')"><!--{$module_array[modeule_]}-->-</strong>
+			  	    </span>
+			  	    </legend>
+			  	    
+				    <table id="<!--{$module_array[modeule_]}-->" >
+					<!--{section name=contact loop=$resource_arr}-->
+						<!--{if ($resource_arr[contact].resource_en_name|regex_replace:"/[_]+[a-z0-9]*/":"") == ($module_array[modeule_])}-->
+							<tr   onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+							<td style="width:40%"><input type="hidden" value="<!--{$resource_arr[contact].resource_id}-->" name="resource_id[]"/><!--{$resource_arr[contact].resource_zh_name}--></td>
+							<td style="width:40%"><!--{$resource_arr[contact].resource_en_name}--></td>
+							<td style="width:10%"><input type="checkbox"  value="1" <!--{if $resource_arr[contact].read==1}--> checked="checked"<!--{/if}--> name="<!--{$resource_arr[contact].resource_id}-->read" value="<!--{$resource_arr[contact].read}-->"/></td>
+							<td style="width:10%"><input type="checkbox" value="1" <!--{if $resource_arr[contact].write==1}--> checked="checked"<!--{/if}-->  name="<!--{$resource_arr[contact].resource_id}-->write"/></td>
+							</tr>
+						<!--{/if}-->		
+					<!--{/section}-->	
+ 					</table>
+			 </fieldset>
+    	</td>
+    </tr> 
+<!--{/section}-->	
+	<tr>
+	<td colspan="4"><input type="hidden" name="role_id" id="role_id" value=""/><input type="submit" onclick="return post_form()" value="提交"/></td>
+	</tr>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body{
+	font-size:14px;
+	padding:0px;
+	margin-top:2px; 
+	background-color:#ecf6ff
+}    
+body table,tr,td,th{
+	height:26px;
+	font-size:13px;  /*表格*/
+	border-collapse:collapse;
+	border:#CCCCCC 1px solid；
+}
+table,tr,td a{
+  color: #000;
+}
+*{padding:0;margin:0;} 
+table{ border-collapse:collapse;border:1px #525152 solid;width:100%;margin:0 auto;} 
+th,td{border:1px #525152 solid;text-align:center;font-size:12px;line-height:30px;background:#fff;} /*表格内部样式*/
+th{background:#D6D3D6;} /*标题背景*/ 
+/*表格斜线*/ 
+.out{ 
+   border-top:60px #4e9ddf solid;/*上边框宽度等于表格第一行行高*/ 
+   width:0px;/*让容器宽度为0*/ 
+   height:0px;/*让容器高度为0*/ 
+   border-left:80px #fff solid;/*左边框宽度等于表格第一行第一格宽度,姓名部分的背景颜色*/     
+   position:relative;/*让里面的两个子容器绝对定位*/ 
+} 
+b{font-style:normal;display:block;position:absolute;top:-60px;left:-40px;width:35px;} 
+em{font-style:normal;display:block;position:absolute;top:-25px;left:-70px;width:55x;} 
+.t1{background:#fff;font-weight:bold;} 
+ .headbg{  /*头部*/
+	font-weight:bold;
+	color:#FFFFFF;
+	background-color:#4e9ddf;
+}
+.topbg{
+background:#bad5f0;
+font-weight:bold;
+}
+</style>
+<title>辖区内糖尿病统计表</title>
+</head>
+<body>
+<table> 
+<tr> 
+    <th style="width:80px;" rowspan="2"> 
+        <div class="out"> 
+            <b>性别</b> 
+            <em>地区</em> 
+        </div> 
+    </th> 
+    <td colspan="4" class="headbg">糖尿病</td>  
+</tr> 
+<tr >
+  <td class="topbg">男</td>
+  <td class="topbg">女</td>
+  <td class="topbg">百分比（男）</td>
+  <td class="topbg">百分比（女）</td>
+</tr>
+<tr> 
+    <td class="t1">雨城区</td> 
+    <td>三</td> 
+    <td>2</td> 
+    <td>62</td> 
+    <td>61</td> 
+</tr> 
+<tr> 
+    <td class="t1">天全县</td> 
+    <td>三</td> 
+    <td>1</td> 
+    <td>48</td> 
+    <td>67</td> 
+</tr> 
+<tr> 
+    <td class="t1">庐山县</td> 
+    <td>三</td> 
+    <td>5</td> 
+    <td>79</td> 
+    <td>63</td> 
+</tr> 
+<tr> 
+    <td class="t1">石棉县</td> 
+    <td>三</td> 
+    <td>4</td> 
+    <td>89</td> 
+    <td>66</td> 
+</tr> 
+</table> 
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>档案完整率指标设置</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	span
+	{
+		line-height:28px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script>
+	function createlist(url)
+	{
+		if(url!="" && confirm("你确定要初始化该地区的完整率字段吗？"))
+		{
+			window.location=url;
+			return false;
+		}
+		return false;
+	}
+</script>
+</head>
+<body>
+	<table border="0" width="100%">
+			<tr><td>
+				<img title="单击以下地区以初始化该地区的档案完整率数据表字段，注意此操作可能比较耗费资源和时间" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />
+				<br />
+				<span>
+				<a href="###" onclick="return createlist('<!--{$basePath}-->rate/manage/createlist')">全部地区</a>
+				&nbsp;&nbsp;<br />
+				</span>
+				<!--{section name=region loop=$region}-->
+				<span>
+				<a href="###" onclick="return createlist('<!--{$basePath}-->rate/manage/createlist/path/<!--{$region[region].path}-->')"><!--{$region[region].name}--></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</span>
+				<!--{if $smarty.section.region.rownum%10==0}-->
+				<br />
+				<!--{/if}-->
+				<!--{/section}-->
+				</td>
+			</tr>
+</table>		
+</body>
+</html>

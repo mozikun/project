@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+a{
+	text-decoration:none;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>个人档案完整率分段统计表</title>
+</head>
+<body>
+<table  width="100%" >
+      <tr class="headbg">
+        <td colspan="8"></td>
+     </tr>
+     <tr class="bigfont">
+       <td colspan="<!--{$allNumber}-->" align="center"><center><strong>档案完整率分段统计<!--{$year_start}-->至<!--{$current_time}--></strong></center></td>
+     </tr>
+      <tr class="bigfont">
+       <td colspan="8" align="left">
+          <form action="" method="POST">
+            开始时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_time" value="<!--{$year_start}-->"/>
+            结束时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="end_time" value="<!--{$current_time}-->"/>          <input type="submit" value="搜索" value="okok" />
+         </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+		<td colspan="<!--{$allNumber}-->">
+		    <!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->decision/fullrate/index/parentid/<!--{$rs[rs].id}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->decision/fullrate/index/parentid/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}-->
+		</td>
+     </tr>
+     <tr class="bigfont">
+     <td  rowspan="2" align="center"><strong>地区名称</strong></td>
+     <td  colspan="<!--{$partical}-->" align="center"><strong>档案完整率 (单位：份)</strong></td>	
+    </tr>
+    <tr class="bigfont">
+    <!--{foreach from=$currentarray key=k item=v}-->
+		<td align="center"><strong><!--{$v}--></strong></td>
+    <!--{/foreach}-->
+    <td align="center"><strong>小计</strong></td>
+    <td align="center"><strong>查看下一级</strong></td>
+   </tr>
+   <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td align="center"><!--{$row[row].zh_name}--></td>
+           <!--{foreach from=$row[row].mycount item=v key=k}-->
+		   <td align="center"><!--{$v}--></td>
+           <!--{/foreach}-->
+           <td align="center"><!--{$row[row].sumnumber}--></td>
+           <td align="center"><!--{if $regionlevel==5}-->无下级<!--{else}--><a href="<!--{$basePath}-->decision/fullrate/index/parentid/<!--{$row[row].region_id}-->/decision_time/<!--{$current_time}-->/start_time_list/<!--{$year_start}-->">[进入下一级]</a><!--{/if}--></td>
+        </tr>
+    <!--{/section}-->  
+    <tr><td colspan="20">1、统计时间为所选时间的年初即1月1日至所选时间为止的数据统计，例如选择时间为2012-08-18，则统计时间段为2012-01-01至2012-08-18。
+</td></tr>
+</table>
+</body>
+</html>
+
+

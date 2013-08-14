@@ -1,0 +1,24 @@
+#tcmprescription
+{
+	text-align:center;
+}
+#tcmprescription .tpheader
+{
+	font-family: ËÎÌו;
+	font-size: 15pt;
+	text-align:center;
+}
+#tcmprescription .tptitle
+{
+	font-family: ËÎÌו;
+	font-size: 18pt;
+	font-weight:bold;
+	text-align:center;
+}
+#tcmprescription .tptable
+{
+	border: 0px;
+	width: 600px;
+	margin: 0 auto;
+	font-size: 10.5pt;
+}

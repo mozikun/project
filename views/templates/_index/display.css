@@ -1,0 +1,107 @@
+/*主样式区 index list display 都要用到*/
+
+
+#bodyDiv{
+	position:relative;
+	float:left;
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	width:800px;
+	/*height:600px;*/
+}
+#bodyLeftDiv{
+	/*border:#C5D9F1 1px solid;*/
+	/*
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	注意div的总宽度=border*2+width+padding+margin-left*2+margin-right
+	如，上一级div的width是800，则内部可用的宽度是800，
+	设置为float的div在ie下设置的margin-left会加倍。这是一个ie6都存在的bug。 
+	解决方案是在这个div里面加上display:inline;
+	
+	offsetWidth是整个DIV的显示宽度。不包括margin,但是包括padding,border,scrollbar的宽度。。   
+	clientWidth就是offsetWidth除去border,padding,scrollbar后里面的宽度...   
+	scrollWidth和clientWidth相关。指DIV里面东西的实际宽度
+	*/
+	position:relative;
+	float:left;	
+	margin:15px 5px 5px 3px;
+	padding:0px;
+	width:183px;
+	/*height:600px;*/
+	text-align:center;
+}
+#bodyLeftDiv a{
+	text-decoration:none;
+	color:#000000;	
+}
+.leftDiv{
+	position:relative;
+	float:left;
+	width:170px;
+	height:170px;
+	border:none;
+	margin:2px;
+	border-bottom:solid 1px #C5D9F1;
+	text-align:left;
+}
+.leftDiv a{
+	text-decoration:none;
+	color:#000000;	
+}
+.leftDiv a:hover{
+	text-decoration:none;	
+}
+
+#bodyRightDiv{
+	position:relative;
+	float:left;
+	text-align:left;
+	margin:5px 0px 5px 0px;
+	/*此框不要边线*/
+	/*border:#999999 1px solid;*/
+	width:598px;
+	/*height:600px;*/
+}
+/*显示标题，日期与阅读次数div用的css*/
+#bodyTitle{
+	width:96%;
+	padding:10px;
+	margin:2px;
+	border:dotted 1px #C5D9F1;
+	background-color:#EBF3FB;
+	line-height:20px;
+	/*font-weight:bold;*/
+	text-align:center;
+}
+#attachment{
+	width:96%;
+	padding:10px;
+	margin:2px;
+	border:dotted 1px #C5D9F1;
+	background-color:#EBF3FB;
+	
+	line-height:20px;
+	font-weight:bold;
+	text-align:left;
+}
+
+
+
+/*导航用css*/
+#bodyNavigation{
+	width:100%;
+	border-bottom:solid 1px #C5D9F1;
+	height:22px;
+}
+#bodyNavigation a{
+	text-decoration:none;
+	color:#000000;	
+}
+#bodyNavigation a:hover{
+	/*text-decoration:none;*/
+	color:#000000;
+}
+/*以上部分是用于display.html的css代码*/
+

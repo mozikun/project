@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/list.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+	<table class="categoryList">
+		<tr>
+		<td colspan="7">
+			所属类别：<span id='categoryDropDownBox'></span><input type="button" name="ok" id="ok" value="确定" onclick="doQuery()" />
+		</td>
+		</tr>
+		<tr  class="title"><td>类别名称</td><td>商品名称</td><td>商品售价</td><td>折扣</td><td>实际库存</td><td>理论库存</td><td>操作</td></tr>
+	<!--{section name=goodsList loop=$goodsList}-->
+		<tr>
+			<td><!--{$goodsList[goodsList].category_description}--></td>
+			<td><!--{$goodsList[goodsList].description}--></td>
+			<td><!--{$goodsList[goodsList].price}--></td>
+			<td><!--{$goodsList[goodsList].discount}--></td>
+			<td><!--{$goodsList[goodsList].storage_real}--></td>
+			<td><!--{$goodsList[goodsList].storage_reserve}--></td>
+			<td>
+				<a  href="/goods/picture/display/categoryId/<!--{$goodsList[goodsList].categoryId}-->/goodsId/<!--{$goodsList[goodsList].goodsId}-->/openerUrl/<!--{$openerUrl}-->">图文</a>
+				<a  href="/goods/goods/propertyDisplay/categoryId/<!--{$goodsList[goodsList].categoryId}-->/goodsId/<!--{$goodsList[goodsList].goodsId}-->/openerUrl/<!--{$openerUrl}-->">属性</a>
+				<a  href="/goods/goodsmeasurement/list/categoryId/<!--{$goodsList[goodsList].categoryId}-->/goodsId/<!--{$goodsList[goodsList].goodsId}-->/openerUrl/<!--{$openerUrl}-->">计量模式</a>
+				<a  href="/goods/goods/display/categoryId/<!--{$goodsList[goodsList].categoryId}-->/goodsId/<!--{$goodsList[goodsList].goodsId}-->/openerUrl/<!--{$openerUrl}-->">编辑</a>
+				<a  href="/goods/goods/delete/categoryId/<!--{$goodsList[goodsList].categoryId}-->/goodsId/<!--{$goodsList[goodsList].goodsId}-->" onclick="return confirm('是否确定')">删除</a>
+			</td>
+		</tr>
+	<!--{/section}-->
+	</table>
+	</div>
+	<a href="#" onclick="add()">新增</a>
+	共<!--{$max_rows}-->条记录 当前第<label id='current_page' name='current_page'><!--{$current_page_display}--></label>页 共<!--{$max_page}-->页
+
+	<a href="/goods/goods/list/page_action/top/<!--{$url}-->" id='pre' name='pre' class="pageline">首页</a>
+	<a href="/goods/goods/list/page_action/pre/<!--{$url}-->" id='pre' name='pre' class="pageline">上一页</a>
+	<a href="/goods/goods/list/page_action/next/<!--{$url}-->" id='next' name='next' class="pageline">下一页</a>
+	<a href="/goods/goods/list/page_action/bottom/<!--{$url}-->" id='next' name='next' class="pageline">尾页</a>
+
+	
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	
+</body>
+</html>
+
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+function doQuery(){
+	//alert(parentId);
+	var url='/goods/goods/list/categoryId/'+parentId+'/sid/'+Math.random();
+	document.location=url;
+}
+function add(){
+	if($('parentId').value=='-9' || $('parentId').value=='1'){
+		//alert($('parentId').value);
+		alert('请选择一个类别');
+		return false;
+	}else{
+		var url='/goods/goods/add/categoryId/'+parentId+'/sid/'+Math.random();
+		//alert(url);
+		document.location=url;
+
+	}
+}
+</script>
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getCategoryDropDownBox();
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>老年人生活自理能力评估列表</title>
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basepath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basepath}-->views/styles/tabs.css">
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basepath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<!--引入人员列表JS-->
+<script src="<!--{$basePath}-->views/js/search_list.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js"  type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#search_listpic").toggle(function(){do_search("<!--{$basePath}-->","individual_core||et_lifecase_assessment","老年人已评估||未评估(添加年龄条件)","","");},function(){undo_search("<!--{$basePath}-->");}); 
+     //下拉地区
+     get_region_select_html('<!--{$basePath}-->','region_p_id_','menuDropDownBox_address');
+
+
+	
+	if("<!--{$display}-->"=="on"){
+		$("#tbody_search").show();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");
+	}else{
+		$("#tbody_search").hide();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");
+	}
+	$("#search_lable").toggle(function(){
+		$("#tbody_search").show();
+		$("#search").attr("action","<!--{$basepath}-->elder/elder/scorelist/display/on");
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_out.png");},function(){$("#tbody_search").hide();
+		$("#search_lable>img").attr("src","<!--{$basePath}-->images/zoom_in.png");
+		$("#search").attr("action","<!--{$basepath}-->elder/elder/scorelist/display/off");
+		});
+});
+</script>
+<style>
+table
+{
+	background:#ffffff;
+}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+table th{
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<div id="search_list"></div>
+<div class="Left_top" id="left_top"><img id="search_listpic" alt="" src="<!--{$basePath}-->images/search_list.gif" /></div>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>老年人生活自理能力评估列表</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basepath}-->elder/elder/scorelist" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="realname" size="18" value=""/>&nbsp;
+				身份证号:<input type="text" name="identitynumber" value=""/>&nbsp;
+				评估分数:<input type="text" name="score" size="8" value=""/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton"/>
+				<label id="search_lable" style="cursor:pointer;"><img src="<!--{$basePath}-->images/zoom_in.png" />高级搜索</label><img title="请尽量使用普通搜索，并且限制搜索条件详细一些，否则会耗费过长的时间" src="<!--{$baseUrl}-->images/comments.png" class="vtip" />
+				</td>
+			</tr>
+			<tr id="tbody_search"><td>
+				时间:<input type="text" name="created_start_time" value="<!--{$created_start_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+						  --<input type="text" name="created_end_time" value="<!--{$created_end_time}-->"  class="inputnone2" onClick="WdatePicker({firstDayOfWeek:1})" >
+				地区:<span id="menuDropDownBox_address"></span>	
+					<input type="hidden" name="region_p_id" id="region_p_id_" value="<!--{$region_p_id}-->" />
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>&nbsp;    	
+        </th>
+        <th title="身份证号" style="width:200px">
+        	身份证号
+        </th>
+		<th title="姓名" >
+        	姓名
+        </th>
+        <th title="年龄">
+        	年龄
+        </th>
+        <th title="填表时间">
+        	填表时间
+        </th>
+        <th>
+        	高血压<img title="“可以从中查看到该老年人是否患有高血压，并且可以单击编辑确认是否患病。”" src="<!--{$basePath}-->images/comments.png" class="vtip"/>
+        </th>
+        <th>
+        	糖尿病<img title="“可以从中查看到该老年人是否患有糖尿病，并且可以单击编辑确认是否患病。””" src="<!--{$basePath}-->images/comments.png" class="vtip"/>
+        </th>
+        <th>
+        	精神病<img title="“可以从中查看到该老年人是否患有精神病，并且可以单击编辑确认是否患病。””" src="<!--{$basePath}-->images/comments.png" class="vtip"/>
+        </th>
+		<th title="评估分数">
+        	评估分数
+        </th>
+		<th titel="操作">
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+     <!--{section loop=$scoreList name=scoreList}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+	  <form action="<!--{$basepath}-->elder/elder/del/actionname/delall" method="post">
+	 	<td>
+	 		<input type="checkbox" value="<!--{$scoreList[scoreList].uuid}-->" name="selectFlag[]" id="selectFlag"/>
+	 	</td>
+        <td>
+           <!--{$scoreList[scoreList].identitynumber}--> 
+        </td>
+		<td >
+        	<!--{$scoreList[scoreList].name}-->
+        </td>
+        <td>
+        	<!--{$scoreList[scoreList].age}-->
+        </td>
+        <td>
+        	<!--{$scoreList[scoreList].created}-->
+        </td>
+        <td style="width:80px">	
+			<!--{if $scoreList[scoreList].gxy}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span style="color:red">是</span></a>
+			<!--{else}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span>不是</span></a>
+			<!--{/if}-->
+        </td>
+        <td style="width:80px">
+			<!--{if $scoreList[scoreList].tnb}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span style="color:red">是</span></a>
+			<!--{else}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span>不是</span></a>
+			<!--{/if}-->     	
+        </td>
+        <td style="width:80px">
+			<!--{if $scoreList[scoreList].jsb}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span style="color:red">是</span></a>
+			<!--{else}-->
+				<a href="<!--{$basepath}-->iha/index/add/uuid/<!--{$scoreList[scoreList].id}-->"><span>不是</span></a>
+			<!--{/if}-->      	
+        </td>
+                       
+		<td>
+        	<!--{$scoreList[scoreList].totalscore}-->
+        </td>
+		<td >
+        	<a href="<!--{$basepath}-->elder/elder/add/uuid/<!--{$scoreList[scoreList].uuid}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="<!--{$basepath}-->elder/elder/del/actionname/dellone/uuid/<!--{$scoreList[scoreList].uuid}-->" onClick="return confirm('您确定删除吗?确定');">[删除]</a>
+        </td>
+	</tr>
+	  <!--{/section}-->
+	  <!--{$str}-->
+	  <tr>
+	  <td colspan="10" align="center">
+	   <input type="checkbox" value="" name="ifAll" id="ifAll" onClick="return checkselect();"/>全选      &nbsp;&nbsp;<!--{$page}-->&nbsp;&nbsp;<input type="submit" name="delAll" value="全部删除" class="inputbutton" onClick="	if(confirm('确定要删除这些内容吗？')){return true;}else{return false;}
+"/>
+	</td>
+	</tr>
+	</form> 
+	</tbody>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+function checkselect()
+{
+	for(var i=0;i<document.getElementsByName('selectFlag[]').length; i++)
+	{
+		document.getElementsByName('selectFlag[]')[i].checked=document.getElementById('ifAll').checked;
+	}
+}
+</script>

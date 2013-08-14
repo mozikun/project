@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+body, td{
+	margin: 0px;
+	margin-left:12px;
+	font: 14px Arial, Helvetica, sans-serif;
+	text-align: left;	
+}
+.smalltxt {
+	font: 12px Arial, Helvetica, sans-serif !important;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+html, body {
+	background: #dae6f3;
+}
+textarea {
+	overflow: auto;
+}
+a {
+	text-decoration: none;
+	color: #555555
+}
+a:hover {
+	text-decoration: underline;
+}
+
+
+/* ========================= */
+
+.leftmenulist {
+	margin: 2px;
+	border: 1px solid #525C3D;
+	width: 120px;
+}
+.left2menulist {
+	margin: 2px;
+	width: 120px;
+}
+.leftmenutext td {
+	border-top:#4182B8 2px solid;
+	/*background-image:url(../images/dh_bg.png);*/
+	background-color:#426FBF;
+	line-height: 16px;
+	height: 31px !important;
+	height: 30px;
+	font-weight: bold;
+	color: #ffffff;
+	padding-left: 4px;
+	border-bottom: 1px solid #BBDCF1;
+}
+
+.leftmenutext a {
+	font-size: 13px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.leftmenutd td {
+	background: #ffffff;
+}
+
+.leftmenuinfo {
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 100px;
+}
+
+.leftmenuinfo td{
+	height: 1.8em;
+	line-height: 1.6em;
+	border-bottom: solid 1px #A3CEEB;
+	text-indent: 8px;
+	font-weight:bold
+}
+</style>
+</head>
+
+<body>
+	<table width="100%" border="0" cellspacing="0" align="center" cellpadding="0" class="leftmenulist" style="margin-bottom: 5px;">
+		<tr class="leftmenutext">
+		<td><img id="menuimg_1" src="<!--{$__BASEPATH}-->images/sys/menu_add.gif" border="0"/>信息管理</td></tr>
+		 <tbody>
+		 <tr class="leftmenutd"><td>
+		 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo">
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/news/list/current_page/0/first_coming/yes/orderBy/" target="mainFrame">信息管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/news/gen/" target="mainFrame" onclick="return confirm('是否确定，此操作将很耗服务器时间!')">静态化</a></td></tr>
+<!--		 <tr><td><a href="/message_board/message_board/list/current_page/0/first_coming/yes" target="mainFrame">留言管理</a></td></tr>
+-->		 
+		<tr><td><a href="<!--{$__BASEPATH}-->management/menu/list" target="mainFrame">栏目管理</a></td></tr>
+		
+<!--		<tr><td><a href="/management/menu/list/current_page/0/first_coming/yes" target="mainFrame">主栏目管理</a></td></tr>
+		 <tr><td><a href="/management/sub_menu/list/current_page/0/first_coming/yes" target="mainFrame">子栏目管理</a></td></tr>
+-->
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/layout/display" target="mainFrame">布局管理</a></td></tr>
+		 
+<!--		 <tr><td><a href="/management/org/list/current_page/0/first_coming/yes" target="mainFrame">部门管理</a></td></tr>
+-->		 
+		 
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/organization/list" target="mainFrame">部门管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/role/list" target="mainFrame">角色管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/staff/list" target="mainFrame">职员管理</a></td></tr>
+<!--
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/user/list/current_page/0/first_coming/yes" target="mainFrame">人员管理</a></td></tr>
+-->
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/base_info/display" target="mainFrame">基本信息</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->management/workrecord/list" target="mainFrame">工作量统计</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->setup/install/backup" target="mainFrame" onclick="return confirm('是否确定')">数据备份</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->setup/install/restore_file_upload" target="mainFrame" onclick="return confirm('是否确定')">恢复数据</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->" target="_parent"parent">返回首页</a></td></tr>
+		 </table>
+		 </td></tr>
+		 </tbody>
+	</table>
+	<table width="100%" border="0" cellspacing="0" align="center" cellpadding="0" class="leftmenulist" style="margin-bottom: 5px;">
+		<tr class="leftmenutext">
+		<td><img id="menuimg_1" src="<!--{$__BASEPATH}-->images/sys/menu_add.gif" border="0"/>商品管理</td></tr>
+		 <tbody>
+		 <tr class="leftmenutd"><td>
+		 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo">
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/category/list" target="mainFrame">供应商管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/measurement/list" target="mainFrame">包装单位管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/category/list" target="mainFrame">计量单位管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/category/list" target="mainFrame">分类管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/goods/list" target="mainFrame">商品管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/stock/listbuy" target="mainFrame">进货管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/stock/listsell" target="mainFrame">售货管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/stock/sellframe" target="mainFrame">售货管理test</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/stock/list" target="mainFrame">库存管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->goods/stock/list" target="mainFrame">发货管理</a></td></tr>
+		 <tr><td><a href="<!--{$__BASEPATH}-->default/index/index" target="_parent"parent">返回首页</a></td></tr>
+		 </table>
+		 </td></tr>
+		 </tbody>
+	</table>	
+</body>
+
+</html>

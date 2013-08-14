@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>实验室检验报告详细</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">实验室检验报告详细</th>
+</tr>
+</thead>
+   <tr>
+     <td >检验指标流水号</td><td colspan="3"><!--{$tb_lis_indicators->jyzblsh}--></td>
+    </tr>
+   </tr>
+   <tr>
+        <td>医疗机构代码</td><td><!--{$tb_lis_indicators->yljgdm}--></td><td>检验报告单号</td><td><!--{$tb_lis_indicators->bgdh}--></td>
+    </tr><tr>
+        <td>报告日期</td><td><!--{$tb_lis_indicators->bgrq}--></td><td>检测人工号</td><td><!--{$tb_lis_indicators->jcrgh}--></td>
+    </tr><tr>
+        <td>检测人姓名</td><td><!--{$tb_lis_indicators->jcrxm}--></td><td>审核人工号</td><td><!--{$tb_lis_indicators->shrgh}--></td>
+    </tr><tr>
+        <td>审核人姓名</td><td><!--{$tb_lis_indicators->shrxm}--></td><td>检测收费代码</td><td><!--{$tb_lis_indicators->ybsfdm}--></td>
+    </tr><tr>
+        <td>检测指标代码</td><td><!--{$tb_lis_indicators->jczbdm}--></td><td>检测方法</td><td><!--{$tb_lis_indicators->jcff}--></td>
+    </tr><tr>
+        <td>检测指标名称</td><td><!--{$tb_lis_indicators->jczbmc}--></td><td>检测指标结果</td><td><!--{$tb_lis_indicators->jczbjg}--></td>
+    </tr><tr>
+        <td>LOINC编码</td><td><!--{$tb_lis_indicators->loinc}--></td><td>设备编码</td><td><!--{$tb_lis_indicators->sbbm}--></td>
+    </tr><tr>
+        <td>仪器编号</td><td><!--{$tb_lis_indicators->yqbh}--></td><td>仪器名称</td><td><!--{$tb_lis_indicators->yqmc}--></td>
+    </tr><tr>
+        <td>参考值范围</td><td><!--{$tb_lis_indicators->ckz}--></td><td>计量单位</td><td><!--{$tb_lis_indicators->jldw}--></td>
+    </tr><tr>
+        <td>异常提示</td><td><!--{$tb_lis_indicators->ycts}--></td><td>相关医嘱ID或处方项目明细编号</td><td><!--{$tb_lis_indicators->yzid}--></td>
+    </tr><tr>
+        <td>打印序号</td><td><!--{$tb_lis_indicators->dyxh}--></td><td>修改标志</td><td><!--{$tb_lis_indicators->xgbz}--></td>
+    </tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

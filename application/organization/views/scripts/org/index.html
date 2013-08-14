@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<style>
+.change{
+background:#C9E1FA;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("tr:odd").addClass("change");
+})
+</script>
+<title>地区列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr>
+       <td colspan="4"><!--{section loop=$rs name=rs}--><!--{if $realParentId==$rs[rs].id}--><a href="<!--{$basePath}-->organization/region/index/parent_id/<!--{$rs[rs].id}-->"><font color="Red"><!--{$rs[rs].zh_name}-->的所有地区</font></a><!--{else}--><a href="<!--{$basePath}-->organization/region/index/parent_id/<!--{$rs[rs].id}-->"><!--{$rs[rs].zh_name}--></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr>
+        <td width="20%">序号</td>
+        <td width="20%">地区名称</td>
+        <td width="20%">进入下级地区</td>
+        <td width="20%">本地区所属机构管理</td>
+     </tr>
+      <!--{if $nuNumber=="0"}-->
+      <tr align="center"><td colspan="6"><font color="Red">当前地区没有任何数据!</font></td></tr>
+      <!--{else}-->
+     <!--{section loop=$row name=row}-->
+        <tr>
+           <td><!--{$row[row].id}--></td>
+           <td><!--{$row[row].zh_name}--></td>
+           <td><a href="<!--{$basePath}-->organization/region/index/parent_id/<!--{$row[row].id}-->">进入下级地区</a></td>
+<!--           <td><a href="<!--{$basePath}-->organization/listorg/listorg/org_id/<!--{$row[row].id}-->"><!--{$row[row].zh_name}-->所属机构管理</a></td>-->
+           <td><a href="<!--{$basePath}-->organization/listorg/listorg/region_id/<!--{$row[row].id}-->">进入机构管理</a></td>
+        </tr>
+     <!--{/section}-->
+     <!--{/if}-->
+     <tr>
+       <td colspan="4">分页代码</td>
+     </tr>
+     </table>
+</body>
+</html>

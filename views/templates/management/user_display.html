@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>人员管理</title>
+<script type="text/javascript" src="/view/common.js"></script>
+<link rel="stylesheet" type="text/css" href="/styles/mycss.css">
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+	text-align:center;	
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF;
+	text-align:left;
+
+}
+.tr{
+	background-color:#336699;
+}
+td{
+	border:#000000 1px solid;
+}
+.td1{
+}
+
+fieldset{
+	width:300px;
+	padding:10px;
+	border:1px solid #003399;
+	text-align:center;	
+}
+fieldset legend{
+	border:2px solid #003399;
+	padding:2px;
+	margin:2px;
+	font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+<fieldset><legend>人员管理</legend>
+<form method="post" action="">
+<input type="hidden" name="user_id" id="user_id" value='!--{$user_id}--' />
+<input type="hidden" name="page_opener" id="page_opener" value='!--{$page_opener}--' />
+<table>
+<tr>
+<td>部门名称
+</td>
+<td>
+<select name='org_id' id='org_id'>
+  !--{$org_id}--
+</select>
+</td>
+</tr>
+
+<tr>
+<td>人员名称
+</td>
+<td>
+<input type='text' name='user_name' id='user_name' value='!--{$user_name}--' length='14' _note='人员名称|text'/>
+</td>
+</tr>
+
+<tr>
+<td>内部序号
+</td>
+<td>
+<input type='text' name='inner_id' id='inner_id' value='!--{$inner_id}--' length='14' _note='内部序号|text' style="ime-mode:disabled;" />
+</td>
+</tr>
+
+<tr>
+<td>电话1
+</td>
+<td><input type='text' name='user_phone1' id='user_phone1' value='!--{$user_phone1}--' length='15' _note='电话1|text'/>
+</td>
+</tr>
+
+<tr>
+<td>电话2
+</td>
+<td><input type='text' name='user_phone2' id='user_phone2' value='!--{$user_phone2}--' length='15' _note='电话2|text'/>
+</td>
+</tr>
+
+<tr>
+<td>邮箱
+</td>
+<td><input type='text' name='user_e_mail' id='user_e_mail' value='!--{$user_e_mail}--' length='20' _note='邮箱|text'/>
+</td>
+</tr>
+
+<tr>
+<td>QQ
+</td>
+<td><input type='text' name='user_qq' id='user_qq' value='!--{$user_qq}--' length='10' _note='qq|text'/>
+</td>
+</tr>
+
+<tr>
+<td>密码
+</td>
+<td><input type='text' name='password' id='password' value='!--{$password}--' length='10' _note='password|text'/>
+</td>
+</tr>
+</table>
+<input type="button" name="ajaxsave" id="ajaxsave" value="保存" onclick="testajaxsave()"/>
+<input type="button" name="show" id="show" value="!--{$exit_button_description}--" onclick="document.location='!--{$exit_url}--'"/>
+<input type="button" name="show" id="show" value="进入信息管理系统" onclick="document.location='/management/news/list/current_page/0/first_coming/yes/filter_user_id/!--{$user_id}--/filter_sub_menu/0'" style="display:!--{$displayFunction}--"/>
+</form>
+</fieldset>
+</body>
+<script language="javascript">
+var old_value;
+/**
+本程序用于保存表单被修改前的所有值。以数组的形式存储在old_value里
+但实际意思不大，因为即时少提交数据上去，在服务器端也要花时间来判断哪些提交上去，哪些没有提交上去了。
+*/
+function save_old_value()
+{
+	old_value=="{"
+	//alert(old_value);
+	var i;
+	for(i=0;i<document.all.length;i++){
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//old_value[obj.id]=obj.value;
+			old_value=old_value+"'"+obj.id+"':'"+obj.value+"',"
+		}
+	}
+	//alert(old_value.length);
+	old_value=old_value.substring(0,old_value.length-1);
+	old_value=old_value+"}";
+	old_value=eval('('+old_value+')');
+	//alert(old_value);
+	//alert(old_value['name']);
+}
+/**
+全局变量xmlHttp对象实例
+*/
+var xmlHttp = false;
+/**
+本函数实现用ajax的方法保存表单数据
+*/
+function change_state()
+{
+	obj_save_button=document.getElementById('ajaxsave');
+	if(obj_save_button.value=='保存')
+	{
+		obj_save_button.value='正在保存数据';
+		obj_save_button.disabled=true;
+	}
+	else
+	{
+		if (xmlHttp.readyState == 4)
+		{
+			obj_save_button.value='保存';
+			obj_save_button.disabled=false;
+			//显示保存成功等信息
+			alert(xmlHttp.responseText);
+		}
+	}
+	return;
+}
+function checkData(){
+	var org=$('org_id');
+	if(org.value=='0'){
+		alert('请选一个部门');
+		org.focus();
+		return false;
+	}
+	var name=$('user_name');
+	if(name.value=='新用户' || name.value==''){
+		alert('请输入姓名');
+		name.focus();
+		return false;
+	}
+	return true;
+}
+function testajaxsave()
+{
+	if(!checkData()){
+		return false;
+	}
+	
+	xmlHttp=xmlhttp_factory();
+	//xmlHttp.setRequestHeader( "Content-Type" , "multipart/form-data");
+	post_string="/management/user/edit/id/"+Math.random();
+	//这样处理的主要目的是防止缓存
+	xmlHttp.open("POST", post_string, true);//true为异步，false为同步
+	xmlHttp.setRequestHeader( " Content-Type " , " application/x-www-form-urlencoded " );
+	var str=get_value();
+	//alert(str);
+	xmlHttp.onreadystatechange= change_state;
+	xmlHttp.send(str);
+	//xmlHttp.onreadystatechange= change_state;
+}
+function get_value()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//判断值是否被修改，如果修改才上传
+			//if(obj.value==old_value[obj.id])
+			//{
+
+			//continue;
+			//}
+			if(obj.type=='radio' || obj.type=='checkbox')
+			{
+				if(obj.checked)
+				{
+					value=value+obj.name+'='+obj.value+"&";
+				}
+			}
+			else
+			{
+				value=value+obj.name+'='+obj.value+"&";
+			}
+		}
+		//	str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}
+	value=value+"end=end";
+	//alert(value);
+	return value;
+
+}
+function get_obj()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+			value=value+obj.name+'='+obj.value
+			if(i<document.all.length-1)
+			{
+				value=value+"&";
+			}
+		}
+		str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}
+	alert(str);
+
+}
+/**
+实例化一个http对象
+*/
+function xmlhttp_factory()
+{
+	/*@cc_on @*/
+	/*@if (@_jscript_version >= 5)
+	try {
+	xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+	try {
+	xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} catch (e2) {
+	xmlHttp = false;
+	}
+	}
+	@end @*/
+	if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+		xmlHttp = new XMLHttpRequest();
+	}
+	return xmlHttp;
+}
+</script>

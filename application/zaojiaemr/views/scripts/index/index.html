@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>病例记录列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<style>
+	table
+		{
+			background:#ffffff;
+		}
+	.table_mouseover{
+		background:#cccccc;
+	}
+	.table_mouseout{
+		background:#ffffff;
+	}
+	.bigfont{
+	    background:#DAE6F3;
+	}
+	a{
+		text-decoration:none;
+	}
+</style>
+</head>
+<body>
+<table width="100%" align="center">
+   <tr class="headbg">
+       <td colspan="5">病例记录列表</td>
+   </tr>
+   <tr class="bigfont">
+    <td ><strong>姓名</strong></td>
+	<td ><strong>性别</strong></td>
+	<td ><strong>年龄</strong></td>
+	<td ><strong>入院时间</strong></td>
+	<td ><strong>查看详细</strong></td>
+   </tr>
+   <!--{section name=listArray loop=$listArray}-->
+   <tr>
+    <td ><!--{$listArray[listArray].name}--></td>
+	<td ><!--{$listArray[listArray].gender}--></td>
+	<td ><!--{$listArray[listArray].age}--></td>
+	<td ><!--{$listArray[listArray].adminssion_time}--></td>
+	<td ><a href="<!--{$basePath}-->zaojiaemr/index/detail/currentid/<!--{$listArray[listArray].uuid}-->/orgid/<!--{$orgid}-->">[查看详细]</a></td>
+   </tr>
+   <!--{sectionelse}-->
+   <tr>
+     <td colspan="5">当前没有任何数据</td>
+   </tr>
+   <!--{/section}-->
+   <tr>
+   <td colspan="5" align="left" width="100%">
+		<!--{$page}-->
+	 </td>
+	</tr>
+</table>
+</body>

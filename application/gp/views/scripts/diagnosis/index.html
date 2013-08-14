@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<title>接诊记录表</title>
+</head>
+<style>
+.newtextarea{
+border:solid 1px #FFFFFF;
+overflow-y:auto;
+}
+.inputbottomlong{
+border-left-style:none;
+border-right-style:none;
+border-top-style:none;
+border-bottom-style:solid;
+border-bottom-color:blue;
+border-bottom-width:1px;
+background:#FFFFFF;
+width:234px;
+}
+.inputbottomshort{
+border-left-style:none;
+border-right-style:none;
+border-top-style:none;
+border-bottom-style:solid;
+border-bottom-color:blue;
+border-bottom-width:1px;
+background:#FFFFFF;
+width:65px;	
+}
+</style>
+<body>
+   <form action="" method="post">
+       <input type="hidden" value="<!--{$iha_id}-->" name="iha_id"/>
+       <div style="background:#FFFFFF;text-align:center; width:100%;font-size: 16px;font-weight: bold;">接诊记录表</div>
+       <div  style=" text-align:center; width:100%; ">
+          <div  style=" width:70%; text-align:left; float:left;background:#FFFFFF;"><span>姓名:</span><!--{$user_name}--></div>
+          <div style=" width:30%; text-align:left; float:left;background:#FFFFFF; "><span>编号:</span><!--{$standard_code}--></div>
+       </div>
+       <table width="100%"  align="center" cellpadding="1" cellspacing="1"  bgcolor="#cccccc">
+           <tr> 
+              <td align="center">就诊者的主观资料:</td>
+              <td><textarea name="subjective_data" cols="112" rows="8" class="newtextarea"><!--{$subjective_data}--></textarea></td>
+           </tr>
+           <tr> 
+              <td align="center">就诊者的客观资料:</td>
+              <td><textarea name="objective_data" cols="112" rows="8" class="newtextarea"><!--{$objective_data}--></textarea></td>
+           </tr>
+           <tr> 
+              <td align="center">评&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;估:</td>
+              <td><textarea name="assessment" cols="112" rows="8" class="newtextarea"><!--{$assessment}--></textarea></td>
+           </tr>
+           <tr> 
+              <td align="center">处&nbsp;&nbsp;置&nbsp;&nbsp;计&nbsp;&nbsp;划:</td>
+              <td><textarea name="disposal_plan" cols="112" rows="8" class="newtextarea"><!--{$disposal_plan}--></textarea></td>
+           </tr>
+           <tr> 
+              <td colspan="2" align="right" >医生签字:<select name="doctorname">
+                              <!--{section loop=$doctor name=doctor}-->
+                               <option value="<!--{$doctor[doctor].user_id}-->" <!--{if $current_doctor==$doctor[doctor].user_id}-->selected<!--{/if}-->><!--{$doctor[doctor].name_real}--></option>
+                              <!--{/section}-->
+                          </select></td>
+           </tr>
+           <tr> 
+              <td colspan="2" align="right">接诊日期:<input type="text" name="year" class="inputbottomshort" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy'})" value="<!--{$year}-->"/>年<input type="text" name="month" class="inputbottomshort" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'M'})" value="<!--{$month}-->"/>月<input type="text" name="day" class="inputbottomshort" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'d'})" value="<!--{$day}-->"/>日</td>
+           </tr>
+           <tr> 
+              <td colspan="2" align="center"><input type="submit" name="ok" value="保存数据" class="inputbutton"/><!--{if $iha_id!=""}-->&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/><!--{/if}--></td>
+           </tr>
+       </table>
+   </form>
+</body>
+</html>

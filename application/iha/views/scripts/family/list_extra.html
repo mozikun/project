@@ -1,0 +1,52 @@
+	<!--{section name=iha loop=$iha}-->
+	 <tr id="iha_<!--{$iha[iha].uuid}-->">
+	 	<td>
+	 		<input type="checkbox" name="uuids[]" value="<!--{$iha[iha].family_number_edit}-->" />
+	 	</td>
+        <td>
+        	<!--{$iha[iha].family_number}-->
+        </td>
+	 	
+<!--        <td>
+        	<!--{$iha[iha].standard_code}-->
+        </td>-->
+		<td id="<!--{$iha[iha].uuid}-->_name">
+        	<!--{$iha[iha].name}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].sex}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].address}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].contact_number}-->
+        </td>
+		<td>
+        	<!--{$iha[iha].staff_name}-->
+        </td>
+        <td>
+        	<!--{$iha[iha].family_member_list}-->
+        </td>
+        <td>
+        	<a href="<!--{$basePath}-->iha/family/edit/uuid/<!--{$iha[iha].family_number_edit}-->">编辑</a> | <a href="<!--{$basePath}-->iha/family/move/uuid/<!--{$iha[iha].family_number_edit}-->">转出家庭</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="11">
+        	暂时没有数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="11">
+        	<input type="checkbox" onclick="select_all(this)" />全选 &nbsp;&nbsp;<a href="###" onclick="do_select('<!--{$basePath}-->iha/family/move')">转出选中家庭</a>&nbsp;<!--{$pager}-->
+			<input type="hidden" name="searchinput" id="searchinput" value="<!--{$search}-->" />
+        </td>
+	</tr>
+    <tr>
+		<td colspan="11">
+        	<span class="red">* 转出家庭，会将家庭所有成员转出到新的地区和机构，家庭内部关系不做变更，请谨慎操作</span>
+        </td>
+	</tr>

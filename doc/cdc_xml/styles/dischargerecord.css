@@ -1,0 +1,28 @@
+#dischargerecord
+{
+	text-align:center;
+}
+
+#dischargerecord .dcrtable
+{
+	width:700px;
+	font-family:ËÎÌו;
+	font-size:10.5pt;
+	margin:0 auto;
+	line-height:20px;
+}
+
+#dischargerecord .dcrhead
+{
+	font-family:ËÎÌו;
+	font-size:15pt;
+	text-align:center;
+}
+
+#dischargerecord .dcrtitle
+{
+	font-family:ËÎÌו;
+	font-weight:bold;
+	font-size:18pt;
+	text-align:center;
+}

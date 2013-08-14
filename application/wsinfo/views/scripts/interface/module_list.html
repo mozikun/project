@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+        <link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+        <title><!--{$title}--></title>
+
+    </head>
+    <body>
+
+        <div id="xml" style=" overflow:hidden;  word-break: break-all;word-wrap:   break-word;  border: none; display: none;width:600px; position: absolute;background-color:#e2e6e5"></div>
+        <form method="post">
+            <table cellspacing="0" width="100%">
+                <thead>
+
+                </thead>
+                <tr  class="headbg">
+                    <th style="width:40%" colspan="5">接口模块</th>
+                </tr>
+               
+                <tr class="columnbg">
+                    <th width="20%" >模块名</th>
+                    <th width="20%" >XML模板</th>
+                    <th width="20%" >创建日期</th>
+                    <th width="16%" >添加/修改人员</th>      
+                    <th width="24%" >操作</th>
+                </tr>	
+                <tbody id='1'>
+                    <!--{section name=contact loop=$rows}-->
+                    <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+                        <td  ><!--{$rows[contact].module_name}--></td>
+                        <td  ><!--{$rows[contact].xml_template}--><div border="1" onmouseout="tohide();" onmouseover="load_xml(event.clientX,event.clientY,<!--{$rows[contact].uuid}-->);" style="display: inline;width: 20px;border-style:solid;border-width: 1px;height: 5px;font-size: 20">+</div></td>
+                        <td ><!--{$rows[contact].created}--></td>	
+                        <td ><!--{$rows[contact].staff_name}--></td>
+                        <td><a name="edit" href="<!--{$basePath}-->wsinfo/interface/module_add/action/edit/uuid/<!--{$rows[contact].uuid}-->">[编辑]</a>  |  <a href="<!--{$basePath}-->wsinfo/interface/del/module_id/<!--{$rows[contact].uuid}-->" onclick="return confirm('您确定删除吗?请谨慎操作');">[删除]</a> </td>
+                    </tr>
+                    <!--{/section}-->	
+                </tbody>
+ 
+
+                <tr  class="columnbg">
+                    <td style="width:40%" colspan="5"><div style=" float:left">[<a name="add" href="<!--{$basePath}-->wsinfo/interface/module_add">添加模块</a>]</div><div style="float:right"><!--{$page}--></div></td>
+                </tr>
+            </table>
+        </form>
+        <br />
+
+        <script  type="text/javascript" language="javascript">
+            function load_xml(x,y,id){ 
+                $.get("<!--{$basePath}-->wsinfo/interface/load_xml/module_id/"+id+"/random/"+Math.random(), function(data){
+                    $("#xml").css("left",x);
+                    $("#xml").css("top",y); 
+                    $("#xml").html(data);
+                    $("#xml").show();
+                });
+            }
+            function tohide(){
+                $("#xml").hide();
+            }
+        </script>
+    </body>
+
+</html>

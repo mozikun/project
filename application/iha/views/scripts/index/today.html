@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>个人健康档案今日统计</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th colspan="6">
+        	健康档案<!--{$today}-->统计报表
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+		<tr>
+		<td rowspan="<!--{$sex_count}-->" style="width:120px;">建档人数(人)</td><td rowspan="<!--{$sex_count}-->"><!--{$total}--></td>
+		<!--{foreach key=key name=sexx item=sex from=$sexa}-->
+		<td style="width:120px;"><!--{$sex[1]}--></td><td colspan="3">
+			<!--{$sexd[$key].nums}-->
+			</td>
+		<!--{if $smarty.foreach.sexx.iteration==$sex_count}-->
+		</tr>
+		<!--{else}-->
+		</tr><tr>
+		<!--{/if}-->
+		<!--{/foreach}-->
+		</tr>
+		<tr>
+		<td rowspan="<!--{$his_count+3}-->">既往史(人)</td><td rowspan="<!--{$his_count+3}-->"><!--{$history_total}--></td>
+		<td rowspan="<!--{$his_count}-->">疾病史(人)</td><td rowspan="<!--{$his_count}-->"><!--{$clinical_history_count}--></td>
+		<!--{foreach key=key name=disease item=disease from=$disease_history}-->
+		<td style="width:120px;"><!--{$disease[1]}--></td><td><!--{if $disease[1]=='无'}--><!--{$no_history}--><!--{else}--><!--{$clinical_history[$key]}--><!--{/if}--></td>
+		<!--{if $smarty.foreach.disease.iteration==$his_count}-->
+		</tr>
+		<!--{else}-->
+		</tr><tr>
+		<!--{/if}-->
+		<!--{/foreach}-->
+		</tr>
+		<tr>
+		<td>手术史(人)</td><td colspan="3"><!--{$surgical_history_count}--></td>
+		</tr>
+		<tr>
+		<td>输血史(人)</td><td colspan="3"><!--{$transfusion_count}--></td>
+		</tr>
+		<tr>
+		<td>外伤史(人)</td><td colspan="3"><!--{$trauma_count}--></td>
+		</tr>
+		<tr>
+		<td>遗传病史(人)</td><td colspan="5"><!--{$genetic_count}--></td>
+		</tr>
+		<tr>
+		<td>残疾人数(人)</td><td colspan="5"><!--{$deformity_count}--></td>
+		</tr>
+	</tbody>
+</table>
+<div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;">
+   <input type="button" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+</div>
+</body>
+</html>

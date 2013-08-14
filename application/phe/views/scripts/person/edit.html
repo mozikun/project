@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>突发公共卫生事件处置----相关机构</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.nobg table,td,tr
+	{
+		border:0px;
+	}
+	.line_table td
+	{
+		border:1px solid #ccc;
+		margin:2px 0px 2px 0px;
+	}
+	.none
+	{
+	    border:1px solid #FFF;
+		border-bottom:1px solid #ccc;
+	}
+    .input{
+	margin-right:6px;
+    border:1px solid #ccc;
+    }
+    .short{width:20px;}
+    label{cursor: pointer;}
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+<script src="<!--{$basePath}-->views/js/iha_add.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%" class="nobg">
+	<form method="post" action="<!--{$basePath}-->phe/person/editin">
+    <tr style="border:0px ">
+        <td>
+        	&nbsp;
+        </td>
+	</tr>
+	<tr>
+		<td style="font-size:14px;font-weight:bold;text-align:center;line-height:68px;">
+        	突发公共卫生事件处置----相关人员
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table">
+			    <tr>
+			        <td style="width:50%;">
+			        	<span style="font-weight: bold;">事件参与人员类别:</span>&nbsp;
+						<!--{foreach key=k item=v from=$phe_person_role}-->
+			<label onclick="set_input_value('<!--{$k}-->','person_role')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			<!--{/foreach}-->
+            &nbsp;<input type="text" name="person_role" value="<!--{$phe->person_role}-->" class="short" tabindex="3" />
+			        </td>			
+					<td style="width:50%;">
+			        	姓名:&nbsp;<input type="text" name="name" value="<!--{$phe->name}-->" class="none" size="25" />
+			        </td>
+				</tr>
+                <tr>
+			        <td style="width:50%;">
+			        	<span style="font-weight: bold;">性别:</span>&nbsp;
+						<!--{foreach key=k item=v from=$sex}-->
+			             <label onclick="set_input_value('<!--{$k}-->','sex')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			             <!--{/foreach}-->
+			&nbsp;<input type="text" name="sex" value="<!--{$phe->sex}-->" class="short" tabindex="3" />
+			        </td>			
+					<td style="width:50%;">
+			        	身份证号:&nbsp;<input type="text" name="identity_card_number" value="<!--{$phe->identity_card_number}-->" class="none" size="35" />
+			        </td>
+				</tr>
+                <tr>
+			        <td style="width:50%;">
+			        	籍贯:&nbsp;
+						
+						<input type="text" name="country_code" value="<!--{$phe->country_code}-->" class="none" size="35" />
+			        </td>			
+					<td style="width:50%;">
+                        国籍:&nbsp;<input type="text" name="nationality" value="<!--{$phe->nationality}-->" class="none" size="25" /></td>
+				</tr>
+                <tr>
+			        <td style="width:50%;">
+			        	出生地:&nbsp;
+						<input type="text" name="birth_place" value="<!--{$phe->birth_place}-->" class="none" size="35" />
+			        </td>			
+					<td style="width:50%;">
+                        <span style="font-weight: bold;">民族:</span>&nbsp;<!--{foreach key=k item=v from=$race}-->
+			<label onclick="set_input_value('<!--{$k}-->','race')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			<!--{/foreach}-->&nbsp;
+			<select name="races" <!--{if $phe->race!=2}--> disabled="true"<!--{/if}-->>
+			<option value="-9">请选择</option>
+			<!--{foreach key=k item=v from=$races}-->
+			<option <!--{if $phe->races==$k}-->selected="selected"<!--{/if}--> value="<!--{$k}-->"><!--{$v[1]}--></option>
+			<!--{/foreach}-->
+            &nbsp;
+			<input type="text" name="race" value="<!--{$phe->race}-->" class="short" onblur="chkrace(this)" />
+			        </td>
+				</tr>
+                <tr>
+			        <td style="width:50%;">
+			        	语种:&nbsp;
+						<input type="text" name="language" value="<!--{$phe->language}-->" class="none" size="25" />
+			        </td>			
+					<td style="width:50%;">
+			        	<span style="font-weight: bold;">婚姻状况:</span>&nbsp;<!--{foreach key=k item=v from=$marriage}-->
+			<label onclick="set_input_value('<!--{$k}-->','marital_status')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			<!--{/foreach}-->&nbsp;<input type="text" name="marital_status" value="<!--{$phe->marital_status}-->" class="short" />
+			        </td>
+				</tr>
+                <tr>
+			        <td style="width:50%;">
+			        	联系电话号码:&nbsp;
+						<input type="text" name="contact_tel" value="<!--{$phe->contact_tel}-->" class="none" size="25" />
+			        </td>			
+					<td style="width:50%;">
+			        	联系地址:&nbsp;<input type="text" name="contact_addr" value="<!--{$phe->contact_addr}-->" class="none" size="35" />
+			        </td>
+				</tr>
+                <tr>
+			        <td colspan="2">
+						<span style="font-weight: bold;">调查对象就业状况:</span>&nbsp;<!--{foreach key=k item=v from=$phe_employment_status}-->
+			<label onclick="set_input_value('<!--{$k}-->','employment_status')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+			<!--{/foreach}-->&nbsp;<input type="text" name="employment_status" value="<!--{$phe->employment_status}-->" class="short" />
+			        </td>			
+				</tr>
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        <input type="hidden" id="uuid" name="uuid" value="<!--{$phe->uuid}-->" />
+        <input type="hidden" id="report_id" name="report_id" value="<!--{$report_id}-->" />
+        	<input type="submit" value="保存数据" class="input" style="height: 28px;font-size:14px;" />&nbsp;&nbsp;<input type="button" name="skip" id="skip" value="返回" style="height: 28px;font-size:14px;" class="input" onclick="javascript:history.go(-1);" /><!--{if $phe->uuid}-->
+    &nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" class="input" onclick="javascript:window.print();"  style="height: 28px;font-size:14px;" />
+    <!--{/if}-->
+        </td>
+	</tr>
+	</form>
+</table>
+</body>
+</html>

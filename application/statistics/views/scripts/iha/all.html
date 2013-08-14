@@ -1,0 +1,106 @@
+<!--{foreach key=key name=datas item=datas from=$data}-->
+<table border="0" width="100%">
+				<thead>
+		    	<tr>
+		        <th colspan="2">
+		        	<!--{$datas.title}-->
+		        </th>
+				</tr>
+				</thead>
+				<tbody>
+					<!--{section name=fiha loop=$datas.data}-->
+					<!--{if $datas.data[fiha].name!=''}-->
+					<tr>
+						<td style="width:120px"><!--{$datas.data[fiha].name}--></td><td><!--{$datas.data[fiha].nums}--></td>
+					</tr>
+					<!--{/if}-->
+					<!--{/section}-->
+					
+					<!--{if $datas.data|@count>0}-->
+					
+					
+					<tr>
+						<td colspan="2" style="text-align:center;"><!--{$datas.title}-->-柱形图</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:center;">
+							<OBJECT classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,2,0" 
+	WIDTH="0"
+	HEIGHT="0"
+	id="charts_<!--{$datas.picname}-->_bar" 
+	align="middle" />
+							<PARAM NAME="movie" VALUE="<!--{$basePath}-->library/charts/charts.swf" />
+							<PARAM NAME="quality" VALUE="high" />
+							<PARAM NAME="bgcolor" VALUE="#777788" />
+							<param name="allowScriptAccess" value="sameDomain" />
+							<param name="loop" value="false" />
+							<param name="scale" value="noscale" />
+							<param name="salign" value="TL" />
+							<param name="wmode" value="opaque" />
+							<param name="FlashVars" value="library_path=<!--{$basePath}-->library/charts/charts_library&xml_source=<!--{$basePath}-->statistics/iha/all/serach_type/<!--{$datas.picname}-->/startDate/<!--{$startDate}-->/endDate/<!--{$endDate}-->/pic/1/pictype/bar" />
+							
+							<EMBED src="<!--{$basePath}-->library/charts/charts.swf" 
+							       FlashVars="library_path=<!--{$basePath}-->library/charts/charts_library&xml_source=<!--{$basePath}-->statistics/iha/all/serach_type/<!--{$datas.picname}-->/startDate/<!--{$startDate}-->/endDate/<!--{$endDate}-->/pic/1/pictype/bar" 
+							       quality="high" 
+							       bgcolor="#777788" 
+							       WIDTH="600" 
+							       HEIGHT="350" 
+							       NAME="charts" 
+							       allowScriptAccess="sameDomain" 
+							       swLiveConnect="true" 
+							       loop="false" 
+							       scale="noscale" 
+							       salign="TL" 
+							       align="middle" 
+							       wmode="opaque" 
+							       TYPE="application/x-shockwave-flash" 
+							       PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">
+							</EMBED>
+							</OBJECT>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:center;"><!--{$datas.title}-->-饼形图</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:center;">
+						<OBJECT classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,2,0" 
+	WIDTH="0"
+	HEIGHT="0"
+	id="charts_<!--{$datas.picname}-->_pie" 
+	align="middle" />
+							<PARAM NAME="movie" VALUE="<!--{$basePath}-->library/charts/charts.swf" />
+							<PARAM NAME="quality" VALUE="high" />
+							<PARAM NAME="bgcolor" VALUE="#777788" />
+							<param name="allowScriptAccess" value="sameDomain" />
+							<param name="loop" value="false" />
+							<param name="scale" value="noscale" />
+							<param name="salign" value="TL" />
+							<param name="wmode" value="opaque" />
+							<param name="FlashVars" value="library_path=<!--{$basePath}-->library/charts/charts_library&xml_source=<!--{$basePath}-->statistics/iha/all/serach_type/<!--{$datas.picname}-->/startDate/<!--{$startDate}-->/endDate/<!--{$endDate}-->/pic/1/pictype/pie" />
+							
+							<EMBED src="<!--{$basePath}-->library/charts/charts.swf" 
+							       FlashVars="library_path=<!--{$basePath}-->library/charts/charts_library&xml_source=<!--{$basePath}-->statistics/iha/all/serach_type/<!--{$datas.picname}-->/startDate/<!--{$startDate}-->/endDate/<!--{$endDate}-->/pic/1/pictype/pie" 
+							       quality="high" 
+							       bgcolor="#777788" 
+							       WIDTH="600" 
+							       HEIGHT="350" 
+							       NAME="charts" 
+							       allowScriptAccess="sameDomain" 
+							       swLiveConnect="true" 
+							       loop="false" 
+							       scale="noscale" 
+							       salign="TL" 
+							       align="middle" 
+							       wmode="opaque" 
+							       TYPE="application/x-shockwave-flash" 
+							       PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">
+							</EMBED>
+							</OBJECT>
+						</td>
+					</tr>
+					<!--{/if}-->
+				</tbody>
+			</table>
+			<br />
+<!--{/foreach}-->

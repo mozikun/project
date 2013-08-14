@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style>
+ body,p,span,h1,h2,h3,h4,ul,li{
+ margin:0px;
+ padding:0px;
+ }
+ body{
+ font-family:"Times New Roman", Times, serif;
+ font-size:14px;
+ text-align:center;
+ }
+ .maindiv{
+ width:850px;
+ margin-left:auto;
+ margin-right:auto;
+ }
+ h3{
+  width:820px;
+  margin-top:100px;
+ }
+ .bottomdiv{
+  width:820px;
+  border-top:double;
+  margin-top:20px;
+  height:10px;
+ }
+ .centerdiv{
+ margin-top:3px;
+ font-weight:bold;
+ text-align:center;
+ }
+ .centerdiv{
+    width:800px;
+	margin-top:5px;
+	clear:both;
+  }
+  .firstdiv{
+  width:800px;
+  margin-top:10px;
+  }
+ .firstdiv .inputlong{  
+ width:100px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+ .firstdiv .inputbiglong{  
+ width:193px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+  .firstdiv .inputshort{  
+ width:34px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+ .seconddiv{
+  width:800px;
+  margin-top:10px;
+ }
+ .seconddiv .inputshort{
+ width:100px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+  .seconddiv .inputbiglong{
+ width:360px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+ .thirddiv{
+ width:800px;
+ margin-top:10px;
+ }
+ .thirddiv input{
+ width:315px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+ .fourthdiv{
+  width:800px;
+ margin-top:10px;
+ }
+ .fourthdiv input{
+ width:708px;
+ border-top:0px;
+ border-left:0px;
+ border-right:0px;
+ border-bottom:1px solid  black;
+ }
+ .inputbutton{
+border: 1px solid blue;
+width:100px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+   <div class="maindiv">
+      <h3>出院证明</h3>
+	  <div class="bottomdiv"></div>
+	  <div class="centerdiv">
+	     <div class="firstdiv">
+		   姓名<input type="text" value="<!--{$name}-->" readonly="readonly" class="inputlong"/>
+		   性别<input type="text" value="<!--{$sex}-->" readonly="readonly" class="inputshort"/>
+		   出生日期 <input type="text" value="<!--{$date_of_birth}-->" readonly="readonly" class="inputlong"/>
+           家庭地址<input type="text" value="<!--{$address}-->" readonly="readonly" class="inputbiglong"/>
+		   民族<input type="text" value="<!--{$race}-->" readonly="readonly" class="inputlong" />
+		 </div>
+		 <div class="thirddiv">
+		   入院日期 <input type="text" value="<!--{$admission_date}-->" readonly="readonly" />
+		   出院日期 <input type="text" value="<!--{$discharged_date}-->" readonly="readonly" />
+		 </div>
+		 <div class="fourthdiv">诊断小结 <input type="text" value="<!--{$diagnosis}-->" readonly="readonly" /></div>
+		 <div class="fourthdiv">医嘱建议<input type="text" value="<!--{$suggestion}-->" readonly="readonly" /></div>
+		 <div class="fourthdiv">备注 <input type="text" value="<!--{$remark}-->" readonly="readonly" /></div>
+		 <div class="fourthdiv">就诊医生 <input type="text" value="<!--{$doctor_name}-->" readonly="readonly" /></div>
+		 <div class="seconddiv"><input type="button" value=" 返回 "  onclick="javascript:history.go(-1);" class="inputbutton"/>&nbsp;&nbsp;<input type="button" name="print" id="print" value="打印" onclick="javascript:window.print();" class="inputbutton"/></div>
+	  </div>
+   </div>
+</body>
+</html>

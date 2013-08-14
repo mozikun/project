@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>老年人生活自理能力评估表</title>
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+
+<style type="text/css">
+body{	
+	margin:0px;
+	font: 14px Arial, Helvetica, sans-serif;
+}
+table tr{
+	text-align:center;
+}
+table tr td{
+	border:1px solid #CCCCCC;
+}
+table th{
+	height:50px;
+}
+input{
+	width:20px;
+	height:15px;
+	border:1px solid blue;
+	text-align:center;
+}
+table tr td label{
+	cursor: pointer;
+}
+.sub{
+	width:100px;
+	height:20px;
+}
+span{
+	margin-right:0px;
+	text-align:right;
+	block:block;
+	border:1px solid #000;
+}
+
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/iha_add.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+
+</head>
+<body>
+	<table border="0" width="100%" style="border-collapse:collapse;" cellpadding="1" cellspacing="1">
+		<tr>
+			<td colspan="6" style="text-align:center; font-size:18px;">
+				<strong>老年人生活自理能力评估表<img title="“本表为自评表，根据下表中5个方面进行评估，将各方面判断评分汇总后，0～3分者为可自理； 4～8分者为轻度依赖；9～18分者为中度依赖； 19分者为不能自理”" src="<!--{$basePath}-->images/comments.png" class="vtip"/></strong>
+			</td>
+		</tr>
+		<form action="<!--{$baseUrl}-->elder/elder/add" id="scores" method="post">
+		  <tr>
+		  	<td>姓名</td>
+		  	<td><!--{$identity_name}--></td>
+		  	<td>身份证号</td><td colspan="3"><!--{$identity_number}--></td>
+		  </tr>
+		  <tr>
+		    <td rowspan="2">评估事项、内容与评分</td>
+		    <td colspan="5" align="center" style="height:35px">程度等级</td>
+		  </tr>
+		  <tr>
+		    <td>可自理</td>
+		    <td>轻度依赖</td>
+		    <td>中度依赖</td>
+		    <td>不可自理</td>
+		    <td>判断评分</td>
+		  </tr>
+		  <tr>
+		    <td>（1）进餐：使用餐具将饭菜送入口、咀嚼、吞咽等活动</td>
+		    <td><label onclick="set_input_value('0','meal1')" tabindex="3" >独立完成</label></td>
+		    <td><label onclick="set_input_value('0','meal1')">—</label></td>
+		    <td><label onclick="set_input_value('3','meal1')">需要协助，如切碎、搅拌食物等</label></td>
+		    <td><label onclick="set_input_value('5','meal1')">完全需要帮助</label></td>
+		    
+		    <td rowspan="2"><input type="text" name="meal1" id="meal1" value="<!--{$meal}-->" onblur="add()" class="short" tabindex="3"/></td>
+		  </tr>
+		  <tr>
+		    <td>评分</td>
+		    <td>0</td>
+		    <td>0</td>
+		    <td>3</td>
+		    <td>5</td>
+		  </tr>
+		  		  <tr>
+		    <td>（2）梳洗：梳头、洗脸、刷牙、剃须洗澡等活动</td>
+		    <td><label  onclick="set_input_value('0','meal2')" onclick="add1()" tabindex="3">能独立地洗头、梳头、洗脸、刷牙、剃须等；洗澡需要协助</label></td>
+		    <td><label  onclick="set_input_value('0','meal2')" tabindex="3">—</label></td>
+		    <td><label  onclick="set_input_value('3','meal2')" tabindex="3">在协助下和适当的时间内，能完成部分梳洗活动</label></td>
+		    <td><label  onclick="set_input_value('7','meal2')" tabindex="3">完全需要帮助</label></td>
+		    <td rowspan="2"><input type="text" name="meal2" id="meal2" value="<!--{$cleanup}-->" onblur="add()" class="short" tabindex="3"/></label></td>
+		  </tr>
+		  <tr>
+		    <td>评分</td>
+		    <td>0</td>
+		    <td>0</td>
+		    <td>3</td>
+		    <td>7</td>
+		  </tr>
+		  		  		  <tr>
+		    <td>（3）穿衣：穿衣裤、袜子、鞋子等活动</td>
+		    <td><label  onclick="set_input_value('0','meal3')" tabindex="3">独立完成</label></td>
+		    <td><label  onclick="set_input_value('0','meal3')" tabindex="3">—</label></td>
+		    <td><label  onclick="set_input_value('3','meal3')" tabindex="3">需要协助，在适当的时间内完成部分穿衣</label></td>
+		    <td><label  onclick="set_input_value('5','meal3')" tabindex="3">完全需要帮助</label></td>
+		    <td rowspan="2"><input type="text" name="meal3" id="meal3" value="<!--{$dress}-->" onblur="add()" class="short" tabindex="3"/></label></td>
+		  </tr>
+		  <tr>
+		    <td>评分</td>
+		    <td>0</td>
+		    <td>0</td>
+		    <td>3</td>
+		    <td>5</td>
+		  </tr>
+		  <tr>
+		    <td>（4）如厕：小便、大便等活动及自控</label></td>
+		    <td><label  onclick="set_input_value('0','meal4')" tabindex="3">不需协助，可自控</label></td>
+		    <td><label  onclick="set_input_value('1','meal4')" tabindex="3">偶尔失禁，但基本上能如厕或使用便具</label></td>
+		    <td><label  onclick="set_input_value('5','meal4')" tabindex="3">经常失禁，在很多提示和协助下尚能如厕或使用便</label></td>
+		    <td><label  onclick="set_input_value('10','meal4')" tabindex="3">完全失禁，完全需要帮助</label></td>
+		    <td rowspan="2"><input type="text" name="meal4" id="meal4" value="<!--{$toilet}-->" onblur="add()" class="short" tabindex="3"/></label></td>
+		  </tr>
+		  <tr>
+		    <td>评分</td>
+		    <td>0</td>
+		    <td>1</td>
+		    <td>5</td>
+		    <td>10</td>
+		  </tr>
+		  		  		  <tr>
+		    <td>（5）活动：站立、室内行走、上下楼梯、户外活动</td>
+		    <td><label  onclick="set_input_value('0','meal5')" tabindex="3">独立完成所有活动</label></td>
+		    <td><label  onclick="set_input_value('1','meal5')" tabindex="3">借助较小的外力或辅助装置能完成站立、行走、上下楼梯等</label></td>
+		    <td><label  onclick="set_input_value('5','meal5')" tabindex="3">借助较大的外力才能完成站立、行走，不能上下楼梯</label></td>
+		    <td><label  onclick="set_input_value('10','meal5')" tabindex="3">卧床不起，活动完全需要帮助</label></td>
+		    <td rowspan="2"><input type="text" name="meal5" id="meal5" value="<!--{$activity}-->" onblur="add()" class="short" tabindex="3"/></td>
+		  </tr>
+		  <tr>
+		    <td>评分</td>
+		    <td>0</td>
+		    <td>1</td>
+		    <td>5</td>
+		    <td>10</td>
+		  </tr>
+		  <tr align="center">
+		  	<td colspan="5">总评分</td>
+		  	<td><input type="text" id="sum" name="sum" value="<!--{$totalscore}-->" class="sum" tabindex="3"/></td>
+		  </tr>
+		  <tr align="left">
+		  	<td>评估时间</td>
+		  	<td colspan="5"  align="left"><input type="text" name="time" id="time" value="<!--{$created}-->" style="border:none;width:100px;
+	height:15px;" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/>
+		  	  </td>
+		  </tr>
+		  <tr>
+		  	<td colspan="6">
+		  		<input class="sub" type="hidden" name="uuid" value="<!--{$uuid}-->" />
+		  		<input class="sub" type="submit" name="submit" value="保存"/>
+		  		<!--{if $mytag}-->	
+		  		<input class="sub" type="button" name="back" value="返回" onclick="javascript:window.location='<!--{$basePath}-->elder/elder/scorelist'"/>
+		  		<!--{else}-->	
+		  		<input class="sub" type="button" name="back" value="返回" onclick="javascript:window.history.go(-1);"/>
+		  		<!--{/if}-->	
+		  		<input type="hidden" name="editid" value="<!--{$id}-->"
+		  	</td>
+		  </tr>
+		</form>
+	</table>
+<script type="text/javascript">
+function id(id){
+	var ids=document.getElementById(id);
+	return ids;
+}
+function add1(){
+	alert(1);
+}
+	function add(){
+		var meal1=id('meal1').value;
+		var meal2=id('meal2').value;
+		var meal3=id('meal3').value;
+		var meal4=id('meal4').value;
+		var meal5=id('meal5').value;
+		meal1*=1;
+		meal2*=1;
+		meal3*=1;
+		meal4*=1;
+		meal5*=1;
+		id('sum').value=parseInt(meal1)+parseInt(meal2)+parseInt(meal3)+parseInt(meal4)+parseInt(meal5);
+		
+	}
+	function countv(){
+		var meal1=id('meal1');
+		alert(meal1.value);
+		var meal5=id('meal5');
+		meal5.vaule.innerHTML=meal1;
+	}
+
+	function myskip(action){
+	if(action==2){
+		document.location="<!--{$basePath}-->elder/<!--{$opener}-->/elder/page/<!--{$page}-->";
+	}
+
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>档案完整率指标设置</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script>
+	function checkall(status)
+	{
+		$(".input_checkbox").each(function(){
+			$(this).attr("checked",status);
+		});
+	}
+</script>
+</head>
+<body>
+	<table border="0" width="100%">
+			<tr><td>
+				<!--{section name=region loop=$region}-->
+				<!--{if $region[region].path==$region_path}-->
+				<img src="<!--{$basePath}-->images/checked.png" />
+				<!--{/if}-->
+				<span <!--{if $region[region].path==$region_path}-->
+				style="font-weight:bold;"
+				<!--{/if}-->>
+				<a href="<!--{$basePath}-->rate/index/index/path/<!--{$region[region].path}-->"><!--{$region[region].name}--></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				</span>
+				<!--{if $smarty.section.region.rownum%6==0}-->
+				<br />
+				<!--{/if}-->
+				<!--{/section}-->
+				</td>
+			</tr>
+			<tr><td>
+				<form name="search" method="POST" action="<!--{$basePath}-->rate/index/index">
+				<input type="hidden" name="path" value="<!--{$search_array.path}-->" />
+				模块中文名：&nbsp;
+				<select name="search_model_zh_name">
+					<option value="">请选择</option>
+					<!--{section name=search loop=$search}-->
+					<option value="<!--{$search[search].module_name}-->"  <!--{if $search_array.search_cols_zh_name==$search[search].module_name}--> selected="selected"<!--{/if}-->><!--{$search[search].module_zh_name}--></option>
+					<!--{/section}-->
+				</select>
+				&nbsp;指标名称：&nbsp;<input type="text" name="search_cols_zh_name" value="<!--{$search_array.search_cols_zh_name}-->" />&nbsp;<input type="submit" value="搜索" />
+				</form>
+				</td>
+			</tr>
+</table>		
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th>
+        	&nbsp;
+        </th>
+		<th>
+        	模块中文名称
+        </th>
+		<th>
+        	指标名称
+        </th>
+		<th>
+        	是否必填
+        </th>
+		<th>
+        	取值范围
+        </th>
+		<th>
+        	操作选项
+        </th>
+	</tr>
+	</thead>
+	<tbody id="rate">
+		<form action="<!--{$basePath}-->rate/index/edit" method="POST">
+	<!--{section name=rate loop=$rate}-->
+	 <tr id="rate_<!--{$rate[rate].column_name}-->">
+	 	<td>
+        	&nbsp;
+        </td>
+		<td>
+        	<span class="module_zh_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].module_zh_name}--></span>
+        </td>
+		<td>
+        	<span class="column_zh_name_<!--{$rate[rate].uuid}-->"><!--{$rate[rate].column_zh_name}--></span>
+        </td>
+		<td>
+			<input type="hidden" name="uuid[]" value="<!--{$rate[rate].uuid}-->" />
+        	<input type="checkbox" class="input_checkbox" name="criteria_<!--{$rate[rate].uuid}-->" value="1" <!--{if $rate[rate].criteria}--> checked="checked"<!--{/if}-->  /> &nbsp;是
+        </td>
+		<td>
+        	&nbsp;
+        </td>
+		<td>
+        	<input type="submit" id="submit_<!--{$rate[rate].column_name}-->" name="submit_<!--{$rate[rate].column_name}-->" value="保存修改" style="display:none;" />
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="6">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="6" style="text-align:center;">
+        	<input type="button" name="all" id="all" onclick="return checkall('checked');" value="全选" />&nbsp;&nbsp;<input type="button" name="noall" id="noall" onclick="return checkall('');" value="取消全选" />&nbsp;&nbsp;<input type="submit" name="submit" value="批量修改" />
+        </td>
+	</tr>
+	<tr>
+		<td colspan="6">
+        	&nbsp;<!--{$pager}-->
+        </td>
+	</tr>
+	</form>
+	</tbody>
+</table>
+</body>
+</html>

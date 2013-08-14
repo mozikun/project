@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+.top_flash { height: 200px; width: 960px; margin: 0 auto; }
+.top_title { width: 940px; margin: 0 auto; height: 28px; margin-top: 8px; background-image: url(../../images/mh/ws_18.png); background-repeat: no-repeat; background-position: 7px center; background-color: #eeeeee; font-size: 12px; line-height: 28px; padding-left: 20px; color: #898989; }
+.top_title a:hover, .top_title a:link, .top_title a:active, .top_title a:visited { color: #333; }
+.null { height: 14px; }
+.top_title .menu_time { color: #898989; height: 28px; line-height: 28px; }
+.list_body { width: 960px; margin: 0 auto; }
+.list_left { width: 264px; float: left; }
+.list_right { width: 650px; float: right; border: 1px solid #d9d9d9; border-radius: 2px; background-image: url(../../images/mh/ws_32.png); background-repeat: repeat-x; background-position: left top; height: 748px; padding: 0 17px; }
+.notright { float: none; margin-bottom: 17px; overflow: hidden; }
+.healthy { background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(0.9, #ebebeb), color-stop(1, #ebebeb)); height: 222px; border: solid 1px #ddd; margin-bottom: 17px; border-radius: 4px; box-shadow: 0 2px 2px #ddd; overflow: hidden; }
+.healthy .bv_tbs td { line-height: 33px; }
+.td_cell { display: block; float: left; margin-right: 5px; }
+.td_cell a:link, .td_cell a:hover, .td_cell a:active, .td_cell a:visited { color: #06f; }
+.cell_img { margin-top: 5px; display: block; }
+.lr_ones { height: 233px; overflow: hidden; }
+.lr_title { height: 45px; border-bottom: solid 1px #d9d9d9; line-height: 45px; font-size: 18px; font-family: '微软雅黑'; }
+.lr_conts li { line-height: 28px; }
+.lr_conts li .lr_time { float: right; color: #9c9c9c; }
+.pages { background-color: #eee; height: 35px; margin-top: 14px; margin-right: -17px; margin-left: -17px; }
+.lr_conts { height: 168px; padding: 10px 0; }
+.pages ul { padding-top: 10px; width: 300px; margin: 0 auto; }
+.pages ul li { line-height: 16px; display: inline; float: left; height: 16px; border: 1px solid #d9d9d9; margin-right: 5px; padding-right: 4px; padding-left: 4px; background-color: #fff; }
+.pages ul li.sde { background-color: #00a0e9; }
+.pages ul li.sde a:link, .pages ul li.sde a:active, .pages ul li.sde a:hover, .pages ul li.sde a:visited { color: #fff; }
+.three { height: 699px; }
+.three .lr_conts { height: 633px; }
+*html .four {height: 748px; }
+.four { min-height: 748px; }
+.four_title { height: 55px; line-height: 55px; text-align: center; border-bottom: solid 1px #ddd; font-weight: normal; margin-top: 24px; }
+.four_title .ftext, .four_title .fpres { line-height: 30px; float: left; height: 30px; margin-right: 10px; padding-top: 25px; font-size: 12px; font-weight: normal; }
+.four_title .ftext { float: right; margin-right: 10px; }
+.four_conts{ padding-top:12px;}
+.fc_time { width: 638px; margin: 0 auto; height: 31px; line-height: 31px; border: solid 1px #ffe4a3; background-color: #fff6d8; text-align: center; color: #b75f00; }
+.fc_text{ padding-top:15px;}.fc_text p { line-height: 25px; text-indent: 25px; font-size: 14px; color: #535353; }

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>医疗废物转移记录表列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>医疗废物转移记录表</strong>
+	  </td>
+	</tr>
+		<form action="" id="search" method="post">
+			<tr><td>
+				姓名：<input type="text" name="patientname"  value=""/>&nbsp;
+				身份证号:<input type="text" name="identity_number" value=""/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th title="医疗机构名称">
+        	医疗机构名称
+        </th>
+		<th title="医疗废物处置单位" >
+        	医疗废物处置单位
+        </th>
+		<th title="感染性废物及其他-体积（箱）">
+        	感染性废物及其他（箱）
+        </th>
+        <th title="感染性废物及其他-重量（KG）">
+        	感染性废物及其他（KG）
+        </th>
+         <th title="损伤性废物-体积（盒）">
+        	损伤性废物（盒）
+        </th>
+        <th title="损伤性废物-重量（KG）">
+        	损伤性废物（KG）
+        </th>
+		<th title="交接时间">
+        	交接时间
+        </th>
+       <th title="填报日期">
+        	填报日期
+        </th>
+        
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	<!--{section loop=$row name=row}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+        <td>
+         <!--{$row[row].yljgdm}-->
+        </td>
+		<td >
+        	<!--{$row[row].ylfwczdw}-->
+        </td>
+		<td>
+        	<!--{$row[row].grxfwtj}-->
+        </td>
+        <td>
+        	<!--{$row[row].grxfwzl}-->
+        </td>
+        <td>
+           <!--{$row[row].ssxfwtj}-->
+        </td>
+		<td>
+            <!--{$row[row].ssxfwzl}-->
+        </td>
+        <td>
+            <!--{$row[row].jjsj}-->
+        </td>
+        <td>
+            <!--{$row[row].tbrq}-->
+        </td>
+		<td >
+        	<a href="<!--{$basePath}-->his/medicalwaste/display/id/<!--{$row[row].id}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<td colspan="9" align="center">
+	   当前没有符合条件的数据！
+	</tr>
+	<!--{/section}-->
+	  <tr>
+	  <td colspan="9" align="center"> 
+         <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

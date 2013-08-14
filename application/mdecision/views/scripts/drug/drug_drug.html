@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>用药分析统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</title>
+</head>
+<body>
+<table border="1px" align="center" width="100%">
+     <tr class="bigfont">
+       <td colspan="5" align="center"><center><strong>用药分析统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+     </tr>
+     <tr class="bigfont">
+       <td colspan="5">
+         <form action="" method="POST">
+            时间：开始时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_time" value="<!--{$start_time}-->"/>&nbsp;&nbsp;结束时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="end_time" value="<!--{$decision_time}-->"/>          <input type="submit" value="搜索" value="okok" />
+         </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+        <td colspan="5">
+		<!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->mdecision/drug/drug/parent_id/<!--{$rs[rs].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->mdecision/drug/drug/parent_id/<!--{$rs[rs].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="8%"><strong>地区名称</strong></td>
+        <td><strong>总用药品种数</strong></td>
+        <td><strong>基药品种数</strong></td>
+        <td><strong>基药所占比例(%)</strong></td>
+        <td width="8%"><strong><!--{if $td_title==1}-->查看下级地区<!--{/if}--><!--{if $td_title==2}-->机构名称<!--{/if}--></strong></td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+		   <td><!--{$row[row].yyzs}--></td>
+           <td><!--{$row[row].jys}--></td>
+           <td><!--{$row[row].jyb}--></td>
+           <td>
+           <!--{if $td_title==1}--><a href="<!--{$basePath}-->mdecision/drug/drug/parent_id/<!--{$row[row].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->">[进入子地区]</a><!--{/if}-->
+           <!--{if $td_title==2}--><!--{$row[row].org_zh_name}--><!--{/if}-->
+           
+           </td>
+        </tr>
+
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td><!--{$total.yyzs}--></td>
+           <td><!--{$total.jys}--></td>
+           <td><!--{$total.jyb}--></td>
+           <td>&nbsp;</td>
+        </tr>
+        <tr>
+		<td colspan="5">
+        &nbsp;
+</td></tr>
+
+</table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>
+

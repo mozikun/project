@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品管理</title>
+<link href="/views/templates/goods/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/goods/edit" onsubmit="return checkValue();">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />	
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	所属类别<span id='categoryDropDownBox'></span><br />
+	商品名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+	商品售价<input type="text" name="price" id="price" value="<!--{$price}-->" /><br />
+	折扣<input type="text" name="discount" id="discount" value="<!--{$discount}-->" /><br />
+	排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	实际库存:<!--{$storage_real}-->(按最小单位统计)<br />
+	理论库存:<!--{$storage_reserve}-->(按最小单位统计)<br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="/goods/goods/list/<!--{$url}-->">返回</a>
+	<table>
+		<tr  class="title"><td>类别名称</td><td>属性名称</td><td>是否启用</td><td>值</td></tr>
+	<!--{section name=propertyList loop=$propertyList}-->
+		<tr>
+			<td><!--{$propertyList[propertyList].categoryDescription}--></td>
+			<td><!--{$propertyList[propertyList].propertyDescription}--></td>
+			<td><!--{$propertyList[propertyList].checked}--></td>
+			<td><!--{$propertyList[propertyList].value}--></td>
+		</tr>
+	<!--{/section}-->
+	</table>
+<!--{$message}-->	
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getCategoryDropDownBox();
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

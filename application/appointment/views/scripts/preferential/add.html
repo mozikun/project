@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+        <link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+        <title><!--{$title}--></title>
+
+    </head>
+    <body>
+
+        <script language="javascript">
+            function savedata(){ 
+                reg= /^([1-9][0-9]*|0)(\.[0-9]+)?$/;
+                value=$("#favorable_ratio").val();
+                if(value=="")
+                {
+                    alert("优惠比例不能为空");
+                    return false;
+                }
+                if(!reg.test(value))
+                {alert("优惠比列应该为数字!");
+                    return false;
+                }
+                data=$("form").serialize(); 
+                $.post("<!--{$basePath}-->appointment/preferential/add",data, function(e){
+                    alert(e);
+              
+                });
+            }
+          
+        </script>
+        <form method="post" name="form">
+            <input type="hidden" name="action" value="save"/>
+            <input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+            <table  cellspacing="0" width="100%">
+                <thead>
+
+                </thead>
+                <tr  class="headbg">
+                    <th style="width:40%" colspan="4">优惠项目</th>
+                </tr>	
+                <tbody id='1'>
+
+                    <tr >
+                        <td  align="right"width="29%"  >优惠比例:</td>
+                        <td width="71%"  > <input type="text" value="<!--{$rows.favorable_ratio}-->" name="favorable_ratio" id="favorable_ratio"/>%
+                        </td>
+
+                    </tr>
+                    <tr >
+                        <td  align="right"width="29%"  >优惠项目:</td>
+                        <td width="71%"  ><select name="charge_id" <!--{if $uuid }-->onfocus="this.si=this.selectedIndex;" onchange="this.selectedIndex=this.si;"<!--{/if}--> >
+                                                  <!--{foreach from=$charge_style key=k item=v}-->
+                                                  <option  value="<!--{$v[0]}-->" <!--{if $v[0]==$rows.charge_id}-->selected<!--{/if}-->><!--{$v[1]}--></option>
+                                <!--{/foreach}-->
+                            </select>
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
+                <tr  class="columnbg">
+
+                    <td  align="center"style="width:40%" colspan="4"><input type="button" onclick="savedata();" name="save"  value="保存"/><input type="button"  onclick="javascript:window.location='<!--{$basePath}-->appointment/preferential/index';"value="返回"/> </td>
+                </tr>
+            </table>
+        </form>
+
+
+    </body>
+
+</html>

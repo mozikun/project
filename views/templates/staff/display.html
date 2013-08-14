@@ -1,0 +1,104 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分类管理</title>
+<link href="<!--{$__BASEPATH}-->views/templates/menu/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="<!--{$__BASEPATH}-->management/staff/edit" onsubmit="return checkValue();">
+	<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+	<input type="hidden" name="organizationId" id="organizationId" value="<!--{$organizationId}-->" />
+	所属机构<span id='organizationDropDownBox'></span><br />
+	姓名<input type="text" name="name" id="name" value="<!--{$name}-->" /><br />
+	角色<select name="role" id="role"><!--{$roles}--></select>
+	<br />		
+	密码<input type="text" name="password" id="password" value="<!--{$password}-->"　style='ime-mode:disabled' /><br />
+	内部排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	<input type="submit" name="ok" value="保存" />
+</form>
+	<input type="hidden" id="message" name="message" value="<!--{$message}-->" />
+
+<a href="<!--{$__BASEPATH}-->management/staff/list">返回</a>
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+//部门代码-这里与organization里的代码是一样的
+var organizationId=$('organizationId').value;
+var xmlHttp;
+getOrganizationDropDownBox();
+
+function getOrganizationDropDownBox(){
+	if(organizationId=='-9'){
+		alert('请选择一项分类');
+		return;
+	}
+	xmlHttp=getXmlHttpObject();
+	url='<!--{$__BASEPATH}-->management/organization/organizationDropDownBox/parentId/'+organizationId+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=handleStateChange;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+
+}
+function checkValue(){
+	//alert(parentId);
+	if($('organizationId').value=='-9'){
+		alert('请选择一项分类');
+		return false;
+	}else{
+		return true;
+	}
+}
+function handleStateChange(){
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		//注：firefox不支持innerText
+		var objDiv=$('organizationDropDownBox');
+		//alert(xmlHttp.responseText);
+		objDiv.innerHTML=xmlHttp.responseText;
+		//objDiv.style.display='inline';
+		//alert('yes');
+	}
+}
+function changeValue(theValue){
+	//parentId=theValue;
+	//$('parentId').value=theValue;
+	organizationId=theValue;
+	$('organizationId').value=theValue;
+	
+	getOrganizationDropDownBox();
+}
+
+
+//objDiv=$('categoryDropDownBox');
+//objDiv.innerHTML="<select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select>";
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+</script>
+
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

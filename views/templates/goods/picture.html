@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/views/templates/goods/picture.css" type="text/css" rel="stylesheet" />
+<title>商品图片上传</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+
+<!--关键技巧在于target="hidden_Frame"将提交时刷新本页的动作变换为刷新隐藏页的动作，达到无刷新上传文件的目的-->
+<!--<form id='form1' action="/goods/picture/add" target="hidden_Frame" enctype="multipart/form-data" method="POST">-->
+<form id='form1' action="/goods/picture/add" enctype="multipart/form-data" method="POST">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	<input type="hidden" name="uuid" id="uuid" value="" />
+
+商品图片<input type="file" name="uploadfile" id="file" /><br />
+图片大小　高<input type="text" name="height" id="height" value="" />宽<input type="text" name="width" id="width" value="" /><br />
+图片说明<textarea name="description" id="description" cols="70" rows="8"></textarea><br />
+内部序号<input type="text" name="index" id="index" value="" /><br />
+<input type="submit" name="ok" value="保存" />
+<img src="" width="130" height="130" id="img" style="display:none" />
+</form>
+<a href="/goods/goods/list/<!--{$url}-->">返回</a>
+<iframe name="hidden_Frame" id="hidden_Frame" style='display:none'></iframe>
+<!--以下区域显示上传的图片与文字-->
+<div id="content">
+	<!--{section name=pictureList loop=$pictureList}-->
+	<div>
+		<img src="<!--{$pictureList[pictureList].url}-->" width="<!--{$pictureList[pictureList].width}-->" height="<!--{$pictureList[pictureList].height}-->" />
+		<span><!--{$pictureList[pictureList].description}--></span>
+		<input type="hidden" id="<!--{$pictureList[pictureList].uuidId}-->" value="<!--{$pictureList[pictureList].uuid}-->" />
+		<input type="hidden" id="<!--{$pictureList[pictureList].descriptionId}-->" value="<!--{$pictureList[pictureList].description}-->" />
+		<input type="hidden" id="<!--{$pictureList[pictureList].indexId}-->" value="<!--{$pictureList[pictureList].index}-->" />
+	</div>
+	<div>
+	<a href="#" onclick="setEditData('<!--{$pictureList[pictureList].uuid}-->');">编辑</a>&nbsp;
+	<a href="/goods/picture/delete/categoryId/<!--{$categoryId}-->/goodsId/<!--{$goodsId}-->/uuid/<!--{$pictureList[pictureList].uuid}-->/openerUrl/<!--{$openerUrl}-->" onclick="return confirm('是否确定')">删除</a>
+	</div>
+	<!--{/section}-->
+</div>
+<script type="text/javascript" src="/views/templates/script/common.js"></script>
+<script type="text/javascript">
+function setEditData(uuid){
+	//alert(uuid);
+	$('uuid').value=$('uuid_'+uuid).value;
+	//alert($('uuid').value);
+	$('description').value=$('description_'+uuid).value;
+	$('index').value=$('index_'+uuid).value;
+}
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>
+</body>
+</html>

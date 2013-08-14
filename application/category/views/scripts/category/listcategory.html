@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$rootpath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$rootpath}-->views/js/popup.js"></script>
+<style>
+.change{
+background:#C9E1FA;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+    $("#btn1").click(function(){
+        $.dialog(300,80,"<div  align=\"center\"><form id=\"popup\" action=\"<!--{$rootpath}-->category/category/addcategory/need_add_id/<!--{$add_need_id}-->\" method=\"post\"><tr><td>栏目名称</td><td><input type=\"text\" name=\"menu_name\" id=\"menu_name\"/></td></tr><tr><td colspan=\"2\" algin=\"center\"><input type=\"submit\" value=\"添加\" name=\"ok\" id=\"ok\"/></td></tr></form></div>");
+    });
+
+})
+$(function(){
+	$("tr:odd").addClass("change");
+})
+</script>
+<title>类别列表</title>
+<link href="<!--{$rootpath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center">
+     <tr>
+       <td colspan="6"><!--{section loop=$rs name=rs}--><a href="<!--{$rootpath}-->category/category/listcategory/parent_id/<!--{$rs[rs].id}-->"><!--{$rs[rs].description}--></a><font color="red">-></font><!--{/section}--></td>
+     </tr>
+     <tr>
+        <td>ID</td>
+        <td width="20%">栏目名称</td>
+        <td width="20%">栏目路径</td>
+        <td width="20%">进入子栏目</td>
+        <td width="20%">编辑</td>
+        <td width="20%">删除</td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr>
+           <td><!--{$row[row].id}--></td>
+           <td><!--{$row[row].description}--></td>
+           <td><!--{$row[row].path}--></td>
+           <td><a href="<!--{$rootpath}-->category/category/listcategory/parent_id/<!--{$row[row].id}-->">进入子栏目</a></td>
+           <td><a id="btn_<!--{$row[row].id}-->" href="#">编辑栏目</a><script type="text/javascript">
+           $(function(){
+	            $("#btn_<!--{$row[row].id}-->").click(function(){
+                $.dialog(300,120,"<div  align=\"center\" style=\"width:300px;margin-top:0px;\"> <div style=\"float:left; width:298px;\"><form action=\"<!--{$rootpath}-->category/category/editcategory/current_id/<!--{$row[row].id}-->\" method=\"post\">当前栏目名称:<input type=\"text\" name=\"menu_name_edit\" id=\"menu_name_edit\" value=\"<!--{$row[row].description}-->\"/> </div> <!--{if $row[row].parent_id !== "1"}--><div style=\"float:left; width:298px;\">所属栏目名称:<select name=\"last_name\" id=\"last_name\"><!--{section loop=$selAllArr name=selAllArr}--><option value=\"<!--{$selAllArr[selAllArr].id}-->\" <!--{if $selAllArr[selAllArr].id eq $row[row].parent_id}-->selected=\"selected\"<!--{/if}-->><!--{$selAllArr[selAllArr].description}--></option><!--{/section}--> </select></div><!--{/if}--><div style=\"float:left; width:298px;\"><input type=\"submit\" value=\"修改\" name=\"ok2\" id=\"ok\"/></div></form></div>");
+                 });
+           })
+            </script>
+            </td>
+           <td><a href="<!--{$rootpath}-->category/category/delcategory/current_id/<!--{$row[row].id}-->">删除栏目</a></td>
+        </tr>
+     <!--{/section}-->
+     <tr>
+       <td colspan="6"><a id="btn1" href="#">添加栏目</a></td>
+       
+     </tr>
+     </table>
+</body>
+</html>

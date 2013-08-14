@@ -1,0 +1,11 @@
+var organizationArray=new Array();
+organizationArray[0]=new Array('178','芦山县卫生局','lsxwsj','001');
+organizationArray[1]=new Array('86','大川镇卫生院','dczwsy','001');
+organizationArray[2]=new Array('87','思延乡卫生院','syxwsy','001');
+organizationArray[3]=new Array('88','清仁乡卫生院','qrxwsy','001');
+organizationArray[4]=new Array('89','太平镇卫生院','tpzwsy','001');
+organizationArray[5]=new Array('90','双石镇卫生院','sszwsy','001');
+organizationArray[6]=new Array('91','龙门乡卫生院','lmxwsy','001');
+organizationArray[7]=new Array('92','宝盛乡卫生院','bsxwsy','001');
+organizationArray[8]=new Array('93','飞仙关镇卫生院','fxgzwsy','001');
+organizationArray[9]=new Array('94','芦阳镇卫生院','lyzwsy','001');

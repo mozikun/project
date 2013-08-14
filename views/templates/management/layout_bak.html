@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+}
+table{
+	font-size:12px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF;
+}
+.tr{
+	background-color:#336699;
+	color:#FFFFFF;	
+}
+td{
+	border:#000000 1px solid;
+	height:18px;
+}
+.td1{
+}
+fieldset{
+	width:100%;
+	border:1px solid #33CCFF;
+	text-align:center;
+}
+div{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 5px 0px 5px;border:1px solid #DEDEB8;
+	font-size:12px;
+}
+div.div1{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 0px 0px 5px;border:0px;
+
+}
+a{
+	text-decoration:none;
+	font-size:12px;
+}
+</style>
+</head>
+<!--
+菜单用主栏目，页面用子栏目  
+-->
+<body>
+<fieldset><legend>菜单管理</legend>
+<table width="98%" border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <td>首页</td>
+    <td>栏目一</td>
+    <td>栏目二</td>
+    <td>栏目三</td>
+    <td>栏目四</td>
+    <td>栏目五</td>
+    <td>栏目六</td>
+    <td>栏目七</td>
+    <td>栏目八</td>
+    <td>栏目九</td>
+    <td>栏目十</td>
+  </tr>
+  <tr>
+    <td>首页</td>
+    <td id="td_menu_1">!--{$menu_1}--<a href="/management/layout/layout_menu_display/position/1/menu_id/!--{$menu_id_1}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_2">!--{$menu_2}--<a href="/management/layout/layout_menu_display/position/2/menu_id/!--{$menu_id_2}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_3">!--{$menu_3}--<a href="/management/layout/layout_menu_display/position/3/menu_id/!--{$menu_id_3}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_4">!--{$menu_4}--<a href="/management/layout/layout_menu_display/position/4/menu_id/!--{$menu_id_4}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_5">!--{$menu_5}--<a href="/management/layout/layout_menu_display/position/5/menu_id/!--{$menu_id_5}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_6">!--{$menu_6}--<a href="/management/layout/layout_menu_display/position/6/menu_id/!--{$menu_id_6}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_7">!--{$menu_7}--<a href="/management/layout/layout_menu_display/position/7/menu_id/!--{$menu_id_7}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_8">!--{$menu_8}--<a href="/management/layout/layout_menu_display/position/8/menu_id/!--{$menu_id_8}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_9">!--{$menu_9}--<a href="/management/layout/layout_menu_display/position/9/menu_id/!--{$menu_id_9}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td id="td_menu_10">!--{$menu_10}--<a href="/management/layout/layout_menu_display/position/10/menu_id/!--{$menu_10}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+
+ </tr>
+</table>
+<br />
+</fieldset>
+<p></p>
+<fieldset><legend>页面管理</legend>
+<table width="98%" border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <td width="272">栏目十一</td>
+    <td width="644">栏目二十一</td>
+  </tr>
+  <tr>
+    <td>!--{$menu_11}--<a href="/management/layout/layout_body_display/position/11/sub_menu_id/!--{$menu_id_11}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>!--{$menu_21}--<a href="/management/layout/layout_body_display/position/21/sub_menu_id/!--{$menu_id_21}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+  </tr>
+  <tr>
+    <td>栏目十二</td>
+    <td>栏目二十二</td>
+  </tr>
+  <tr>
+    <td>!--{$menu_12}--<a href="/management/layout/layout_body_display/position/12/sub_menu_id/!--{$menu_id_12}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>!--{$menu_22}--<a href="/management/layout/layout_body_display/position/22/sub_menu_id/!--{$menu_id_22}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+  </tr>
+  <tr>
+    <td>栏目十三</td>
+    <td>栏目二十三</td>
+  </tr>
+  <tr>
+    <td>!--{$menu_13}--<a href="/management/layout/layout_body_display/position/13/sub_menu_id/!--{$menu_id_13}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>!--{$menu_23}--<a href="/management/layout/layout_body_display/position/23/sub_menu_id/!--{$menu_id_23}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+  </tr>
+  <tr>
+    <td>栏目十四</td>
+    <td>栏目二十四</td>
+  <tr>
+    <td>!--{$menu_14}--<a href="/management/layout/layout_body_display/position/14/sub_menu_id/!--{$menu_id_14}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>!--{$menu_24}--<a href="/management/layout/layout_body_display/position/24/sub_menu_id/!--{$menu_id_24}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+  </tr>
+   <tr>
+    <td>栏目十五</td>
+    <td>栏目二十五</td>
+  </tr> 
+    <tr>
+    <td>!--{$menu_15}--<a href="/management/layout/layout_body_display/position/15/sub_menu_id/!--{$menu_id_15}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>!--{$menu_25}--<a href="/management/layout/layout_body_display/position/25/sub_menu_id/!--{$menu_id_25}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+  </tr> 	
+    <tr>
+    <td>栏目十六</td>
+    <td>&nbsp;</td>
+  </tr> 	 
+    <tr>
+    <td>!--{$menu_16}--<a href="/management/layout/layout_body_display/position/16/sub_menu_id/!--{$menu_id_16}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>&nbsp;</td>
+  </tr> 	
+    <tr>
+    <td>栏目十七</td>
+    <td>&nbsp;</td>
+  </tr> 	 
+    <tr>
+    <td>!--{$menu_17}--<a href="/management/layout/layout_body_display/position/17/sub_menu_id/!--{$menu_id_17}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>&nbsp;</td>
+  </tr> 	
+    <tr>
+    <td>栏目十八</td>
+    <td>&nbsp;</td>
+  </tr> 	 
+    <tr>
+    <td>!--{$menu_18}--<a href="/management/layout/layout_body_display/position/18/sub_menu_id/!--{$menu_id_18}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>&nbsp;</td>
+  </tr> 	
+    <tr>
+    <td>栏目十九</td>
+    <td>&nbsp;</td>
+  </tr> 	 
+    <tr>
+    <td>!--{$menu_19}--<a href="/management/layout/layout_body_display/position/19/sub_menu_id/!--{$menu_id_19}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>&nbsp;</td>
+  </tr> 	
+    <tr>
+    <td>栏目二十</td>
+    <td>&nbsp;</td>
+  </tr> 	   
+    <tr>
+    <td>!--{$menu_20}--<a href="/management/layout/layout_body_display/position/20/sub_menu_id/!--{$menu_id_20}--"><img src="/images/sys/menu_add_layout.gif" border="0"/></a></td>
+    <td>&nbsp;</td>
+  </tr> 	
+</table>
+<br />
+</fieldset>
+<p>&nbsp;</p>
+<a href="#" onclick="window.showModalDialog('/management/layout/layout_body_display/position/20/sub_menu_id/!--{$menu_id_20}--','','DialogWidth:450px;DialogHeight:450px;help:no;status:no');">ddd</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<table border="0" width="100%">
+				<thead>
+		    	<tr>
+		        <th>
+		        	&nbsp;
+		        </th>
+                <!--{foreach key=k item=v from=$dic_array}-->
+                <th>
+		        	<!--{$v[1]}-->
+		        </th>
+		       <!--{/foreach}-->
+				
+				</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>人数</td>
+                        <!--{foreach key=k item=v from=$dic_array}-->
+                        <td><!--{$core[$k]|default:'0'}--></td>
+                        <!--{/foreach}-->
+					</tr>
+				</tbody>
+			</table>
+<br />*因统计口径问题，此处统计结果仅做参考

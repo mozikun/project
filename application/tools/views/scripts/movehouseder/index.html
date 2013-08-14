@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>互为户主问题的处理</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid #ccc;
+	}
+	tr,td
+	{
+		border:1px;
+		text-align:left;
+		padding-left:200px;
+		line-height:30px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.short
+	{
+		width:12px;
+		height:12px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+</head>
+<body>
+<form method="post" action="<!--{$basePath}-->tools/movehouseder/moveview">
+	<table border="0" width="100%" cellspacing="0">
+		<thead>
+	    <tr class="headbg">
+	        <th align="center">
+	        	根据身份证号移除户主属性
+	        </th>
+		</tr>
+		</thead>
+	
+		<tbody id="status_flag_list">
+			<tr>
+				<td>身份证号：<input type="text" name="card[]"  size="18" class="line" />&nbsp;&nbsp;<a href="##" onclick="created_input();">【增加输入框】</a></td>
+			</tr>	
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="padding-left:270px;font-size:20px"><input type="submit" name="submit" value="修改属性" />&nbsp;<input type="button" onclick="javascript:window.location='<!--{$basePath}-->doctor/index/index'" value="返回首页" /></td>
+			</tr>
+		</tfoot>
+	</table>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+function created_input()
+{
+		var x=parseInt(Math.random()*(1000000-1))+1;//产生随机数作为创建的ID号
+		var status_flag_list = $("#status_flag_list");
+		//alert(status_flag_list);
+		var img_string = '&nbsp;&nbsp;&nbsp;&nbsp;<span><img src="<!--{$basePath}-->views/images/unchecked.gif" onclick="return del_item('+x+');"/></span>';
+		var created = $('<tr id="'+x+'"><td>身份证号：<input type="text" name="card[]"  size="18" class="line" />'+img_string+'</td></tr>');
+		created.appendTo(status_flag_list);
+}
+function del_item(id)
+{
+  $("#"+id).remove(); 
+}
+</script>

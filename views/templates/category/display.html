@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分类管理</title>
+<link href="/views/templates/category/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/category/edit" onsubmit="return checkValue();">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="parentId" id="parentId" value="<!--{$parentId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	所属类别<span id='categoryDropDownBox'></span><br />
+	分类名称<input type="text" name="description" id="description" value="<!--{$description}-->" /><br />
+	排序<input type="text" name="index" id="index" value="<!--{$index}-->"　style='ime-mode:disabled' /><br />
+	<input type="submit" name="ok" value="保存" />
+	<!--{$message}-->
+</form>
+<a href="/goods/category/list/categoryId/<!--{$parentId}-->">返回</a>
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/script/navigation.js"></script>
+<script type="text/javascript">
+
+</script>
+
+<script type="text/javascript">
+//所有分类的根
+var categoryId=$('categoryId').value;
+var parentId=$('parentId').value;
+var xmlHttp;
+getCategoryDropDownBox();
+</script>

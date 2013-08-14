@@ -1,0 +1,59 @@
+<table  width="100%" >
+
+     <tr class="columnbg">
+     <td align="center">地区名称</td>
+     <!--{if $field eq 'mzrc'}-->
+     <td align="center">门诊人次</td>
+     <!--{/if}-->
+     <!--{if $field eq 'jzrc'}-->
+     <td align="center">急诊人次</td>
+     <!--{/if}-->
+     <!--{if $field eq 'ryrc'}-->
+     <td align="center">入院人次</td>
+     <!--{/if}-->
+     <!--{if $field eq 'cyrc'}-->
+     <td align="center">出院人次</td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyrs'}-->
+     <td align="center">在院人数</td>
+     <!--{/if}-->
+    </tr>
+    <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><!--{$row[row].zh_name}--></strong></td>
+    <!--{if $field eq 'mzrc'}-->
+    <td align="center"><!--{$row[row].mzrc}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'jzrc'}-->
+    <td align="center"><!--{$row[row].jzrc}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'ryrc'}-->
+    <td align="center"><!--{$row[row].ryrc}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'cyrc'}-->
+    <td align="center"><!--{$row[row].cyrc}--></td>
+    <!--{/if}-->
+    <!--{if $field eq 'zyrs'}-->
+    <td align="center"><!--{$row[row].zyrs}--></td>
+    <!--{/if}-->
+   </tr>
+  <!--{/section}-->
+   <tr align="center" class="title">
+     <td>合计</td>
+     <!--{if $field eq 'mzrc'}-->
+     <td><!--{$total.sum_mzrc}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'jzrc'}-->
+     <td><!--{$total.sum_jzrc}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'ryrc'}-->
+     <td><!--{$total.sum_ryrc}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'cyrc'}-->
+     <td><!--{$total.sum_cyrc}--></td>
+     <!--{/if}-->
+     <!--{if $field eq 'zyrs'}-->
+     <td><!--{$total.sum_zyrs}--></td>
+     <!--{/if}-->
+   </tr>
+</table>

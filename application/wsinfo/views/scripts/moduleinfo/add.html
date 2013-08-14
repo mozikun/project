@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>接口模块详细</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<form action="<!--{$basePath}-->wsinfo/moduleinfo/manage" method="post" onsubmit="return checkform();">
+<input type="hidden" name="currentpage" value="<!--{$currentpage}-->"/>
+<input type="hidden" name="editid" value="<!--{$currentId}-->"/>
+<input type="hidden" name="table_search" value="<!--{$table_search}-->"/>
+<input type="hidden" name="module_search" value="<!--{$module_search}-->"/>
+<table width="100%" align="center">
+   <tr class="headbg">
+       <td colspan="2">接口模块详细&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->wsinfo/moduleinfo/index/page/<!--{$currentpage}-->">[返回列表]</a></td>
+   </tr>
+   <tr>
+	<td width="30%">内部标识符:</td>
+	<td width="70%"><input type="text" name="internal_identifier" id="internal_identifier" value="<!--{$internal_identifier}-->" <!--{$controlName}-->/>（内部标识不能重复）</td>
+   </tr>
+   <tr>
+	<td width="30%">数据元标识符:</td>
+	<td width="70%"><input type="text" name="dataelement" id="dataelement" value="<!--{$dataelement}-->" onblur="checkdataelementname();"/>（数据元标识符对应生成数据表的字段名称）</td>
+   </tr>
+    <tr>
+	<td width="30%">数据元名称:</td>
+	<td width="70%"><input type="text" name="dataelementname" id="dataelementname" value="<!--{$dataelementname}-->"/>（数据元名称对应生成以数据元标识符为字段的字段注释）</td>
+   </tr>
+   <tr>
+	<td width="30%">接口模块:</td>
+	<td width="70%">
+	    <select name="module_id">
+	      <!--{section loop=$wsmoduleArray name=wsmoduleArray}-->
+	       <option value="<!--{$wsmoduleArray[wsmoduleArray].module_id}-->" <!--{$wsmoduleArray[wsmoduleArray].selectname}-->><!--{$wsmoduleArray[wsmoduleArray].module_name}--></option>
+	      <!--{/section}-->
+	    </select>
+	    （标准代码所在的类别即所在的数据表）
+	</td>
+   </tr>
+   <tr>
+	<td width="30%">数据元允许值:</td>
+	<td width="70%"><input type="text" name="dataaccess" id="dataaccess" value="<!--{$dataaccess}-->" style="width:40%;"/>（一个备注如:GB/T 2659-2000 世界各国和地区名称代码）</td>
+   </tr>
+   <tr>
+	<td width="30%">定义:</td>
+	<td width="70%"><textarea cols="50" rows="4" name="definition"><!--{$definition}--></textarea>（数据元标识符的备注）</td>
+   </tr>
+   <tr>
+	<td width="30%">数据元值的数据类型:</td>
+	<td width="70%"><input type="text" name="datatype" id="datatype" value="<!--{$datatype}-->"/>（生成该字段的数据类型目前有:S、D、DT、N、L,输入如：S。代表字符串类型）</td>
+   </tr>
+   <tr>
+	<td width="30%">表示格式:</td>
+	<td width="70%"><input type="text" name="that_format" id="that_format" value="<!--{$that_format}-->"/>（提取数据类型的长度,应输入如：S..30或者N2。）</td>
+   </tr>
+   <tr>
+    <td width="30%">排序:</td>
+    <td width="70%"><input type="text" name="order_by" id="order_by" value="<!--{$order_by}-->"/></td>
+   </tr>
+   <tr>
+	<td width="30%">表名:</td>
+	<td width="70%"><input type="text" name="table_name" id="table_name" value="<!--{$table_name}-->"/>（该数据元在本系统中映射到的表）</td>
+   </tr>
+   <tr>
+	<td width="30%">字段名:</td>
+	<td width="70%"><input type="text" name="fields" id="fields" value="<!--{$fields}-->"/>（该数据元在本系统中使用到的表所映射的字段名称）</td>
+   </tr>
+   <tr>
+   <td >雅安字段是否与数据元素标识符一致1=>一致</td>
+   <td><input type="text" name="same_as_de" value="<!--{$same_as_de}-->" /></td>
+   </tr>
+	<tr>
+	 <td colspan="2" align="center" width="100%">
+		<input type="submit" name="save" id="save" value="保存数据"/>
+	 </td>
+	</tr>
+</table>
+</form>
+</body>
+<!--{$message}-->
+<script type="text/javascript">
+function checkform(){
+	var internal_identifier = document.getElementById('internal_identifier');
+	var dataelement         = document.getElementById('dataelement');
+	var dataelementname     = document.getElementById('dataelementname');
+	var datatype            = document.getElementById('datatype');
+	var that_format         = document.getElementById('that_format');
+	if(internal_identifier.value==""){
+		window.alert("数据内部标识符不能为空!");
+		internal_identifier.focus();
+		return false;
+		}
+	if(dataelement.value==""){
+		window.alert("数据元标识符不能为空!");
+		dataelement.focus();
+		return false;
+		}
+	if(dataelementname.value==""){
+		window.alert("数据元名称不能为空");
+		dataelementname.focus();
+		return false;
+		}
+	if(datatype.value==""){
+		window.alert("数据元值的数据类型不能为空");
+		datatype.focus();
+		return false;
+		}
+	if(that_format.value==""){
+		window.alert("数据表示格式不能为空");
+		that_format.focus();
+		return false;
+		}
+}
+ function checkdataelementname(){
+	 var dataelementname = document.getElementById('dataelement');
+	 var partn = /^[a-zA-Z]{1,}.*?$/;
+	 if(!partn.exec(dataelementname.value)){
+		 window.alert("请输入以字母开头的字符串!");
+		 dataelementname.focus();
+		 return false;
+		 }
+	 }
+
+</script>

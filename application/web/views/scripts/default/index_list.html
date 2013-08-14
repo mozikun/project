@@ -1,0 +1,149 @@
+<!--{include file=header.html}-->
+    <!--导航栏结束，主体开始-->
+    <div class="main_body">
+      <div class="top_flash"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_31.png" width="960" height="200"></a> </div>
+      <div class="top_title">
+        <div class="menu_time"><!--{$timer}--></div>
+        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a><!--{section name=path loop=$path}-->&gt;<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$path[path].py}-->"><!--{$path[path].sortname}--></a><!--{/section}-->&gt;列表</div>
+      <div class="null"></div>
+      <div class="list_body">
+        <div class="list_left">
+          <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="healthy">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="<!--{$basePath}-->iha/search/search" method="post">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">登录方式：</td>
+                      <td width="71%"><select class="bv_text">
+                          <option>请选择</option>
+                          <option value="sfz">身份证号码登陆</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">身份证号：</td>
+                      <td><input type="text" name="card" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">密码：</td>
+                      <td><input type="password" name="password" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell">
+                        <input class="cell_img" type="image" src="<!--{$basePath}-->views/images/mh/ws_16.png" />
+                        </span><span class="td_cell"><a href="#"><img class="cell_img" src="<!--{$basePath}-->views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell"><a href="#">查询说明</a></span><span class="td_cell"><a href="#">使用帮助</a></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="lir_inner notal">
+            <div class="notal_top">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
+              <div class="ntop_conts">
+                <form id="" action="#">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td width="27%">免疫卡片:</td>
+                        <td width="45%"><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td width="28%">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>接种时间:</td>
+                        <td><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td><input type="image" name="imageField" id="imageField" src="<!--{$basePath}-->views/images/mh/ws_26.png" class="img_btn"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+            <div class="notal_bottm">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">联网医院</span><a href="<!--{$basePath}-->web/hospital/index">更多》</a></div>
+              <div class="hospital">
+                <ul>
+                 <!--{section name=orgs loop=$orgs}-->
+                  <li><a href="<!--{$basePath}-->web/hospital/detail/id/<!--{$orgs[orgs].id}-->"><!--{$orgs[orgs].zh_name}--></a></li>
+                  <!--{/section}-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list_right">
+        <!--{section name=sorts loop=$sort_list}-->
+          <div class="lr_ones">
+            <div class="lr_title"><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$sort_list[sorts].py}-->"><!--{$sort_list[sorts].name}--></a></div>
+            <div class="lr_conts">
+              <ul>
+              <!--{section name=articles loop=$sort_list[sorts].articles}-->
+                <li>
+                  <div class="lr_time"><!--{$sort_list[sorts].articles[articles].updated}--></div>
+                  [<!--{$sort_list[sorts].articles[articles].sortname}-->] <a href="<!--{$basePath}-->web/default/view/uuid/<!--{$sort_list[sorts].articles[articles].uuid}-->"><!--{$sort_list[sorts].articles[articles].title}--></a></li>
+              <!--{sectionelse}-->
+              <li>
+                  此分类下暂时还没有信息发布</li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <!--{/section}-->
+          <div class="pages">
+          <ul style="width: 100%;padding-left: 8px;">
+            <!--{$pager}-->
+          </ul>
+          </div>
+        </div>
+        <div class="bbk"></div>
+      </div>
+    </div>
+<!--{include file=footer.html}-->

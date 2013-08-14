@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>个人健康档案综合统计1</title>
+        <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+        <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+        <style>
+            table {
+                background: #ffffff;
+            }
+            table th {
+                background: #ff1;
+            }            
+        </style>
+        <!--引入jquery-->
+        <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js">
+        </script>
+        <script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript">
+        </script>
+        <!--时间控件的加载!-->
+        <link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+        <script language="javascript">AC_FL_RunContent = 0;</script>
+		<script language="javascript"> DetectFlashVer = 0; </script>
+		<script src="<!--{$basePath}-->library/charts/AC_RunActiveContent.js" language="javascript"></script>
+		<script language="JavaScript" type="text/javascript">
+		<!--
+		var requiredMajorVersion = 10;
+		var requiredMinorVersion = 0;
+		var requiredRevision = 45;
+		-->
+		</script>
+		<script src="<!--{$basePath}-->views/js/xml_charts.js" type="text/javascript"></script>
+		<script src="<!--{$basePath}-->views/js/decision_list.js" type="text/javascript"></script>
+    </head>
+ 
+<table border="1">
+	<tr>
+		<td id='list_ylyw_archive_number'>
+			<script language="JavaScript" type="text/javascript">
+			showList("<!--{$basePath}-->admindecision/ylyw/list/region/511028/field/<!--{$field}-->",$('#list_ylyw_archive_number'));
+			</script>
+		</td>
+	</tr>
+	<tr>
+		<!--{if $field eq 'mzrc' || $field eq 'ryrc'}-->
+		<td>
+			<script language="JavaScript" type="text/javascript">
+				show_chart("<!--{$basePath}-->admindecision/ylyw/bar/field/<!--{$field}-->","<!--{$basePath}-->",450,280,"chart_line");
+			</script>
+		</td>
+		<!--{else if}-->
+		<td>
+		<script language="JavaScript" type="text/javascript">
+		show_chart("<!--{$basePath}-->admindecision/ylyw/bar/field/<!--{$field}-->","<!--{$basePath}-->",600,350,"chart_bar");
+		</script>
+		</td>
+		<!--{/if}-->
+	</tr>
+</table>
+<br />
+<table border="1">
+<tr>
+<td>
+</td>
+<td><script language="JavaScript" type="text/javascript">
+//show_chart("<!--{$basePath}-->admindecision/test/pie","<!--{$basePath}-->",600,350,"chart_pie");
+</script></td>
+</tr>
+</table>

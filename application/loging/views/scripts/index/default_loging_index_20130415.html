@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>雅安市区域卫生平台www</title>
+<link href="<!--{$basePath}-->views/styles/linkd_index.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript">
+//stop -->none error
+function noerror(){
+return true;
+}
+window.onerror=noerror;
+
+//判断当前窗口是否为顶层窗口，不是则跳转为顶层窗口
+window.onload=function(){	
+	if (window.top!=window.self){
+		window.top.location.href="<!--{$basePath}-->loging/index"
+	}
+}
+function openWin(region_id){
+	window.location='<!--{$basePath}-->loging/doctor/region_id/'+region_id;
+}
+</script>
+</head>
+
+
+<body>
+<div class="maind">
+	<div class="topd"><img src="<!--{$basePath}-->views/images/images_index/topbg.jpg" align="absmiddle" /></div>
+	<div class="contend">
+		<div class="contendleft">
+			<ul class="content1">
+				<li><a href="<!--{$basePath}-->loging/index/user">信息管理系统</a></li>
+				<li><a href="<!--{$basePath}-->loging/index/user">决策支持系统</a></li>
+				<li><a href="#">教育培训系统</a></li>
+				<li><a href="<!--{$basePath}-->iha/search/index">居民交互系统</a></li>
+				<li><a href="<!--{$basePath}-->appointment/reservation">预约挂号系统</a></li>
+				<li><a href="<!--{$basePath}-->loging/index/leadindex">县级监管平台</a></li>
+			</ul>
+		</div>
+		<div class="contendright">
+		<div class="aread"><a href="<!--{$basePath}-->loging/index/user"><img src="<!--{$basePath}-->views/images/images_index/lo2.jpg" align="absmiddle" /></a></div>
+		<div class="flashd">
+		  <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="532" height="488">
+            <param name="movie" value="<!--{$basePath}-->views/images/images_index/bodybg2.swf" />
+            <param name="quality" value="high" />
+			<param name="wmode" value="transparent">
+            <embed src="<!--{$basePath}-->views/images/images_index/bodybg2.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="532" height="488"></embed>
+	      </object>
+		</div>
+		</div>
+		<div class="cleard"></div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  function mymap(n){
+  	window.location="<!--{$basePath}-->loging/index/user/allregion/"+n;
+  }
+</script>

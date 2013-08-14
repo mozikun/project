@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户登录</title>
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+	align:center;
+	margin:auto;
+	text-align:center;
+}
+table{
+	font-size:14px;  /*表格*/
+	/*padding-left:11px;*/
+	border:#000000 1px solid;
+	border:none;
+	text-align:left;
+}
+.tr{
+	/*background-color:#CCCCCC;*/
+	color:#000000;	
+}
+td{
+	border:#000000 1px solid;
+	border:none;
+	height:18px;
+}
+.td1{
+}
+fieldset{
+	width:400px;
+	border:1px solid #003399;
+	text-align:auto;
+	padding:10px;
+}
+fieldset legend{
+	border:2px solid #003399;
+	padding:2px;
+	font-weight:bold;
+}
+div{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 5px 0px 5px;border:1px solid #DEDEB8;
+	font-size:12px;
+}
+div.div1{
+	float:left;
+	margin:0px 0px 0px 0px;padding:0px 0px 0px 5px;border:0px;
+
+}
+a{
+	text-decoration:none;
+	font-size:12px;
+}
+input[type=text]{
+	border:none;
+	border-bottom:1px solid ;
+}
+</style>
+</head>
+
+<body>
+<form method="POST" action="<!--{$__BASEPATH}-->default/login/login" >
+<fieldset>
+<legend>用户登录</legend>
+<table width="95%">
+  <tr class="tr">
+    <td width="20%">姓名</td>
+    <td><input type="text" id="staffName" name="staffName" value="<!--{$staffName}-->" maxlength="24" size="24" /></td>
+  </tr>
+  <tr class="tr">
+    <td>密码</td>
+    <td><input type="password" id="password" name="password" value="!--{$password}--" maxlength="10" size="10" /></td>
+  </tr>
+  <tr class="tr">
+    <td>图形验证码</td>
+    <td><input type="text" name="image_text" id="image_text" value="" style="ime-mode:disabled;" maxlength="24" size="24" />
+    <img src="<!--{$__BASEPATH}-->default/login/image" onclick="changeImage()" id='img' />
+    </td>
+  </tr>
+  <tr class="tr">
+    <td>提示信息</td>
+    <td><!--{$errorMessage}--></td>
+  </tr>  
+</table>
+<input type="submit" name="ok" id="ok" value="确定"　/>
+<input type="button" name="exit" id="exit" value="退出" onclick="document.location='<!--{$__BASEPATH}-->'"/>
+
+</fieldset>
+</form>
+
+</body>
+</html>
+<script type="text/javascript">
+var xmlHttp;
+
+function changeImage(){
+	var img=document.getElementById('img');
+	img.src='<!--{$__BASEPATH}-->default/login/image/sid/'+Math.random();
+	return true;
+	xmlHttp=getXMLObject();
+	url='<!--{$__BASEPATH}-->default/login/image/sid/'+Math.random();
+	xmlHttp.open('GET',url,true);
+	xmlHttp.onreadystatechange = handleStateChange;//这一句最为关键，是ajax异步通讯的关键点
+	xmlHttp.send(null);
+}
+
+function handleStateChange()
+{
+	//alert(xmlHttp);
+	if(xmlHttp.readyState == 4 && xmlHttp.status == 200)//readyState有多个值，其中4表示提交的请求已成功完成。200表示状态正常
+	{
+		var img=document.getElementById('img');
+		img.src='<!--{$__BASEPATH}-->default/login/image';
+		//alert('ok');
+	}
+}
+
+
+
+function getXMLObject()
+{
+	var xmlHttp;
+
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}
+	catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}
+		catch(e)
+		{
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+</script>

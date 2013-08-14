@@ -1,0 +1,15 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="2" align="center"><center><strong>药品顺位列表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="17%"><strong>药品名称</strong></td>
+        <td width="17%"><strong>库存数量</strong></td>
+     </tr>
+       <!--{section loop=$row name=row}-->    
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">      
+            <td><!--{$row[row].ypmc}--></td> 
+            <td><!--{$row[row].ypkc}--></td> 
+        </tr> 
+         <!--{/section}-->      
+</table>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>收入和支出</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="8">收入和支出</td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="headbg">
+	    <td rowspan="2">地区</td>
+	    <td align="center" rowspan="2">机构名称</td>
+		<td align="center" rowspan="2">年&nbsp;&nbsp;&nbsp;&nbsp;份</td>
+		<td align="center" colspan="1">总收入(千元)</td>
+		<td align="center" colspan="1">财政补助收入(千元)</td>
+		<td align="center" colspan="1">上级补助收入(千元)</td>
+		<td align="center" colspan="1">医疗收入(千元)</td>
+		<td align="center" colspan="1">医疗门诊收入(千元)</td>
+		<td align="center" colspan="1">医疗住院收入(千元)</td>
+		<td align="center" colspan="1">药品收入(千元)</td>
+		<td align="center" colspan="1">药品门诊收入(千元)</td>
+		<td align="center" colspan="1">药品住院收入(千元)</td>
+		<td align="center" colspan="1">其他收入(千元)</td>
+		<td align="center" colspan="1">总支出(千元)</td>
+		<td align="center" colspan="1">医疗支出(千元)</td>
+		<td align="center" colspan="1">药品支出(千元)</td>
+		<td align="center" colspan="1">内：药品费(千元)</td>
+		<td align="center" colspan="1">财政专项支出(千元)</td>
+		<td align="center" colspan="1">其他支出(千元)</td>
+		<td align="center" colspan="1">总支出中：人员支出(千元)</td>
+		<td align="center" colspan="1">总支出中：离退休费(千元)</td>
+		<td align="center" colspan="1">病人累计欠费总额(千元)</td>
+		<td align="center" colspan="1">其中：年内病人欠费总额(千元)</td>
+	</tr>
+	<tr class="headbg">
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+		<td align="center">合计</td>
+	</tr>
+	<!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td rowspan="<!--{$region_array[region_array].rowspan}-->"><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/orginout/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	    <!--{section loop=$region_array[region_array].org name=c}-->
+	    <!--{if $smarty.section.c.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td rowspan="<!--{$region_array[region_array].org[c].org_ext}-->"><!--{$region_array[region_array].org[c].zh_name}--></td>
+	   <!--{section loop=$region_array[region_array].org[c].ext name=d}-->
+	   <!--{if $smarty.section.d.index>0}-->
+	    <tr>
+	    <!--{/if}-->
+	    <td><!--{$region_array[region_array].org[c].ext[d].year}-->年</td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].total_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].finance_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].superior_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].medical_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].medical_outpatient_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].medical_hospital_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_outpatient_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_hospital_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_other_income}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].total_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].medical_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].drug_fee_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].finance_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].other_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].hr_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].retire_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].arrear_payout}--></td>
+	    <td><!--{$region_array[region_array].org[c].ext[d].arrear_payout_by_year}--></td>
+	  </tr>
+	  <!--{sectionelse}-->
+	    <td colspan="21" align="left">无机构收入和支出信息数据</td>
+	  </tr>
+	 <!--{/section}-->
+	 <!--{sectionelse}-->
+	  <td colspan="22" align="left">无机构数据</td>
+	  </tr>
+	 <!--{/section}-->
+     <!--{/section}-->
+</table>
+</body>
+</html>

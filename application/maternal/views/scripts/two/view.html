@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<script>
+	function rt()
+	{
+		window.location="<!--{$basePath}-->maternal/two/list/id/<!--{$userid}-->";
+	}
+	function del(url)
+	{
+		if(confirm("确定要删除本条记录吗？本操作删除的数据将无法恢复！"))
+		{
+			window.location=url;
+		}
+	}
+	$(document).ready(function(){$("input[type='text']").attr("disabled",true);});
+</script> 
+<title>第2~5次产前随访服务记录表</title>
+<style>
+.STYLE1 {font-weight: bold}
+.STYLE2 {font-weight: bold}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+</style>
+</head>
+<body > 
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">第2~5次产前随访服务记录表</div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:80%; text-align:left; float:left;background:#FFFFFF;"><strong>姓名</strong>：<!--{$user_name}--></div>
+	  <div style=" width:20%; text-align:left; float:left;background:#FFFFFF;"><strong>编号</strong>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="" cellspacing="">
+    <tr>
+		<td colspan="2">随访次数(第2-5次)</td>
+		<!--{foreach key=k item=v from=$prenatal}-->
+	    <td>
+
+			第<!--{$k}-->次产前随访
+		</td>
+		<!--{/foreach}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">随访日期</td>
+	    <!--{foreach key=k item=v from=$prenatal}--><td><!--{$v.follow_time}--></td><!--{/foreach}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">孕周(周)</td>
+	    <!--{foreach key=k item=v from=$prenatal}--><td><!--{$v.gestational_weeks}--></td><!--{/foreach}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">主诉</td>
+		<!--{foreach key=k item=v from=$prenatal}-->
+	    <td>
+		  <!--{$v.subject_description}-->
+		</td>
+		<!--{/foreach}-->
+   	</tr>
+   	<tr>
+		<td colspan="2">体重(kg)</td>
+		<!--{foreach key=k item=v from=$prenatal}-->
+	    <td>
+		  <!--{$v.weight}-->
+		</td>
+		<!--{/foreach}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="4">产科检查</td>
+   	  <td>宫底高度(cm)</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.fundal_height}--></td>
+	  <!--{/foreach}-->
+   	</tr>
+   	<tr>
+   	  <td>腹围(cm)</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.abdomen_circumference}--></td>
+   	 <!--{/foreach}-->
+	</tr>
+    <tr>
+   	  <td>胎位</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.fetal_position}--></td>
+   	 <!--{/foreach}-->
+	</tr>
+   	<tr>
+   	  <td>胎心率(次/分钟)</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.heart_rate}--></td>
+   	<!--{/foreach}-->
+	</tr>
+    <tr>
+   	  <td colspan="2">血压(mmHg)</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.systolic_blood_pressure}-->/<!--{$v.diastolic_blood_pressure}--></td>
+   	<!--{/foreach}-->
+	</tr>
+   	<tr>
+   	  <td colspan="2">血红蛋白值(g/L)</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.hemoglobin}--></td>
+   	<!--{/foreach}-->
+	</tr>
+   	<tr>
+   	  <td colspan="2">尿蛋白*</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td><!--{$v.azoturia}--></td>
+   	<!--{/foreach}-->
+	</tr>
+   	<tr>
+   	  <td colspan="2">其他辅助检查*</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td>
+   	  	<!--{$v.other_check}-->
+	  </td>
+	  <!--{/foreach}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2">分类</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td>
+   	  	<!--{foreach key=m item=n from=$ma_comm}-->
+			<label><!--{$m}-->、<!--{$n[1]}--></label>
+		<!--{/foreach}-->
+   	  <input type="text" name="pregnant_sort_info" value="<!--{$v.pregnant_sort_info}-->" class="inputbottom"/>
+   	  <input type="text" name="pregnant_sort" value="<!--{$v.pregnant_sort}-->" class="inputnew"/>
+   	  </td>
+	  <!--{/foreach}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2">指导</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td>
+		<!--{$v.medical_advice}--><br /><!--{if $v.medical_advice}--><!--{$v.medical_advice_info}--><!--{/if}-->
+   	  </td>
+	  <!--{/foreach}-->
+      
+   	</tr>
+   	<tr>
+   	  <td colspan="2">转诊</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+   	  <td>
+   	  转诊  &nbsp;&nbsp;&nbsp;&nbsp;   
+		<!--{foreach key=m item=n from=$fksss_dic}-->
+			<label><!--{$m}-->、<!--{$v[n]}--></label>
+		<!--{/foreach}-->&nbsp;<input type="text" name="referral" value="<!--{$v.referral}-->"  class="inputnew"/></br>
+	              原因  ： <input type="text" name="referral_reason" value="<!--{$v.referral_reason}-->" class="inputbottom"/></br>
+	             机构及科室   ：<input type="text" name="referral_org" value="<!--{$v.referral_org}-->" class="inputbottom"/> 
+   	  </td>
+	  <!--{/foreach}-->
+   	</tr>
+    <tr>
+   	  <td colspan="2">下次随访日期</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+	  <td><!--{$v.follow_next_time}--></td>
+   	<!--{/foreach}-->
+	</tr>
+   	<tr>
+   	  <td colspan="2">随访医生签名</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+	  <td>
+	  	<!--{$v.follow_staff}-->
+		</td>
+		<!--{/foreach}-->
+   	</tr>
+	<tr>
+   	  <td colspan="2">操作</td>
+	  <!--{foreach key=k item=v from=$prenatal}-->
+	  <td>
+	  	<!--{if $v.created}--><a href="<!--{$basePath}-->maternal/two/addlist/fid/<!--{$v.fid}-->/follow_count/<!--{$v.follow_count}-->">编辑</a>&nbsp;|&nbsp;<a href="###" onclick="del('<!--{$basePath}-->maternal/two/del/fid/<!--{$fid}-->/uuid/<!--{$v.uuid}-->')">删除<!--{else}--><a href="<!--{$basePath}-->maternal/two/addlist/fid/<!--{$fid}-->/follow_count/<!--{$k}-->">添加</a><!--{/if}-->
+		</td>
+		<!--{/foreach}-->
+   	</tr>
+   	<!--此处的colspan要动态变化-->
+   	<tr>
+		<td colspan="6" align="center"><input name="submit" type="submit" value="返回前页" onclick="rt()" class="inputbutton"/>
+    <input type="button" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+    </td>
+   	</tr>
+   </table> 
+</body>
+</html>

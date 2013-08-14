@@ -1,0 +1,8 @@
+        <!--{section name=contact loop=$row}-->
+		<tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+			<td id="en_<!--{$row[contact].role_id}-->"><!--{$row[contact].role_en_name}--></td>
+			<td id="zh_<!--{$row[contact].role_id}-->"><!--{$row[contact].role_zh_name}--></td>	
+			<td><!--{if ($row[contact].width_option)==1}-->是<!--{/if}--></td>	
+			<td><input type="hidden" id="wo_<!--{$row[contact].role_id}-->" value="<!--{$row[contact].width_option}-->"/><a href="###" onclick="add_record()">[添加]</a> <a href="###" onclick="update_record('<!--{$row[contact].role_id}-->')">[修改]</a> <a href="###" onclick="del_record('<!--{$row[contact].role_id}-->')">[删除]</a></td>
+		</tr>
+        <!--{/section}-->		

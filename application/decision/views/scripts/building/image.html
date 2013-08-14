@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<script language="javascript">AC_FL_RunContent = 0;</script>
+	<script language="javascript"> DetectFlashVer = 0; </script>
+	<script src="<!--{$basePath}-->library/charts/AC_RunActiveContent.js" language="javascript"></script>
+	<script language="JavaScript" type="text/javascript">
+			<!--
+			var requiredMajorVersion = 10;
+			var requiredMinorVersion = 0;
+			var requiredRevision = 45;
+			-->
+	</script>
+	<script src="<!--{$basePath}-->views/js/xml_charts.js" type="text/javascript"></script>
+	<script src="<!--{$basePath}-->views/js/jquery.lazyload.flash.js" type="text/javascript"></script>
+<title>建筑信息统计----【<!--{$zh_name}-->】</title>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+		<td colspan="1">建筑信息统计折线图----【<!--{$zh_name}-->】       
+		<input  style="border:1px solid #000;line-height:20px;height:20px;" type="button" onclick="window.location='<!--{$basePath}-->decision/building/index/region_id/<!--{$region_id}-->'" value="进入下级地区" />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input  style="border:1px solid #000;line-height:20px;height:20px;" type="button" onclick="window.location='<!--{$basePath}-->decision/building/index/region_id/<!--{$p_id}-->'" value="返回上级地区" />
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select id="mychice" style="border:1px solid #000;line-height:20px;height:20px;" onchange="click_mychice(this.value);">
+			    <option value="">请选择...</option>
+			    <!--{foreach from=$year_array key=k item=v}-->
+			      <option value="<!--{$k}-->"><!--{$v}--></option>
+			    <!--{/foreach}-->
+		</select>
+		</td>
+	 </tr>
+     </tr>  
+        <tr>          
+           <td align="center">
+              <span class='lazyload' w='500' h='500' basepath='<!--{$basePath}-->' chart_name='chart_line' xml_source='<!--{$basePath}-->decision/building/getdata/region_id/<!--{$region_id}-->/end_time/<!--{$end_time}-->/y/<!--{$y}-->","<!--{$basePath}-->'></span>      
+			</td>
+        </tr>  
+      <tr class="headbg">
+         <td >
+            
+         </td>
+      </tr>
+     </table>
+</body>
+</html>
+<script type="text/javascript">
+  function click_mychice(val)
+  {
+  	 window.location='<!--{$basePath}-->decision/building/image/id/<!--{$region_id}-->/end_time/<!--{$end_time}-->/y/'+val;
+  }
+</script>

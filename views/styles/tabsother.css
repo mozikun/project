@@ -1,0 +1,41 @@
+/********
+html  body  A
+********/
+body{
+	font-size:12px;
+	padding:0px;
+	margin-top:2px; 
+	background-color:#ecf6ff
+}           
+p{
+	margin:0px;
+	padding:0px;
+}
+table,tr,td a{
+  color: #000;
+}
+
+/************************/
+
+body table,tr,td,th{
+	height:12px;
+	font-size:12px;  /*表格*/
+	border-collapse:collapse;
+	border:#CCCCCC 1px solid
+}
+
+table .headbg{  /*头部*/
+	height:12px;
+	font-weight:bold;
+	color:#FFFFFF;
+	background-color:#E4EDF9;
+}
+
+table .columnbg{ /*列表*/
+	height:12px;
+	font-weight:bold;
+	color:#000000;
+	font-size:12px;
+	text-align:center;
+	background-color:#E4EDF9;
+}

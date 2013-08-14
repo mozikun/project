@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>微信智能问题列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+        .title1 td{
+            font-weight: bold;
+        }
+        
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div>
+	<form method="post" action="<!--{$basePath}-->weixin/ask/list" >
+	按关键字查找:<input type='text' name='s_keywords' value="<!--{$s_keywords}-->" >&nbsp;
+	按问题查找:<input type='text' name='s_question' value="<!--{$s_question}-->"  size="30">
+	<input type="submit" value="搜索"   />
+	</form>
+</div>
+	
+<table border="0" width="100%">
+    <tr class="headbg">
+    	<td colspan="6">
+        	微信问答管理
+        </td>
+	</tr>
+    <tr class="title1">
+    	<td style="width:300px;">
+        	问题
+        </td>
+        <td style="width:400px;">
+        	答案
+        </td>
+        <td style="width:60px;">
+        	关键字
+        </td>
+          <td style="width:60px;">
+        	是否启用
+          </td>      
+         <td style="width:60px;">
+       
+        	是否公开
+         </td>       
+          <td style="width:60px;">
+        	操作选项
+        </td>
+	</tr>
+	<tbody id="ask">
+	<!--{if $result}-->
+	<!--{foreach from=$result item=ask}-->
+	 <tr id="tr_<!--{$ask.id}-->">
+	 	<td>
+        	<!--{$ask.question}-->
+        </td>
+		<td>
+        	<!--{$ask.answer}-->
+        </td>
+        <td>
+        	<!--{$ask.keywords}-->
+        </td>
+        <td>
+        	<!--{if $ask.isactive==1}-->是<!--{else}-->否<!--{/if}-->
+        </td>
+        <td>
+        	<!--{if $ask.ispublic==1}-->是<!--{else}-->否<!--{/if}-->
+        </td>
+       
+		<td>
+       		 <a href="<!--{$basePath}-->weixin/ask/edit/id/<!--{$ask.id}-->">编辑</a>&nbsp;|&nbsp;<a href="###" onclick="return del('<!--{$ask.id}-->')">删除</a>
+		</td>
+	</tr>
+	<!--{/foreach}-->
+	<!--{else}-->
+	<tr>
+		<td colspan="6">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/if}-->
+	<tr>
+		<td colspan="6">
+        	&nbsp;<a href="<!--{$basePath}-->weixin/ask/edit">+添加问题</a>&nbsp;&nbsp;&nbsp;<!--{$page}-->
+        </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>
+<script>
+	function del(id)
+	{	
+	     
+		if(confirm("确定要删除该问题吗？"))
+		{
+			 $.ajax({
+                    type: "get",
+                    url: "<!--{$basePath}-->weixin/ask/delete/id/"+id,
+                    dataType: "html",
+                    data: "",
+                    success: function(data){ 
+                        if(data=="ok")
+						{
+							$("#tr_"+id).hide();
+							alert("删除问题成功");
+						}
+                        else
+						{
+							alert("删除失败，未知的错误");
+						}
+                        return false;
+                    },
+                    error: function(){
+                        alert("服务器返回信息不完整，请重新点击删除");
+                        return false;
+                    }
+                });
+		}
+		return false;
+	}
+</script>

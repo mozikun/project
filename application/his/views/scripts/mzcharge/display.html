@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>详细信息</title>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	input
+	{
+		border:1px solid blue;
+	}
+	label
+	{
+        cursor: pointer;
+	}
+	.short
+	{
+		width:15px;
+		height:15px;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+	.time
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+		width:30px;
+	}
+	#dialog_box_html li{
+		border-bottom:1px dashed #ccc;
+		line-height:28px;
+	}
+	.center table{
+		margin:0px;
+	}
+	.center td
+	{
+		text-align:center;
+	}
+ h1{margin:0;padding:20px 0;font-size:16px;}
+ ol{padding-left:20px;line-height:130%;}
+ #box{width:600px;text-align:left;margin:0 auto;padding-top:80px;}
+ #suggest,#suggest2{width:200px;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position:absolute;z-index:20000;display: none;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+</head>
+<body>
+<table border="0" width="100%">
+	<thead>
+	<tr class="headbg">
+		<th colspan="4" style="font-size:16px;text-align:center;">详细信息</th>
+    </tr>
+    	</thead>
+		<tr>
+        <td>
+        	姓名
+        </td>
+        <td>
+        	<!--{$tb_yl_patient_information->xm}-->
+        </td>
+        <td>
+        	性别
+        </td>
+        <td>
+        	<!--{$tb_yl_patient_information->xb}-->
+        </td>
+    </tr>
+    <tr>
+        <td>医疗机构</td><td colspan="3"><!--{$tb_his_mz_charge->yljgdm}--></td>
+    </tr>
+    <tr>
+        <td>卡号</td><td><!--{$tb_yl_patient_information->kh}--></td>
+        <td>卡类型</td><td><!--{$tb_yl_patient_information->klx}--></td>
+    </tr>
+    <tr>
+        <td>收/退费日期</td><td><!--{$tb_his_mz_charge->stfrq}--></td>
+        <td>收/退费编号</td><td><!--{$tb_his_mz_charge->stfbh}--></td>
+    </tr>
+    <tr>
+        <td>退费标志</td><td><!--{$tb_his_mz_charge->stfbz}--></td>
+        <td>保险类型</td><td><!--{$tb_his_mz_charge->bxlx}--></td>
+    </tr>
+    <tr>
+        <td>外地标志</td><td><!--{$tb_his_mz_charge->wdbz}--></td>
+        <td>收/退费时间</td><td><!--{$tb_his_mz_charge->stfsj}--></td>
+    </tr>
+    <tr>
+        <td>收/退费总额</td><td><!--{$tb_his_mz_charge->stfze}--></td>
+        <td>医保范围外自费</td><td><!--{$tb_his_mz_charge->ybfwwzf}--></td>
+    </tr>
+    <tr>
+        <td>其中特需费用</td><td><!--{$tb_his_mz_charge->txfye}--></td>
+        <td>挂号费</td><td><!--{$tb_his_mz_charge->ghf}--></td>
+    </tr>
+    <tr>
+        <td>西药费</td><td><!--{$tb_his_mz_charge->xyf}--></td>
+        <td>中成药费</td><td><!--{$tb_his_mz_charge->zcyf}--></td>
+    </tr>
+    <tr>
+        <td>中草药费</td><td><!--{$tb_his_mz_charge->zcaf}--></td>
+        <td>诊查费</td><td><!--{$tb_his_mz_charge->zcf}--></td>
+    </tr>
+    <tr>
+        <td>住院费</td><td><!--{$tb_his_mz_charge->zyf}--></td>
+        <td>床位费</td><td><!--{$tb_his_mz_charge->cwf}--></td>
+    </tr>
+    <tr>
+        <td>检查费</td><td><!--{$tb_his_mz_charge->jcf}--></td>
+        <td>检验费</td><td><!--{$tb_his_mz_charge->jyf}--></td>
+    </tr>
+    <tr>
+        <td>透视费</td><td><!--{$tb_his_mz_charge->tsf}--></td>
+        <td>摄片费</td><td><!--{$tb_his_mz_charge->spf}--></td>
+    </tr>
+    <tr>
+        <td>治疗费</td><td><!--{$tb_his_mz_charge->zhf}--></td>
+        <td>诊疗费</td><td><!--{$tb_his_mz_charge->zlf}--></td>
+    </tr>
+    <tr>
+        <td>输血费</td><td><!--{$tb_his_mz_charge->sxf}--></td>
+        <td>输氧费</td><td><!--{$tb_his_mz_charge->syf}--></td>
+    </tr>
+    <tr>
+        <td>手术及材料费</td><td><!--{$tb_his_mz_charge->ssclf}--></td>
+        <td>护理费</td><td><!--{$tb_his_mz_charge->hlf}--></td>
+    </tr>
+    <tr>
+        <td>其他费用</td><td><!--{$tb_his_mz_charge->qtfy}--></td>
+        <td>自理费</td><td><!--{$tb_his_mz_charge->zilif}--></td>
+    </tr>
+    <tr>
+        <td>接生费</td><td><!--{$tb_his_mz_charge->jsf}--></td>
+        <td>麻醉费</td><td><!--{$tb_his_mz_charge->mzf}--></td>
+    </tr>
+    <tr>
+        <td>婴儿费</td><td><!--{$tb_his_mz_charge->yef}--></td>
+        <td>陪床费</td><td><!--{$tb_his_mz_charge->pcf}--></td>
+    </tr>
+    <tr>
+        <td>放射费</td><td><!--{$tb_his_mz_charge->fsf}--></td>
+        <td>处方张数</td><td><!--{$tb_his_mz_charge->cfzs}--></td>
+    </tr>
+    <tr>
+        <td>门诊就诊流水号</td><td colspan="3"><!--{$tb_his_mz_charge->ghbm}--></td>
+    </tr>
+	<tr class="endbg"><td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+	</td></tr>
+</table>
+</body>
+</html>

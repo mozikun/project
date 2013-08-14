@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$orgName}--></title>
+<link href="/views/templates/index/top.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/index.css" type="text/css" rel="stylesheet" />
+<link href="/views/templates/index/footer.css" type="text/css" rel="stylesheet" />
+</head>
+<!--太怪了，只有css文件名里有header就无法加载-->
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<!--包头-->
+	<!--{include file="./index/header.html"}-->
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div><a href="<!--{$body_11_url}-->"><!--{$body_11_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft1" userDefineClass='alterImage' interval='3000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_11_image_list loop=$body_11_image_list}-->
+					<a href="<!--{$body_11_image_list[body_11_image_list].url}-->"><img class="alterImage" src="<!--{$body_11_image_list[body_11_image_list].imageUrl}-->" alt="<!--{$body_11_image_list[body_11_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_12_url}-->"><!--{$body_12_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft2" userDefineClass='alterImage' interval='6000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_12_image_list loop=$body_12_image_list}-->
+					<a href="<!--{$body_12_image_list[body_12_image_list].url}-->"><img class="alterImage" src="<!--{$body_12_image_list[body_12_image_list].imageUrl}-->" alt="<!--{$body_12_image_list[body_12_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_13_url}-->"><!--{$body_13_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft3" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_13_image_list loop=$body_13_image_list}-->
+					<a href="<!--{$body_13_image_list[body_13_image_list].url}-->"><img class="alterImage" src="<!--{$body_13_image_list[body_13_image_list].imageUrl}-->" alt="<!--{$body_13_image_list[body_13_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+			<div><a href="<!--{$body_14_url}-->"><!--{$body_14_title}--></a></div>
+			<div class="leftAlterImage fl" id="topLeft4" userDefineClass='alterImage' interval='1000'>
+				<!--幻灯片图片轮换区-->
+				<!--{section name=body_14_image_list loop=$body_14_image_list}-->
+					<a href="<!--{$body_14_image_list[body_14_image_list].url}-->"><img class="alterImage" src="<!--{$body_14_image_list[body_14_image_list].imageUrl}-->" alt="<!--{$body_14_image_list[body_14_image_list].title}-->" /></a>
+				<!--{/section}-->
+			</div>
+		</div><!--bodyLeftDiv end-->
+
+		<div id="bodyRightDiv">
+			<div id="tab1" class="tab">
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_15_url}-->"><!--{$body_15_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_16_url}-->"><!--{$body_16_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_17_url}-->"><!--{$body_17_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_18_url}-->"><!--{$body_18_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_19_url}-->"><!--{$body_19_title}--></a>
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_15_image_url}-->"><img class="image" src="<!--{$body_15_image}-->" alt="<!--{$body_15_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_15_list loop=$body_15_list}-->
+						<a href="<!--{$body_15_list[body_15_list].url}-->" id="bodyListTitle"><!--{$body_15_list[body_15_list].title}--></a><span id="bodyListDate">[<!--{$body_15_list[body_15_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_16_image_url}-->"><img class="image" src="<!--{$body_16_image}-->" alt="<!--{$body_16_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_16_list loop=$body_16_list}-->
+						<a href="<!--{$body_16_list[body_16_list].url}-->" id="bodyListTitle"><!--{$body_16_list[body_16_list].title}--></a><span id="bodyListDate">[<!--{$body_16_list[body_16_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_17_image_url}-->"><img class="image" src="<!--{$body_17_image}-->" alt="<!--{$body_17_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_17_list loop=$body_17_list}-->
+						<a href="<!--{$body_17_list[body_17_list].url}-->" id="bodyListTitle"><!--{$body_17_list[body_17_list].title}--></a><span id="bodyListDate">[<!--{$body_17_list[body_17_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_18_image_url}-->"><img class="image" src="<!--{$body_18_image}-->" alt="<!--{$body_18_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_18_list loop=$body_18_list}-->
+						<a href="<!--{$body_18_list[body_18_list].url}-->" id="bodyListTitle"><!--{$body_18_list[body_18_list].title}--></a><span id="bodyListDate">[<!--{$body_18_list[body_18_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_19_image_url}-->"><img class="image" src="<!--{$body_19_image}-->" alt="<!--{$body_19_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_19_list loop=$body_19_list}-->
+						<a href="<!--{$body_19_list[body_19_list].url}-->" id="bodyListTitle"><!--{$body_19_list[body_19_list].title}--></a><span id="bodyListDate">[<!--{$body_19_list[body_19_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+
+			</div><!--tab1 end-->
+			<div id='middleScrollImagesDiv' class="middleScrollImagesDiv">
+				<!--滚动图片区-->
+	 			<marquee onmouseover="this.stop()" onmouseout="this.start()" scrollAmount="1" behavior="alternate" direction="left" width="580px">
+					<!--{section name=body_11_image_list loop=$body_11_image_list}-->
+						<a href="<!--{$body_11_image_list[body_11_image_list].url}-->"><img class="scrollImages" src="<!--{$body_11_image_list[body_11_image_list].imageUrl}-->" alt="<!--{$body_11_image_list[body_11_image_list].title}-->" /></a>
+					<!--{/section}-->
+				</marquee>	
+			</div>
+			<div id="tab2" class="tab">
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_15_url}-->"><!--{$body_15_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_16_url}-->"><!--{$body_16_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_17_url}-->"><!--{$body_17_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_18_url}-->"><!--{$body_18_title}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="<!--{$body_19_url}-->"><!--{$body_19_title}--></a>
+				</div>
+
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_15_image_url}-->"><img class="image" src="<!--{$body_15_image}-->" alt="<!--{$body_15_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_15_list loop=$body_15_list}-->
+						<a href="<!--{$body_15_list[body_15_list].url}-->" id="bodyListTitle"><!--{$body_15_list[body_15_list].title}--></a><span id="bodyListDate">[<!--{$body_15_list[body_15_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_16_image_url}-->"><img class="image" src="<!--{$body_16_image}-->" alt="<!--{$body_16_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_16_list loop=$body_16_list}-->
+						<a href="<!--{$body_16_list[body_16_list].url}-->" id="bodyListTitle"><!--{$body_16_list[body_16_list].title}--></a><span id="bodyListDate">[<!--{$body_16_list[body_16_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_17_image_url}-->"><img class="image" src="<!--{$body_17_image}-->" alt="<!--{$body_17_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_17_list loop=$body_17_list}-->
+						<a href="<!--{$body_17_list[body_17_list].url}-->" id="bodyListTitle"><!--{$body_17_list[body_17_list].title}--></a><span id="bodyListDate">[<!--{$body_17_list[body_17_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_18_image_url}-->"><img class="image" src="<!--{$body_18_image}-->" alt="<!--{$body_18_image_title}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_18_list loop=$body_18_list}-->
+						<a href="<!--{$body_18_list[body_18_list].url}-->" id="bodyListTitle"><!--{$body_18_list[body_18_list].title}--></a><span id="bodyListDate">[<!--{$body_18_list[body_18_list].date}-->]</span>
+					<!--{/section}-->
+				</div>
+			</div><!--tab2 end-->
+			
+			<div id="tab3" class="tab">
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					<!--{$body_21}-->
+				</div>
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					学院招生工作2
+				</div>
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					学院招生工作3
+				</div>
+				<div class="tabBody" divType="tabBody" extraType='imageList'>
+					<!--{section name=body_image_list_21 loop=$body_image_list_21}-->
+						<a href="<!--{$body_image_list_21[body_image_list_21].url}-->"><img class="imageList" src="<!--{$body_image_list_21[body_image_list_21].imageUrl}-->" alt="<!--{$body_image_list_21[body_image_list_21].title}-->" /></a>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody" extraType='imageList'>
+					<!--{section name=body_image_list_23 loop=$body_image_list_23}-->
+						<a href="<!--{$body_image_list_23[body_image_list_23].url}-->"><img class="imageList" src="<!--{$body_image_list_23[body_image_list_23].imageUrl}-->" alt="<!--{$body_image_list_23[body_image_list_23].title}-->" /></a>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu3_body
+				</div>
+			</div><!--tab3 end-->
+<!--			<div class="tabImg">	
+				<fieldset class="imageList">
+					<legend>
+						标题新闻标题新闻标题新闻
+					</legend>
+					标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容
+				</fieldset>
+			</div>		-->	
+		</div><!--bodyRightDiv end-->
+	</div>
+	<!--包脚-->
+	<!--{include file="./index/footer.html"}-->
+
+</div>
+	<div id="slide">
+		<div id="slideMenu"><span id="slideMenuLeft">最新信息</span><span id="slideMenuRight"><a href="#" onclick="closeSlideDiv()">×</a></span></div>
+		<div id="slideBody">
+			<!--{section name=new_news loop=$new_news}-->
+				<a href="<!--{$new_news[new_news].url}-->" id="new_news"><!--{$new_news[new_news].title}-->[<!--{$new_news[new_news].date}-->]</a>
+			<!--{/section}-->
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="/views/templates/index/index.js"></script>
+<script type="text/javascript">
+//禁止在框架内打开
+if(top.location!=location){
+	top.location.href = location.href;
+}
+self.moveTo(0,0);
+self.resizeTo(screen.availWidth,screen.availHeight);
+window.status= '设计制作：罗维';
+//显示滑动窗口
+window.setTimeout('showSlideDiv()',2000);
+//显示下拉菜单
+showSubMenu();
+//显示幻灯图片
+showAlterImages();
+
+//处理选项卡
+processTab('tab1');
+processTab('tab2');
+processTab('tab3');
+//给可见的图片列表加文字标签
+imageListAddTitle();
+getHitTimes();
+
+</script>

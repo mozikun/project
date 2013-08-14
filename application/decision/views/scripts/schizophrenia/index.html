@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+
+<title>地区列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<table border="1px" align="center" width="100%">
+     <tr class="bigfont">
+       <td colspan="11" align="center"><center><strong>综合统计(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+     </tr>
+     <tr class="bigfont">
+       <td colspan="10" align="center"><form action="" method="POST">
+            时间㈣：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_decision_time" value="<!--{$start_time}-->"/>    <input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="post_decision_time" value="<!--{$decision_time}-->"/>       <input type="submit" value="搜索"  />
+         </form>
+        </td>
+     </tr>
+     
+     <tr class="headbg">
+       <td colspan="10"><!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->decision/schizophrenia/index/parent_id/<!--{$rs[rs].id}-->"><!--{if $add_need_id == $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->decision/schizophrenia/index/parent_id/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="9%"><strong>地区名称</strong></td>
+        <td width="9%"><strong>患者数</strong></td>
+        <td width="9%"><strong>15岁及以上人口总数</strong></td>
+        <td width="9%"><strong>患病率(%)</strong></td>
+
+        <td width="9%"><strong>管理率(%)</strong></td>
+        <td width="9%"><strong>最近病情稳定患者数</strong></td>
+        <td width="9%"><strong>患者稳定率(%)</strong></td>
+        <td width="9%"><strong>规范管理人数</strong></td>
+        <td width="9%"><strong>规范管理率(%)</strong></td>
+        <td width="9%"><strong><!--{if $td_title==1}-->查看下级地区<!--{/if}--><!--{if $td_title==2}-->建档机构<!--{/if}--></strong></td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].all_schizophreniaer}--></td>
+           <td><!--{$row[row].population}--></td>
+           <td><!--{$row[row].adult_rate}--></td>
+
+           <td><!--{$row[row].mentalillness}--></td>
+           <td><!--{$row[row].last_good_schizophreniaer}--></td>
+           <td><!--{$row[row].good_rate}--></td>
+           <td><!--{$row[row].every_year_stand}--></td>
+           <td><!--{$row[row].every_year_stand_rate}--></td>
+           <td>
+           <!--{if $td_title==1}--><a href="<!--{$basePath}-->decision/schizophrenia/index/parent_id/<!--{$row[row].id}-->/decision_time/<!--{$decision_time}-->">[进入子地区]</a><!--{/if}-->
+           <!--{if $td_title==2}--><!--{$row[row].org_name}--><!--{/if}-->
+           
+           </td>
+        </tr>
+     <!--{/section}-->
+        <tr class="headbg">
+           <td>小计</td>
+           <td><!--{$sum_all_schizophreniaer}--></td>
+           <td><!--{$sum_population}--></td>
+           <td><!--{$adult_rate}--></td>
+
+           <td><!--{$mentalillness}--></td>
+           <td><!--{$sum_last_good_schizophreniaer}--></td>
+           <td><!--{$good_rate}--></td>
+           <td><!--{$sum_every_year_stand}--></td>
+           <td><!--{$sum_every_year_stand_rate}--></td>
+           <td>&nbsp;</td>
+        </tr>
+        <tr>
+        	<td  colspan="11">
+        	<!--{$evaluation_target}-->
+        	
+
+        	</td>
+        </tr>
+
+</table>
+  
+</body>
+</html>
+
+
+

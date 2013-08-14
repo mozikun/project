@@ -1,0 +1,24 @@
+﻿#checkrecord
+{
+	text-align:center;
+}
+
+#checkrecord .cktable
+{
+	font-family:宋体;
+	width:700px;
+	font-size:10.5pt;
+	margin:0 auto;
+}
+
+#checkrecord .ckhead
+{
+	font-size:15pt;
+	text-align:center;
+}
+
+#checkrecord .cktitle
+{
+	font-size:16pt;
+	text-align:center;
+}

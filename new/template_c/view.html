@@ -1,0 +1,60 @@
+5Dview演示  <br />
+<strong>演示输出简单变量</strong><br />
+<font color="Blue"><?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?></font><br>
+<font color="Red"><?php echo $this->_internal_data['age'];?></font><br>
+<strong>演示输出数组变量</strong><br />
+<font color="Green"><?php echo $this->_internal_data['student']['name'];?></font><br>
+<font color="Red"><?php echo $this->_internal_data['student']['age'];?></font><br>
+<font color="Red"><?php echo $this->_internal_data['students'][0]['name'];?></font><br>
+<strong>演示用foreache显示列表</strong><br />
+<table border="1">
+<tr><td>姓名</td><td>性别</td><td>职业</td></tr>
+<?php foreach($this->_internal_data['students'] as $key=>$student){ ?>
+	<tr><td><?php echo $student['name'];?></td><td><?php echo $student['sex'];?></td><td><?php echo $student['occupation'];?></td></tr>
+	<tr><td colspan="3">
+	<table border="1" bgcolor="Blue">
+<?php foreach($this->_internal_data['students'] as $key=>$student){ ?>
+	<tr><td><?php echo $student['name'];?></td><td><?php echo $student['sex'];?></td><td><?php echo $student['occupation'];?></td></tr>
+<?php } ?>
+	</table>
+<?php if($student['name']=='mike' and $this->_internal_data['name']=='mike' and $this->_internal_data['teacher']['name']=='罗维') {?>
+	<font color="Red">if<?php echo $student['name'];?><?php echo $this->_internal_data['teacher']['name'];?><?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?></font><br>
+<?php } ?>	
+	</td></tr>	
+<?php } ?>
+</table>
+<strong>演示用foreache显示男生列表</strong><br />
+<table border="1">
+<tr><td>姓名</td><td>性别</td><td>职业</td></tr>
+<?php foreach($this->_internal_data['students'] as $key=>$student){ ?>
+<?php if($student['sex']=='男') {?>
+	<tr><td><?php echo $student['name'];?></td><td><?php echo $student['sex'];?></td><td><?php echo $student['occupation'];?></td></tr>
+<?php } ?>
+<?php } ?>
+</table>
+
+<strong>演示用foreache显示二维数组:方法二</strong><br />
+
+<?php foreach($this->_internal_data['students'] as $key=>$student){ ?>
+    姓名：<?php echo $student['name'];?><br />
+    性别：<?php echo $student['sex'];?><br>
+    职业：<?php echo $student['occupation'];?><br>
+  <?php foreach($student as $key=>$value){ ?>
+   职业：<?php echo $student['occupation'];?><br />
+    键：<?php echo $key;?>--值: <?php echo $value;?><br>
+    数组－值<?php echo $student[$key];?><br>
+    <?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?><br />
+  <?php } ?>
+   姓名：<?php echo $student['name'];?><br>
+   <?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?><br />
+<?php } ?>
+
+<strong>演示if标签</strong><br />
+<?php if($this->_internal_data['age']>10) {?>
+<font color="Red">if<?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?></font><br>
+<?php if($this->_internal_data['name']=='mike') {?>
+<font color="Red">if<?php echo $this->_internal_data['name'];?><?php echo $this->_internal_data['age'];?></font><br>
+<?php } ?>
+<?php } ?>
+
+<br />

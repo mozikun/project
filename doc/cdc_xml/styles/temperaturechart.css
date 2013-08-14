@@ -1,0 +1,28 @@
+﻿#temperaturechart
+{
+	text-align:center;
+}
+
+#temperaturechart .tctable
+{
+	width:900px;
+	font-family:宋体;
+	font-size:10.5pt;
+	margin:0 auto;
+	line-height:20px;
+}
+
+#temperaturechart .tchead
+{
+	font-family:宋体;
+	font-size:15pt;
+	text-align:center;
+}
+
+#temperaturechart .tctitle
+{
+	font-family:宋体;
+	font-weight:bold;
+	font-size:18pt;
+	text-align:center;
+}

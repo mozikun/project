@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>实验室检验报告详细</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">实验室检验报告详细</th>
+</tr>
+</thead>
+    <tr>
+    <td>检验报告单号</td><td><!--{$tb_lis_report->bgdh}--></td><td>报告日期</td><td><!--{$tb_lis_report->bgrq}--></td>
+    </tr><tr>
+        <td>就诊流水号</td><td><!--{$tb_lis_report->jzlsh}--></td><td>门诊/住院标志</td><td><!--{$tb_lis_report->mzzybz}--></td>
+    </tr><tr>
+        <td>卡号</td><td><!--{$tb_lis_report->kh}--></td><td>卡类型</td><td><!--{$tb_lis_report->klx}--></td>
+    </tr><tr>
+        <td>病人姓名</td><td><!--{$tb_lis_report->brxm}--></td><td>性别</td><td><!--{$tb_lis_report->brxb}--></td>
+    </tr><tr>
+        <td>年龄</td><td><!--{$tb_lis_report->brnl}--></td><td>申请人工号</td><td><!--{$tb_lis_report->sqrgh}--></td>
+    </tr><tr>
+        <td>申请人姓名</td><td><!--{$tb_lis_report->sqrxm}--></td><td>报告人工号</td><td><!--{$tb_lis_report->bgrgh}--></td>
+    </tr><tr>
+        <td>报告人姓名</td><td><!--{$tb_lis_report->bgrxm}--></td><td>审核人工号</td><td><!--{$tb_lis_report->shrgh}--></td>
+    </tr><tr>
+        <td>审核人姓名</td><td><!--{$tb_lis_report->shrxm}--></td><td>申请科室编码</td><td><!--{$tb_lis_report->sqks}--></td>
+    </tr><tr>
+        <td>申请科室名称</td><td><!--{$tb_lis_report->sqksmc}--></td><td>病区</td><td><!--{$tb_lis_report->bq}--></td>
+    </tr><tr>
+        <td>床号</td><td><!--{$tb_lis_report->ch}--></td><td>打印日期</td><td><!--{$tb_lis_report->dyrq}--></td>
+    </tr><tr>
+        <td>申请日期</td><td><!--{$tb_lis_report->sqrq}--></td><td>采集日期</td><td><!--{$tb_lis_report->cjrq}--></td>
+    </tr><tr>
+        <td>检验日期</td><td><!--{$tb_lis_report->jyrq}--></td><td>报告备注</td><td><!--{$tb_lis_report->bgbz}--></td>
+    </tr><tr>
+        <td>标本代码</td><td><!--{$tb_lis_report->bbdm}--></td><td>标本名称</td><td><!--{$tb_lis_report->bbmc}--></td>
+    </tr><tr>
+        <td>报告单类别编码</td>
+        <td><!--{$tb_lis_report->bgdlbbm}--></td>
+        <td>报告单类别名称</td>
+        <td><!--{$tb_lis_report->bgdlb}--></td>
+    </tr><tr>
+        <td>文件链接</td><td colspan="3"><!--{$tb_lis_report->wjlj}--></td>
+    </tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

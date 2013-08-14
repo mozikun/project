@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+        <script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+        <link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+        <title><!--{$title}--></title>
+
+    </head>
+    <body>
+
+        <table cellspacing="0" width="100%">
+            <thead>
+            </thead>
+            <tr  class="headbg">
+                <th  colspan="16">坐诊列表</th>
+            </tr>
+
+            <tbody id=''>
+                <tr>
+                    <td width="5%" rowspan="2">坐诊表</td>
+
+                    <!--{foreach from=$days key=k item=v}-->
+
+                    <td align="center" colspan="2"><strong><!--{$v.day}--><br/><!--{$v.week}--> <!--{if $k==0 }-->
+                            <font color="#99CC33">（今日）</font><!--{/if}--></strong></td>
+
+                    <!--{/foreach}-->
+                    <td></td>
+                </tr>
+                <tr>
+                    <td width="5%" align="center" style="background-color:#E0EEEE; ">上午</td>
+                    <td width="5%" align="center" style=" background-color:#E6E6FA">下午</td>
+                    <td width="5%" align="center" style="background-color:#E0EEEE; ">上午</td>
+                    <td width="5%" align="center" style="background-color:#E6E6FA; ">下午</td>
+                    <td width="5%" align="center" style="background-color:#E0EEEE;">上午</td>
+                    <td width="5%" align="center" style="background-color:#E6E6FA; ">下午</td>
+                    <td width="5%"align="center"style="background-color:#E0EEEE;">上午</td>
+                    <td width="5%" align="center" style="background-color:#E6E6FA; ">下午</td>
+                    <td width="5%"align="center"  style="background-color:#E0EEEE;">上午</td>
+                    <td width="5%" align="center"style="background-color:#E6E6FA;">下午</td>
+                    <td width="5%"align="center" style="background-color:#E0EEEE;">上午</td>
+                    <td width="5%"align="center"  style="background-color:#E6E6FA;">下午</td>
+                    <td width="5%"align="center" style="background-color:#E0EEEE;">上午</td>
+                    <td width="5%"align="center"  style="background-color:#E6E6FA; ">下午</td> 
+
+
+                    <td width="10%" align="center"> <b>操作</b></td>
+
+                </tr>
+
+                <!--{foreach from=$rows key=key item=value}-->
+                <tr>
+                    <td align="center" height="29"><b class="red12"><!--{$value.name}--></b> </td>
+                    <!--{foreach from =$value.cols key=a item=v}-->
+                    <td onmousemove="style.backgroundColor='#d1eeee'" onmouseout="style.backgroundColor='#ffffff'" bgcolor="#ffffff"   align="center"valign="middle">
+                        <!--{if $v.day==1||$v.day==3}-->
+                        <!--{if $v.week!=-1}-->
+                        <!--{if $v.register_num_net>0}-->
+                        <img onmouseover="displayin(event,<!--{$key}-->,<!--{$v.date}-->,<!--{$v.day}-->)" onmouseout="displayout(event,<!--{$key}-->,<!--{$v.date}-->,<!--{$v.day}-->)" width="20" height="20"  src="<!--{$basePath}-->images/index_files/yes.png"/>                    
+                        <div id="<!--{$key}-->-<!--{$v.date}-->-<!--{$v.day}-->" style="display: none">
+                            <table name="info" class="info" >
+                                <tr>
+                                    <td style="background-color: #79CDCD">科室</td><td><!--{$v.department_name}--></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #79CDCD">诊室</td><td><!--{$v.clinic_name}--></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #79CDCD">号种</td><td><!--{$v.number_species_name}--></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--{else}--> 
+                        <img  src="<!--{$basePath}-->images/index_files/full.jpg" />   
+                        <!--{/if}--> 
+                        <!--{/if}--> 
+                        <!--{/if}-->
+                    </td>
+                    <td onmousemove="style.backgroundColor='#d1eeee'" onmouseout="style.backgroundColor='#ffffff'" bgcolor="#ffffff"   align="center"valign="middle">
+                        <!--{if $v.day==2||$v.day==3}-->
+                        <!--{if $v.week!=-1}-->
+                        <!--{if $v.register_num_net>0}-->
+                     <img onmouseover="displayin(event,<!--{$key}-->,<!--{$v.date}-->,<!--{$v.day}-->)" onmouseout="displayout(event,<!--{$key}-->,<!--{$v.date}-->,<!--{$v.day}-->)" width="20" height="20"  src="<!--{$basePath}-->images/index_files/yes.png"/> 
+                      <div id="<!--{$key}-->-<!--{$v.date}-->-<!--{$v.day}-->" style="display: none">
+                            <table name="info" class="info" >
+                                <tr>
+                                    <td style="background-color: #79CDCD">科室</td><td><!--{$v.department_name}--></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #79CDCD">诊室</td><td><!--{$v.clinic_name}--></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #79CDCD">号种</td><td><!--{$v.number_species_name}--></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--{else}--> 
+                        <img  src="<!--{$basePath}-->images/index_files/full.jpg" />   
+                        <!--{/if}--> 
+                        <!--{/if}--> 
+                        <!--{/if}-->
+                    </td>
+
+                    <!--{/foreach}--> 
+
+
+
+                    <td  align="center"> <a  href="<!--{$basePath}-->appointment/index/zz_table_edit/user_id/<!--{$value.id}-->/name/<!--{$value.name}-->/action/edit">编辑</a></td>
+                </tr>
+                <!--{/foreach}-->
+
+            </tbody>
+
+
+            <tr  class="columnbg">
+                <td  colspan="16"><div style=" float:left"></div><div style="float:right"><!--{$page}--></div></td>
+            </tr>
+        </table>
+
+        <br />
+
+
+    </body>
+</html>
+<script type="text/javascript">
+    function displayin(e,key,date,day){
+        var obj= $("#"+key+"-"+date+"-"+day);
+        obj.css({left:e.clientX+'px'})
+        .css({position:'absolute'});
+        if(obj.is(":animated")){stop;}
+        else{
+            obj.fadeIn("slow");
+        }
+    }
+    function displayout(e,key,date,day){
+        var obj= $("#"+key+"-"+date+"-"+day);
+        obj.fadeOut();
+    }      
+</script>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>门诊就诊信息列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>门诊就诊信息列表</strong>
+	  </td>
+	</tr>
+		<form action="" id="search" method="POST">
+			<tr><td>
+				姓名：<input type="text" name="patientname"  value=""/>&nbsp;
+				身份证号:<input type="text" name="identity_number" value=""/>&nbsp;
+				<input type="submit" value="搜索" class="inputbutton" style="line-height:20px;"/>
+				</td>
+			</tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th title="医疗机构名称">
+        	医疗机构名称
+        </th>
+		<th title="患者姓名" >
+        	患者姓名
+        </th>
+		<th title="门诊就诊流水号">
+        	门诊就诊流水号
+        </th>
+		<th title="患者属性">
+        	患者属性
+        </th>		
+		<th title="就诊科室名称">
+        	就诊科室名称
+        </th>
+		<th title="主诊医生姓名">
+        	主诊医生姓名
+        </th>
+		<th title="门诊诊断名称">
+        	门诊诊断名称
+        </th>
+		<th title="门诊就诊日期">
+        	门诊就诊日期
+        </th>
+		<th>
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody >
+	<!--{section loop=$row name=row}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+        <td>        
+          <!--{$row[row].yljgdm}-->
+        </td>
+		<td >
+        	<!--{$row[row].hzxm}-->
+        </td>
+		<td>
+        	<!--{$row[row].jzlsh}-->
+        </td>
+		<td>
+            <!--{$row[row].hzsx}-->
+        </td>
+		
+		<td >
+        	<!--{$row[row].jzksmc}-->
+        </td>
+		<td >
+        	<!--{$row[row].zzysxm}-->
+        </td>
+		<td >
+        	<!--{$row[row].jzzdmc}-->
+        </td>
+		<td >
+        	<!--{$row[row].jzksrq}-->
+        </td>
+		<td >
+        	<a href="<!--{$basePath}-->his/mzjz/display/kh/<!--{$row[row].kh}-->/klx/<!--{$row[row].klx}-->/jzlsh/<!--{$row[row].jzlsh}-->">[查看详细]</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<td colspan="9" align="center">
+	   当前没有符合条件的数据！
+	</tr>
+	<!--{/section}-->
+	  <tr>
+	  <td colspan="9" align="center"> 
+         <!--{$page}-->
+	 </td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

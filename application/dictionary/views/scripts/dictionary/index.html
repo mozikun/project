@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+</style>
+<title>数据类型列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="3"><strong>数据类型列表</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="" value="生成所有数据" style="line-height:20px;" onclick="window.location='<!--{$basePath}-->dictionary/dictionary/createall'"/></td>
+     </tr>
+     <tr>
+       <td colspan="3">
+          <form action="" method="post">
+                                  数组名称：<input name="arrname" type="text" size="45"/>
+                                  中文含义: <input name="zhname"  type="text" size="30"/>
+                      <input type="submit" name="ok" value="搜索" />
+          </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+        <td width="40%"><strong>数组名称</strong></td>
+        <td width="40%"><strong>中文含义</strong></td>
+        <td width="20%"><strong>编辑</strong></td>
+     </tr>
+      <!--{if $nuNumber=="0"}-->
+      <tr align="center"><td colspan="3">当前没有任何数据!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->dictionary/dictionary/index">[点击返回]</a></td></tr>
+      <!--{else}-->
+     <!--{section loop=$dicArr name=dicArr}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td width="40%"><!--{$dicArr[dicArr].category}--></td>
+           <td width="40%"><!--{$dicArr[dicArr].category_name}--></td>
+           <td width="20%"><a href="<!--{$basePath}-->dictionary/dictionary/add/arrname/<!--{$dicArr[dicArr].category}-->/statusnow/<!--{$dicArr[dicArr].status}-->/zhname/<!--{$dicArr[dicArr].scode_name}-->">[编辑]</a>
+            </td>
+        </tr>
+     <!--{/section}-->
+     <!--{/if}-->
+     <tr>
+       <td colspan="3"><a id="btn" href="<!--{$basePath}-->dictionary/dictionary/add"><strong>[添加数据类型]</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>

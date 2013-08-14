@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" ></script> 
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<style>
+a{
+	text-decoration:none;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>床位使用情况分析</title>
+</head>
+<body>
+<table  width="100%" >
+     <tr class="bigfont">
+       <td colspan="14" align="left">
+       <form action="<!--{$basePath}-->mdecision/berth/index/parent_id/<!--{$add_need_id}-->" method="POST">
+       <strong>床位使用情况分析</strong>
+       	<input name="start_time" id="start_time" type="text" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$start_time}-->" class="Wdate" />
+       	<input type="submit" name="searchsubmit" value="查询" />
+       </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+		<td colspan="14">
+		    <!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->mdecision/berth/index/parent_id/<!--{$rs[rs].id}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->mdecision/berth/index/parent_id/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}-->
+		</td>
+     </tr>
+     <tr class="bigfont">
+     <td align="center"><strong>地区名称</strong></td>
+     <td align="center"><strong>编制床位数</strong></td>
+     <td align="center"><strong>每日实际床位数</strong></td>
+     <td align="center"><strong>每日实际开放床位数</strong></td>
+     <td align="center"><strong>每日实际使用床位数</strong></td>
+     <td align="center"><strong>今日入院</strong></td>
+     <td align="center"><strong>今日出院</strong></td>
+     <td align="center"><strong>今日转入</strong></td>
+     <td align="center"><strong>今日转出</strong></td>
+     <td align="center"><strong>今日病重</strong></td>
+     <td align="center"><strong>今日病危</strong></td>
+     <td align="center"><strong>今日死亡</strong></td>
+     <td align="center"><strong>住院人数</strong></td>
+     <td align="center"><strong>
+     	<!--{if $td_title!=2}-->查看下级地区<!--{/if}-->
+     	<!--{if $td_title==2}-->建档机构<!--{/if}--></strong></td>
+    </tr>
+    <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><strong><!--{$row[row].zh_name}--></strong></td>
+    <td align="center"><!--{$row[row].edcw}--></td>
+    <td align="center"><!--{$row[row].sjcws}--></td>
+    <td align="center"><!--{$row[row].sjkfcws}--></td>
+    <td align="center"><!--{$row[row].sycw}--></td>
+    <td align="center"><!--{$row[row].jrry}--></td>
+    <td align="center"><!--{$row[row].jrcy}--></td>
+    <td align="center"><!--{$row[row].jrzr}--></td>
+    <td align="center"><!--{$row[row].jrzc}--></td>
+    <td align="center"><!--{$row[row].jrbz}--></td>
+    <td align="center"><!--{$row[row].jrbw}--></td>
+    <td align="center"><!--{$row[row].jrsw}--></td>
+    <td align="center"><!--{$row[row].zyrs}--></td>
+    <td align="center">
+    	<!--{if $td_title!=2}-->
+    		<a href="<!--{$basePath}-->mdecision/berth/index/parent_id/<!--{$row[row].id}-->/start_time/<!--{$start_time}-->">[进入子地区]</a>
+    	<!--{/if}-->
+        <!--{if $td_title==2}-->
+        	<!--{$row[row].org_zh_name}-->
+        <!--{/if}-->
+   </td>
+   </tr>
+  <!--{/section}-->
+   <tr align="center" class="headbg">
+     <td>合计</td>
+     <td><!--{$sum_edcw}--></td>
+     <td><!--{$sum_sjcws}--></td>
+     <td><!--{$sum_sjkfcws}--></td>
+     <td><!--{$sum_sycw}--></td>
+     <td><!--{$sum_jrry}--></td>
+     <td><!--{$sum_jrcy}--></td>
+     <td><!--{$sum_jrzr}--></td>
+     <td><!--{$sum_jrzc}--></td>
+     <td><!--{$sum_jrbz}--></td>
+     <td><!--{$sum_jrbw}--></td>
+     <td><!--{$sum_jrsw}--></td>
+     <td><!--{$sum_zyrs}--></td>
+     <td></td>
+   </tr>
+</table>
+</body>
+</html>

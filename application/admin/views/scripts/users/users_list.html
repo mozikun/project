@@ -1,0 +1,53 @@
+<!--{include file="../header.html"}-->
+<script type="text/javascript">
+ $(function(){
+ });
+ 
+  function del_record(id){
+	 if(confirm("你真的要删除吗？")){
+	 	
+		$.get("<!--{$basePath}-->admin/users/delete/id/"+id, function(data){
+		  	alert(data);
+			if(data=="删除成功！"){
+				window.location="<!--{$basePath}-->admin/users/index/region_id/<!--{$region_id}-->/org_id/<!--{$org_id}-->";
+			}
+		}); 
+	 }
+	 
+ }
+</script>
+	
+	<table cellspacing="0" width="100%">
+    <thead>
+    <tr >
+	<th  colspan="4" align="left">当前机构:<font color="Red"><!--{$org_name}--></font>&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $go_back==""}--><a href="<!--{$basePath}-->organization/listorg/listorg/region_id/<!--{$region_id}-->">返回</a><!--{/if}--></th>
+	</tr>
+	</thead>
+    <tr  class="headbg">
+	<th style="width:40%" colspan="4">用户管理</th>
+	</tr>
+    <!--{if $record_count!=0}-->
+	<tr class="columnbg">
+	<th style="width:25%">国家标准代码</th><th style="width:25%">角色</th><th style="width:25%">登录名</th><th style="width:25%">操作</th>
+	</tr>	
+	<tbody id=''>
+      <!--{section name=contact loop=$row}-->
+      <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+			<td ><!--{$row[contact].standard_code}--></td>
+            <td ><!--{$row[contact].role_name}--></td>
+			<td ><!--{$row[contact].name_login}--></td>	
+			<td><a href="<!--{$basePath}-->admin/users/add/org_id/<!--{$org_id}-->/org_name/<!--{$url_org_name}-->/region_id/<!--{$region_id}-->/id/<!--{$row[contact].id}-->/region_path/<!--{$region_path}-->">[修改]</a>  |  <a href="javascript:" onclick="del_record('<!--{$row[contact].id}-->')">[删除]</a>
+             </td>
+		</tr>
+	    <!--{/section}-->	
+          
+	</tbody>
+	
+    <!--{/if}-->
+   
+    <tr  class="columnbg">
+		<td style="width:40%" colspan="4"><div style=" float:left">[<a href="<!--{$basePath}-->admin/users/add/org_id/<!--{$org_id}-->/org_name/<!--{$url_org_name}-->/region_id/<!--{$region_id}-->/region_path/<!--{$region_path}-->">添加工作人员</a>]</div><div style="float:right"><!--{$out}--></div></td>
+	</tr>
+	</table>
+
+<!--{include file="../footer.html"}-->

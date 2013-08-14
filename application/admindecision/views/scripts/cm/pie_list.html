@@ -1,0 +1,29 @@
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="2" align="center"><center><strong>健康体检统计表</strong></center></td>
+     </tr>
+     <tr class="columnbg">
+        <td ><strong>地区名称</strong></td>
+        <td ><strong>体检人数</strong></td>
+        
+       
+     </tr>
+     <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].num}--></td>
+           
+
+         </tr>
+     <!--{/section}-->
+        <tr class="title">
+           <td>小计</td>
+           <td><!--{$total_num}--></td>
+          
+
+        </tr>
+
+</table>
+
+

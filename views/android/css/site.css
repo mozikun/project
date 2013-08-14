@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+body, td, th { font-size: 12px; color: #333; font-family: "微软雅黑", "宋体", "新宋体", "黑体", "楷体", Arial; }
+a:link, a:visited, a:active { color: #1C1C1C; text-decoration: none; }
+a:hover { color: #f30; text-decoration: underline; }
+.bbk { content: ""; clear: both; font-size: 0px; line-height: 0px; height: 0px; visibility: visible; }
+img, a { border: none; }
+html, body, form, frame, frameset, iframe, input, label, h1, h2, h3, h4, h5.h6, p, ol, ul, li, dl, dt, dd, input, select, textarea { margin: 0px; padding: 0px; }
+ol, ul, li, di, dt, dd { list-style: none; }
+table { border-collapse: collapse; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+p { line-height: 25px; }

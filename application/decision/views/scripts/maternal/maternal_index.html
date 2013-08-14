@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/popup.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>孕产妇健康管理统计</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<table border="1px" align="center" width="100%">
+     <tr class="bigfont">
+     	<!--{if $model==''}-->
+       <td colspan="12" align="center"><center><strong>孕产妇健康管理统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+	   <!--{else}-->
+	   <td colspan="10" align="center"><center><strong>孕产妇健康管理统计表(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>
+	   <!--{/if}-->
+     </tr>
+     <tr class="bigfont">
+       <!--{if $model==''}-->
+       <td colspan="12">
+       	<!--{else}-->
+		<td colspan="10">
+		<!--{/if}-->
+         <form action="" method="POST">
+            时间㈣：开始时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="start_time" value="<!--{$start_time}-->"/>&nbsp;&nbsp;结束时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1})" class="" name="end_time" value="<!--{$decision_time}-->"/>          <input type="submit" value="搜索" value="okok" />
+         </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+     	<!--{if $model==''}-->
+       <td colspan="12">
+       	<!--{else}-->
+		<td colspan="10">
+		<!--{/if}-->
+		<!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->decision/maternal/index/model/<!--{$model}-->/parent_id/<!--{$rs[rs].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->decision/maternal/index/model/<!--{$model}-->/parent_id/<!--{$rs[rs].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
+     </tr>
+     <tr class="bigfont">
+        <td width="8%"><strong>地区名称</strong></td>
+        <td width="12%"><strong>辖区内成年女性人数</strong></td>
+        <td width="12%"><strong>辖区内建册孕妇</strong></td>
+		<!--{if $model=='' || $model=='m1'}-->
+		<td width="12%"><strong>辖区内12周之前建册人数</strong></td>
+		<td width="12%"><strong>接受5次产前随访服务的人数</strong></td>
+		<!--{/if}-->
+		<!--{if $model=='' || $model=='m2'}-->
+		<td width="4%"><strong>产后访视人数</strong></td>
+		<!--{/if}-->
+		<!--{if $model=='' || $model=='m3'}-->
+        <td width="4%"><strong>产后体检人数</strong></td>
+        <!--{/if}-->
+        <td width="4%"><strong>活产数</strong></td>
+        <td width="4%"><strong>早孕建册率(%)</strong></td>
+        <td width="4%"><strong>产前健康管理率</strong></td>
+        <td width="8%"><strong>产后访视率</strong></td>
+        <td width="16%"><strong><!--{if $td_title==1}-->查看下级地区<!--{/if}--><!--{if $td_title==2}-->建档机构<!--{/if}--></strong></td>
+     </tr>
+       <!--{$msg}-->
+     <!--{section loop=$row name=row}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td><!--{$row[row].zh_name}--></td>
+           <td><!--{$row[row].sum_adults}--></td>
+		   <td><!--{$row[row].sum_card}--></td>
+		   <!--{if $model=='' || $model=='m1'}-->
+		   <td><!--{$row[row].sum_card_12}--></td>
+		   <td><!--{$row[row].sum_more_five}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m2'}-->
+		   <td><!--{$row[row].sum_postpartum_visit}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m3'}-->
+           <td><!--{$row[row].sum_postpartum_check}--></td>
+           <!--{/if}-->
+           <td><!--{$row[row].sum_number_of_live_births}--></td>
+           <td><!--{$row[row].pregnancy_rate_of_building_volumes}--></td>
+           <td><!--{$row[row].rates_of_maternal_health_management}--></td>
+           <td><!--{$row[row].rates_of_postpartum_visit}--></td>
+           <td>
+           <!--{if $td_title==1}--><a href="<!--{$basePath}-->decision/maternal/index/model/<!--{$model}-->/parent_id/<!--{$row[row].id}-->/url_start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->">[进入子地区]</a><!--{/if}-->
+           <!--{if $td_title==2}--><!--{$row[row].org_zh_name}--><!--{/if}-->
+           
+           </td>
+        </tr>
+     <!--{/section}-->
+        <tr class="headbg">
+           <td>小计</td>
+           <td><!--{$sum_adults_total}--></td>
+		   <td><!--{$sum_card_total}--></td>
+		   <!--{if $model=='' || $model=='m1'}-->
+		   <td><!--{$sum_card_12_total}--></td>
+		   <td><!--{$sum_more_five_total}--></td>
+		   <!--{/if}-->
+		   <!--{if $model=='' || $model=='m2'}-->
+           <td><!--{$sum_postpartum_visit_total}--></td>
+           <!--{/if}-->
+           <!--{if $model=='' || $model=='m3'}-->
+           <td><!--{$sum_postpartum_check_total}--></td>
+           <!--{/if}-->
+           <td><!--{$sum_number_of_live_births_total}--></td>
+           <td><!--{$pregnancy_rate_of_building_volumes_total}--></td>
+           <td><!--{$rates_of_maternal_health_management_total}--></td>
+           <td><!--{$rates_of_postpartum_visit_total}--></td>
+           <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <!--{if $model==''}-->
+       <td colspan="12">
+       	<!--{else}-->
+		<td colspan="10">
+		<!--{/if}-->
+		 1、该地该时间段内活产数（统计时间段内）=辖区内出生日期在统计时间段内的建档幼儿数，与建档时间及最后修改时间无关<br />
+         2、辖区内孕12周之前建册的人数（统计时间段内）<br />
+         3、辖区内按照规范要求在孕期接受5次及以上产前随访服务的人数（统计时间段内）<br />
+         4、辖区内产后28天内的接受过产后访视的产妇人数（统计时间段内）<br />
+         5、早孕建册率=辖区内孕12周之前建册的人数（统计时间段内）/该地该时间段内活产数×100％。<br />
+         6、产后体检人数（统计时间段内）<br />
+         7、孕妇健康管理率=辖区内按照规范要求在孕期接受5次及以上产前随访服务的人数（统计时间段内）/该地该时间内活产数×100％。<br />
+         8、产后访视率=辖区内产后28天内的接受过产后访视的产妇人数（统计时间段内）/该地该时间内活产数×100％。<br />
+         9、<strong>统计时间段内</strong>：表示该统计指标在所选择的统计时间段内。<br />
+         10、<strong>至统计时间</strong>：表示该统计指标所统计数据至所选择的统计时间为止的之前的所有数据，如选择2012-09-26，则统计截止于2012-09-27之前的所有数据<br />
+         11、<strong>与时间无关</strong>：表示该统计指标与所选择的统计时间完全无关，将统计数据库内的所有数据（满足其他条件）<br />
+         12、?代表目前无法自动统计的指标。<br />
+         13、受目前服务器运算能力限制，综合平衡指标的准确性与运算时间的关系，上述指标的统计暂不区分下述情况：<br />
+&nbsp;&nbsp;&nbsp;1)统计时段内从居民确诊为患者<br />
+&nbsp;&nbsp;&nbsp;2)统计时段内的患者死亡<br />
+&nbsp;&nbsp;&nbsp;3)统计时段内的患者迁出<br />
+&nbsp;&nbsp;&nbsp;强烈建议统计的时间范围不宜超过2年。时间范围越大，与规范管理的实际情况出入越大。<br />
+        </td>
+        </tr>
+
+</table>
+     <div id="errorMessage" style="display:none"><!--{$errorMessage}--></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+function myOpenWindow(id){
+	var url="<!--{$basePath}-->region/region/display/id/"+id+'/sid/'+Math.random();
+	//alert(url);
+	window.showModalDialog(url,window,'DialogTop:250px;DialogLeft:250px;DialogWidth:650px;DialogHeight:250px;help:no;status:no');
+}
+function mysubmit(){
+	if($('#region_name').val()==''){
+		alert('请输入地区名称');
+		return;
+	}
+	if($('#standard_code').val()==''){
+		alert('请输入标准码');
+		return;
+	}	
+	$('#ok').attr('disabled',true);
+	$('#popup')[0].submit();
+	return true;
+}
+if($('#errorMessage').html()!=''){
+	alert($('#errorMessage').html());
+}
+</script>
+

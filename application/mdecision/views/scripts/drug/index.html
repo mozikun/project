@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" ></script> 
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<style>
+a{
+	text-decoration:none;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+.hidd{
+
+}
+</style>
+<title>药品库存情况分析</title>
+</head>
+<body>
+<table width="100%" border="0">
+     <tr class="bigfont">
+       <td colspan="14" align="left">
+       <strong>药品库存基本情况</strong>
+       </td>
+     </tr>
+     <tr class="headbg">
+		<td colspan="14">
+		    <!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->mdecision/drug/index/parent_id/<!--{$rs[rs].id}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></a></font><!--{else}--><a href="<!--{$basePath}-->mdecision/drug/index/parent_id/<!--{$rs[rs].id}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}-->
+		</td>
+     </tr>	
+</table>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td align="center">区&nbsp;&nbsp;&nbsp;&nbsp;域</td>
+		<td align="center">药品名称</td>
+		<td align="center" style="cursor:pointer;">是否基药</td>
+		<td align="center">药品库存数量</td>
+	    <td align="center"><strong>
+     	<!--{if $td_title!=2}-->查看下级地区<!--{/if}-->
+     	<!--{if $td_title==2}-->建档机构<!--{/if}--></strong>
+     	</td>
+	</tr>
+	   <!--{section loop=$row name=row}-->
+	<tr >
+		<td align="center"><!--{$row[row].zh_name}--></td>
+		<td align="center"><!--{$row[row].ypmc}--></td>
+		<td align="center"><!--{$row[row].sfjy}--></td>
+		<td align="center"><!--{$row[row].ypkc}--><!--{$row[row].ypdw}--></td>
+		<td align="center">
+    	<!--{if $td_title!=2}-->
+    		<a href="<!--{$basePath}-->mdecision/drug/index/parent_id/<!--{$row[row].id}-->">[进入子地区]</a>
+    	<!--{/if}-->
+        <!--{if $td_title==2}-->
+        	<!--{$row[row].org_zh_name}-->
+        <!--{/if}-->
+ 		</td>
+	</tr>
+  <!--{/section}-->
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>商品计量单位</title>
+<link href="/views/measurement/category/display.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<form method="POST" action="/goods/goodsmeasurement/edit">
+	<input type="hidden" name="categoryId" id="categoryId" value="<!--{$categoryId}-->" />
+	<input type="hidden" name="goodsId" id="goodsId" value="<!--{$goodsId}-->" />
+	<input type="hidden" name="goodsMeasurementId" id="goodsMeasurementId" value="<!--{$goodsMeasurementId}-->" />
+	<input type="hidden" name="message" id="message" value="<!--{$message}-->" />
+	<input type="hidden" name="openerUrl" id="openerUrl" value="<!--{$openerUrl}-->" />
+	
+	请先定义最大的单位，最后定义最小单位。如 箱 包 件<br />
+	<!--{$goodsMeasurementContent}-->
+	<input type="submit" name="ok" value="保存" />
+</form>
+<a href="/goods/goodsmeasurement/list/categoryId/<!--{$categoryId}-->/goodsId/<!--{$goodsId}-->/openerUrl/<!--{$openerUrl}-->">返回</a>
+</body>
+</html>
+<script type="text/javascript">
+function $(id){
+	return document.getElementById(id);
+}
+if($('message').value!=''){
+	alert($('message').value);
+}
+</script>

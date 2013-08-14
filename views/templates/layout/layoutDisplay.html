@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>栏目管理</title>
+<link rel="stylesheet" type="text/css" href="/styles/mycss.css">
+<style>
+html, body {
+	background: #dae6f3;
+	font: 14px Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+table{
+	font-size:14px;  /*表格*/
+	padding-left:11px;
+	border-collapse:collapse;
+	border:#000000 1px solid;
+	background-color:#EFEFEF
+}
+.tr{
+background-color:#336699;
+}
+td{
+border:#000000 1px solid;
+}
+.td1{
+}
+fieldset{
+	width:300px;
+	border:1px solid #003399;
+	text-align:auto;
+	padding:10px;
+}
+</style>
+</head>
+
+<body>
+<fieldset><legend>栏目管理</legend>
+<form method="POST" action="">
+<input type="hidden" name="type" id="type" value='<!--{$type}-->' />
+<input type="hidden" name="position" id="position" value='<!--{$position}-->' />
+栏目名称
+<select name='menuId' id='menuId'>
+	  <!--{$menuOptions}-->
+</select>
+<br />
+	<!--<input type="button" name="ajaxsave" id="ajaxsave" value="保存" onclick="ajax_save()"/>-->
+<input type="button" name="save" id="save" value="保存" onclick="ajaxSave()"/>
+<input type="button" name="show" id="show" value="关闭" onclick="window.close();"/>
+</form>
+</fieldset>
+</body>
+<script language="javascript">
+/**
+全局变量xmlHttp对象实例
+*/
+var xmlHttp = false;
+/**
+本函数实现用ajax的方法保存表单数据
+ */
+
+function ajaxSave(){
+	var menuId=$('menuId').value;
+	if(menuId=='-9'){
+		alert('请选择一个有效的栏目');
+		return false;
+	}
+	xmlHttp=xmlhttp_factory();
+	//alert(xmlHttp);
+	
+	var position=$('position').value;
+	var type=$('type').value;
+	var url="<!--{$__BASEPATH}-->management/layout/layoutEdit";
+	url=url+'/menuId/'+menuId+'/position/'+position+'/type/'+type+'/randomId/'+Math.random();
+	//alert(url);
+	
+
+	//post 的提交方法 保留代码
+	//xmlHttp.setRequestHeader( "Content-Type" , "multipart/form-data");
+	//post_string="/management/layout/layout_menu_edit/id/"+Math.random();
+	//这样处理的主要目的是防止缓存
+	//xmlHttp.open("POST", post_string, true);//true为异步，false为同步
+	//xmlHttp.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
+	//var str=get_value();
+	//alert(str);
+	
+	xmlHttp.open("GET",url);//true为异步，false为同步
+	xmlHttp.onreadystatechange= changeState;
+	xmlHttp.send();
+	//xmlHttp.onreadystatechange= change_state;
+}
+function changeState(){
+	var saveButton=document.getElementById('save');
+	if(saveButton.value=='保存'){
+		saveButton.value='正在保存数据';
+		saveButton.disabled=true;
+	}else{
+		if(xmlHttp.readyState == 4){
+			saveButton.value='保存';
+			saveButton.disabled=false;
+			var objSelect=document.getElementById('menuId');
+			//alert(window.dialogArguments.id);
+			window.dialogArguments.innerHTML=objSelect.options[objSelect.selectedIndex].text;
+			window.dialogArguments.setAttribute('menuID',objSelect.options[objSelect.selectedIndex].value);;
+			alert(xmlHttp.responseText);
+		}
+	}
+	return;
+}
+
+
+function ajax_save(){
+	xmlHttp=xmlhttp_factory();
+	//xmlHttp.setRequestHeader( "Content-Type" , "multipart/form-data");
+	post_string="<!--{$__BASEPATH}-->management/layout/layout_menu_edit/id/"+Math.random();
+	//这样处理的主要目的是防止缓存
+	xmlHttp.open("POST", post_string, true);//true为异步，false为同步
+	xmlHttp.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded");
+	var str=get_value();
+	//alert(str);
+	xmlHttp.onreadystatechange= change_state;
+	xmlHttp.send(str);
+	//xmlHttp.onreadystatechange= change_state;
+}
+function get_value()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//判断值是否被修改，如果修改才上传
+			//if(obj.value==old_value[obj.id])
+			//{
+				
+				//continue;
+			//}
+			if(obj.type=='radio' || obj.type=='checkbox')
+			{
+				if(obj.checked)
+				{
+					value=value+obj.name+'='+obj.value+"&";
+				}
+			}
+			else
+			{
+				value=value+obj.name+'='+obj.value+"&";
+			}
+		}
+		//	str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}
+	value=value+"end=end";	
+	//alert(value);
+	return value;
+
+}
+function get_obj()
+{
+	var i;
+	var str='';
+	var value='';
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+			value=value+obj.name+'='+obj.value
+			if(i<document.all.length-1)
+			{
+				value=value+"&";
+			}
+		}
+			str=str+obj.tagName+" "+obj.name+" "+obj.type+" "+obj.value+"\n";
+	}	
+		alert(str);
+
+}
+/**
+实例化一个http对象
+*/
+function xmlhttp_factory()
+{
+	/*@cc_on @*/
+	/*@if (@_jscript_version >= 5)
+	try {
+		xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+		try {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (e2) {
+			xmlHttp = false;
+		}
+	}
+	@end @*/
+	if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+		xmlHttp = new XMLHttpRequest();
+	}	
+	return xmlHttp;
+}
+function $(id){
+	return document.getElementById(id);
+}
+
+
+var old_value;
+/**
+本程序用于保存表单被修改前的所有值。以数组的形式存储在old_value里
+但实际意思不大，因为即时少提交数据上去，在服务器端也要花时间来判断哪些提交上去，哪些没有提交上去了。
+*/
+function save_old_value()
+{
+	old_value=="{"
+	//alert(old_value);
+	var i;
+	for(i=0;i<document.all.length;i++)
+	{
+		//alert(document.all.item(i).tagName);
+		obj=document.all.item(i);
+		if(obj.tagName=='INPUT' || obj.tagName=='SELECT' || obj.tagName=='TEXTAREA')
+		{
+			//old_value[obj.id]=obj.value;
+			old_value=old_value+"'"+obj.id+"':'"+obj.value+"',"
+		}
+	}
+	//alert(old_value.length);
+	old_value=old_value.substring(0,old_value.length-1);
+	old_value=old_value+"}";
+	old_value=eval('('+old_value+')');
+	//alert(old_value);
+	//alert(old_value['name']);
+}
+</script>

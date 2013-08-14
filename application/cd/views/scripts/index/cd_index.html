@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>慢病管理-高血压随访人员列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />                                                                                                                             
+
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/search_list.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js" type="text/javascript"></script>
+<script>
+$(document).ready(function(){
+	$("#search_listpic").toggle(function(){do_search("<!--{$basePath}-->","clinical_history||hypertension_follow_up","确诊并随访过患者||确诊未随访过患者||未确诊随访过居民||未确诊未随访居民||所有已确诊高血压","disease_code||disease_state","2||1");},function(){undo_search("<!--{$basePath}-->");});
+    //处理地区下拉
+    get_region_select_html('<!--{$basePath}-->','org_id','menuDropDownBox');
+    //处理高级搜索
+    if("<!--{$gj_show}-->")
+    {
+        $("#body_tr").show();
+        $("#search_tr>img").attr("src","<!--{$basePath}-->images/zoom_out.png");
+        $("#gj_show").val('1');
+    }
+});
+
+function view_blood_pic(url)
+{
+    //$("#blood_pic_load").attr("src",url);
+    $.dialog(1024, 268+60, $('#blood_popup').html(),"blood_popup","近期患者血压走势图(含自我监测血压)");
+    $('#dialog_box_html').addClass('background:url(<!--{$basePath}-->images/load.gif) no-repeat center center;');
+    $('#dialog_box_html').empty();//先清空，因为多次载入图片
+    var img = new Image();
+    $(img).load(function() {
+        $(this).hide();
+        $('#dialog_box_html').append(this);
+        $(this).fadeIn();
+        }).error(function(){
+            $('#dialog_box_html').html("没有查询到有相关数据，无法绘出相关图形");
+            // notify the user that the image could not be loaded
+        }).attr('src', url);
+}
+	
+</script>
+</head>
+<body>
+<div id="search_list"></div>
+<div class="Left_top" id="left_top"><img id="search_listpic" alt="" src="<!--{$basePath}-->images/search_list.gif" /></div>
+	<table border="0" width="100%">
+		<form action="<!--{$basePath}-->cd/index/index" id="hy_search" method="POST">
+			<tr><td>
+				姓名<img title="“可以输入汉字也可以输入姓名拼音的首字母，比如要查找'王高兴',那么可以输入姓名的三个汉字中的任意一个，也可以输入‘wxm’几个字母进行搜索查找”" src="<!--{$basePath}-->images/comments.png" class="vtip" />：<input type="text" name="username" value="<!--{$search.username}-->" class="line" size="10">&nbsp;
+				档案号<img title="“输入标准档案号里的全部或者部分数字”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="standard_code" value="<!--{$search.standard_code}-->" class="line" size="10">&nbsp;
+				身份证号<img title="“可以输入完整或者部分身份证号”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="identity_number" value="<!--{$search.identity_number}-->" class="line" size="12">&nbsp;
+                档案状态：
+				<select name="status_flag" id="status_flag" onchange="sf=this.value">
+					<!--{section name=status_flag loop=$status_flag}-->
+						<option value="<!--{$status_flag[status_flag].key}-->" <!--{$status_flag[status_flag].selected}--> > <!--{$status_flag[status_flag].value}--></option>
+					<!--{/section}-->
+				</select>&nbsp;
+				随访医生:<select name="staff_id" id="staff_id">
+			<!--{section name=response_doctor loop=$response_doctor}-->
+			<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+			<!--{/section}-->
+			</select>
+		&nbsp;
+				
+				<input type="submit" value="搜索" name="submit">
+                <label id="search_tr" style="cursor:pointer;"><img src="<!--{$basePath}-->images/zoom_in.png" />高级搜索</label>
+                <!--{if !empty($hy)}-->
+                【<font color="Red"><!--{$name}--></font>】本年度随访:
+				<!--{section name=hy_follow_up loop=$hy }--><a href="<!--{$basePath}-->cd/index/edit/uuid/<!--{$hy[hy_follow_up].uuid}-->">第<!--{$hy[hy_follow_up].num}-->次&nbsp;</a><!--{/section}-->
+				<!--{/if}-->
+				</td>
+			</tr>
+          <tr id="body_tr" style="display:<!--{$display}-->;"><td>随访日期:<input class="Wdate" type="text" name="startdate" size="18" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$startdate}-->"/>-<input class="Wdate" type="text" name="enddate" size="18" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$enddate}-->"/>
+              所属地区:<span id="menuDropDownBox"></span>    
+                  <input  type="hidden" name="org_id" id="org_id" value="<!--{$org_id}-->" />&nbsp;&nbsp;<input type="checkbox" name="is_gf" value="1" <!--{if $search.is_gf==1}--> checked="checked"<!--{/if}--> />&nbsp;未达到规范管理(以随访时间段计算)<input type="hidden" name="gj_show_post" id="gj_show" value="<!--{$gj_show}-->" />
+              </td></tr>
+            </form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+    	<th style="width: 20px;">
+        	状态
+        </th>
+		<th style="width: 40px;">
+        	姓名
+        </th>
+		<th style="width: 180px;">
+        	地址
+        </th>
+		<th style="width: 60px;">
+        	联系电话
+        </th>
+		<th style="width: 50px;">
+        	上次随访时间
+        </th>
+        <th>
+        	上次随访结果
+        </th>
+        <th style="width: 50px;">
+        	计划随访时间
+        </th>
+		<th style="width: 40px;">
+        	上次随访医生
+        </th>
+		<th style="width: 10px;">
+        	随访总次数
+        </th>
+		<th style="width: 100px;">
+        	操作
+        </th>
+	</tr>
+	</thead>
+	<tbody id="hy">
+	<!--{section name=hypertension loop=$hypertension}-->
+	 <tr id="hy_<!--{$hypertension[hypertension].uuid}-->">
+	 	<td>
+         <img src="<!--{$basePath}-->images/<!--{$hypertension[hypertension].image}-->.png" />
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].ssname}-->
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].name->address}-->
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].name->phone_number}-->
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].moreinfo->follow_time}-->
+        </td>
+        <td>
+        	<!--{$hypertension[hypertension].moreinfo->follow_result}-->
+        </td>
+        <td>
+        	<!--{$hypertension[hypertension].moreinfo->follow_next_time}-->
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].moreinfo->staff_id}-->
+        </td>
+		<td>
+        	<!--{$hypertension[hypertension].snums}-->
+        </td>
+		<td>
+        	<img src="<!--{$basePath}-->images/chart_bar.png" onclick="view_blood_pic('<!--{$basePath}-->iha/search/showpic/uuid/<!--{$hypertension[hypertension].id}-->')" alt="血压走势图" style="cursor: hand; height: 20px;" />&nbsp;|&nbsp;<a href="<!--{$basePath}-->cd/index/list/id/<!--{$hypertension[hypertension].id}-->">进入查看</a>
+        </td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="10">
+        	暂时没有符合条件的数据
+        </td>
+	</tr>
+	<!--{/section}-->
+	<tr>
+		<td colspan="10">
+        	<img src="<!--{$basePath}-->images/hz.png" />已确诊高血压患者
+		&nbsp;
+		<img src="<!--{$basePath}-->images/no_person.png" />未确诊&nbsp;&nbsp;<!--{$pager}-->&nbsp;<a href="<!--{$basePath}-->cd/index/import" target="_blank">【打印/导出随访列表】</a>&nbsp;<a href="<!--{$basePath}-->cd/index/import_patient" target="_blank">【导出患者列表】</a>
+        </td>
+	</tr>
+    <!--{if $error_string}-->
+    <tr>
+		<td colspan="10">
+        	<!--{$error_string}-->
+        </td>
+	</tr>
+    <!--{/if}-->
+	</tbody>
+</table>
+<input type="hidden" id="error_message" name="error_message" value="<!--{$error_message}-->" />
+<div id="blood_popup" style="display:none;">
+</div>
+</body>
+</html>
+<script type="text/javascript">
+$("#search_tr").toggle(function(){$("#body_tr").show();$("#search_tr>img").attr("src","<!--{$basePath}-->images/zoom_out.png");$("#gj_show").val('1');},function(){$("#body_tr").hide();$("#search_tr>img").attr("src","<!--{$basePath}-->images/zoom_in.png");$("#gj_show").val('')});
+</script>

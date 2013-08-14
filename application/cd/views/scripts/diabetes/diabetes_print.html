@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdiabetesPicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script>
+<title>2型糖尿病患者随访服务记录</title>
+<style type="text/css" media=print>  
+  .noprint{display : none } 
+</style> 
+
+<style type="text/css">
+ .time
+  {
+	border-left:0 none;
+	border-right:0 none;
+	border-top:0 none;
+	width:30px;
+}
+ td
+	{
+		height:13px;
+		padding:0px 0px 0px 1px;
+		font-size:13px;
+	}
+</style>
+</head>
+<body >
+   <input type="hidden" name="uuid" value="<!--{$uuid}-->">
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">[ <!--{$user_name}--> ] 2型糖尿病患者随访服务记录表</div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:70%; text-align:left; float:left;background:#FFFFFF;"><span class="STYLE2">姓名</span>：<!--{$user_name}--></div>
+	  <div style=" width:30%; text-align:left; float:left;background:#FFFFFF; "><span class="STYLE2">编号</span>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%" height="1243"  align="center" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+   	<tr>
+		<td height="23" colspan="2">随访日期</td>
+		<!--{section name=diabetes loop=$nums}-->
+	    <td colspan="2">
+		<!--{$diabetes_array[diabetes].followup_time}-->
+		</td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td height="28" colspan="2">随访方式</td>
+		<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  <!--{foreach key=k from=$type_of_followup item=foll}-->
+	  <!--{$k}-->、<!--{$foll[1]}-->
+	  <!--{/foreach}-->
+	  <input type="text" name="type_of_followup" value="<!--{$diabetes_array[diabetes].type_of_followup}-->" class="inputnew" /></td>
+		<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td width="66" rowspan="2" align="center">症状
+      </td>
+      <td width="160" rowspan="2">
+	  	<!--{foreach key=k item=sym from=$diabetes_symptom}-->
+			<!--{$k}-->、<!--{$sym[1]}--><br />
+	  <!--{/foreach}-->	  </td>
+		
+	<!--{section name=diabetes loop=$nums}-->
+      <td height="30" colspan="2" align="left">
+	  	<!--{section name=inp loop=8}-->
+			<input type="text" class="inputnew" name="symptom[]" value="<!--{$diabetes_symptom_array[diabetes][inp].sym}-->" />/
+		<!--{/section}-->
+	  </td>
+	<!--{/section}-->
+   	</tr>
+   	<tr>
+	<!--{section name=diabetes loop=$nums}-->
+   	  <td colspan="2" valign="top">
+	  	<div>
+			<div class="other_sym">其他：</div>
+			<div class="other_txtsym">
+				<textarea class="newtextarea" rows="6" cols="16"><!--{$symptom_other_array[diabetes].sym_other}--></textarea>
+			</div>
+		</div>	  </td>
+	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="5" align="center">体征</td>
+      <td align="center">血压(mmHg)</td>
+ 	<!--{section name=diabetes loop=$nums}-->
+     <td colspan="2"><input type="text" value="<!--{$physical_sign_array[diabetes].blood_pressure}-->" class="inputnone1"></td>
+	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">体重(kg)</td>
+  	<!--{section name=diabetes loop=$nums}-->
+     <td colspan="2">
+		  <input type="text" value="<!--{$physical_sign_array[diabetes].weight}-->" class="inputnone">/
+		  <input type="text" value="<!--{$physical_sign_array[diabetes].expectative_weight}-->" class="inputnone"></td>
+	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">体质指数</td>
+  	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2"><input type="text" value="<!--{$physical_sign_array[diabetes].bmi}-->" class="inputnone1"></td>
+ 	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">足背动脉搏动</td>
+  	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  		<!--{foreach item=adp from=$arteria_dorsalis_pedis key=k}-->
+			<!--{$k}-->、<!--{$adp[1]}-->
+			<!--{/foreach}-->
+		  <input type="text" value="<!--{$physical_sign_array[diabetes].arteria_dorsalis_pedis}-->" class="inputnew"></td>
+ 	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">其他</td>
+   	<!--{section name=diabetes loop=$nums}-->
+     <td colspan="2"><input type="text" value="<!--{$physical_sign_array[diabetes].other}-->" class="inputnone1"></td>
+  	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td rowspan="7" align="center"><p>生活方</p>
+      <p>式指导</p></td>
+      <td align="center">日吸烟量(支)</td>
+   	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].smoking}-->" class="inputnone">/
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].expert_smoking}-->" class="inputnone"></td>
+  	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">日饮酒量(两)</td>
+   	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].drinking}-->" class="inputnone">/
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].expert_drinking}-->" class="inputnone"></td>
+   	<!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center">运动</td>
+    	<!--{section name=diabetes loop=$nums}-->
+     <td colspan="2" align="left">
+	  	<input type="text" value="<!--{$lifestyle_guide_array[diabetes].frequency}-->" class="inputnone">次/周
+	  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].frequency_time}-->" class="inputnone">分钟/次	  </td>
+   	<!--{/section}-->
+   	</tr>
+   	<tr>
+    	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2" align="left">
+	  	<input type="text" value="<!--{$lifestyle_guide_array[diabetes].expert_frequency}-->" class="inputnone">次/周
+	  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].expert_frequency_time}-->" class="inputnone">分钟/次	  </td>
+   	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">主食(克/天)
+       </td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].main_course}-->" class="inputnone">/
+		  <input type="text" value="<!--{$lifestyle_guide_array[diabetes].expert_main_course}-->" class="inputnone"></td>
+   	<!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">心理调整</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=heart from=$heart_adjustment}-->
+			<!--{$k}-->、<!--{$heart[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="" value="<!--{$lifestyle_guide_array[diabetes].heart_adjustment}-->" />	  </td>
+   	<!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	  <td align="center">遵医行为</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=cp from=$complian}-->
+			<!--{$k}-->、<!--{$cp[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="" value="<!--{$lifestyle_guide_array[diabetes].complian}-->" />	  </td>
+   	<!--{/section}-->
+
+   	</tr>
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center"><p>辅助</p>
+      <p>检查</p>
+      </td>
+      <td align="center">空腹血糖值</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2"><input type="text" value="<!--{$accessory_examine_array[diabetes].fasting_bloodglucose}-->" class="inputbottom">mmol/L</td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">其他检查*</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2" valign="top">
+		  <p>糖化血红蛋白<input type="text" value="<!--{$accessory_examine_array[diabetes].hbclc}-->" class="inputbottom">%</p>
+		  <p>检查日期<input type="text" class="time"  value="<!--{$accessory_examine_array[diabetes].eaminat_mot}-->">月
+		  <input type="text" class="time" value="<!--{$accessory_examine_array[diabetes].eaminat_day}-->">日</p>	
+		  <input type="text" value="<!--{$accessory_examine_array[diabetes].eamination_info}-->" class="inputbottom other">
+	  </td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">服药依从性</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=comply from=$compliance}-->
+			<!--{$k}-->、<!--{$comply[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="" value="<!--{$diabetes_array[diabetes].compliance}-->" />	  </td>
+    <!--{/section}-->
+
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">药物不良反应</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=adv from=$adverse_drug_reaction}-->
+			<!--{$k}-->、<!--{$adv[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="" value="<!--{$diabetes_array[diabetes].adverse_drug_reaction}-->" />	  </td>
+    <!--{/section}-->
+   	</tr>
+	<tr>
+   	 	<td colspan="2" align="center">低血糖反应</td>
+	<!--{section name=diabetes loop=$nums}-->
+		<td colspan="2">
+	  	<!--{foreach key=k item=rh from=$reactive_hypoglycemia}-->
+			<!--{$k}-->、<!--{$rh[1]}-->
+		<!--{/foreach}-->
+		<input type="text" value="<!--{$diabetes_array[diabetes].reactive_hypoglycemia}-->" name="" class="inputnew"></td>
+    <!--{/section}-->
+	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">此次随访分类</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+	  	<!--{foreach key=k item=fclass from=$followup_classification}-->
+			<!--{$k}-->、<!--{$fclass[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="" value="<!--{$diabetes_array[diabetes].followup_classification}-->" />	  </td>
+    <!--{/section}-->
+
+   	</tr>
+   
+   <!--{section loop=3 name=custom}-->
+	<tr>
+	<!--{if $smarty.section.custom.iteration==1}-->
+	   <td rowspan="7">用药情况</td>
+	  <!--{/if}-->
+      <td height="20" align="center">药物名称<!--{$smarty.section.custom.iteration}--></td>
+      <!--{section name=mydrug loop=$nums}-->
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value="<!--{$hypertension_array[mydrug].drug[custom].drug_name}-->"></td>
+      <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td height="20" align="center">用法</td>
+   	  <!--{section name=mydrug loop=$nums}-->
+      <td width="387">每日
+      <input type="text" name="drug_frequency[]" class="inputnone" value="<!--{$hypertension_array[mydrug].drug[custom].drug_frequency}-->">次</td>
+   	  <td width="461">每次
+      <input type="text" name="drug_amount[]" class="inputnone" value="<!--{$hypertension_array[mydrug].drug[custom].drug_amount}-->">mg</td>
+      <!--{/section}-->
+   	</tr>
+   <!--{/section}-->
+	
+   	<tr>
+   	  <td align="center">胰岛素</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2">
+<!--{$diabetes_array[diabetes].insulin}--></td>
+    <!--{/section}-->
+   	</tr>
+   	
+   	<tr>
+   	  <td rowspan="2" align="center">转
+      诊</td>
+      <td align="center">原因</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2"><input type="text" class="inputnone1" value="<!--{$patient_referral_array[diabetes].reason}-->"></td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td align="center">机构及科别</td>
+	<!--{section name=diabetes loop=$nums}-->
+   	  <td colspan="2"><input type="text" class="inputnone1" value="<!--{$patient_referral_array[diabetes].organization}-->"></td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">下次随访日期</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2"><input type="text" class="inputnone1" value="<!--{$diabetes_array[diabetes].time_of_next_followup}-->"></td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">随访医生签名</td>
+	<!--{section name=diabetes loop=$nums}-->
+      <td colspan="2"><input type="text" class="inputnone1" value="<!--{$diabetes_array[diabetes].followup_doctor}-->"></td>
+    <!--{/section}-->
+   	</tr>
+   	<tr>
+   	  <td colspan="4" class="noprint"><div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;">
+   <input type="button" name="print" id="print" value="打印" class="inputbutton" onclick="javascript:window.print();" />
+</div></td>
+   	</tr>
+</table>
+</form> 
+</body>
+</html>

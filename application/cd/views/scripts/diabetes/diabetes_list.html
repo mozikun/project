@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>2型糖尿病随访记录列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" /> <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/search_list.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/ajax_select_region.js" type="text/javascript"></script>                                                 
+<script>
+
+$(document).ready(function(){
+	$("#search_listpic").toggle(function(){do_search("<!--{$basePath}-->","clinical_history||diabetes_core","确诊并随访过患者||确诊未随访过患者||未确诊随访过居民||未确诊未随访居民||所有已确诊糖尿病","disease_code||disease_state","3||1");},function(){undo_search("<!--{$basePath}-->");});
+    //处理地区下拉
+    get_region_select_html('<!--{$basePath}-->','org_id','menuDropDownBox');
+});
+function view_blood_pic(url)
+{
+    //$("#blood_pic_load").attr("src",url);
+    $.dialog(1024, 268+60, $('#blood_popup').html(),"blood_popup","近期患者空腹血糖走势图(含自我监测空腹血糖)");
+    $('#dialog_box_html').addClass('background:url(<!--{$basePath}-->images/load.gif) no-repeat center center;');
+    $('#dialog_box_html').empty();//先清空，因为多次载入图片
+    var img = new Image();
+    $(img).load(function() {
+        $(this).hide();
+        $('#dialog_box_html').append(this);
+        $(this).fadeIn();
+        }).error(function(){
+            $('#dialog_box_html').html("没有查询到有相关数据，无法绘出相关图形");
+            // notify the user that the image could not be loaded
+        }).attr('src', url);
+}
+</script>
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+.inputbutton{
+border: 1px solid blue;
+width:80px;
+background:#FFFFFF;
+}
+</style>
+</head>
+<body>
+  
+<div id="search_list"></div>
+<div class="Left_top" id="left_top"><img id="search_listpic" alt="" src="<!--{$basePath}-->images/search_list.gif" /></div>
+<table border="0" width="100%">
+    <tr class="headbg">
+      <td>
+		<strong>2型糖尿病随访记录列表</strong>
+	  </td>
+	</tr>
+		<form action="<!--{$basePath}-->cd/diabetes/list" id="search" method="post">
+			<tr><td>
+				姓名<img title="“可以输入汉字也可以输入姓名拼音的首字母，比如要查找'王高兴',那么可以输入姓名的三个汉字中的任意一个，也可以输入‘wxm’几个字母进行搜索查找”" src="<!--{$basePath}-->images/comments.png" class="vtip" />：<input type="text" name="username" size="10" class="line" value="<!--{$realname}-->"/>&nbsp;
+				档案号<img title="“输入标准档案号里的全部或者部分数字”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="standard_code" size="14" class="line" value="<!--{$serialnumber}-->"/>&nbsp;
+				身份证号<img title="“可以输入完整或者部分身份证号”" src="<!--{$basePath}-->images/comments.png" class="vtip" />:<input type="text" name="identity_number" size="14" class="line" value="<!--{$nowdate}-->"/>&nbsp;
+				档案状态<select name="status_flag">
+				  <!--{section loop=$status_flag name=status_flag}-->
+				  <option value="<!--{$status_flag[status_flag].key}-->" <!--{$status_flag[status_flag].selected}-->><!--{$status_flag[status_flag].value}--></option>
+				  <!--{/section}-->
+				</select>
+				责任医生:<select name="staff_id" id="staff_id">
+			<!--{section name=response_doctor loop=$response_doctor}-->
+			<option value="<!--{$response_doctor[response_doctor].id}-->" <!--{$response_doctor[response_doctor].selected}--> ><!--{$response_doctor[response_doctor].zh_name}--></option>
+			<!--{/section}-->
+			</select>
+				<input type="submit" value="搜索"  name="submit"/>
+                <label id="search_tr" style="cursor:pointer;"><img src="<!--{$basePath}-->images/zoom_in.png" />高级搜索</label>
+                 <!--{if !empty($db)}-->
+                【<font color="Red"><!--{$name}--></font>】本年度随访:
+				<!--{section name=diabetes_core loop=$db }--><a href="<!--{$basePath}-->cd/diabetes/add/editid/<!--{$db[diabetes_core].uuid}-->/id/<!--{$db[diabetes_core].id}-->">第<!--{$db[diabetes_core].num}-->次&nbsp;</a><!--{/section}-->
+				<!--{/if}-->
+				</td>
+			</tr>
+            <tr id="body_tr" style="display:<!--{$display}-->;"><td>随访日期:<input class="Wdate" type="text" name="startdate" size="18" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$startdate}-->"/>-<input class="Wdate" type="text" name="enddate" size="18" onClick="WdatePicker({firstDayOfWeek:1})" value="<!--{$enddate}-->"/>
+              所属地区:<span id="menuDropDownBox"></span>    
+                  <input  type="hidden" name="org_id" id="org_id" value="<!--{$org_id}-->" /> 
+              </td></tr>
+		</form>
+</table>	
+<table border="0" width="100%">
+	<thead>
+    <tr class="headbg">
+        <th>状态</th>
+        <th title="编号">
+   	        姓名</th>
+			<th>
+        	地址
+        </th>
+		<th>
+        	联系电话
+        </th>
+		<th title="姓名" >
+        	上次随访时间        </th>
+		<th title="体检日期">随访医生</th>
+		<th title="责任医生">随访总数</th>
+		<th>
+        	操作        </th>
+	</tr>
+	</thead>
+	<tbody >
+	 <!--{section name=custom loop=$diabetes}-->
+	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+                                        <td><img src="<!--{$basePath}-->images/<!--{$diabetes[custom].pic_name}-->"</td>
+                                       <td><!--{$diabetes[custom].ssname}--></td>
+		<td><!--{$diabetes[custom].name->address}--></td>
+		<td><!--{$diabetes[custom].name->phone_number}--></td>
+		<td><!--{$diabetes[custom].follow_time}--></td>
+		<td><!--{$diabetes[custom].doctor_name}--></td>
+		<td><!--{$diabetes[custom].snums}--></td>
+		<td >
+        	<img src="<!--{$basePath}-->images/chart_bar.png" onclick="view_blood_pic('<!--{$basePath}-->iha/search/xtpic/uuid/<!--{$diabetes[custom].id}-->')" alt="空腹血糖走势图" style="cursor: hand; height: 20px;" />&nbsp;|&nbsp;<a href="<!--{$basePath}-->cd/diabetes/index/id/<!--{$diabetes[custom].id}-->">进入查阅</a></td>
+	</tr>
+	<!--{sectionelse}-->
+	<tr>
+		<td colspan="7">对不起，未找到您要查询的内容！</td>
+	</tr>
+	 <!--{/section}-->
+	  <!--{$str}-->
+	  <tr>
+	  <td colspan="7" align="center">
+	   <!--{$pager}--></td>
+	</tr>
+	<!--{if $error_string}-->
+	<tr>
+		<td colspan="7"><!--{$error_string}--></td>
+	</tr>
+	<!--{/if}-->
+	</tbody>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+$("#search_tr").toggle(function(){$("#body_tr").show();$("#search_tr>img").attr("src","<!--{$basePath}-->images/zoom_out.png");},function(){$("#body_tr").hide();$("#search_tr>img").attr("src","<!--{$basePath}-->images/zoom_in.png");});
+</script>

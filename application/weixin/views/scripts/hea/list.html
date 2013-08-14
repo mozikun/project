@@ -1,0 +1,53 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            健康教育活动
+        </h3>
+    </div>
+    <div data-role="content">
+		<ul data-role="listview" data-divider-theme="b" data-inset="true">
+            <li data-role="list-divider" role="heading">
+                健康教育活动列表
+            </li>
+			<!--{if $result}-->
+			<!--{foreach from=$result item=item key=k}-->
+            <li data-theme="c">
+                <a href="<!--{$basePath}-->weixin/hea/detail/id/<!--{$item.id}-->" data-transition="slide">
+                      <!--{$item.activity_theme}-->&nbsp;<!--{$item.activity_time}-->
+                </a>
+            </li>
+			 <!--{/foreach}-->
+			<!--{else}-->
+			<li data-theme="c">
+                暂无信息！
+                         </li>
+			<!--{/if}-->
+        </ul>
+    </div>
+	 <div data-theme="a" data-role="footer" data-position="fixed">
+        <h3>
+            <!--{if $total_page>0}-->
+            <!--{$current_page}-->/<!--{$total_page}-->
+            <!--{/if}-->
+        </h3>
+		 <!--{if $pre_page>=1}-->
+        <a data-role="button" href="<!--{$basePath}-->weixin/hea/list/page/<!--{$pre_page}-->/org/<!--{$org}-->" data-icon="arrow-l" data-iconpos="left"
+        class="ui-btn-left">
+            上页
+        </a>
+		<!--{/if}-->
+		 <!--{if $next_page}-->
+        <a data-role="button" href="<!--{$basePath}-->weixin/hea/list/page/<!--{$next_page}-->/org/<!--{$org}-->" data-icon="arrow-r" data-iconpos="right"
+        class="ui-btn-right">
+            下页
+        </a>
+		<!--{/if}-->
+    </div>
+</div>
+</html>

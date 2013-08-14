@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>病历记录详细</title>
+<style>
+  body,h2,div,table,hr{
+	margin:0px;
+	margin-left:auto;
+	margin-right:auto;
+	padding:0px;
+	text-align:center;
+	font-size:14px;
+	line-height:28px;
+   }
+   hr{
+   width:80%;
+   color:#000000;
+   }
+	.info {
+	margin-left:10%;
+	margin-top:2px;
+	}
+.content{
+	width:100%;
+	height:500px;
+}
+table{
+ width:100%;
+ text-align:left;
+}
+.bold
+{
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+    <div style="margin-top:15px;">
+		<h1><!--{$orgname}-->病历记录</h1>
+		<div class='info'>
+		 <table>
+			<tr >
+				<td><span class="bold">姓名</span>&nbsp;[<!--{$name}-->]</td>
+				<td><span class="bold">科别</span>&nbsp;[<!--{$department}-->]</td>
+				<td><span class="bold">床号</span>&nbsp;[<!--{$bed_no}-->]</td>
+				<td><span class="bold">住院号</span>&nbsp;[<!--{$admission_number}-->]</td>								
+			</tr>	
+			</table>	
+			</div>
+		<hr>
+		<div class='info'>
+			<h3>入院记录</h3>
+				<table width="88%">
+					<tr>
+						<td width="27%" ><span class="bold">姓&nbsp;&nbsp;名</span>&nbsp;[<!--{$name}-->]</td>
+						<td width="40%" ><span class="bold">性别</span>&nbsp;[<!--{$gender}-->]</td>
+						<td width="33%"><span class="bold">年龄</span>&nbsp;[<!--{$age}-->]</td>
+					</tr>
+					<tr>
+						<td><span class="bold">出生地</span>&nbsp;[<!--{$birthplace}-->]</td>
+						<td><span class="bold">婚姻</span>&nbsp;[<!--{$marital_status}-->]</td>
+						<td><span class="bold">职业</span>&nbsp;[<!--{$occupation}-->]</td>						
+					</tr>
+					<tr>
+						<td><span class="bold">住址</span>&nbsp;[<!--{$address}-->]</td>
+						<td></td>
+						<td><span class="bold">民族</span>&nbsp;[<!--{$race}-->]</td>
+					</tr>
+					<tr>
+						<td><span class="bold">入院时间</span>&nbsp;[<!--{$race}-->]</td>
+						<td></td>
+						<td><span class="bold">病例记录时间</span>&nbsp;[<!--{$medical_records_time}-->]</td>
+					</tr>
+					<tr>
+						<td><span class="bold">病史叙述人</span>&nbsp;[<!--{$history_narrator}-->]</td>
+						<td></td>
+						<td><span class="bold">叙述可靠程度</span>&nbsp;[<!--{$reliability}-->]</td>
+					</tr>
+					<tr>
+						<td><span class="bold">主诉：</span>&nbsp;</td>
+						<td colspan='2'><!--{$complaints}--></td>
+					</tr>
+					<tr>
+						<td><span class="bold">现病史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$present_illness}--></td>
+					</tr>
+					<tr>
+						<td><span class="bold">既往史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$past_history}--></td>
+					</tr>
+										<tr>
+						<td><span class="bold">个人史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$personal_history}--></td>
+					</tr>
+					<!--{if $gender=='女'}-->
+					<tr>
+						<td><span class="bold">月经史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$menstrual_history}--></td>
+					</tr>
+					<!--{/if}-->
+										<tr>
+						<td><span class="bold">婚育史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$obsterical_history}--></td>
+					</tr>
+										<tr>
+						<td><span class="bold">家族史：</span>&nbsp;</td>
+						<td colspan='2'><!--{$family_history}--></td>
+					</tr>
+		  </table>
+				<h3>体格检查</h3>
+				<div>{T：[<!--{$physical_t}-->]C&nbsp;&nbsp;&nbsp;P：[<!--{$physical_p}-->]次/分&nbsp;&nbsp;&nbsp;&nbsp;R：[<!--{$physical_r}-->]次/分&nbsp;&nbsp;&nbsp;&nbsp;RP：[<!--{$physical_bp_p}-->]/[<!--{$physical_bp_s}-->]mmg}</div>
+				<table>
+					<tr>
+						<th width="12%" >一般情况:</th>
+						<td width="88%" colspan='2'><!--{$physical_general}--></td>
+					</tr>
+					<tr>
+						<th>皮肤粘膜:</th>
+						<td colspan='2'><!--{$physical_skin}--></td>
+					</tr>	
+					<tr>
+						<th>淋巴结:</th>
+						<td colspan='2'><!--{$physical_lymphaden}--></td>
+					</tr>	
+					<tr>
+						<th>头颅:</th>
+						<td colspan='2'><!--{$physical_head}--></td>
+					</tr>
+					<tr>
+						<th>颈部:</th>
+						<td colspan='2'><!--{$physical_neck}--></td>
+					</tr>	
+					<tr>
+						<th>胸部:</th>
+						<td colspan='2'><!--{$physical_chest}--></td>
+					</tr>
+					<tr>
+						<th>周围血管征:</th>
+						<td colspan='2'><!--{$physical_vein}--></td>
+					</tr>																														
+				</table>
+				<h3>辅助检查</h3>
+				<table>
+					<tr>
+						<th width="14%" >心电图:</th>
+						<td colspan='2'><!--{$physical_vein}--></td>
+					</tr>	
+					<tr>
+						<th>肾功能电解质:</th>
+						<td colspan='2'><!--{$examine_electrolyte}--></td>
+					</tr>	
+					<tr>
+						<th>血糖:</th>
+						<td colspan='2'><!--{$examine_blood_sugar}--></td>
+					</tr>
+					<tr>
+						<th>血糖常规:</th>
+						<td colspan='2'><!--{$examine_blood}--></td>
+					</tr>
+					<tr>
+						<th>心彩超:</th>
+						<td colspan='2'><!--{$examine_heart_cdus}--></td>
+					</tr>	
+					<tr>
+						<th>胸片:</th>
+						<td colspan='2'><!--{$examine_sternum}--></td>
+					</tr>
+					<tr>
+						
+						<th>初步诊断：</th>
+						<td colspan="2"><!--{$primary_diagnosis}--></td>
+					</tr>
+					 <tr>
+					 	<td ></td>
+					 	<th width="81%">住院医生：<!--{$housestaff}--></th>
+						
+					 </tr>	
+					 <tr>
+					 	<th>主治医生:<!--{$visiting_doctor}--></th>
+					 	<td width="5%"><!--{$visiting_doctor_time}--></td>
+					 </tr>						 																										
+				</table>
+	  </div>
+			</div>
+</body>
+</html>

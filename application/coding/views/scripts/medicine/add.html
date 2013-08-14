@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<script type="text/javascript">
+//input_id输入表单的ID
+//span_id，待显示html的span的ID
+function get_region_select_html(base_path,input_id,span_id)
+{
+    var org_id=$("#"+input_id).val();//隐藏表单字段的值
+    var url=base_path+'coding/index/dropmenu/ajax_category_id/'+org_id+'/input_id/'+input_id+'/container_id/'+span_id+'/sid/'+Math.random();//待请求的地址
+    $.get(url,function(select_html){
+        //处理地址
+        $("#"+span_id).html(select_html);
+    });
+}
+//input_id输入表单的ID
+//span_id，待显示html的span的ID
+function change_org(input_id,span_id,currentValue,base_path){
+	var tempValue=currentValue.split("|");
+	//alert(tempValue);
+	if(tempValue[0]=='-9')
+    {
+		//如果选择了　请选择，则把此级的父级作为当前选定的项目
+		$("#"+input_id).val(tempValue[1]);
+	}
+    else
+    {
+		$("#"+input_id).val(tempValue[0]);
+		//alert(tempValue[0]);
+	}
+    get_region_select_html(base_path,input_id,span_id);
+}
+$(document).ready(function()
+{
+	get_region_select_html('<!--{$basePath}-->','ajax_category_id','category_area');
+});
+<!--{$msg}-->
+</script>
+<title><!--{if ($add_tag)}-->药品添加<!--{else}-->药品编辑<!--{/if}--></title>
+</head>
+<body>
+<form action="" method="POST">
+<table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><strong><!--{if ($add_tag)}-->药品添加<!--{else}-->药品编辑<!--{/if}--></strong></td>
+     </tr>
+     <tr>
+        <td>药品通用名类别：</td>
+        <td>
+            <!--{if ($add_tag)}-->
+              <input type="hidden" name="ajax_category_id" id="ajax_category_id" value="1" />            
+            <!--{else}-->
+              <input type="hidden" name="ajax_category_id" id="ajax_category_id" value="<!--{$ajax_category_id}-->" />
+            <!--{/if}-->
+            <span id="category_area"></span>
+        </td>
+     </tr>
+    <tr>
+       <td>药品通用编码：</td>
+       <td><input name="medicine_code" type="text"  value="<!--{$medicine_code}-->" /></td>
+    </tr>
+    <tr>
+       <td>药品通用名名称：</td>
+       <td><input name="medicine_name" type="text"  value="<!--{$medicine_name}-->" /></td>
+    </tr>
+    <tr >
+      <td colspan="2">
+      <div align="center">
+      <!--{if ($add_tag)}-->
+          <input type="submit" name="ok" value="添加" />
+          <!--{else}--><input type="submit" name="ok" value="修改" /><!--{/if}-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="button" value="退出" onclick="window.location='<!--{$basePath}-->coding/medicine/index'" />
+      </div></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
+

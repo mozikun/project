@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>互为户主问题的处理</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+
+</style>
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+</head>
+<body>
+<table border="0" width="100%" cellspacing="0">
+	<thead>
+    <tr class="headbg">
+        <th colspan="5">
+        	根据身份证号移除户主属性确认界面
+        </th>
+	</tr>
+	</thead>
+	<tbody id="iha">
+	<form id="form" action="" onsubmit="return checkselected();">
+		<tr>
+			<td style="width:10%"></td>
+			<td style="width:10%">姓名</td>
+			<td style="width:20%">档案号</td>
+			<td style="width:10%">身份证号</td>
+			<td style="width:30%">地址</td>
+		</tr>
+		<!--{section name=iha loop=$iha}-->
+		<tr>
+			<td><input type="checkbox" value="<!--{$iha[iha].identity_number}-->" name="selectFlag[]" id="selectFlag"/></td>
+			<td><!--{$iha[iha].name}--></td>
+			<td><!--{$iha[iha].standard_code}--></td>
+			<td><!--{$iha[iha].identity_number}--></td>
+			<td><!--{$iha[iha].address}--></td>
+		</tr>
+		<!--{sectionelse}-->
+		<tr>
+			<td colspan="5">数据库中没有此人信息&nbsp;</td>
+		</tr>
+		<!--{/section}-->
+		<tr><td colspan="5"> <div style="float:left"><label><input type="checkbox" value="" name="ifAll" id="ifAll" onClick="return checkselect();"/>全选 </label>
+	        &nbsp;&nbsp;<input type="submit" value="确认修改" /> &nbsp;&nbsp<input type="button" onclick="javascript:window.location='<!--{$basePath}-->tools/movehouseder/index'" value="返回"/></div></td></tr>
+	</tbody>
+	</form>
+</table>
+</body>
+</html>
+<script type="text/javascript">
+//全选、反选
+function checkselect() {
+	  for (var i = 0; i < document.getElementsByName("selectFlag[]").length; i++) {
+	   document.getElementsByName("selectFlag[]")[i].checked = document.getElementById("ifAll").checked;
+	  }
+	 }
+//选中与否，有选中项才执行删除	 
+function checkselected()
+{
+	var token=0;//标志
+	$("input[name='selectFlag[]']").each(function(){
+		//alert($(this).attr('checked'));
+		
+		if($(this).attr('checked')==true){
+			token=1;//有选中项
+		}	
+	});
+	if(token==1){
+		if(confirm('你真的要修改选中项么？')){
+			//执行删除操作
+			  $.post("<!--{$basePath}-->tools/movehouseder/update",$("#form").serialize(),function (msg) {
+			  	
+			     alert(msg);
+			     window.location='<!--{$basePath}-->tools/movehouseder/index';
+		 });
+		 return false;
+		}else{
+			//取消删除
+			return false;
+		}
+		//return false;
+	}else{
+		alert('没有选中要修改的项！');
+		return false;
+	}
+}
+</script>

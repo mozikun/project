@@ -1,0 +1,311 @@
+body{
+	text-align:center;
+	font-size:14px;
+}
+div{
+	position:relative;
+	float:left;
+	/*filter:alpha(opacity=100);*/
+}
+#mainDiv{
+	width:800px;
+	float:none;
+	/*ie div与文字居中*/
+	text-align:center;
+	/*以下兼容firefox居中*/
+	margin-left:auto;
+	margin-right:auto;
+}
+#topDiv{
+	border:#C5D9F1 1px solid;
+	width:800px;
+	height:150px;
+}
+#topLeft{
+	/*border:#0033CC 1px solid;*/
+	margin:0 5px 0 5px;
+	width:183px;
+	height:150px;
+}
+#topRight{
+	/*border: 1px solid #0033CC ;*/
+	/*background:#CCCCCC;*/
+	width:598px;
+	height:150px;
+	
+}
+/*图片样式*/
+.image{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:120px;
+}
+/*幻灯片图片样式*/
+.alterImage1{
+	padding:2px;
+	margin:5px;
+	border: 1px solid #CCCCCC ;/*#D8EBD8*/
+	float: right;
+	width:100px;
+	height:130px;
+	display:none;
+}
+
+/*幻灯片的第一张主动显示出来*/
+.initialImage{
+	display:block;
+}
+#topMenuDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	/*与页面的宽度一样，要好看一些*/
+	width:800px;
+	line-height:40px;
+	z-index:100;
+	background:#EBF3FB;
+	/*#008AE4-蓝色*/;
+}
+#topMenuUl{
+	float:none;
+	margin:0;
+	padding:0;
+	/*这两个决定菜单的高度*/
+	line-height:36px;
+	height:36px;
+	/*列表样式为无*/
+	list-style-type:none;
+	border-bottom:solid 4px #C5D9F1;
+	/*#ACACAC*/
+	width:100%;
+}
+#topMenuUl li{
+	float:left;
+	margin:0;
+	padding:0;
+	width:90px;
+	background:#EBF3FB;
+	/*当列表横起来后，充当块的右边界*/
+	border-right:solid 1px #C5D9F1;
+	/*必须要text-align:left,教学中作为调试，可修改给学生看align为right的情况*/
+	text-align:left;
+}
+#topMenuUl li a{
+	/*这里必须要用none,如果不用none,则下拉菜单会浮动到与主菜单同一水平位置*/
+	float:none;
+	/*a用block的方式呈现，所以a hover就成整体反色效果了*/
+	display:block;
+	/*这里必须要用100%，使每个a都充满所在的li的左右边界，否则下拉菜单的位置不对*/
+	width:100%;
+	text-decoration:none;
+	color:#000000;
+	margin:0;
+	padding:0;
+	/*必须要*/
+	text-align:center;
+}
+#topMenuUl li a:hover{
+	background:#C5D9F1;
+}
+.subMenu{
+	border-bottom:solid 1px #C5D9F1;
+}
+#topMenuUl li ul{
+	/*这个ul与上面的a都是父级下面的二个块，只要处理好这两个块的关系，下拉菜单的制作就很简单了*/
+	/*此处一定为absolute，根据层的相对与绝对浮动原理，就能使下拉菜单显示在下方*/
+	position:absolute;
+	/*刚载入时，所有的下拉菜单都不显示*/
+	display:none;
+	width:80px;
+	line-height:24px;
+	list-style-type:none;
+	margin:0px 0px 0px -1px;
+	padding:0px;
+}
+#topMenuUl li ul li{
+	float:left;
+	background:#EBF3FB;
+	border-left:solid 1px #C5D9F1;
+	border-right:solid 1px #C5D9F1;	
+	/*border-top:solid 1px #C5D9F1;*/
+	border-bottom:solid 1px #C5D9F1;
+	margin:0px;
+	padding:0px;
+
+}
+#topMenuUl li ul li a{
+	margin:0px;
+	padding:0px;
+
+	/*width:80px;*/
+}
+#bodyDiv{
+	border:#C5D9F1 1px solid;
+	border-top:none;
+	width:800px;
+	/*height:600px;*/
+}
+#bodyLeftDiv{
+	/*border:#C5D9F1 1px solid;*/
+	/*
+	border-top:none;
+	border-left:none;
+	border-bottom:none;
+	注意div的总宽度=border*2+width+padding+margin-left*2+margin-right
+	如，上一级div的width是800，则内部可用的宽度是800，
+	设置为float的div在ie下设置的margin-left会加倍。这是一个ie6都存在的bug。 
+	解决方案是在这个div里面加上display:inline;
+	
+	offsetWidth是整个DIV的显示宽度。不包括margin,但是包括padding,border,scrollbar的宽度。。   
+	clientWidth就是offsetWidth除去border,padding,scrollbar后里面的宽度...   
+	scrollWidth和clientWidth相关。指DIV里面东西的实际宽度
+	*/
+	margin:5px 5px 5px 3px;
+	padding:0px;
+	width:183px;
+	/*height:600px;*/
+	text-align:center;
+}
+.leftDiv{
+	float:left;
+	width:170px;
+	height:170px;
+	border:none;
+	margin:2px;
+	border-bottom:solid 1px #C5D9F1;
+	text-align:left;
+}
+.leftDiv a{
+	text-decoration:none;
+	color:#000000;	
+}
+.leftDiv a:hover{
+	text-decoration:none;	
+}
+
+#bodyRightDiv{
+	margin:5px 0px 5px 0px;
+	/*此框不要边线*/
+	/*border:#999999 1px solid;*/
+	width:598px;
+	/*height:600px;*/
+}
+.tab{
+	position:relative;
+	float:none;
+	width:594px;
+	height:200px;
+	/*border:solid 1px #000000;*/
+	margin:0px;
+}	
+.tabMenu{
+	float:left;
+	display:block;
+	width:100px;
+	height:30px;
+	border:solid 1px #C5D9F1;
+	margin:1px 1px 0px 1px;
+	z-index:1;
+	background-color:#EBF3FB;
+	line-height:30px
+}
+.tabMenu a{
+	text-decoration:none;
+	color:#000000;	
+}
+.tabMenu a:hover{
+	text-decoration:none;	
+}	
+.tabMenu:hover1{
+	/*此方法在ie6下无用，改用js控制*/
+	background-color:#FFFFFF;
+}
+.tabMenu2{
+	width:50px;
+}
+.tabMenu3{
+	width:180px;
+}
+.tabBody{
+	display:none;
+	float:left;
+	/*tabBody的宽度一定要小于tab的宽度*/
+	width:562px;
+	/*tabBody的高度一定要小于tab的高度*/
+	height:140px;
+	border:solid 1px #C5D9F1;
+	margin:-1px 1px 1px 1px;
+	padding:10px;
+	z-index:1;
+	text-align:left;
+	line-height:20px
+	
+	/*background-color:#FF0000;*/
+}
+.tabBody a{
+	display:block;
+	text-decoration:none;
+	color:#000000;
+	margin:2px 0px 2px 0px;
+}
+.tabBody a:hover{
+	text-decoration:underline;	
+}
+
+
+/*等同于前面的.tab,都套一个不可见的外框*/
+.tabImg{
+	position:relative;
+	float:none;
+	width:594px;
+	height:180px;
+	/*border:solid 1px #000000;*/
+	margin:0px;
+}
+/*等同于前面的.tabBody*/	
+.imageList{
+	position:relative;
+	float:left;
+	/*tabBody的宽度一定要小于tab的宽度*/
+	width:562px;
+	/*tabBody的高度一定要小于tab的高度*/
+	height:140px;
+	border:solid 1px #C5D9F1;
+	margin:-1px 1px 1px 1px;
+	padding:10px;
+}
+.imageList img{
+	position:relative;
+	float:left;
+	width:150px;
+	height:110px;
+	padding:2px 2px 20px 2px;
+	background-color:#EBF3FB;
+}
+fieldset{
+
+}
+fieldset legend{
+	padding:4px;
+	border:#C5D9F1 1px solid;
+	/*font-weight:bold;*/
+}
+fieldset legend a{
+	text-decoration:none;
+	color:#000000;	
+}
+fieldset legend a:hover{
+	text-decoration:none;	
+}
+
+#footerDiv{
+	float:left;
+	border:#C5D9F1 1px solid;
+	/*border-top:none;*/
+	margin:0px;
+	margin-top:2px;
+	width:800px;
+	height:50px;
+}

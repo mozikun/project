@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$orgName}--></title>
+<link href="/views/templates/testsmarty/index.css" type="text/css" rel="stylesheet" />
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#FF9966" vlink="#FF9966" alink="#FFCC99">
+<div id="mainDiv">
+	<!--包头-->
+	<!--{include file="./testsmarty/header.html"}-->
+	<div id="bodyDiv">
+		<div id="bodyLeftDiv">
+			<div class="leftDiv">sss1</div>
+			<div class="leftDiv">sss2</div>
+			<div class="leftDiv">sss3</div>
+		</div>
+		<div id="bodyRightDiv">
+					
+			<div id="tab1" class="tab">
+				<div class="tabMenu" divType="tabMenu">
+					<a href="#"><!--{$body_21}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="#"><!--{$body_11}--></a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="#">menu3</a>
+				</div>
+				<div class="tabMenu" divType="tabMenu">
+					<a href="#">menu4</a>
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<!--显示该栏目下最新的一个图片-->
+					<a href="<!--{$body_imgae_url_21}-->"><img class="image" src="<!--{$body_imgae_21}-->" alt="<!--{$body_imgae_title_21}-->" /></a>
+					<!--显示该栏目下最新的6条新闻-->
+					<!--{section name=body_list_21 loop=$body_list_21}-->
+						<a href="<!--{$body_list_21[body_list_21].url}-->"><!--{$body_list_21[body_list_21].title}-->&nbsp;[<!--{$body_list_21[body_list_21].date}-->]</a>
+					<!--{/section}-->
+
+				</div>
+				<div class="tabBody" divType="tabBody">
+					<a href="<!--{$body_imgae_url_11}-->"><img class="image" src="<!--{$body_imgae_11}-->" alt="<!--{$body_imgae_title_11}-->" /></a>
+					<!--{section name=body_list_11 loop=$body_list_11}-->
+						<a href="<!--{$body_list_21[body_list_11].url}-->"><!--{$body_list_11[body_list_11].title}-->&nbsp;[<!--{$body_list_11[body_list_11].date}-->]</a>
+					<!--{/section}-->
+				</div>
+				<div class="tabBody tabBody1" divType="tabBody">
+					<a href="#">子栏目1文章列表1</a>
+					<a href="#">子栏目1文章列表1</a>
+					<a href="#">子栏目1文章列表13</a>
+					<a href="#">子栏目1文章列表14</a>
+					<a href="#">子栏目1文章列表15</a>
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu4_body
+				</div>
+			</div><!--tab1 end-->
+			
+			<div id="tab2" class="tab">
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu1
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu2
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu3
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu4
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu5
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu6
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu7
+				</div>
+				<div class="tabMenu tabMenu2" divType="tabMenu">
+					menu8
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu1_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu2_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu3_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu4_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu5_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu6_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu7_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu8_body
+				</div>			
+			</div><!--tab2 end-->
+			
+			<div id="tab3" class="tab">
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					学院招生工作1
+				</div>
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					学院招生工作2
+				</div>
+				<div class="tabMenu tabMenu3" divType="tabMenu">
+					学院招生工作3
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu1_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu2_body
+				</div>
+				<div class="tabBody" divType="tabBody">
+					menu3_body
+				</div>
+			</div><!--tab3 end-->
+			<div class="tabImg">
+				<div class="imageList">
+					<!--{section name=body_image_list_21 loop=$body_image_list_21}-->
+						<a href="<!--{$body_image_list_21[body_image_list_21].url}-->"><img class="image" src="<!--{$body_image_list_21[body_image_list_21].imageUrl}-->" alt="<!--{$body_image_list_21[body_image_list_21].title}-->" /></a>
+					<!--{/section}-->
+				</div>
+			</div>	
+			<!--用div显示图片列表-->
+			<div class="tabImg">	
+				<div class="imageList">
+					<a href="#"><img class="image" src="/images/frontpage/3.jpg" alt="这是我们的图片1" /></a>
+					<a href="#"><img class="image" src="/images/frontpage/2.jpg" alt="这是我们的图片2" /></a>
+					<a href="#"><img class="image" src="/images/frontpage/1.jpg" alt="这是我们的图片3" /></a>
+				</div>
+			</div>
+			<!--用fieldset显示图片列表-->
+			<div class="tabImg">
+				<fieldset class="imageList">
+					<legend>
+						<!--{$body_21}-->
+					</legend>
+						<!--{section name=body_image_list_21 loop=$body_image_list_21}-->
+							<a href="<!--{$body_image_list_21[body_image_list_21].url}-->"><img class="image" src="<!--{$body_image_list_21[body_image_list_21].imageUrl}-->" alt="<!--{$body_image_list_21[body_image_list_21].title}-->" /></a>
+						<!--{/section}-->
+				</fieldset>
+			</div>
+			<div class="tabImg">	
+				<fieldset class="imageList">
+					<legend>
+						标题新闻标题新闻标题新闻
+					</legend>
+					标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容标题新闻内容
+				</fieldset>
+			</div>			
+		</div><!--bodyRightDiv end-->
+	</div>
+	<!--包脚-->
+	<!--{include file="./testsmarty/footer.html"}-->
+</div>
+<script type="text/javascript" src="/views/templates/testsmarty/index.js"></script>
+</body>
+</html>

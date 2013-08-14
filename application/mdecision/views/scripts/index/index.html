@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" ></script> 
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<style>
+a{
+	text-decoration:none;
+}
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+</style>
+<title>医疗业务分析</title>
+</head>
+<body>
+<table  width="100%" >
+     <tr class="bigfont">
+       <td colspan="7" align="left">
+       <form method="POST" action="<!--{$basePath}-->mdecision/index/index/parent_id/<!--{$add_need_id}-->">
+       <strong>医疗业务分析</strong>
+       <input name="start_time" id="start_time" type="text" onClick="WdatePicker({firstDayOfWeek:1,maxDate:'#F{$dp.$D(\'end_time\')||\'2050-10-01\'}'})" value="<!--{$start_time}-->" class="Wdate" />
+       至
+       <input name="end_time" id="end_time" type="text" onClick="WdatePicker({firstDayOfWeek:1,minDate:'#F{$dp.$D(\'start_time\')}',maxDate:'2050-10-01'})" value="<!--{$end_time}-->" class="Wdate" />
+       
+       &nbsp;<input type="submit" name="submit" value="查询" />
+       </form>
+       </td>
+     </tr>
+     <tr class="headbg">
+		<td colspan="7">
+		    <!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->mdecision/index/index/parent_id/<!--{$rs[rs].id}-->/start_time/<!--{$start_time}-->/end_time/<!--{$end_time}-->"><!--{if $add_need_id eq $rs[rs].id}--><strong style="color:red;"><!--{$rs[rs].zh_name}--></strong></a><!--{else}--><a href="<!--{$basePath}-->mdecision/index/index/parent_id/<!--{$rs[rs].id}-->/start_time/<!--{$start_time}-->/end_time/<!--{$end_time}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}-->
+		</td>
+     </tr>
+     <tr class="bigfont">
+     <td align="center"><strong>地区名称</strong></td>
+     <td align="center"><strong>门诊人次</strong></td>
+     <td align="center"><strong>急诊人次</strong></td>
+     <td align="center"><strong>入院人次</strong></td>
+     <td align="center"><strong>出院人次</strong></td>
+     <td align="center"><strong>在院人数</strong></td>	
+     <td align="center"><strong><!--{if $td_title!=2}-->查看下级地区<!--{/if}-->
+           <!--{if $td_title==2}-->建档机构<!--{/if}--></strong></td>
+    </tr>
+    <!--{section loop=$row name=row}-->
+   <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+    <td align="center"><strong><!--{$row[row].zh_name}--></strong></td>
+    <td align="center"><!--{$row[row].mzrc}--></td>
+    <td align="center"><!--{$row[row].jzrc}--></td>
+    <td align="center"><!--{$row[row].ryrc}--></td>
+    <td align="center"><!--{$row[row].cyrc}--></td>
+    <td align="center"><!--{$row[row].zyrs}--></td>
+    <td align="center"><!--{if $td_title!=2}--><a href="<!--{$basePath}-->mdecision/index/index/parent_id/<!--{$row[row].id}-->/start_time/<!--{$start_time}-->/end_time/<!--{$end_time}-->">[进入子地区]</a><!--{/if}-->
+           <!--{if $td_title==2}--><!--{$row[row].org_zh_name}--><!--{/if}--></td>
+   </tr>
+  <!--{/section}-->
+   <tr align="center" class="headbg">
+     <td>合计</td>
+     <td><!--{$sum_mzrc}--></td>
+     <td><!--{$sum_jzrc}--></td>
+     <td><!--{$sum_ryrc}--></td>
+     <td><!--{$sum_cyrc}--></td>
+     <td><!--{$sum_zyrs}--></td>
+     <td></td>
+   </tr>
+</table>
+</body>
+</html>

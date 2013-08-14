@@ -1,0 +1,319 @@
+<!--{include file=header.html}-->
+    <!--导航栏结束，主体开始-->
+    <div class="main_body">
+      <div class="body_menu">
+        <div class="bm_left">
+          <div class="small_num"><b class="oller">1</b><b>2</b><b>3</b><b>4</b></div>
+          <ul class="big_num">
+            <li><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_09.png" width="670" height="250"></a></li>
+            <li style="display:none;"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_09.png" width="670" height="250"></a></li>
+            <li style="display:none;"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_09.png" width="670" height="250"></a></li>
+            <li style="display:none;"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_09.png" width="670" height="250"></a></li>
+          </ul>
+        </div>
+        <div class="bm_right">
+          <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+          <div class="bv_conts">
+            <form id="form2" action="<!--{$basePath}-->appointment/reservation/index" method="post">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                <tr>
+                  <td width="29%" align="right">预约时间：</td>
+                  <td width="71%"><input type="text" name="" class="bv_text"></td>
+                </tr>
+                <tr>
+                  <td align="right">地区：</td>
+                  <td><select class="bv_selecd">
+                      <option>选择地区</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td align="right">医院：</td>
+                  <td><select class="bv_text">
+                      <option>请选择医院</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td align="right">科室：</td>
+                  <td><select class="bv_text">
+                      <option>请选择科室</option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <td align="right">医生：</td>
+                  <td><input type="text" name="" class="bv_text"></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png" /></td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+        <div class="bbk"></div>
+      </div>
+      <!--body_regist开始 -->
+      <div class="body_regist">
+        <div class="re_left">
+          <form id="" action="<!--{$basePath}-->iha/search/search" method="post" onsubmit="return chk_login()">
+            <div class="left_st"><img src="<!--{$basePath}-->views/images/mh/ws_15.png" width="115" height="27"></div>
+            <ul class="left_ller">
+              <li class="left_sl"> 登陆方式：
+                <select id="ne_select" class="ne_select">
+                  <option>身份证号码登陆</option>
+                </select>
+              </li>
+              <li> 身份证号：
+                <input type="text" name="card" class="ne_inpt"/>
+              </li>
+              <li> 密码：
+                <input type="password" name="password" class="ne_inpt"/>
+              </li>
+              <li>
+                <input type="image" src="<!--{$basePath}-->views/images/mh/ws_16.png"/>
+              </li>
+              
+            </ul>
+          </form>
+        </div>
+        <div class="re_right"> <a href="#">查询说明</a><br />
+          <a href="#">使用帮助</a> </div>
+        <div class="bbk"></div>
+      </div>
+      <!--body_regist结束，body_regist开始-->
+      <div class="body_lists">
+        <div class="li_left">
+          <div class="lil_left">
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">预约挂号排行榜</span></div>
+            <div class="li_conts">
+              <div class="tbs_top">
+                <div class="tbs_ts">
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tbs_td">
+				  <!--{foreach from=$doctors item=d key=k}-->
+				  <!--{if $k<=7}-->
+                    <tr <!--{if $k%2==0}-->class="ous"<!--{/if}-->>
+                      <td width="27%"><!--{$k}-->.</td>
+                      <td width="73%"><!--{$d.doctor_name}--></td>
+                    </tr>
+				<!--{/if}-->	
+				 <!--{/foreach}-->	
+                    
+                  </table>
+                </div>
+                <div class="tbs_ts">
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" class="tbs_td">
+                     <!--{foreach from=$doctors item=d key=k}-->
+				  <!--{if $k>=7&&$k<=14}-->
+                    <tr <!--{if $k%2==0}-->class="ous"<!--{/if}-->>
+                      <td width="27%"><!--{$k}-->.</td>
+                      <td width="73%"><!--{$d.doctor_name}--></td>
+                    </tr>
+				<!--{/if}-->	
+				 <!--{/foreach}-->	
+                    
+                  </table>
+                </div>
+                <div class="bbk"></div>
+              </div>
+              <div class="tbs_btts">
+                <div class="btts_inner">
+                  <div class="biner_left">
+                    <ul>
+                      <li></li>
+                      <li class="esdd"></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div class="biner_right"><a href="javascript:;"><img src="<!--{$basePath}-->views/images/mh/ws_24.png" width="18" height="18"></a> <a href="javascript:;"><img src="<!--{$basePath}-->views/images/mh/ws_23.png" width="18" height="18"></a> </div>
+                  <div class="bbk"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lil_right">
+            <div class="li_title"><span class="spn1 spn2"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><b><!--{$jkxw.name}--></b></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$jkxw.py}-->">更多》</a></div>
+            <div class="li_conts">
+              <ul class="ulst">
+                <!--{section name=jkxw loop=$jkxw.articles}-->
+                <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$jkxw.articles[jkxw].uuid}-->">·<!--{$jkxw.articles[jkxw].title}--></a></li>
+              <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <div class="bbk"></div>
+          <div class="lil_left">
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">医患互动</span><a href="#">更多》</a></div>
+            <div class="li_conts">
+            <div class="lic_tops">
+            <div class="li_ltimg"><img src="<!--{$basePath}-->views/images/mh/ws_30.png" width="100" height="85"></div>
+            <div class="li_rttext">
+            <h2>关注体育锻炼 正视运动损伤</h2>
+            <p>运动损伤是指运动过程中发生的各种损伤及专损伤及专损伤及专项...<a href="#">【详情】</a></p>
+            </div>
+            <div class="bbk"></div>
+            </div>
+            <ul class="ulst">
+                <li><a href="#">·手长老茧或手太软预示...</a></li>
+                <li><a href="#"> ·昼夜织“围脖”小心眼中风从"嘴破"</a></li>
+                <li><a href="#"> ·让你越放假越累冬天用达克宁效果更好</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="lil_right">
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><!--{$mbzs.name}--></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$mbzs.py}-->">更多》</a></div>
+            <div class="li_conts">
+            <div class="lic_tops">
+            
+            <div class="li_rttext notsame">
+                        <div class="unhigh unnot"><!--{section name=mbzs loop=$mbzs.son}--><!--{if $smarty.section.mbzs.last}-->
+<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$mbzs.son[mbzs].py}-->"><!--{$mbzs.son[mbzs].name}--></a><!--{else}--><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$mbzs.son[mbzs].py}-->"><!--{$mbzs.son[mbzs].name}--></a> | <!--{/if}--><!--{/section}--></div>
+            <!--{section name=mbzs loop=$mbzs.articles max=4}-->
+            <!--{if $smarty.section.mbzs.first}-->
+            <h2><!--{$mbzs.articles[mbzs].title}--></h2>
+            <p><!--{$mbzs.articles[mbzs].info}--><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$mbzs.articles[mbzs].uuid}-->">【详情】</a></p>
+            </div>
+            <div class="bbk"></div>
+            </div>
+            <ul class="ulst">
+            <!--{else}-->
+            <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$mbzs.articles[mbzs].uuid}-->">·<!--{$mbzs.articles[mbzs].title}--></a></li>
+            <!--{/if}-->
+              <!--{sectionelse}-->
+              </div>
+                <div class="bbk"></div>
+                </div>
+              <ul class="ulst">
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <div class="bbk"></div>
+          <div class="lil_left">
+            <div class="li_title"><span class="spn1 spn2"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><b class="dasw"><!--{$jbzs.name}--></b></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$jbzs.py}-->">更多》</a></div>
+            <div class="li_conts">
+              <ul class="ulst">
+                <!--{section name=jbzs loop=$jbzs.articles}-->
+                <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$jbzs.articles[jbzs].uuid}-->">·<!--{$jbzs.articles[jbzs].title}--></a></li>
+              <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <div class="lil_right">
+            <div class="li_title"><span class="spn1 spn2"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><b class="dasw"><!--{$shcs.name}--></b></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$shcs.py}-->">更多》</a></div>
+            <div class="li_conts">
+            <div class="unhigh"><!--{section name=shcs loop=$shcs.son}--><!--{if $smarty.section.shcs.last}-->
+<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$shcs.son[shcs].py}-->"><!--{$shcs.son[shcs].name}--></a><!--{else}--><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$shcs.son[shcs].py}-->"><!--{$shcs.son[shcs].name}--></a> | <!--{/if}--><!--{/section}--></div>
+              <ul class="ulst unhill">
+              <!--{section name=shcs loop=$shcs.articles}-->
+                <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$shcs.articles[shcs].uuid}-->">·<!--{$shcs.articles[shcs].title}--></a></li>
+              <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <div class="bbk"></div>
+        </div>
+        <div class="li_right">
+          <div class="lir_inner notal">
+            <div class="notal_top">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
+              <div class="ntop_conts">
+                <form id="" action="#">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td width="27%">免疫卡片:</td>
+                      <td width="45%"><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                      <td width="28%">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>接种时间:</td>
+                      <td><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                      <td><input type="image" name="imageField" id="imageField" src="<!--{$basePath}-->views/images/mh/ws_26.png" class="img_btn"></td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div>
+            <div class="notal_bottm">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">联网医院</span><a href="<!--{$basePath}-->web/hospital/index">更多》</a></div>
+              <div class="hospital">
+                <ul>
+                <!--{section name=orgs loop=$orgs}-->
+                  <li><a href="<!--{$basePath}-->web/hospital/detail/id/<!--{$orgs[orgs].id}-->"><!--{$orgs[orgs].zh_name}--></a></li>
+                  <!--{/section}-->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="lir_inner">
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><!--{$jkjy.name}--></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$jkjy.py}-->">更多》</a></div>
+            <div class="li_conts">
+            <div class="unhigh"><!--{section name=jkjy loop=$jkjy.son}--><!--{if $smarty.section.jkjy.last}-->
+<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$jkjy.son[jkjy].py}-->"><!--{$jkjy.son[jkjy].name}--></a><!--{else}--><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$jkjy.son[jkjy].py}-->"><!--{$jkjy.son[jkjy].name}--></a> | <!--{/if}--><!--{/section}--></div>
+             <ul class="ulst unhill">
+                <!--{section name=jkjy loop=$jkjy.articles}-->
+                <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$jkjy.articles[jkjy].uuid}-->">·<!--{$jkjy.articles[jkjy].title}--></a></li>
+              <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+          <div class="lir_inner">
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11"><!--{$zxcs.name}--></span><a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$zxcs.py}-->">更多》</a></div>
+            <div class="li_conts">
+             <ul class="ulst">
+                <!--{section name=zxcs loop=$zxcs.articles}-->
+                <li><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$zxcs.articles[zxcs].uuid}-->">·<!--{$zxcs.articles[zxcs].title}--></a></li>
+              <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+              <!--{/section}-->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="bbk"></div>
+      </div>
+    </div>
+<!--{include file=footer.html}-->
+<script>
+$(document).ready(function() {
+	var n=0;
+	$('.small_num b').mousemove(function(){
+		var i=$(this).index();
+		$(this).addClass('oller').siblings().removeClass('oller');
+		$('.big_num li').eq(i).fadeIn().siblings().fadeOut();
+		if(i<3){++n}
+		else{n=0;} 
+	});
+	$('.bm_left').hover(function(){
+		clearInterval(t);	
+	},function(){
+		t=setInterval(function(){
+			$('.small_num b').eq(n).trigger('mousemove');	
+		},2000);
+	}).trigger('mouseout');   
+});
+function chk_login()
+{
+    if($("input[name='card']").val()=="")
+    {
+        alert("请输入身份证号码");
+        $("input[name='card']").focus();
+        return false;
+    }
+    if($("input[name='password']").val()=="")
+    {
+        alert("请输入账户密码");
+        $("input[name='password']").focus();
+        return false;
+    }
+
+}
+</script>

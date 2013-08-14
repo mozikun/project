@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+<style>
+table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+.bigfont{
+    background:#DAE6F3;
+}
+a{
+	text-decoration:none;
+}
+</style>
+</head>
+<body>
+<table width="100%" align="center">
+   <tr class="headbg">
+       <td colspan="7">标准代码维护列表&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="生成所有的数据" onclick="window.location='<!--{$basePath}-->wsinfo/infmanage/all'" style="line-height:16px;"/></td>
+   </tr>
+   <form action="<!--{$basePath}-->wsinfo/infmanage/index" method="post">
+	   <tr>
+	     <td colspan="7">
+	              模块名称:<input type="text" name="module_search"/>
+	              表名:    <input  name="table_search" type="text"/> 
+	     <input type="hidden" name="pagenow" value="<!--{$pageCurrent}-->"/>
+	     <input name="ok" value="搜索" type="submit" style="height:25px;line-height:20px;"/>
+	     </td>
+	   </tr>
+   </form>
+   <tr class="headbg">
+    <td width="14%"><strong>数据元标识符</strong></td>
+	<td><strong>数据元名称</strong></td>
+	<td><strong>定义</strong></td>
+	<td><strong>模块名称</strong></td>
+	<td><strong>表名</strong></td>
+	<td><strong>字段名</strong></td>
+	<td width="14%"><strong>操作</strong></td>
+   </tr>
+   <!--{section name=listArray loop=$listArray}-->
+   <tr>
+    <td width="14%"><!--{$listArray[listArray].internal_identifier}--></td>
+	<td><!--{$listArray[listArray].data_element}--></td>
+	<td><!--{$listArray[listArray].definition}--></td>
+	<td><!--{$listArray[listArray].module_id}--></td>
+	<td><!--{$listArray[listArray].table_name}--></td>
+	<td><!--{$listArray[listArray].fields}--></td>
+	<td width="14%"><a href="<!--{$basePath}-->wsinfo/infmanage/manage/editid/<!--{$listArray[listArray].internal_identifier}-->/currentpage/<!--{$pageCurrent}-->/module_search/<!--{$module_id}-->/table_search/<!--{$table_name}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="<!--{$basePath}-->wsinfo/infmanage/del/delid/<!--{$listArray[listArray].internal_identifier}-->/currentpage/<!--{$pageCurrent}-->/module_search/<!--{$module_id}-->/table_search/<!--{$table_name}-->" onclick="return confirm('您确定删除吗?请谨慎操作');">[删除]</a></td>
+   </tr>
+   <!--{sectionelse}-->
+   <tr>
+     <td colspan="7">当前没有任何数据</td>
+   </tr>
+   <!--{/section}-->
+	<tr>
+	 <td colspan="7" align="left" width="100%">
+		<a href="<!--{$basePath}-->wsinfo/infmanage/manage/currentpage/<!--{$pageCurrent}-->">[添加]</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}-->
+	 </td>
+	</tr>
+</table>
+</body>

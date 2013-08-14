@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/validator.css" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<title>处方一览表</title>
+<style type="text/css">
+  input
+	{
+		border:1px solid blue;
+	}
+</style>
+</head>
+<body>
+<table align="center" width="100%">
+<thead>
+<tr class="headbg">
+  <th colspan="4" style="font-size:16px;text-align:center;">处方一览表</th>
+</tr>
+</thead>
+<tr>
+  <td colspan="4">医疗机构:<!--{$tb_cis_prescription_detail->yljgdm}--></td>
+</tr>
+<tr>
+  <td>姓名</td>
+  <td><!--{$tb_yl_patient_information->xm}--></td>
+  <td>性别</td>
+  <td><!--{$tb_yl_patient_information->xb}--></td>
+</tr>
+<tr>
+  <td>卡号</td>
+  <td><!--{$tb_cis_prescription_detail->kh}--></td>
+  <td>卡类型</td>
+  <td><!--{$tb_cis_prescription_detail->klx}--></td>
+</tr>
+<tr>
+  <td>处方号码</td>
+  <td><!--{$tb_cis_prescription_detail->cyh}--></td>
+  <td>处方项目明细号码</td>
+  <td><!--{$tb_cis_prescription_detail->cfmxh}--></td>
+</tr>
+<td>门诊就诊流水号</td>
+<td><!--{$tb_cis_prescription_detail->jzlsh}--></td>
+<td>就诊科室代码</td>
+<td><!--{$tb_cis_prescription_detail->jzksdm}--></td>
+</tr>
+<tr>
+  <td>就诊科室名称</td>
+  <td><!--{$tb_cis_prescription_detail->jzksmc}--></td>
+  <td>开方医生工号</td>
+  <td><!--{$tb_cis_prescription_detail->kfys}--></td>
+</tr>
+<tr>
+  <td>开方医生姓名</td>
+  <td><!--{$tb_cis_prescription_detail->kfysxm}--></td>
+  <td>开方时间</td>
+  <td><!--{$tb_cis_prescription_detail->kfrq}--></td>
+</tr>
+<tr>
+  <td>项目编码</td>
+  <td><!--{$tb_cis_prescription_detail->xmbm}--></td>
+  <td>项目名称</td>
+  <td><!--{$tb_cis_prescription_detail->xmmc}--></td>
+</tr>
+<tr>
+  <td>项目分类编码</td>
+  <td><!--{$tb_cis_prescription_detail->xmflbm}--></td>
+  <td>项目分类名称</td>
+  <td><!--{$tb_cis_prescription_detail->xmflmc}--></td>
+</tr>
+<tr>
+  <td>是否药品</td>
+  <td><!--{$tb_cis_prescription_detail->cflx}--></td>
+  <td>剂型代码</td>
+  <td><!--{$tb_cis_prescription_detail->jxdm}--></td>
+</tr>
+<tr>
+  <td>药品规格</td>
+  <td><!--{$tb_cis_prescription_detail->ypgg}--></td>
+  <td>发药数量</td>
+  <td><!--{$tb_cis_prescription_detail->ypsl}--></td>
+</tr>
+<tr>
+  <td>发药数量单位</td>
+  <td><!--{$tb_cis_prescription_detail->ypdw}--></td>
+  <td>处方贴数</td>
+  <td><!--{$tb_cis_prescription_detail->cfts}--></td>
+</tr>
+<tr>
+  <td>医嘱组号</td>
+  <td><!--{$tb_cis_prescription_detail->yzzh}--></td>
+  <td>用药频次</td>
+  <td><!--{$tb_cis_prescription_detail->sypc}--></td>
+</tr>
+<tr>
+  <td>每次使用剂量</td>
+  <td><!--{$tb_cis_prescription_detail->jl}--></td>
+  <td>每次使用剂量单位</td>
+  <td><!--{$tb_cis_prescription_detail->dw}--></td>
+</tr>
+<tr>
+  <td>每次使用数量</td>
+  <td><!--{$tb_cis_prescription_detail->mcsl}--></td>
+  <td>每次使用数量单位</td>
+  <td><!--{$tb_cis_prescription_detail->mcdw}--></td>
+</tr>
+<tr>
+  <td>用药途径代码</td>
+  <td><!--{$tb_cis_prescription_detail->yf}--></td>
+  <td>用药天数</td>
+  <td><!--{$tb_cis_prescription_detail->yyts}--></td>
+</tr>
+<tr>
+  <td>中药煎煮法代码</td>
+  <td><!--{$tb_cis_prescription_detail->jydm}--></td>
+  <td>皮试判别</td>
+  <td><!--{$tb_cis_prescription_detail->sfps}--></td>
+</tr>
+<tr>
+  <td>检查部位</td>
+  <td><!--{$tb_cis_prescription_detail->jcbw}--></td>
+  <td>备注信息</td>
+  <td><!--{$tb_cis_prescription_detail->bz}--></td>
+</tr>
+<tr class="endbg">   
+  <td colspan="4" style="text-align:center;">
+	<input type="button" name="button" value="返回列表" onclick="javascript:history.back(-1)" />
+  </td>
+</tr>
+</table>
+</body>
+</html>

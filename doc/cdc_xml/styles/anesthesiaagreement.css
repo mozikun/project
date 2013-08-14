@@ -1,0 +1,28 @@
+﻿#anesthesiaagreement
+{
+	text-align:center;
+}
+
+#anesthesiaagreement .angtable
+{
+	width:700px;
+	font-family:宋体;
+	font-size:10.5pt;
+	margin:0 auto;
+	line-height:20px;
+}
+
+#anesthesiaagreement .anghead
+{
+	font-family:宋体;
+	font-size:15pt;
+	text-align:center;
+}
+
+#anesthesiaagreement .angtitle
+{
+	font-family:宋体;
+	font-weight:bold;
+	font-size:18pt;
+	text-align:center;
+}

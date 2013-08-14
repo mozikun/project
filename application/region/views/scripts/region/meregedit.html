@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>合并地区</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body  onbeforeunload='clowseWindow()'>
+<table width="100%" align="center">
+<input type="hidden" name="p_id" id="p_id" value="<!--{$p_id}-->" />
+<input type="hidden" name="id" id="id" value="<!--{$id}-->" />
+   <tr>
+	<td width="30%">合并到的地区:</td>
+	<td width="70%"><input type="text" name="zh_name" id="zh_name" value="<!--{$zh_name}-->" readonly="readonly"/></td>
+   </tr>
+   <tr>
+     
+		<td width="30%">需合并的地区:</td>
+		<td width="70%">
+		   <!--{section loop=$region_array name=region_array}-->
+		      <input type="checkbox" name="region_array[]" value="<!--{$region_array[region_array].id}-->" />  <!--{$region_array[region_array].zh_name}-->
+		   <!--{/section}-->
+		</td>
+    </tr>
+	<tr>
+	   <td colspan="2" align="center" width="100%">
+		<input type="button" name="save" id="save" value="合并" onclick="ajaxSave()"/>
+		<input type="button" name="exit" id="exit" value="退出" onclick="clowseWindow()"/>
+		</td>
+	</tr>
+</table>
+</body>
+<script type="text/javascript">
+var save = document.getElementById('save');
+function clowseWindow(){
+	    var p_id = document.getElementById('p_id');
+		//$('exit').disabled=true;
+		window.close();
+		var url='<!--{$basePath}-->region/region/listregion'+'/parent_id/'+p_id+'/sid/'+Math.random();
+		window.dialogArguments.location=url;
+}
+function ajaxSave(){
+	save.disabled=true;
+	save.value = "地区合并中,需要一段时间请稍候......";
+	var region_array=document.getElementsByName('region_array[]');
+	var id = document.getElementById('id').value;
+	var strall = '';
+	for(var i=0;i<region_array.length;i++){
+			if(region_array[i].checked){
+			  var str =  region_array[i].value;
+			  strall+=str+'|';
+			}
+		}	
+	xmlHttp=getXmlHttpObject();
+	var url='<!--{$basePath}-->region/region/meregsave'+'/strall/'+strall+'/id/'+id+'/sid/'+Math.random();
+	//alert(url);
+	xmlHttp.onreadystatechange=processAjaxSave;
+	xmlHttp.open('GET',url,true);
+	xmlHttp.send(null);
+}
+function processAjaxSave(){
+	if(xmlHttp.readyState==4 && xmlHttp.status==200){
+		alert(xmlHttp.responseText);
+		save.disabled=false;
+		save.value = "地区合并已经完成";
+	}
+}
+function getXmlHttpObject()
+{
+	var xmlHttp;
+	try{
+		xmlHttp=new ActiveXObject('MSXML2.XMLHTTP.3.0');//IE
+	}catch(e){
+		try{
+			xmlHttp=new XMLHttpRequest();//firefox
+		}catch(e){
+			alert('不能正常创建xmlhttp对象');
+		}
+	}
+	return xmlHttp;
+}
+</script>

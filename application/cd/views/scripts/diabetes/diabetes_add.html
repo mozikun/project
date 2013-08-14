@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/health.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/vtip.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/experience_table.js" type="text/javascript"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script> 
+<script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script>
+
+<title>慢病检查</title>
+<style type="text/css">
+<!--
+input {
+border:1px solid blue;
+}
+*{margin:0; padding:0}
+.STYLE2 {font-size: 18px}
+label
+{
+	cursor:hand;
+	cursor: pointer;
+}
+.other_sym{ width:40px;}
+.other_txtsym{ width:120px; overflow:hidden;}
+.other_sym,other_txtsym{ float:left;}
+.inputs{background:none repeat scroll 0 0 #FFFFFF;
+border-style:none;
+width:40px;}
+.time {
+border-left:0 none;
+border-right:0 none;
+border-top:0 none;
+width:30px;
+}
+.other{ width:190px;}
+-->
+</style>
+</head>
+<body >
+
+<form name="frm" action="<!--{$basePath}-->cd/diabetes/addto" method="post">
+   <input type="hidden" name="uuid" value="<!--{$uuid}-->">
+   <div class="STYLE1" style="background:#FFFFFF; text-align:center; width:100%;font-size: 16px;
+	font-weight: bold;">2型糖尿病患者随访服务记录表<img title="“本表为2型糖尿病患者在接受随访服务时由医生填写。每年的综合评估填写居民健康档案的健康体检表。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></div>
+   <div  style=" text-align:center; width:100%; "><input type="hidden" name="uuid" value="<!--{$uuid}-->"/>
+      <div  style=" width:70%; text-align:left; float:left;background:#FFFFFF;"><span class="STYLE2">姓名</span>：<!--{$user_name}--></div>
+	  <div style=" width:30%; text-align:left; float:left;background:#FFFFFF; "><span class="STYLE2">编号</span>：<!--{$standard_code}--></div>
+   </div>
+<table width="100%"  align="center" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+   	<tr>
+		<td colspan="2">随访日期</td>
+	    <td colspan="2">
+		<input type="text" value="" onclick="WdatePicker({firstDayOfWeek:1})" class="inputnone1" name="ftime" id="ftime">
+   	</tr>
+   	<tr>
+   	  <td colspan="2">随访方式</td>
+      <td colspan="2">
+	  <!--{foreach key=k from=$type_of_followup item=foll}-->
+	  <!--{$k}-->、<!--{$foll[1]}-->
+	  <!--{/foreach}-->
+	  <input type="text" value="" name="type_of_followup" id="type_of_followup" class="inputnew" /></td>
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center"><p>症</p>
+      <p>状</p></td>
+      <td width="90" rowspan="2">
+	  	<!--{foreach key=k item=sym from=$diabetes_symptom}-->
+			<!--{$k}-->、<!--{$sym[1]}--><br />
+		<!--{/foreach}-->	  </td>
+		
+      <td height="30" colspan="2" align="center">
+	  	<!--{section name=inp loop=8}-->
+			<input type="text" class="inputnew" name="symptom[]" value="" />/
+		<!--{/section}-->
+	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2" valign="top">
+	  	<div>
+			<div class="other_sym">其他：</div>
+			<div class="other_txtsym">
+				<textarea name="symptom_other" class="newtextarea" rows="6" cols="16"></textarea>
+			</div>
+		</div>	  </td>
+   	</tr>
+   	<tr>
+   	  <td rowspan="5" align="center"><p>体</p>
+      <p>征</p><img title="“体质指数=体重（kg）/身高的平方（m2）。如有其他阳性体征，请填写在“其他”一栏。体重斜线前填写目前情况，斜线后下填写下次随访时应调整到的目标。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td align="center">血压(mmHg)</td>
+     <td colspan="2"><input type="text" name="blood_pressure" value="" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">体重(kg)</td>
+     <td colspan="2">
+		  <input type="text" value="" name="weight" class="inputnone1">/
+		  <input type="text" value="" name="expectative_weight" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">体质指数</td>
+      <td colspan="2"><input type="text" value=""  name="bmi" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">足背动脉搏动</td>
+      <td colspan="2">
+	  		<!--{foreach item=adp from=$arteria_dorsalis_pedis key=k}-->
+			<!--{$k}-->、<!--{$adp[1]}-->
+			<!--{/foreach}-->
+		  <input type="text" value="" name="arteria_dorsalis_pedis" class="inputnew"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">其他</td>
+     <td colspan="2"><input name="adp_other" type="text" value="" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td rowspan="7" align="center"><p>生</p>
+      <p>活</p>
+      <p>方</p>
+      <p>式</p>
+      <p>指</p>
+      <p>导</p><img title="“询问患者生活方式的同时对患者进行生活方式指导，与患者共同制定下次随访目标。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td align="center">日吸烟量(支)<img title="“斜线前填写目前吸烟量，不吸烟填“0”，吸烟者写出每天的吸烟量“××支”，斜线后填写吸烟者下次随访目标吸烟量“××支”。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+		  <input type="text" value="" name="smoking" class="inputnone1">/
+		  <input type="text" value="" name="expert_smoking" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">日饮酒量(两)<img title="“斜线前填写目前饮酒量，不饮酒填“0”，饮酒者写出每天的饮酒量相当于白酒“××两”，斜线后填写饮酒者下次随访目标饮酒量相当于白酒“××两”。白酒1两相当于葡萄酒4两，黄酒半斤，啤酒1瓶，果酒4两。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+		  <input type="text" value="" name="drinking" class="inputnone1">/
+		  <input type="text" value="" name="expert_drinking" class="inputnone1"></td>
+
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center">运动<img title="“填写每周几次，每次多少分钟。即“××次／周，××分钟／次”。横线上填写目前情况，横线下填写下次随访时应达到的目标。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+     <td colspan="2" align="center">
+	  	<input type="text" value="" name="frequency" class="inputnone">次/周
+	  <input type="text" value="" name="frequency_time" class="inputnone">分钟/次	  </td>
+   	</tr>
+   	<tr>
+      <td colspan="2" align="center">
+	  	<input type="text" value="" name="expert_frequency" class="inputnone">次/周
+	  <input type="text" value="" name="expert_frequency_time" class="inputnone">分钟/次	  </td>
+   	</tr>
+   	<tr>
+   	  <td align="center"><p>主食</p>
+      <p>(克/天)</p><img title="“根据患者的实际情况估算主食（米饭、面食、饼干等淀粉类食物）的摄入量。为每天各餐的合计量。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+		  <input type="text" value="" name="main_course" class="inputnone1">/
+		  <input type="text" value="" name="expert_main_course" class="inputnone1"></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">心理调整<img title="“根据医生印象选择对应的选项。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+	  	<!--{foreach key=k item=heart from=$heart_adjustment}-->
+			<!--{$k}-->、<!--{$heart[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="heart_adjustment" value="" />	  </td>
+
+   	</tr>
+   	<tr>
+   	  <td align="center">遵医行为<img title="“指患者是否遵照医生的指导去改善生活方式。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+	  	<!--{foreach key=k item=cp from=$complian}-->
+			<!--{$k}-->、<!--{$cp[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="complian" value="" />	  </td>
+
+   	</tr>
+   	</tr>
+   	<tr>
+   	  <td rowspan="2" align="center"><p>辅</p>
+      <p>助</p>
+      <p>检</p>
+      <p>查</p>
+      <p>&nbsp;</p><img title="“为患者进行空腹血糖检查，记录检查结果。若患者在上次随访到此次随访之间到各医疗机构进行过糖化血红蛋白或其他辅助检查，应如实记录。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td align="center">空腹血糖值</td>
+      <td colspan="2"><input type="text" name="fasting_bloodglucose" class="inputbottom">mmol/L</td>
+   	</tr>
+   	<tr>
+   	  <td align="center">其他检查*</td>
+      <td colspan="2" valign="top">
+		  <p>糖化血红蛋白<input type="text" name="hbclc" class="inputbottom">%</p>
+		  <p>检查日期<input type="text" class="time"  name="mon" value="">月
+		  <input type="text" class="time" value="" name="day">日</p>	
+		  <input type="text" class="inputbottom other" name="eamination_info">
+	  </td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">服药依从性<img title="““规律”为按医嘱服药，“间断”为未按医嘱服药，频次或数量不足，“不服药”即为医生开了处方，但患者未使用此药。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+	  	<!--{foreach key=k item=comply from=$compliance}-->
+			<!--{$k}-->、<!--{$comply[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="compliance" value="" />	  </td>
+
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">药物不良反应<img title="“如果患者服用上述药物有明显的药物不良反应，具体描述哪种药物，何种不良反应。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+	  	<!--{foreach key=k item=adv from=$adverse_drug_reaction}-->
+			<!--{$k}-->、<!--{$adv[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="adverse_drug_reaction" value="" />	  </td>
+   	</tr>
+	<tr>
+   	 	<td colspan="2" align="center">低血糖反应<img title="“根据上次随访到此次随访之间患者出现的低血糖反应情况。”" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+		<td colspan="2">
+	  	<!--{foreach key=k item=rh from=$reactive_hypoglycemia}-->
+			<!--{$k}-->、<!--{$rh[1]}-->
+		<!--{/foreach}-->
+		<input type="text" value="" name="reactive_hypoglycemia" class="inputnew"></td>
+	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">此次随访分类<img title="根据此次随访时的分类结果，由随访医生在4种分类结果中选择一项在“□”中填上相应的数字。“控制满意”意为血糖控制满意，无其他异常、“控制不满意”意为血糖控制不满意，无其他异常、“不良反应”意为存在药物不良反应、“并发症”意为出现新的并发症或并发症出现异常。如果患者并存几种情况，填写最严重的一种情况，同时结合上次随访情况，决定患者下次随访时间，并告知患者。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2">
+	  	<!--{foreach key=k item=fclass from=$followup_classification}-->
+			<!--{$k}-->、<!--{$fclass[1]}-->
+		<!--{/foreach}-->
+		<input type="text" class="inputnew" name="followup_classification" value="" />	  </td>
+
+   	</tr>
+   	<tr>
+   	  <td rowspan="7" align="center"><p>用</p>
+      <p>药</p>
+      <p>情</p>
+      <p>况</p><img title="根据患者整体情况，为患者开具处方，填写患者即将服用的降糖药物名称，写明用法。胰岛素具体写明胰岛素的种类、时间、剂量。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td align="center">药物名称1</td>
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value=""></td>
+
+   	</tr>
+   	<tr>
+   	  <td align="center">用法</td>
+      <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="">mg</td>
+
+   	</tr>
+   	<tr>
+   	  <td align="center">药物名称2</td>
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value=""></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">用法</td>
+      <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="">mg</td>
+   	</tr>
+   	<tr>
+   	  <td align="center">药物名称3</td>
+      <td colspan="2"><input type="text" name="drug_name[]" class="inputnone1" value=""></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">用法</td>
+      <td>每日<input type="text" name="drug_frequency[]" class="inputs" value="">次</td>
+   	  <td>每次<input type="text" name="drug_amount[]" class="inputs" value="">mg</td>
+   	</tr>
+   	<tr>
+   	  <td align="center">胰岛素</td>
+      <td colspan="2"><textarea name="insulin" cols="16" rows="6" class="newtextarea"></textarea></td>
+   	</tr>
+   	
+   	<tr>
+   	  <td rowspan="2" align="center"><p>转</p>
+      <p>诊</p><img title="如果转诊要写明转诊的医疗机构及科室类别，如××市人民医院心内科，并在原因一栏写明转诊原因。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td align="center">原因</td>
+      <td colspan="2"><input type="text" name="reason" class="inputnone1" value=""></td>
+   	</tr>
+   	<tr>
+   	  <td align="center">机构及科别</td>
+   	  <td colspan="2"><input type="text" name="organization" class="inputnone1" value=""></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">下次随访日期</td>
+      <td colspan="2"><input type="text" name="time_of_next_followup" class="inputnone1" value=""></td>
+   	</tr>
+   	<tr>
+   	  <td colspan="2" align="center">随访医生签名<img title="随访完毕，核查无误后随访医生签署其姓名。" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
+      <td colspan="2"><input type="text" name="followup_doctor" class="inputnone1" value=""></td>
+   	</tr>
+	<tr>
+		<td height="33" colspan="10" align="center">
+			<input type="submit" class="inputbutton" value="提交" />
+	  </td>
+	</tr>
+   </table>
+</form> 
+</body>
+</html>

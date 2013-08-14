@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/calendar/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/tabs.css" />
+<link rel="stylesheet" type="text/css"  href="<!--{$basePath}-->views/js/calendar/default/datepicker.css"/>
+
+<title><!--{$title}--></title>
+
+</head>
+<body>
+
+	<table cellspacing="0" width="100%">
+    <thead>
+    <tr >
+	<th  colspan="4" align="left">当前机构:<font color="Red"><!--{$org_name}--></font>&nbsp;&nbsp;&nbsp;&nbsp;<!--{if $go_back==""}--><a href="<!--{$basePath}-->organization/listorg/listorg/region_id/<!--{$region_id}-->">返回</a><!--{/if}--></th>
+	</tr>
+	</thead>
+    <tr  class="headbg">
+	<th style="width:40%" colspan="4">坐诊字典</th>
+	</tr>
+    <!--{if $record_count!=0}-->
+	<tr class="columnbg">
+	<th style="width:25%">国家标准代码</th><th style="width:25%">角色</th><th style="width:25%">登录名</th><th style="width:25%">操作</th>
+	</tr>	
+	<tbody id=''>
+      <!--{section loop=$row name=k}-->
+      <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+			<td ><!--{$row[k].standard_code}--></td>
+            <td ><!--{$row[k].role_name}--></td>
+			<td ><!--{$row[k].name_login}--></td>	
+			<td><a href="<!--{$basePath}-->appointment/index/dictionary/org_id/<!--{$org_id}-->/org_name/<!--{$url_org_name}-->/region_id/<!--{$region_id}-->/uuid/<!--{$row[k].id}-->/user_id/<!--{$row[k].id}-->/region_path/<!--{$region_path}-->/action/add/">[添加/修改坐诊字典]</a></td>
+		</tr>
+	    <!--{/section}-->	
+	</tbody>
+	
+    <!--{/if}-->
+    <tr  class="columnbg">
+		<td style="width:40%" colspan="5"><div style=" float:left"></div><div style="float:right"><!--{$out}--></div></td>
+	</tr>
+	</table>
+
+		<br />
+	</body>
+</html>

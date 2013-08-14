@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Zend Studio" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+.table_mouseover{
+	background:#cccccc;
+}
+.table_mouseout{
+	background:#ffffff;
+}
+</style>
+<title>数据类型列表</title>
+<link href="<!--{$basePath}-->views/styles/tabs.css" media="all" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+     <table border="1px" align="center" width="100%">
+     <tr class="headbg">
+       <td colspan="4"><strong>出院证明列表</strong></td>
+     </tr>
+     <tr class="columnbg">
+        <td width="30%"><strong>身份证号码</strong></td>
+        <td width="30%"><strong>入院日期</strong></td>
+        <td width="30%"><strong>出院日期</strong></td>
+        <td width="10%"><strong>详细</strong></td>
+     </tr>
+      <!--{if $nuNumber=="0"}-->
+      <tr align="center"><td colspan="3"><!--{$msg}--></td></tr>
+      <!--{else}-->
+     <!--{section loop=$hos_discharge_arr name=hos_discharge_arr}-->
+        <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
+           <td width="30%"><!--{$hos_discharge_arr[hos_discharge_arr].id_card}--></td>
+           <td width="30%"><!--{$hos_discharge_arr[hos_discharge_arr].admission_time}--></td>
+           <td width="30%"><!--{$hos_discharge_arr[hos_discharge_arr].discharged_time}--></td>
+           <td width="10%"><a href="<!--{$basePath}-->api/list/hosdcinfo/uuid/<!--{$hos_discharge_arr[hos_discharge_arr].uuid}-->/">详细</a></td>
+        </tr>
+     <!--{/section}-->
+     <!--{/if}-->
+     <tr>
+       <td colspan="4"><!--{if $current_user!=''}-->[<a href="<!--{$basePath}-->api/list/hosdc/current_user/true">只查看当前用户</a>] [<a href="<!--{$basePath}-->api/list/hosdc">查看所有用户</a>] <!--{/if}--><!--{$page}--></td>
+     </tr>
+     </table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>设备统计折线图</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link rel="stylesheet" type="text/css" media="screen" href="<!--{$basePath}-->views/styles/site.css" />
+</head>
+<body>
+<table width="100%" border="0">
+	<tr class="headbg">
+		<td colspan="2">设备统计折线图</td>
+	</tr>
+	<tr class="headbg">
+		<td colspan="2"><!--{$url}--></td>
+	</tr>
+</table>
+<table width="100%" border="0">
+	<tr class="headbg">
+	    <td >地区</td>
+		<td align="center">点击查看</td>
+	</tr>
+	<!--{section loop=$region_array name=region_array}-->   
+	   <tr align="center" style="cursor:pointer">
+	    <td><!--{if $region_array[region_array].region_level<6}--><a href="<!--{$basePath}-->decision/equipment/index/region_id/<!--{$region_array[region_array].id}-->"><!--{$region_array[region_array].zh_name}--></a><!--{else}--><!--{$region_array[region_array].zh_name}--><!--{/if}--></td>
+	   <td > 
+	     <a href="<!--{$basePath}-->decision/equipment/image/id/<!--{$region_array[region_array].id}-->/end_time/<!--{$end_year}-->">[查看统计图]</a>
+	   </td>
+	   </tr>
+     <!--{/section}-->
+    <tr class="headbg">
+     <td colspan="2"></td>
+    </tr>
+</table>
+</body>
+</html>
