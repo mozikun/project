@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-14 16:56:09
+<?php /* Smarty version 2.6.14, created on 2013-08-14 22:18:26
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -31,6 +31,8 @@ views/js/school.js"></script>
 	clear:both;
 }
 </style>	
+
+
 <style type="text/css">
 *{margin:0;padding:0;list-style-type:none;}
 a,img{border:0;}
@@ -40,7 +42,9 @@ body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
 .demo th em{color:#ff0000;font-style:normal;}
 .demo td .stext{border:1px solid #ccc;font-size:14px;height:26px;line-height:26px;padding:0 3px;width:214px;color:#666;}
 /* choose-box-wrapper */
-#choose-box-wrapper{width:652px;background:#000;background-color:rgba(0, 0, 0, 0.5);padding:10px;border-radius:5px;display:none;}
+#choose-box-wrapper{width:652px;background:#000;background-color:rgba(0, 0, 0, 0.5);padding:10px;border-radius:5px;display:none;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=#4B7D0000);
+zoom: 1;}
 #choose-box{border:1px solid #005EAC;width:650px;background:#fff;}
 #choose-box-title{background:#3777BC;color:white;padding:4px 10px 5px;font-size:14px;font-weight:700;margin:0;}
 #choose-box-title span{font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;}
@@ -54,7 +58,15 @@ body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
 #choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
 #choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
 </style>
-
+<!--[if IE]>
+<style type="text/css">
+#choose-box-wrapper {
+background:transparent;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=rgb(88,114,120));
+zoom: 1;
+}
+</style>
+<![endif]-->
 
     <div class="main_body">
       <div class="top_flash"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
@@ -241,17 +253,16 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
             </div>
           </div>
         </div>
-        <div class="list_right">
+<div class="list_right">
 	<div class="demo">
-	
-	<br /><br /><br /><br />
-	<table width="100%">
-		<tr>
-			<th align="right"><em>*</em> 医院名称：</th>
-			<td><input type="text" class="stext" name="school" id="school-name" value="请选择医院" onblur="if(this.value==''){this.value='请选择大学'}" onfocus="if(this.value=='请选择大学'){this.value=''}" onclick="pop()" /></td>
-		</tr>	
-	</table>
-</div>	
+		<table width="100%">
+			<tr>
+				<th align="right"><em>*</em> 医院名称：</th>
+				<td><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
+			</tr>	
+		</table>
+   </div>
+   <div></div>
 	<div id="choose-box-wrapper">
 	<div id="choose-box">
 		<div id="choose-box-title">
@@ -324,10 +335,12 @@ function initSchool(provinceID){
 		var school = item.attr('school-id');
 
 		//更新选择大学文本框中的值
-		$('#school-name').val(item.text());
+		$('#hospital').val(item.text());
 
 		//关闭弹窗
 		hide();
+		//获取科室
+		department();
 	});
 }
 
@@ -338,17 +351,8 @@ function makeCenter(){
 	$('#choose-box-wrapper').css("left", Math.max(0, (($(window).width() - $('#choose-box-wrapper').outerWidth()) / 2) + $(window).scrollLeft()) + "px");
 }
 </script>
-			<div>
-				<ul class="org">
-					<?php $_from = $this->_tpl_vars['hospitals']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['hospital']):
-?>
-					<li onmousenover="select();"><a><?php echo $this->_tpl_vars['hospital']['name']; ?>
-</a></li>
-					<?php endforeach; endif; unset($_from); ?>
-				</ul>
-			</div>
-        </div>
+			
+</div>
         <div class="bbk"></div>
       </div>
     </div>
@@ -358,8 +362,11 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 <script>
-
-function select(){
-	
+//获取该医院的科室
+function department(){
+	$.get("<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/department/org_id/"+id,function(info){
+	 alert(info);
+})
 }
 </script>

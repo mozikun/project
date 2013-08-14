@@ -19,6 +19,7 @@ class web_registerController extends controller
         require_once __SITEROOT."library/Models/web_sort.php";
         require_once __SITEROOT."library/Models/web_article_base.php";
         require_once __SITEROOT."library/Models/web_article_content.php";
+        require_once __SITEROOT."library/Models/department.php";
         require_once __SITEROOT."library/custom/comm_function.php";
         $this->view->basePath = $this->_request->getBasePath();
         //取公共顶部内容
@@ -83,6 +84,29 @@ class web_registerController extends controller
         $this->view->display("index.html");
         
     }
+	/**
+     * web_registerController::departmentAction()
+     * 
+     * 获取科室
+     * 
+     * @return void
+     */
+	public function departmentAction(){ //echo 123; exit();
+		$org_id=$this->_request->getParam("org_id");
+		$department=new Tdepartment();
+		//$department->debug(1);
+		//$department->whereAdd("org_id='$org_id'");
+		$department->find();
+		$dep=array();
+		$i=0;
+		while($department->fetch()){
+			$dep[$i]['uuid']=$department->uuid;
+			$dep[$i]['department_name']=$department->department_name;
+			$i++;
+		}
+		echo (json_encode($dep));
+		
+	}
     /**
      * web_defaultController::listAction()
      * 

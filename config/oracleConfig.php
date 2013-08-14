@@ -1,15 +1,16 @@
 <?php
 
 
-$config=200;
+//$config=200;
+$config="localhost";
 
-if($config==='localhost'){
+if($config=='localhost'){
 	$databaseConfig[1]['charset']='UTF8';
 	$databaseConfig[1]['engine']='oracle';
 	$databaseConfig[1]['connectType']=1;	
 	$databaseConfig[1]['host']='';//
 	$databaseConfig[1]['user']='yaanchis';
-	$databaseConfig[1]['password']='yaanchis';
+	$databaseConfig[1]['password']='root';
 	
 	$databaseConfig[4]['charset']='UTF8';
 	$databaseConfig[4]['engine']='mysql';
