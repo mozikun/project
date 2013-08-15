@@ -240,13 +240,13 @@ class Tindividual_core extends dao_oracle{
  	 public $region_path;
 	 public $_region_path_type='varchar2';
 	/**
- 	 * 注释:国家标准档案号
+ 	 * 注释:新的国家标准档案号
 	 * 
 	 * 
-	 * @var VARCHAR2(30)
+	 * @var VARCHAR2(50)
 	 **/
- 	 public $standard_code_1_1;
-	 public $_standard_code_1_1_type='varchar2';
+ 	 public $standard_code_1;
+	 public $_standard_code_1_type='varchar2';
 	/**
  	 * 注释:家庭内部流水号
 	 * 
@@ -328,22 +328,6 @@ class Tindividual_core extends dao_oracle{
  	 public $device_id;
 	 public $_device_id_type='varchar2';
 	/**
- 	 * 注释:新的国家标准档案号
-	 * 
-	 * 
-	 * @var VARCHAR2(50)
-	 **/
- 	 public $standard_code_1;
-	 public $_standard_code_1_type='varchar2';
-	/**
- 	 * 注释:
-	 * 
-	 * 
-	 * @var NUMBER(22)
-	 **/
- 	 public $region_inner_id;
-	 public $_region_inner_id_type='number';
-	/**
  	 * 注释:建卡状态
 	 * 
 	 * 
@@ -368,6 +352,22 @@ class Tindividual_core extends dao_oracle{
  	 public $position_y;
 	 public $_position_y_type='varchar2';
 	/**
+ 	 * 注释:
+	 * 
+	 * 
+	 * @var NUMBER(22)
+	 **/
+ 	 public $region_inner_id;
+	 public $_region_inner_id_type='number';
+	/**
+ 	 * 注释:国家标准档案号
+	 * 
+	 * 
+	 * @var VARCHAR2(30)
+	 **/
+ 	 public $standard_code_1_1;
+	 public $_standard_code_1_1_type='varchar2';
+	/**
  	 * 注释:用户登陆密码，默认身份证后8位
 	 * 
 	 * 
@@ -375,4 +375,20 @@ class Tindividual_core extends dao_oracle{
 	 **/
  	 public $password;
 	 public $_password_type='varchar2';
+	/**
+ 	 * 注释:户籍类型，1 城镇人口 2农村人口  3暂住人口
+	 * 
+	 * 
+	 * @var VARCHAR2(10)
+	 **/
+ 	 public $census;
+	 public $_census_type='varchar2';
+	/**
+ 	 * 注释:转了档案的人的原来地区路径
+	 * 
+	 * 
+	 * @var VARCHAR2(4000)
+	 **/
+ 	 public $old_region_path;
+	 public $_old_region_path_type='varchar2';
 }
