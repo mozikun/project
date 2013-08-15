@@ -52,6 +52,12 @@ public 	function ws_login($org_id,$password){
 		$error =1;
 		$error_number = 0;
 		$success_number = 0;
+                                    if(empty($xml_string))
+                                       {
+                                           return $xmlhead.'没有传入任何xml'.$xmlend;
+                                       }
+                                       else
+                                       {
 		$getxml = new SimpleXMLElement($xml_string);
 		foreach ($getxml as $k=>$table){
 			    $realtable = $table['name'];
@@ -503,7 +509,7 @@ public 	function ws_login($org_id,$password){
 //			             else
 //			             {
 //								return $xmlhead."<return_code>3</return_code>".'<error_transaction>'.$errorstring.'</error_transaction><return_string>'.$returnstring.'数据插入或者更新成功'.$success_number.'条,数据插入或更新失败'.$error_number.'条</return_string>'.$xmlend;
-//			             }		            				
+			             }		            				
     }
     
     /**

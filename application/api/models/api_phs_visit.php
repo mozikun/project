@@ -491,7 +491,7 @@ class api_phs_visit{
               $newtableobj->free_statement();
 		   }   				
 		}
-                                     }	
+                                    
 //			if($error=1)
 //			{		
 				return $xmlhead.'<success_transaction>'.$successsstring.'</success_transaction><error_transaction>'.$errorstring.'</error_transaction><return_string>数据插入或者更新成功'.$success_number.'条,数据插入或者更新失败'.$error_number.'条</return_string>'.$xmlend;
@@ -500,6 +500,7 @@ class api_phs_visit{
 //			{	
 //				return $xmlhead."<return_code>3</return_code>".'<error_transaction>'.$errorstring.'</error_transaction><return_string>'.$returnstring.'</return_string>'.$xmlend;
 //      }
+                                  }	
      }
      /**
       * 删除数据

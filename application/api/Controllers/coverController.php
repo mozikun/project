@@ -22,6 +22,19 @@ class api_coverController extends controller{
 		$server->setClass('api_phs_iha_cover');
 		$server->handle();
 	}
+    /**
+     * api_coverController::zltestAction()
+     * 
+     * 2013-08-15 中联测试联调
+     * 
+     * @return void
+     */
+    public function zltestAction()
+    {
+        $ws_url="http://localhost:8080/wsdl/api_phs_iha_cover.wsdl";
+		$client=new SoapClient($ws_url);
+        echo $client->ws_update('54254047451180212C2201',iconv('gbk','utf-8',file_get_contents(__SITEROOT."a.txt")));
+    }
 	public  function test_loginAction(){
 		$client=new SoapClient($this->ws_url);
 		echo $client->ws_login('510103','1');

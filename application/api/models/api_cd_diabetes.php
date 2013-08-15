@@ -50,6 +50,12 @@ class api_cd_diabetes{
 		$error =1;
 		$errornumber = 0;
 		$successnumber = 0;
+                                       if(empty($xml_string))
+                                       {
+                                           return $xmlhead.'没有传入任何xml'.$xmlend;
+                                       }
+                                       else
+                                       {
 		$getxml = new SimpleXMLElement($xml_string);
 		foreach ($getxml as $k=>$table){
 			$realtable = $table['name'];
@@ -463,7 +469,9 @@ class api_cd_diabetes{
 			}		 		
        }
  }
+                                     
       return $xmlhead.'<success_transaction>'.$successsstring.'</success_transaction><error_transaction>'.$errorstring.'</error_transaction><return_string>数据插入或者更新成功'.$successnumber.'条,插入或者更新失败'.$errornumber.'条</return_string>'.$xmlend;
+        }
 }
     /**
      * 取某个机构下边的所有人的uuid 身份证号 和 org_id

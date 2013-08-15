@@ -1,8 +1,8 @@
 <?php
 
 
-//$config=200;
-$config="localhost";
+$config=200;
+//$config="localhost";
 
 if($config=='localhost'){
 	$databaseConfig[1]['charset']='UTF8';

@@ -293,6 +293,7 @@ class phsiha extends api_phs_comm
                             $table_object->free_statement();
                             $table_object->created = $time;
                         }
+                        //$table_object->debug(5);
                         $table_object->org_id = $org_id;
                         $table_object->id = $id;
                         //插入数据时需要生成uuid
