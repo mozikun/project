@@ -95,7 +95,7 @@ class web_registerController extends controller
 		$org_id=$this->_request->getParam("org_id");
 		$department=new Tdepartment();
 		//$department->debug(1);
-		//$department->whereAdd("org_id='$org_id'");
+		$department->whereAdd("org_id='$org_id'");
 		$department->find();
 		$dep=array();
 		$i=0;
