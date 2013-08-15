@@ -432,7 +432,7 @@ class api_phs_iha_cover extends api_phs_comm{
                 $dead_time='';
 				foreach ($row as $column_name=>$column){
 					//给对象赋值
-                    if($column_name!='old_identity_number')
+                    if($column_name!='old_identity_number' && $column_name!='response_doctor')
                     {
                         $individual->$column_name=$row->$column_name;
                     }

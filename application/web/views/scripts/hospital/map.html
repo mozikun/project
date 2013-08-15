@@ -1,0 +1,190 @@
+<!--{include file=../default/header.html}-->
+<style>
+#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+#l-map{height:100%;height:450px;width:100%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:100%;width:20%;float:left;}
+</style>
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/SearchInfoWindow_min.css" />
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+    <!--导航栏结束，主体开始-->
+    <div class="main_body">
+      <div class="top_flash"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_31.png" width="960" height="200"></a> </div>
+      <div class="top_title">
+        <div class="menu_time"><!--{$tips}--></div>
+        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a>&gt;联网医院&gt;<!--{if $card && $search.display!='all'}-->附近的<!--{/if}-->医院列表</div>
+      <div class="null"></div>
+      <div class="list_body">
+        <div class="list_left">
+          <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="healthy">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="<!--{$basePath}-->iha/search/search" method="post">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">登录方式：</td>
+                      <td width="71%"><select class="bv_text">
+                          <option>请选择</option>
+                          <option value="sfz">身份证号码登陆</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">身份证号：</td>
+                      <td><input type="text" name="card" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">密码：</td>
+                      <td><input type="password" name="password" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell">
+                        <input class="cell_img" type="image" src="<!--{$basePath}-->views/images/mh/ws_16.png" />
+                        </span><span class="td_cell"><a href="#"><img class="cell_img" src="<!--{$basePath}-->views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell"><a href="#">查询说明</a></span><span class="td_cell"><a href="#">使用帮助</a></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="lir_inner notal">
+            <div class="notal_top">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
+              <div class="ntop_conts">
+                <form id="" action="#">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td width="27%">免疫卡片:</td>
+                        <td width="45%"><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td width="28%">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>接种时间:</td>
+                        <td><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td><input type="image" name="imageField" id="imageField" src="<!--{$basePath}-->views/images/mh/ws_26.png" class="img_btn"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list_right">
+          <div class="lr_ones" style="height: 600px;">
+            <div class="lr_title">联网医院地理分布图</div>
+            <div class="lr_conts">
+              <ul>
+                <li><div id="l-map"></div></li>
+              </ul>
+            </div>
+          </div>
+          <div class="pages">
+          <ul style="width: 100%;padding-left: 8px;">
+            <!--{if !$card || $search.display=='all'}--><a href="<!--{$basePath}-->web/hospital/map">查看附近的联网医院</a><!--{else}--><a href="<!--{$basePath}-->web/hospital/map/display/all">查看所有联网医院</a><!--{/if}-->&nbsp;&nbsp; <img  src="<!--{$basePath}-->images/location.png"/>标注机构所在地理位置，点击显示机构信息。红色图标标注您所在位置<br />
+          </ul>
+          </div>
+        </div>
+        <div class="bbk"></div>
+      </div>
+    </div>
+<!--{include file=../default/footer.html}-->
+<script>
+//转换过来只是JSON字符串，需要解析一次
+var position_array=jQuery.parseJSON('<!--{$org_all}-->');
+var map = new BMap.Map("l-map");
+var gc = new BMap.Geocoder();
+var markers=[];
+map.centerAndZoom("<!--{$city}-->",10);                   // 初始化地图,设置城市和地图级别。
+map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+//创建自己所在位置
+<!--{if $x && $y}-->
+  var point = new BMap.Point("<!--{$y}-->", "<!--{$x}-->");
+  addMarker(point);
+<!--{/if}-->
+//创建机构的标注
+var position_array=jQuery.parseJSON('<!--{$org_all}-->');
+for (var i = 0; i < position_array.length; i++)
+{
+    addMarkerOrg(position_array[i]['x'], position_array[i]['y'],position_array[i]['name'],position_array[i]['info'],i);
+}
+// 编写自定义函数,创建标注
+function addMarker(point){
+  var marker = new BMap.Marker(point);
+  markers.push(marker);
+  map.addOverlay(marker);
+}
+// 编写自定义函数,创建标注
+function addMarkerOrg(lat,lng,org_name,org_info,x)
+{
+    var si=new Array();
+    si[x] = new BMapLib.SearchInfoWindow(map,org_info, {
+        title  : org_name,      //标题
+        width  : 290,             //宽度
+        height : 105,              //高度
+        panel  : "panel",         //检索结果面板
+        enableAutoPan : true,     //自动平移
+        searchTypes   :[]
+    });
+    var myIcon = new BMap.Icon("<!--{$basePath}-->images/location.png", new BMap.Size(32,32));
+    var marker_t=new Array();
+    marker_t[x] = new BMap.Marker(new BMap.Point(lat, lng),{icon:myIcon});
+    marker_t[x].addEventListener("click", function(e){
+	    si[x].open(marker_t[x]);
+    })
+    map.addOverlay(marker_t[x]); //在地图中添加marker
+}
+//最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+</script>

@@ -131,7 +131,64 @@ class web_hospitalController extends controller
      */
     public function mapAction()
     {
-        
+        $search=array();
+        $search['display']=$this->_request->getParam('display');
+        $search_session=new Zend_Session_Namespace("iha_search");
+        $card=$search_session->identity_number;//身份证号码
+        $org=new Torganization();
+        $org->whereAdd("type=5");
+        $tips='';
+        $position_x='';
+        $position_y='';
+        if($card)
+        {
+            //已登陆，取个人的GPS信息
+            $individual_core=new Tindividual_core();
+            $individual_core->whereAdd("identity_number='$card'");
+            $individual_core->find(true);
+            $position_x=$individual_core->position_x;
+            $position_y=$individual_core->position_y;
+            if($individual_core->position_x && $individual_core->position_y && $search['display']!='all')
+            {
+                //使用此函数计算得到结果后，带入sql查询。
+                $squares = $this->returnSquarePoint($individual_core->position_y, $individual_core->position_x,50);
+                $org->whereAdd("latitude<>0 and latitude>{$squares['right-bottom']['lat']} and latitude<{$squares['left-top']['lat']} and longitude>{$squares['left-top']['lng']} and longitude<{$squares['right-bottom']['lng']}");
+                $tips=$individual_core->name.'您好，我们将根据您的位置列出您附近50千米以内的医院信息';
+            }
+            else
+            {
+                $tips=$individual_core->name.',对不起，未能确定您的位置，无法标示您附近的医院。';
+            }
+        }
+        else
+        {
+            //未登陆
+            $tips='你没有登陆，我们不能确定您的位置，无法标示您附近的医院。';
+        }
+        $org->find();
+        $org_all=array();
+        $i=0;
+        while($org->fetch())
+        {
+            if($org->latitude && $org->longitude)
+            {
+                $org_all[$i]['x']=$org->longitude;
+                $org_all[$i]['y']=$org->latitude;
+                $org_all[$i]['name']=$org->zh_name;
+                $org_all[$i]['info']='<div style=\"margin:8px\"><p class=\"info_content\">地址：'.$org->address.'<br />电话：'.$org->phone.'<br />机构简介：'.$org->org_info.'</p></div>';
+                $i++;
+            }
+        }
+        $address='';
+        $address=$address?$address:'四川省雅安市';
+        $this->view->city=$address;
+        $this->view->org_all=json_encode($org_all);
+        $this->view->tips=$tips;
+        $this->view->card=$card;
+        $this->view->search=$search;
+        $this->view->x=$position_x;
+        $this->view->y=$position_y;
+        $this->view->display("map.html");
     }
     /**
      * web_hospitalController::detailAction()

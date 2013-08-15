@@ -5,6 +5,40 @@ class api_wsdlController extends controller
 	{
 		
 	}
+    /**
+     * api_wsdlController::wsdlAction()
+     * 
+     * 用于遍历所有接口并生成wsdl
+     * 
+     * 我好笨
+     * 
+     * @return void
+     */
+    public function wsdlAction()
+    {
+        set_time_limit(0);
+        $path=dirname(__FILE__);
+        if (is_dir($path))
+    	{
+    		if ($path!='.' && $path!='..')
+    		{
+    			$d=opendir($path);
+    			if ($d)
+    			{
+    				while (false!==($file=readdir($d)))
+    				{
+    					if ($file!='.' && $file!='..')
+    					{
+    					    $filename=str_replace("Controller.php",'',$file);
+    						file_get_contents('http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/api/'.$filename.'/generate_wsdl');
+                            echo 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/api/'.$filename.'/generate_wsdl<br />';
+    					}
+    				}
+    				closedir($d);
+    			}
+    		}
+    	}
+    }
 	public function indexAction()
 	{
 		$wsdl_path="wsdl/wsdl.wsdl";
