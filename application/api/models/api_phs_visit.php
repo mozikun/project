@@ -327,6 +327,12 @@ class api_phs_visit{
 		$error =1;
 		$error_number = 0;
 		$success_number = 0;
+                                      if(empty($xml_string))
+                                      {
+                                          return $xmlhead.'没有传入任何的xml'.$xmlend;
+                                      }
+                                      else
+                                      {
 		$getxml = new SimpleXMLElement($xml_string);
 		foreach ($getxml as $table)
 		{
@@ -485,7 +491,7 @@ class api_phs_visit{
               $newtableobj->free_statement();
 		   }   				
 		}
-			
+                                     }	
 //			if($error=1)
 //			{		
 				return $xmlhead.'<success_transaction>'.$successsstring.'</success_transaction><error_transaction>'.$errorstring.'</error_transaction><return_string>数据插入或者更新成功'.$success_number.'条,数据插入或者更新失败'.$error_number.'条</return_string>'.$xmlend;
