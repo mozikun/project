@@ -167,4 +167,20 @@ class Tmzsyyljz_cb extends dao_oracle{
 	 **/
  	 public $id_zb;
 	 public $_id_zb_type='varchar2';
+	/**
+ 	 * 注释:填报医生
+	 * 
+	 * 
+	 * @var VARCHAR2(100)
+	 **/
+ 	 public $user_id;
+	 public $_user_id_type='varchar2';
+	/**
+ 	 * 注释:是否上报 1未上报，2已上报。
+	 * 
+	 * 
+	 * @var NUMBER(22)
+	 **/
+ 	 public $sfsb;
+	 public $_sfsb_type='number';
 }
