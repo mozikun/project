@@ -36,6 +36,21 @@ class api_phshyperController extends controller
 		fputs($fp,$xml_file);
 		fclose($fp);
 	}
+    /**
+     * api_phsihaController::zltestAction()
+     * 
+     * 中联联调
+     * 
+     * @return void
+     */
+    public function zltestAction()
+    {
+        //$ws_url="http://172.16.11.251/wsdl/api_phs_iha.wsdl";
+		//$client=new SoapClient($ws_url);
+        require_once(__SITEROOT."application/api/models/api_phs_hypertension.php");
+        $client=new phshyper();
+        echo $client->ws_update('54254047451180212C2201',iconv('gbk','utf-8',file_get_contents(__SITEROOT."gxy.txt")));
+    }
 	/**
 	 * 用于测试
 	 *

@@ -262,6 +262,16 @@ class phsiha extends api_phs_comm
                                 unset($table_object->$v);
                             }
                         }
+                        //扩展表如果无数据，可以使用插入
+                        if($table_name=='individual_archive' && !$table_object->count())
+                        {
+                            $table_object->uuid=uniqid(strtoupper(substr($table_name, 0, 1)) . "_");
+                            $table_object->org_id = $org_id;
+                            $table_object->id = $id;
+                            $table_object->insert();
+                            $success++;
+                            continue;
+                        }
                         if (!$table_object->update())
                         {
                             $status = 3;
@@ -293,7 +303,6 @@ class phsiha extends api_phs_comm
                             $table_object->free_statement();
                             $table_object->created = $time;
                         }
-                        //$table_object->debug(5);
                         $table_object->org_id = $org_id;
                         $table_object->id = $id;
                         //插入数据时需要生成uuid

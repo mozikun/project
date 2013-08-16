@@ -45,7 +45,7 @@ class api_phsihaController extends controller
      */
     public function zltestAction()
     {
-        $ws_url="http://localhost:8080/wsdl/api_phs_iha.wsdl";
+        //$ws_url="http://172.16.11.251/wsdl/api_phs_iha.wsdl";
 		//$client=new SoapClient($ws_url);
         require_once(__SITEROOT."application/api/models/api_phs_iha.php");
         $client=new phsiha();

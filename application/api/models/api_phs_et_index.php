@@ -1061,7 +1061,7 @@ public 	function ws_login($org_id,$password){
 			     	 $table_obiect->whereAdd("id='$individual_id'");
 			     	 $table_obiect->whereAdd("org_id='$real_orgid'");
 			     	 $table_obiect->whereAdd("ext_uuid='$get_ext_uuid'");
-			     	 if(1 || $table_obiect->delete()){
+			     	 if($table_obiect->delete()){
 						//写入接口日志
 						$logs_array=array("ext_uuid"=>$getxml->ext_uuid,"org_id"=>$getxml->org_id,"model_id"=>3,"upload_time"=>time(),"upload_token"=>3 );
 						$this->insert_api_logs($logs_array);

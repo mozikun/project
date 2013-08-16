@@ -75,7 +75,7 @@ $(document).ready(function(){
 	<thead>
     <tr class="headbg">
     	<th>&nbsp;
-        	
+        	状态
         </th>
 		<th>
         	姓名
@@ -104,7 +104,7 @@ $(document).ready(function(){
 	<!--{section name=custom loop=$schizophrenia_array}-->
 	 <tr id="hy_<!--{$schizophrenia_array[custom].uuid}-->">
 	 	<td>&nbsp;
-        	
+        	<img src="<!--{$basePath}-->images/<!--{$schizophrenia_array[custom].pic_name}-->" />
         </td>
 		<td>
         	<!--{$schizophrenia_array[custom].ssname}-->
@@ -136,8 +136,9 @@ $(document).ready(function(){
 	</tr>
 	<!--{/section}-->
 	<tr>
-		<td colspan="8">
-        	&nbsp;<!--{$pager}-->
+		<td colspan="8"><img src="<!--{$basePath}-->images/hz.png" />已确诊重性精神疾病患者
+		&nbsp;
+		<img src="<!--{$basePath}-->images/no_person.png" />未确诊&nbsp;&nbsp;<!--{$pager}-->
         </td>
 	</tr>
 	<!--{if $error_string}-->

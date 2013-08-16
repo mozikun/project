@@ -122,8 +122,8 @@ background:#FFFFFF;
 	<tbody >
 	 <!--{section name=custom loop=$diabetes}-->
 	 <tr onmouseover="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
-                                        <td><img src="<!--{$basePath}-->images/<!--{$diabetes[custom].pic_name}-->"</td>
-                                       <td><!--{$diabetes[custom].ssname}--></td>
+        <td><img src="<!--{$basePath}-->images/<!--{$diabetes[custom].pic_name}-->" /></td>
+        <td><!--{$diabetes[custom].ssname}--></td>
 		<td><!--{$diabetes[custom].name->address}--></td>
 		<td><!--{$diabetes[custom].name->phone_number}--></td>
 		<td><!--{$diabetes[custom].follow_time}--></td>
@@ -140,6 +140,9 @@ background:#FFFFFF;
 	  <!--{$str}-->
 	  <tr>
 	  <td colspan="7" align="center">
+	  <img src="<!--{$basePath}-->images/hz.png" />已确诊糖尿病患者
+		&nbsp;
+		<img src="<!--{$basePath}-->images/no_person.png" />未确诊&nbsp;&nbsp;
 	   <!--{$pager}--></td>
 	</tr>
 	<!--{if $error_string}-->

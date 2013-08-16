@@ -81,6 +81,13 @@ class web_registerController extends controller
 		
 		$this->view->hospitals=$hospitals;
 		*/
+		
+		//输出日期
+		$dates=array();
+		for($i=1;$i<=7;$i++){
+			$dates[]=date("Y-m-d",strtotime("+$i day"));
+		}
+		$this->view->dates=$dates;
         $this->view->display("index.html");
         
     }
@@ -91,7 +98,7 @@ class web_registerController extends controller
      * 
      * @return void
      */
-	public function departmentAction(){ //echo 123; exit();
+	public function departmentAction(){ 
 		$org_id=$this->_request->getParam("org_id");
 		$department=new Tdepartment();
 		//$department->debug(1);
@@ -107,6 +114,47 @@ class web_registerController extends controller
 		echo (json_encode($dep));
 		
 	}
+	/**
+     * web_registerController::departmentAction()
+     * 
+     * 获取科室
+     * 
+     * @return void
+     */
+	public function doctorAction(){
+		require_once __SITEROOT."library/Models/zuozhen.php";
+		require_once __SITEROOT."library/Models/staff_core.php";
+		
+		$org_id=$this->_request->getParam("org_id");
+		$department_id=$this->_request->getParam("department_id");
+		$staff_core=new Tstaff_core();
+		$zuozhen=new Tzuozhen();
+		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
+		//今天
+		//$tomorrow=strtotime("+1 day");
+		//七天后
+		//$sevenday=strtotime("+8 day");
+		//$zuozhen->whereAdd("consulting_time>='$tomorrow' and consulting_time<'$sevenday'");
+		//$zuozhen->joinAdd("inner",$zuozhen,$staff_core,"user_id","id");
+		//$zuozhen->groupby("zuozhen.user_id");
+		$staff_core->whereAdd("staff_core.org_id='$org_id'");
+		$staff_core->joinAdd("inner",$staff_core,$zuozhen,"id","user_id");
+		$zuozhen->whereAdd("zuozhen.department='$department_id'");
+		$staff_core->distinct("staff_core.id");
+		$staff_core->debug(1);
+		$staff_core->find();
+		
+		$doctors=array();
+		$i=0;
+		while($staff_core->fetch()){
+			$doctors[$i]['id']=$staff_core->id;
+			$doctors[$i]['doctor_name']=$staff_core->name_login;
+			$i++;
+		}
+		//print_r($doctors);
+		echo json_encode($doctors);
+		
+	} 
     /**
      * web_defaultController::listAction()
      * 

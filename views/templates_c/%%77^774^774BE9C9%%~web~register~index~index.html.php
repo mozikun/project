@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-14 22:18:26
+<?php /* Smarty version 2.6.14, created on 2013-08-16 15:38:58
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -57,6 +57,11 @@ zoom: 1;}
 #choose-a-school a:hover{background:#005EAC;color:#fff;}
 #choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
 #choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
+
+.clear{clear:both;}
+#department li{list-style:none;margin:2px;padding:2px;float:left;}
+#doctors li{list-style:none;margin:2px;padding:2px;float:left;}
+#date li{list-style:none;margin:2px;padding:2px;float:left;}
 </style>
 <!--[if IE]>
 <style type="text/css">
@@ -256,13 +261,51 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 <div class="list_right">
 	<div class="demo">
 		<table width="100%">
-			<tr>
-				<th align="right"><em>*</em> 医院名称：</th>
+			<tr >
+				<th style="width:100px;"><em>*</em> 医院名称：</th>
 				<td><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
+			</tr>
+			<tr style="border-top:1px solid rgb(0,138,201);">
+				<th ><em>*</em>科室名称：</th>
+				<td>
+					<ul id="department">
+					
+					</ul>
+				</td>
+			</tr>
+			<div class="clear"></div>
+			<tr style="border-top:1px solid rgb(0,138,201);">
+				<th ><em>*</em> 医生列表：</th>
+				<td>
+					<ul id="doctors">
+						
+					</ul>
+				</td>
+			</tr>
+			<tr style="border-top:1px solid rgb(0,138,201);">
+				<th ><em>*</em> 就诊时间：</th>
+				<td>
+					<ul id="date">
+						<?php $_from = $this->_tpl_vars['dates']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['date']):
+?>
+						<li><a><?php echo $this->_tpl_vars['date']; ?>
+</a></li>
+						<?php endforeach; endif; unset($_from); ?>
+					</ul>
+				</td>
+			</tr>
+			<tr style="border-top:1px solid rgb(0,138,201);">
+				<th ><em></em> </th>
+				<td>
+					<ul id="zuozhen">
+						
+					</ul>
+				</td>
 			</tr>	
 		</table>
    </div>
-   <div></div>
+   <div id="department"></div>
 	<div id="choose-box-wrapper">
 	<div id="choose-box">
 		<div id="choose-box-title">
@@ -325,6 +368,7 @@ function initSchool(provinceID){
 	//原先的学校列表清空
 	$('#choose-a-school').html('');
 	var schools = schoolList[provinceID-1].school;
+	//alert(schools);
 	for(i=0;i<schools.length;i++){
 		$('#choose-a-school').append('<a href="javascript:void(0);" class="school-item" school-id="'+schools[i].id+'">'+schools[i].name+'</a>');
 	}
@@ -340,7 +384,9 @@ function initSchool(provinceID){
 		//关闭弹窗
 		hide();
 		//获取科室
-		department();
+		getDepartment(school,'');
+		//获取医生
+		getDoctor(school);
 	});
 }
 
@@ -363,10 +409,42 @@ unset($_smarty_tpl_vars);
  ?>
 <script>
 //获取该医院的科室
-function department(){
-	$.get("<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/department/org_id/"+id,function(info){
-	 alert(info);
-})
+function getDepartment(id){
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/department/org_id/"+id,
+		dataType:"json",
+		beforeSend:function(){
+				$("#department").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/load.gif'/></li>");
+		},
+		success:function(department){
+			$("#department").html(''); 
+			for(i=0;i<department.length;i++){
+				$("#department").append('<li><a onclick="getDoctor(\'\',\''+department[i].uuid+'\');" department_id="'+department[i].uuid+'">'+department[i].department_name+'</a></li>');
+			}
+		},	
+	});
 }
+//获取医生列表
+function getDoctor(org_id,department_id){ 
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
+		dataType:"json",
+		beforeSend:function(){
+			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/load.gif'/></li>"); 
+		},
+		success:function(doctor){
+			$("#doctors").html(''); 
+			for(i=0;i<department.length;i++){
+				$("#doctors").append('<li><a doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+			}
+		},	
+	});
+}
+
 </script>

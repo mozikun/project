@@ -212,6 +212,7 @@ class phshyper extends api_phs_comm
 							{
 								$table_object->org_id=$this->get_org_id($table_object->org_id);
 							}
+                            //$table_object->debug(5);
 							if ($update_status)
 							{
 								$table_object->whereAdd("id='$id'");
@@ -276,6 +277,21 @@ class phshyper extends api_phs_comm
 					$update_status=0;//更新标志放这里
 					$table_name=$tables->attributes();//表名
 					$class_name="T".$table_name;//类名
+                    if ($table_name!="hypertension_follow_up")
+					{
+                        //查询更新标志
+    					$table_object=new $class_name();
+                        //$table_object->debug(5);
+    					$table_object->whereAdd("id='$id'");
+    					$table_object->whereAdd("org_id='$org_id'");
+                        //采用涛哥的方式，先删除记录，再添加记录
+    					$table_object->whereAdd("ext_uuid='".$rows->ext_uuid."'");
+    					if ($table_object->delete())
+    					{
+    					   $update_status=0;
+    					}
+    					$table_object->free_statement();
+                    }
 					foreach ($tables as $rows)
 					{
 						$org_id=$this->get_org_id($rows->org_id);
@@ -320,17 +336,6 @@ class phshyper extends api_phs_comm
 						//这里处理从表数据
 						if ($table_name!="hypertension_follow_up")
 						{
-								//查询更新标志
-								$table_object=new $class_name();
-								$table_object->whereAdd("id='$id'");
-								$table_object->whereAdd("org_id='$org_id'");
-                                //采用涛哥的方式，先删除记录，再添加记录
-								$table_object->whereAdd("ext_uuid='".$rows->ext_uuid."'");
-								if (1 || $table_object->delete())
-								{
-									$update_status=0;
-								}
-								$table_object->free_statement();
 								$table_object=new $class_name();
 								foreach ($rows as $colums)
 								{
@@ -400,6 +405,7 @@ class phshyper extends api_phs_comm
 									}
 									//插入数据时需要生成uuid
 									$table_object->uuid=uniqid(strtoupper(substr($table_name,0,1))."_");
+                                    //$table_object->debug(5);
 									if (!$table_object->insert())
 									{
 										$status=3;
