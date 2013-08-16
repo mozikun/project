@@ -1,15 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-16 17:18:36
-         compiled from index.html */ ?>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
-$this->_tpl_vars = $_smarty_tpl_vars;
-unset($_smarty_tpl_vars);
- ?>
+<!--{include file=../default/header.html}-->
     <!--导航栏结束，主体开始-->
-<script src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/js/jquery-1.4.2.js"></script>	
-<script src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/js/school.js"></script>	
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>	
+<script src="<!--{$basePath}-->views/js/school.js"></script>	
 
 <style>
 .org li{
@@ -74,45 +66,15 @@ zoom: 1;
 <![endif]-->
 
     <div class="main_body">
-      <div class="top_flash"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_31.png" width="960" height="200"></a> </div>
+      <div class="top_flash"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_31.png" width="960" height="200"></a> </div>
       <div class="top_title">
-        <div class="menu_time">今天是<?php echo $this->_tpl_vars['timer']; ?>
-</div>
-        当前位置：<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/default/index">首页</a><?php unset($this->_sections['path']);
-$this->_sections['path']['name'] = 'path';
-$this->_sections['path']['loop'] = is_array($_loop=$this->_tpl_vars['path']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['path']['show'] = true;
-$this->_sections['path']['max'] = $this->_sections['path']['loop'];
-$this->_sections['path']['step'] = 1;
-$this->_sections['path']['start'] = $this->_sections['path']['step'] > 0 ? 0 : $this->_sections['path']['loop']-1;
-if ($this->_sections['path']['show']) {
-    $this->_sections['path']['total'] = $this->_sections['path']['loop'];
-    if ($this->_sections['path']['total'] == 0)
-        $this->_sections['path']['show'] = false;
-} else
-    $this->_sections['path']['total'] = 0;
-if ($this->_sections['path']['show']):
-
-            for ($this->_sections['path']['index'] = $this->_sections['path']['start'], $this->_sections['path']['iteration'] = 1;
-                 $this->_sections['path']['iteration'] <= $this->_sections['path']['total'];
-                 $this->_sections['path']['index'] += $this->_sections['path']['step'], $this->_sections['path']['iteration']++):
-$this->_sections['path']['rownum'] = $this->_sections['path']['iteration'];
-$this->_sections['path']['index_prev'] = $this->_sections['path']['index'] - $this->_sections['path']['step'];
-$this->_sections['path']['index_next'] = $this->_sections['path']['index'] + $this->_sections['path']['step'];
-$this->_sections['path']['first']      = ($this->_sections['path']['iteration'] == 1);
-$this->_sections['path']['last']       = ($this->_sections['path']['iteration'] == $this->_sections['path']['total']);
-?>&gt;<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/default/list/lanmu/<?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['py']; ?>
-"><?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['sortname']; ?>
-</a><?php endfor; endif; ?>&gt;阅读文章</div>
+        <div class="menu_time">今天是<!--{$timer}--></div>
+        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a><!--{section name=path loop=$path}-->&gt;<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$path[path].py}-->"><!--{$path[path].sortname}--></a><!--{/section}-->&gt;阅读文章</div>
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
           <div class="bm_right notright">
-            <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
             <div class="bv_conts">
               <form id="form2" action="#">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
@@ -145,8 +107,7 @@ views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
-                      <td><input type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_13.png"></td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -154,11 +115,9 @@ views/images/mh/ws_13.png"></td>
             </div>
           </div>
           <div class="healthy">
-            <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
             <div class="bv_conts">
-              <form id="form2" action="<?php echo $this->_tpl_vars['basePath']; ?>
-iha/search/search" method="post">
+              <form id="form2" action="<!--{$basePath}-->iha/search/search" method="post">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
                   <tbody>
                     <tr>
@@ -179,10 +138,8 @@ iha/search/search" method="post">
                     <tr>
                       <td align="right">&nbsp;</td>
                       <td><span class="td_cell">
-                        <input class="cell_img" type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_16.png" />
-                        </span><span class="td_cell"><a href="#"><img class="cell_img" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
+                        <input class="cell_img" type="image" src="<!--{$basePath}-->views/images/mh/ws_16.png" />
+                        </span><span class="td_cell"><a href="#"><img class="cell_img" src="<!--{$basePath}-->views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
                     </tr>
                     <tr>
                       <td align="right">&nbsp;</td>
@@ -195,8 +152,7 @@ views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
           </div>
           <div class="lir_inner notal">
             <div class="notal_top">
-              <div class="li_title"><span class="spn1"><img class="im_l" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
               <div class="ntop_conts">
                 <form id="" action="#">
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -209,8 +165,7 @@ views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
                       <tr>
                         <td>接种时间:</td>
                         <td><input type="text" name="mycard" class="mycard" id="mycard"></td>
-                        <td><input type="image" name="imageField" id="imageField" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_26.png" class="img_btn"></td>
+                        <td><input type="image" name="imageField" id="imageField" src="<!--{$basePath}-->views/images/mh/ws_26.png" class="img_btn"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -218,40 +173,12 @@ views/images/mh/ws_26.png" class="img_btn"></td>
               </div>
             </div>
             <div class="notal_bottm">
-              <div class="li_title"><span class="spn1"><img class="im_l" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_18.png" width="11" height="11">联网医院</span><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/hospital/index">更多》</a></div>
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">联网医院</span><a href="<!--{$basePath}-->web/hospital/index">更多》</a></div>
               <div class="hospital">
                 <ul>
-                  <?php unset($this->_sections['orgs']);
-$this->_sections['orgs']['name'] = 'orgs';
-$this->_sections['orgs']['loop'] = is_array($_loop=$this->_tpl_vars['orgs']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['orgs']['show'] = true;
-$this->_sections['orgs']['max'] = $this->_sections['orgs']['loop'];
-$this->_sections['orgs']['step'] = 1;
-$this->_sections['orgs']['start'] = $this->_sections['orgs']['step'] > 0 ? 0 : $this->_sections['orgs']['loop']-1;
-if ($this->_sections['orgs']['show']) {
-    $this->_sections['orgs']['total'] = $this->_sections['orgs']['loop'];
-    if ($this->_sections['orgs']['total'] == 0)
-        $this->_sections['orgs']['show'] = false;
-} else
-    $this->_sections['orgs']['total'] = 0;
-if ($this->_sections['orgs']['show']):
-
-            for ($this->_sections['orgs']['index'] = $this->_sections['orgs']['start'], $this->_sections['orgs']['iteration'] = 1;
-                 $this->_sections['orgs']['iteration'] <= $this->_sections['orgs']['total'];
-                 $this->_sections['orgs']['index'] += $this->_sections['orgs']['step'], $this->_sections['orgs']['iteration']++):
-$this->_sections['orgs']['rownum'] = $this->_sections['orgs']['iteration'];
-$this->_sections['orgs']['index_prev'] = $this->_sections['orgs']['index'] - $this->_sections['orgs']['step'];
-$this->_sections['orgs']['index_next'] = $this->_sections['orgs']['index'] + $this->_sections['orgs']['step'];
-$this->_sections['orgs']['first']      = ($this->_sections['orgs']['iteration'] == 1);
-$this->_sections['orgs']['last']       = ($this->_sections['orgs']['iteration'] == $this->_sections['orgs']['total']);
-?>
-                  <li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['orgs']['index']]['id']; ?>
-"><?php echo $this->_tpl_vars['orgs'][$this->_sections['orgs']['index']]['zh_name']; ?>
-</a></li>
-                  <?php endfor; endif; ?>
+                  <!--{section name=orgs loop=$orgs}-->
+                  <li><a href="<!--{$basePath}-->web/hospital/detail/id/<!--{$orgs[orgs].id}-->"><!--{$orgs[orgs].zh_name}--></a></li>
+                  <!--{/section}-->
                 </ul>
               </div>
 			  <div class="clear"></div> 
@@ -286,12 +213,9 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 				<th ><em>*</em> 就诊时间：</th>
 				<td>
 					<ul id="date">
-						<?php $_from = $this->_tpl_vars['dates']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['date']):
-?>
-						<li><a><?php echo $this->_tpl_vars['date']; ?>
-</a></li>
-						<?php endforeach; endif; unset($_from); ?>
+						<!--{foreach from=$dates item=date}-->
+						<li><a><!--{$date}--></a></li>
+						<!--{/foreach}-->
 					</ul>
 				</td>
 			</tr>
@@ -402,22 +326,16 @@ function makeCenter(){
         <div class="bbk"></div>
       </div>
     </div>
-<?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => "../default/footer.html", 'smarty_include_vars' => array()));
-$this->_tpl_vars = $_smarty_tpl_vars;
-unset($_smarty_tpl_vars);
- ?>
+<!--{include file=../default/footer.html}-->
 <script>
 //获取该医院的科室
 function getDepartment(id){
 	$.ajax({
 		type:"post",
-		url:"<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/department/org_id/"+id,
+		url:"<!--{$basePath}-->web/register/department/org_id/"+id,
 		dataType:"json",
 		beforeSend:function(){
-				$("#department").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/load.gif'/></li>");
+				$("#department").html("<li style='text-align:center;width:100%'><img src='<!--{$basePath}-->views/images/load.gif'/></li>");
 		},
 		success:function(department){
 			$("#department").html(''); 
@@ -431,18 +349,15 @@ views/images/load.gif'/></li>");
 function getDoctor(org_id,department_id){ 
 	$.ajax({
 		type:"post",
-		url:"<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
+		url:"<!--{$basePath}-->web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
 		dataType:"json",
 		beforeSend:function(){
-			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/load.gif'/></li>"); 
+			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<!--{$basePath}-->views/images/load.gif'/></li>"); 
 		},
 		success:function(doctor){
 			$("#doctors").html(''); 
 			for(i=0;i<department.length;i++){
-				$("#doctors").append('<li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+				$("#doctors").append('<li><a doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
 			}
 		},	
 	});

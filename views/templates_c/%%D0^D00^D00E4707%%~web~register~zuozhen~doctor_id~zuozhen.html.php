@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-16 17:18:36
-         compiled from index.html */ ?>
+<?php /* Smarty version 2.6.14, created on 2013-08-16 17:19:52
+         compiled from zuozhen.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -441,8 +441,7 @@ views/images/load.gif'/></li>");
 		success:function(doctor){
 			$("#doctors").html(''); 
 			for(i=0;i<department.length;i++){
-				$("#doctors").append('<li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+				$("#doctors").append('<li><a doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
 			}
 		},	
 	});

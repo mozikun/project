@@ -140,8 +140,8 @@ class web_registerController extends controller
 		$staff_core->whereAdd("staff_core.org_id='$org_id'");
 		$staff_core->joinAdd("inner",$staff_core,$zuozhen,"id","user_id");
 		$zuozhen->whereAdd("zuozhen.department='$department_id'");
-		$staff_core->distinct("staff_core.id");
-		$staff_core->debug(1);
+		//$staff_core->distinct("staff_core.id");
+		//$staff_core->debug(1);
 		$staff_core->find();
 		
 		$doctors=array();
@@ -153,6 +153,39 @@ class web_registerController extends controller
 		}
 		//print_r($doctors);
 		echo json_encode($doctors);
+		
+	}
+	/**
+     * web_registerController::zuozhenAction()
+     * 
+     * 获取医生的坐诊表 
+     * 
+     * @return void
+     */	
+	public function zuozhenAction(){
+		require_once __SITEROOT."library/Models/zuozhen.php";
+		require_once __SITEROOT."library/Models/staff_core.php";
+		$doctor_id=$this->_request->getParam("doctor_id");
+		$staff_core=new Tstaff_core();
+		$zuozhen=new Tzuozhen();
+		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
+		//今天
+		$tomorrow=strtotime("+1 day");
+		//七天后
+		$sevenday=strtotime("+8 day");
+		$zuozhen->whereAdd("consulting_time>='$tomorrow' and consulting_time<'$sevenday'");
+		$zuozhen->joinAdd("inner",$zuozhen,$staff_core,"user_id","id");
+		$zuozhen->whereAdd("zuozhen.user_id='$doctor_id'");
+		$zuozhen->find();
+		$result=array();
+		$i=0;
+		while($zuozhen->fetch()){
+			$result[$i]['zuozhen']=$zuozhen->toArray();
+			$result[$i]['doctor_name']=$staff_core->name_login;
+			$i++;
+		}
+		$this->view->result=$result;print_r($result);
+		$this->view->display("zuozhen.html");
 		
 	} 
     /**
