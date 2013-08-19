@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-06-24 10:55:48
+<?php /* Smarty version 2.6.14, created on 2013-08-19 17:05:04
          compiled from schizophrenia_index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -181,7 +181,7 @@ cd/schizophrenia/add/uuid/<?php echo $this->_tpl_vars['shp'][$this->_sections['s
 	<thead>
     <tr class="headbg">
     	<th>&nbsp;
-        	
+        	状态
         </th>
 		<th>
         	姓名
@@ -234,7 +234,9 @@ $this->_sections['custom']['last']       = ($this->_sections['custom']['iteratio
 	 <tr id="hy_<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['custom']['index']]['uuid']; ?>
 ">
 	 	<td>&nbsp;
-        	
+        	<img src="<?php echo $this->_tpl_vars['basePath']; ?>
+images/<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['custom']['index']]['pic_name']; ?>
+" />
         </td>
 		<td>
         	<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['custom']['index']]['ssname']; ?>
@@ -276,8 +278,11 @@ cd/schizophrenia/list/id/<?php echo $this->_tpl_vars['schizophrenia_array'][$thi
 	</tr>
 	<?php endif; ?>
 	<tr>
-		<td colspan="8">
-        	&nbsp;<?php echo $this->_tpl_vars['pager']; ?>
+		<td colspan="8"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
+images/hz.png" />已确诊重性精神疾病患者
+		&nbsp;
+		<img src="<?php echo $this->_tpl_vars['basePath']; ?>
+images/no_person.png" />未确诊&nbsp;&nbsp;<?php echo $this->_tpl_vars['pager']; ?>
 
         </td>
 	</tr>

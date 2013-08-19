@@ -422,7 +422,7 @@ class phschildphysical extends api_phs_comm
 
 			foreach ($dic['child_physical'] as $m=>$n)
 			{
-				if (isset($child_physical->$m) && isset($dic[$k][$m]))
+				if (isset($child_physical->$m) && isset($dic['child_physical'][$m]))
 				{
 					$child_physical->$m=array_search_for_other($child_physical->$m,$$n);
 				}
@@ -464,7 +464,7 @@ class phschildphysical extends api_phs_comm
 			$xml_string.=$child_physical->toXML("",$exclude_array);
 
 			$xml_string.="</row>";
-			$xml_string.="<error_msg>$error</error_msg>";
+			//$xml_string.="<error_msg>$error</error_msg>";
 			$xml_string.="</table>";
 			$xml_string.="</tables>";
 			return $xml_string;

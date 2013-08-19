@@ -63,7 +63,7 @@
                 //系统管理员界面
                 if($this->user['role_en_name']=='admin')
                 {
-                    $this->redirect(__BASEPATH.'decision/main/admin');
+                    $this->redirect(__BASEPATH.'decision/main/data');
                     exit;
                 }
                 //默认界面
@@ -372,6 +372,17 @@
             $this->view->this_position=$this_position;
             $this->view->position=json_encode($position);   
             $this->view->display("decision_index.html");
+        }
+        /**
+         * decision_mainController::dataAction()
+         * 
+         * 数据中心首页
+         * 
+         * @return void
+         */
+        public function dataAction()
+        {
+            $this->view->display("data_index.html");
         }
    }
 ?>

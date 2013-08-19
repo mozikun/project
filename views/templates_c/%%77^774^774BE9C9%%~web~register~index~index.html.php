@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-16 17:18:36
+<?php /* Smarty version 2.6.14, created on 2013-08-19 11:42:32
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -282,6 +282,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 					</ul>
 				</td>
 			</tr>
+			<!--
 			<tr style="border-top:1px solid rgb(0,138,201);">
 				<th ><em>*</em> 就诊时间：</th>
 				<td>
@@ -295,6 +296,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 					</ul>
 				</td>
 			</tr>
+			-->
 			<tr style="border-top:1px solid rgb(0,138,201);">
 				<th ><em></em> </th>
 				<td>

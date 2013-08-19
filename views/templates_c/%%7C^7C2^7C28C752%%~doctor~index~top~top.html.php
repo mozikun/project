@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-04-27 17:40:51
+<?php /* Smarty version 2.6.14, created on 2013-08-19 17:04:30
          compiled from top.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,7 +21,7 @@ img{
 }
 #Layer1 {
 	position:absolute;
-	width:155px;
+	width:225px;
 	height:34px;
 	color:#fff;
 	font-size:12px;
@@ -29,13 +29,18 @@ img{
 	left: 80%;
 	top: 45%;	
 }
+#Layer1 a{
+    color: #fff;
+    text-decoration: none;
+}
 </style>
 </head>
 
 <body>
 <img src="<?php echo $this->_tpl_vars['topimg']; ?>
 " />
-<div id="Layer1"><?php echo $this->_tpl_vars['timer']; ?>
+<div id="Layer1"><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
+decision/main/index" target="mainFrame">系统首页</a> &nbsp;<?php echo $this->_tpl_vars['timer']; ?>
 
 </div>
 </body>

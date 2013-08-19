@@ -16,7 +16,7 @@ img{
 }
 #Layer1 {
 	position:absolute;
-	width:155px;
+	width:225px;
 	height:34px;
 	color:#fff;
 	font-size:12px;
@@ -24,12 +24,16 @@ img{
 	left: 80%;
 	top: 45%;	
 }
+#Layer1 a{
+    color: #fff;
+    text-decoration: none;
+}
 </style>
 </head>
 
 <body>
 <img src="<!--{$topimg}-->" />
-<div id="Layer1"><!--{$timer}-->
+<div id="Layer1"><a href="<!--{$baseUrl}-->decision/main/index" target="mainFrame">系统首页</a> &nbsp;<!--{$timer}-->
 </div>
 </body>
 

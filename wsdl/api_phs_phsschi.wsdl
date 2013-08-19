@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+<definitions name="wsdl_phsschi" targetNamespace="urn:wsdl_phsschi" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:wsdl_phsschi" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="wsdl_phsschiPort"><operation name="ws_delete">
+<input message="tns:ws_deleteRequest" />
+<output message="tns:ws_deleteResponse" />
+</operation>
+<operation name="ws_update">
+<input message="tns:ws_updateRequest" />
+<output message="tns:ws_updateResponse" />
+</operation>
+<operation name="ws_select_single">
+<input message="tns:ws_select_singleRequest" />
+<output message="tns:ws_select_singleResponse" />
+</operation>
+<operation name="ws_select_all">
+<input message="tns:ws_select_allRequest" />
+<output message="tns:ws_select_allResponse" />
+</operation>
+<operation name="ws_select_persons">
+<input message="tns:ws_select_personsRequest" />
+<output message="tns:ws_select_personsResponse" />
+</operation>
+<operation name="login">
+<input message="tns:loginRequest" />
+<output message="tns:loginResponse" />
+</operation>
+<operation name="insert_api_logs">
+<input message="tns:insert_api_logsRequest" />
+<output message="tns:insert_api_logsResponse" />
+</operation>
+</portType>
+<binding name="wsdl_phsschiBinding" type="tns:wsdl_phsschiPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="ws_delete">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#ws_delete" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="ws_update">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#ws_update" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="ws_select_single">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#ws_select_single" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="ws_select_all">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#ws_select_all" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="ws_select_persons">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#ws_select_persons" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="login">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#login" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="insert_api_logs">
+<soap:operation soapAction="urn:wsdl_phsschi#phsschi#insert_api_logs" />
+<input><soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_phsschi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="wsdl_phsschi">
+<documentation />
+<port name="wsdl_phsschiPort" binding="tns:wsdl_phsschiBinding"><soap:address location="http://yaanchis/api/phsschi/index" />
+</port>
+</service>
+<message name="ws_deleteRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_string" type="xsd:string" />
+</message>
+<message name="ws_deleteResponse">
+<part name="ws_delete" type="xsd:string" />
+</message>
+<message name="ws_updateRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_string" type="xsd:string" />
+</message>
+<message name="ws_updateResponse">
+<part name="ws_update" type="xsd:string" />
+</message>
+<message name="ws_select_singleRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_string" type="xsd:string" />
+</message>
+<message name="ws_select_singleResponse">
+<part name="ws_select_single" type="xsd:string" />
+</message>
+<message name="ws_select_allRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_string" type="xsd:string" />
+</message>
+<message name="ws_select_allResponse">
+<part name="ws_select_all" type="xsd:string" />
+</message>
+<message name="ws_select_personsRequest">
+<part name="token" type="xsd:string" />
+<part name="xml_string" type="xsd:string" />
+</message>
+<message name="ws_select_personsResponse">
+<part name="ws_select_persons" type="xsd:string" />
+</message>
+<message name="loginRequest">
+<part name="org_id" type="xsd:string" />
+<part name="password" type="xsd:string" />
+</message>
+<message name="loginResponse">
+<part name="login" type="xsd:string" />
+</message>
+<message name="insert_api_logsRequest">
+<part name="logs_array" type="xsd:string" />
+</message>
+<message name="insert_api_logsResponse">
+<part name="insert_api_logs" type="xsd:string" />
+</message>
+</definitions>

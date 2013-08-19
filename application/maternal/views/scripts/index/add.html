@@ -174,8 +174,25 @@ $(document).ready(function(){
 			});
 		});
 	});
-    
 });
+//计算bmi值
+    function cal_bmi()
+    {
+        var height=$("input[name='height']").val();
+        var weight=$("input[name='weight']").val();
+        height=parseInt(height)/100;
+        weight=parseInt(weight);
+        if(!isNaN(height) && !isNaN(weight) && height!=0)
+        {
+            var bmi=weight/(height*height);
+            bmi=bmi.toFixed(3);
+            $("input[name='bmi']").val(bmi);
+        }
+        else
+        {
+            $("input[name='bmi']").val('0');
+        }
+    }
 </script>
 <title>第1次产前随访服务记录表</title>
 <style>
@@ -303,17 +320,17 @@ label
 	<tr>
 	   <td>身高</td>
 	   <td colspan="2">
-	    <input type="text" name="height" value="<!--{$height}-->"  class="inputnone"/>cm
+	    <input type="text" name="height" value="<!--{$height}-->" onblur="cal_bmi()"  class="inputnone"/>cm
 	   </td>
 	   <td>体重</td>
 	   <td colspan="2">
-	    <input type="text" name="weight" value="<!--{$weight}-->"  class="inputnone"/>Kg
+	    <input type="text" name="weight" value="<!--{$weight}-->" size="20" onblur="cal_bmi()"  class="inputnone"/>Kg
 	   </td>
 	</tr>
 	<tr>
 	   <td>体质指数<img title="体质指数=体重（kg）/身高的平方（m2）。可留空，当填写了身高和体重时，系统自动计算此值" src="<!--{$basePath}-->images/comments.png" class="vtip" /></td>
 	   <td colspan="2">
-	    <input type="text" name="bmi" value="<!--{$bmi}-->"  class="inputnone"/>
+	    <input type="text" name="bmi" value="<!--{$bmi}-->" size="25"  class="inputnone" style="width: 68px;"/>
 	   </td>
 	   <td>血压</td>
 	   <td colspan="2">

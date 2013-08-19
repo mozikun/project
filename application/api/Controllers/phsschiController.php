@@ -69,5 +69,22 @@ class api_phsschiController extends controller
 		
 		
 	}
+	public function ws_selectAction()
+	{
+		$client=new SoapClient("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path);
+		$token_xml	= $client->login('888888','1');//验证机构标准代码和密码
+        $data_xml	= new SimpleXMLElement($token_xml);		
+		$token		= $data_xml->return_string;//得到令牌
+		/*
+		$tmp=$client->ws_select_single($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>888888</org_id><identity_number>513101194109043818</identity_number><ext_uuid>1</ext_uuid></where>"); 
+	    echo $tmp;
+	    */
+		
+		$xml_string="<?xml version='1.0' encoding='UTF-8'?><org_id>17</org_id>";
+		$tmp=$client->ws_select_all($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>SM000001151182410A1001</org_id></where>"); 
+		echo $tmp;
+		
+		
+	}
 }
 ?>

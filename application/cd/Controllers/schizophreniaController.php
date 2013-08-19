@@ -25,6 +25,7 @@ class cd_schizophreniaController extends controller{
 	 */
 	public function indexAction()
 	{
+		require_once(__SITEROOT."application/cd/models/clinical_history.php");//慢病确症情况
 		//查看当前选中居民的精神病信息
 		$individual_session=new Zend_Session_Namespace("individual_core");
 		$seeion_id=$individual_session->uuid;
@@ -166,6 +167,14 @@ class cd_schizophreniaController extends controller{
 			//$schizophrenia_array[$i]['followup_time']		= empty($schizophrenia->followup_time)?'':adodb_date("Y-m-d",$schizophrenia->followup_time);//随访时间
 			//$schizophrenia_array[$i]['followup_doctor']		= get_staff_name_byid($schizophrenia->followup_doctor);//随访医生
 			$schizophrenia_array[$i]['moreinfo']=get_moreinfo_schizophrenia($schizophrenia->id);
+			$is_schizophrenia=is_clinical_history($schizophrenia->id,8);
+			if($is_schizophrenia>0)
+			{
+				$schizophrenia_array[$i]['pic_name']="hz.png";
+			}
+			else {
+				$schizophrenia_array[$i]['pic_name']="no_person.png";
+			}
 			$i++;
 		}
 		$out = $links->subPageCss2();

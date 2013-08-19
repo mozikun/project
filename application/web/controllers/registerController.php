@@ -165,191 +165,128 @@ class web_registerController extends controller
 	public function zuozhenAction(){
 		require_once __SITEROOT."library/Models/zuozhen.php";
 		require_once __SITEROOT."library/Models/staff_core.php";
+		//构造7天
+		$days=array();
+		$weekarray=array("日","一","二","三","四","五","六");
+		for($i=1;$i<=7;$i++){
+			$days[$i]['date']=date("Y-m-d",strtotime("+$i day"));
+			$days[$i]['week']="星期".$weekarray[date("w",strtotime("+$i day"))];
+		}
+		$this->view->days=$days;
+		
 		$doctor_id=$this->_request->getParam("doctor_id");
+		
+		//获取医生名字
+		$staff=new Tstaff_core();
+		$staff->whereAdd("id='$doctor_id'");
+		$staff->find(true);
+		$this->view->staff=$staff;
 		$staff_core=new Tstaff_core();
 		$zuozhen=new Tzuozhen();
 		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
 		//今天
-		$tomorrow=strtotime("+1 day");
+		$tomorrow=time();
 		//七天后
 		$sevenday=strtotime("+8 day");
 		$zuozhen->whereAdd("consulting_time>='$tomorrow' and consulting_time<'$sevenday'");
 		$zuozhen->joinAdd("inner",$zuozhen,$staff_core,"user_id","id");
 		$zuozhen->whereAdd("zuozhen.user_id='$doctor_id'");
 		$zuozhen->find();
-		$result=array();
+		$data=array();
 		$i=0;
 		while($zuozhen->fetch()){
-			$result[$i]['zuozhen']=$zuozhen->toArray();
-			$result[$i]['doctor_name']=$staff_core->name_login;
+			$data[$i]['zuozhen']=$zuozhen->toArray();
+			$data[$i]['doctor_name']=$staff_core->name_login;
 			$i++;
 		}
-		$this->view->result=$result;print_r($result);
+		$result=array();
+		//构造坐诊表
+		for($i=1;$i<=7;$i++){
+			$result[$i]['date']=date("Y-m-d",strtotime("$i day"));
+			foreach($data as $v){
+				//日期相等
+				if(date("Y-m-d",$v['zuozhen']['consulting_time'])==date("Y-m-d",strtotime("+$i day"))){ 
+					//启用]
+					if($v['zuozhen']['flag']==2){
+						$result[$i]['id']=$v['zuozhen']['uuid'];
+						//上午
+						if($v['zuozhen']['day']==1||$v['zuozhen']['day']==3){
+							$result[$i]['shangwu']=1;
+							//print_r($result);
+						}
+						//下午
+						if($v['zuozhen']['day']==2||$v['zuozhen']['day']==3){
+							$result[$i]['xiawu']=1;
+						}
+					}
+					
+				}
+				}
+			}
+		
+		$this->view->result=$result;
 		$this->view->display("zuozhen.html");
 		
 	} 
-    /**
-     * web_defaultController::listAction()
+	/**
+     * web_registerController::registerAction()
      * 
-     * 列表，含分类文章列表和文章列表
-     * 
-     * @return void
-     */
-    public function listAction()
-    {
-        $lanmu=$this->_request->getParam('lanmu');
-        require_once __SITEROOT."/library/custom/pager.php";
-        $search=array();
-        if($lanmu)
-        {
-            //判断栏目是否有子栏目
-            $web_sort=new Tweb_sort();
-            $web_sort->whereAdd("sortname_py='$lanmu'");
-            $web_sort->find(true);
-            $parent_uuid=$web_sort->uuid;
-            //显示路径
-            $this->view->path=get_sort_path($parent_uuid);
-            $path=$web_sort->path;
-            $current_sortname=$web_sort->sortname;
-            $parent_sort=new Tweb_sort();
-            $parent_sort->whereAdd("parent_uuid='".$parent_uuid."'");
-            if($parent_sort->count())
-            {
-                //分类列表
-                //取栏目列表
-                $web_sort=new Tweb_sort();
-                $web_sort->whereAdd("parent_uuid='".$parent_uuid."'");
-                $nums=$web_sort->count();
-        		$pageCurrent = intval($this->_request->getParam('page'));
-        		$pageCurrent = $pageCurrent?$pageCurrent:1;
-        		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
-        		$links = new SubPages(3,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
-        		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
-        		$startnum = 3*($pageCurrent-1);  //计算开始记录数
-        		$web_sort->limit($startnum,3);
-                $web_sort->find();
-                $sort_list=array();
-                $i=0;
-                while($web_sort->fetch())
-                {
-                    $sort_list[$i]['uuid']=$web_sort->uuid;
-                    $sort_list[$i]['py']=$web_sort->sortname_py;
-                    $sort_list[$i]['name']=$web_sort->sortname;
-                    //取文章列表
-                    $article=new Tweb_article_base();
-                    $sort=new Tweb_sort();
-                    $article->joinAdd('left',$article,$sort,'sort_id','uuid');
-                    $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$web_sort->path."%')");
-                    $article->orderBy("web_article_base.updated desc");
-                    $article->limit(0,6);
-                    $article->find();
-                    $x=0;
-                    while($article->fetch())
-                    {
-                        $sort_list[$i]['articles'][$x]['uuid']=$article->uuid;
-                        $sort_list[$i]['articles'][$x]['sortname']=$sort->sortname;
-                        $sort_list[$i]['articles'][$x]['title']=cut_str($article->title,40);
-                        $sort_list[$i]['articles'][$x]['info']=cut_str($article->info,42);
-                        $sort_list[$i]['articles'][$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
-                        $x++;
-                    }
-                    $article->free_statement();
-                    $i++;
-                }
-                $out = $links->subPageCss2();
-                $this->view->assign("pager",$out);
-                $this->view->sort_list=$sort_list;
-                $this->view->display("index_list.html");
-            }
-            else
-            {
-                //文章列表
-                $article=new Tweb_article_base();
-                $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$path."%')");
-                $nums=$article->count();
-        		$pageCurrent = intval($this->_request->getParam('page'));
-        		$pageCurrent = $pageCurrent?$pageCurrent:1;
-        		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
-        		$links = new SubPages(__ROWSOFPAGE,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
-        		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
-        		$startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
-        		$article->limit($startnum,__ROWSOFPAGE);
-                $article->orderBy("web_article_base.updated desc");
-                $article->limit($startnum,__ROWSOFPAGE);
-                $article->find();
-                $x=0;
-                $articles=array();
-                while($article->fetch())
-                {
-                    $articles[$x]['uuid']=$article->uuid;
-                    $articles[$x]['title']=cut_str($article->title,45);
-                    $articles[$x]['info']=cut_str($article->info,42);
-                    $articles[$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
-                    $x++;
-                }
-                $article->free_statement();
-                $out = $links->subPageCss2();
-                $this->view->assign("pager",$out);
-                $this->view->articles=$articles;
-                $this->view->current_sortname=$current_sortname;
-                $this->view->display("list_article.html");
-            }
-        }
-        else
-        {
-            //报错
-            
-        }
-    }
-    /**
-     * web_defaultController::viewAction()
-     * 
-     * 查看文章
+     * 挂号 
      * 
      * @return void
-     */
-    public function viewAction()
-    {
-        $uuid=$this->_request->getParam('uuid');
-        if($uuid)
-        {
-            //取文章详细
-            $article=new Tweb_article_base();
-            $article_content=new Tweb_article_content();
-            $article->joinAdd('left',$article,$article_content,'uuid','article_id');
-            $article->whereAdd("web_article_base.uuid='$uuid'");
-            $article->find(true);
-            $updated=$article->updated;
-            $sort=$article->sort_id;
-            $article->updated=$article->updated?date('Y-m-d H:i',$article->updated):'';
-            $this->view->article=$article;
-            //显示路径
-            $this->view->path=get_sort_path($article->sort_id);
-            $article->free_statement();
-            $tips=array();
-            //取上一条
-            $tips['before']='';
-            $article=new Tweb_article_base();
-            $article->whereAdd("updated<='$updated'");
-            $article->whereAdd("sort_id='$sort'");
-            $article->whereAdd("uuid!='$uuid'");
-            $article->orderBy('updated desc');
-            $article->find(true);
-            $tips['before']=$article->uuid;
-            $article->free_statement();
-            //取下一条
-            $tips['next']='';
-            $article=new Tweb_article_base();
-            $article->whereAdd("updated>='$updated'");
-            $article->whereAdd("sort_id='$sort'");
-            $article->whereAdd("uuid!='$uuid'");
-            $article->orderBy('updated desc');
-            $article->find(true);
-            $tips['next']=$article->uuid;
-            $article->free_statement();
-            $this->view->tips=$tips;
-            $this->view->article_content=$article_content;
-        }
-        $this->view->display("detail.html");
-    }
+     */	
+    public function registerAction(){
+		
+		//检查登陆
+	    $search_session=new Zend_Session_Namespace("iha_search");
+		if(empty($search_session->id)){
+			echo "您还没有登陆!";
+			exit();
+		}
+		$id=$this->_request->getParam("id");
+		require_once __SITEROOT."library/Models/zuozhen.php";
+		require_once __SITEROOT."library/Models/appointment_register.php";
+		
+		//检查重复预约
+		$appointment=new Tappointment_register();
+		$appointment->whereAdd("zuozhen_id='$id' and identity_number='$search_session->identity_number'");
+		//$appointment->debug(1);
+		if($appointment->count()>0){
+			echo "您已经预约过该号了，请勿重复预约！";
+			exit();
+		}
+		$appointment_register=new Tappointment_register();
+		$zuozhen=new Tzuozhen();
+		$zuozhen->whereAdd("uuid='$id'");
+		$zuozhen->find(true);
+		$appointment_register->uuid=uniqid();
+		$appointment_register->doctor_id=$zuozhen->user_id;
+		$appointment_register->created=time();
+		$appointment_register->name=$search_session->name;
+		$appointment_register->identity_number=$search_session->identity_number;
+		$appointment_register->gender=$search_session->sex;
+		$appointment_register->age=$search_session->age;
+		$appointment_register->register_date=$zuozhen->consulting_time;
+		$appointment_register->register_time=$zuozhen->day;
+		$appointment_register->org_id=$zuozhen->org_id;
+		$appointment_register->department_id=$zuozhen->department;
+		$appointment_register->clinic_id=$zuozhen->cliinic;
+		$appointment_register->number_species_id=$zuozhen->number_species;
+		$appointment_register->status=1;
+		$appointment_register->updated=time();
+		$appointment_register->phone_number=$search_session->phone_number;
+		$appointment_register->zuozhen_id=$id;
+		if($appointment_register->insert()){
+			echo "预约成功";
+			
+		}else{
+			echo "预约失败";
+		}
+		
+		
+		
+		
+		
+	}
+   
 }
