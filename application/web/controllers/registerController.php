@@ -128,7 +128,7 @@ class web_registerController extends controller
 		$org_id=$this->_request->getParam("org_id");
 		$department_id=$this->_request->getParam("department_id");
 		$staff_core=new Tstaff_core();
-		$zuozhen=new Tzuozhen();
+		//$zuozhen=new Tzuozhen();
 		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
 		//今天
 		//$tomorrow=strtotime("+1 day");
@@ -138,8 +138,8 @@ class web_registerController extends controller
 		//$zuozhen->joinAdd("inner",$zuozhen,$staff_core,"user_id","id");
 		//$zuozhen->groupby("zuozhen.user_id");
 		$staff_core->whereAdd("staff_core.org_id='$org_id'");
-		$staff_core->joinAdd("inner",$staff_core,$zuozhen,"id","user_id");
-		$zuozhen->whereAdd("zuozhen.department='$department_id'");
+		//$staff_core->joinAdd("inner",$staff_core,$zuozhen,"id","user_id");
+		//$zuozhen->whereAdd("zuozhen.department='$department_id'");
 		//$staff_core->distinct("staff_core.id");
 		//$staff_core->debug(1);
 		$staff_core->find();
@@ -244,6 +244,8 @@ class web_registerController extends controller
 			exit();
 		}
 		$id=$this->_request->getParam("id");
+		$day=$this->_request->getParam("day");
+	
 		require_once __SITEROOT."library/Models/zuozhen.php";
 		require_once __SITEROOT."library/Models/appointment_register.php";
 		
@@ -267,7 +269,7 @@ class web_registerController extends controller
 		$appointment_register->gender=$search_session->sex;
 		$appointment_register->age=$search_session->age;
 		$appointment_register->register_date=$zuozhen->consulting_time;
-		$appointment_register->register_time=$zuozhen->day;
+		$appointment_register->register_time=$day;
 		$appointment_register->org_id=$zuozhen->org_id;
 		$appointment_register->department_id=$zuozhen->department;
 		$appointment_register->clinic_id=$zuozhen->cliinic;
@@ -282,11 +284,6 @@ class web_registerController extends controller
 		}else{
 			echo "预约失败";
 		}
-		
-		
-		
-		
-		
 	}
    
 }

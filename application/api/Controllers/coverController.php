@@ -32,7 +32,7 @@ class api_coverController extends controller{
     public function zltestAction()
     {
         $ws_url="http://172.16.11.251/wsdl/api_phs_iha.wsdl";
-		$client=new SoapClient($ws_url);
+		//$client=new SoapClient($ws_url);
         require_once(__SITEROOT."application/api/models/api_phs_iha_cover.php");
         $client=new api_phs_iha_cover();
         echo $client->ws_update('54254047451180212C2201',iconv('gbk','utf-8',file_get_contents(__SITEROOT."a.txt")));

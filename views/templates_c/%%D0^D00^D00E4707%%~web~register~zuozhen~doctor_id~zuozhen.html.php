@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-19 16:07:27
+<?php /* Smarty version 2.6.14, created on 2013-08-20 16:39:55
          compiled from zuozhen.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -271,8 +271,9 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
 			<td ><?php if ($this->_tpl_vars['v']['shangwu'] == 1): ?><a href="#" onclick="register('<?php echo $this->_tpl_vars['v']['id']; ?>
-')">预约</a><?php endif; ?></td>
-			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?>预约<?php endif; ?></td>
+',1)">预约</a><?php endif; ?></td>
+			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?><a href="#" onclick="register('<?php echo $this->_tpl_vars['v']['id']; ?>
+',2)">预约</a><?php endif; ?></td>
 			<?php endforeach; endif; unset($_from); ?>
 		</tr>
 		
@@ -295,13 +296,13 @@ $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
 <script>
-function register(id){
+function register(id,day){
 	var h = $(document).height();
 	$(".overlay").css({"height": h });	
 	$.ajax({
 		type:"post",
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/register/id/"+id,
+web/register/register/id/"+id+"/day/"+day,
 		beforeSend:function(){
 			$(".overlay").css({'display':'block','opacity':'0.1'});
 			$(".load").css({'display':'block'});

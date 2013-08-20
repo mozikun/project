@@ -113,7 +113,7 @@ class hisdoctor extends api_phs_comm
 		 $xml = new SimpleXMLElement($xml_string);
 		 $doctor_code=$xml->doctor_code;
 		 if(empty($doctor_code)){
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>医生编码不能为空</return_string>" . $this->_error_message_end; 
+			return $this->_error_message_start . "<return_code>2</return_code><return_string>医生编码不能为空</return_string>" . $this->_error_message_end; 
 		 }
 		 $api_doctor=new Tapi_doctor();
 		 $api_doctor->whereAdd("doctor_code='$doctor_code'");
@@ -121,7 +121,7 @@ class hisdoctor extends api_phs_comm
 			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到该编码对应的医生</return_string>" . $this->_error_message_end; 
 		}
 		$api_doctor->find(true);
-			return "<?xml version='1.0' encoding='UTF-8'?>"."<doctor_info>".$api_doctor->toxml()."</doctor_info>";
+			return "<?xml version='1.0' encoding='UTF-8'?>"."<info><return_code>1</return_code><doctor_info>".$api_doctor->toxml()."</doctor_info></info>";
 		 
 	}
 	

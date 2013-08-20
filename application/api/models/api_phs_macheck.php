@@ -253,6 +253,11 @@ class phsmacheck extends api_phs_comm
 					{
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
 					}
+                    //2013-08-19增加处理
+                    if (isset($table_object->follow_staff))
+        			{
+        				$table_object->follow_staff=$this->set_doctor_number($table_object->follow_staff);
+        			}
 					if (isset($table_object->org_id))
 					{
 						$table_object->org_id=$this->get_org_id($table_object->org_id);
@@ -413,6 +418,11 @@ class phsmacheck extends api_phs_comm
 			if (isset($postpartum_heathcheck->staff_id))
 			{
 				$postpartum_heathcheck->staff_id=$this->get_doctor_number($postpartum_heathcheck->staff_id);
+			}
+            //2013-08-19增加处理
+            if (isset($postpartum_heathcheck->follow_staff))
+			{
+			     $postpartum_heathcheck->follow_staff=$this->get_doctor_number($postpartum_heathcheck->follow_staff);
 			}
 			if (isset($postpartum_heathcheck->org_id))
 			{

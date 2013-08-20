@@ -64,7 +64,8 @@ class api_hisdoctorController extends controller
                 
 		$client=new SoapClient("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path);	
 		
-		$tmp=$client->doctor_insert("<?xml version='1.0' encoding='UTF-8'?><doctor_info><uuid>1</uuid><org_id>10</org_id><org_name>南郊乡卫生院</org_name><doctor_code>1212</doctor_code><doctor_name>李强</doctor_name><identity_number>5110251988061224223</identity_number><flag>1</flag></doctor_info>"); 
+		$tmp=$client->doctor_insert("<?xml version='1.0' encoding='UTF-8'?><doctor_info><org_id>45256445651182412C2201</org_id><org_name>雅安市石棉县新棉镇卫生院</org_name><doctor_code>smxmz015</doctor_code><doctor_name>周勇</doctor_name><identity_number></identity_number></doctor_info>"
+); 
  		echo $tmp;
  	
 	}
@@ -82,7 +83,7 @@ class api_hisdoctorController extends controller
 	{                
 		$client=new SoapClient("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path);	
 		
-		$tmp=$client->doctor_select("<?xml version='1.0' encoding='UTF-8'?><doctor_info><uuid>5</uuid><org_id>10</org_id><org_name>南郊乡卫生院</org_name><doctor_code>1212</doctor_code><doctor_name>小强</doctor_name><identity_number>5110251988061224223</identity_number><flag>1</flag></doctor_info>"); 
+		$tmp=$client->doctor_select("<?xml version='1.0' encoding='UTF-8'?><doctor_info><uuid>5</uuid><org_id>10</org_id><org_name>南郊乡卫生院</org_name><doctor_code>smxmz003</doctor_code><doctor_name>小强</doctor_name><identity_number>5110251988061224223</identity_number><flag>1</flag></doctor_info>"); 
  		echo $tmp;
  	
 	}

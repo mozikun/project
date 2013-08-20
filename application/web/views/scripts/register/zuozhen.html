@@ -190,8 +190,8 @@
 		</tr>
 		<tr>
 			<!--{foreach from=$result item=v key=k}-->
-			<td ><!--{if $v.shangwu==1}--><a href="#" onclick="register('<!--{$v.id}-->')">预约</a><!--{/if}--></td>
-			<td><!--{if $v.xiawu==1}-->预约<!--{/if}--></td>
+			<td ><!--{if $v.shangwu==1}--><a href="#" onclick="register('<!--{$v.id}-->',1)">预约</a><!--{/if}--></td>
+			<td><!--{if $v.xiawu==1}--><a href="#" onclick="register('<!--{$v.id}-->',2)">预约</a><!--{/if}--></td>
 			<!--{/foreach}-->
 		</tr>
 		
@@ -209,12 +209,12 @@
     </div>
 <!--{include file=../default/footer.html}-->
 <script>
-function register(id){
+function register(id,day){
 	var h = $(document).height();
 	$(".overlay").css({"height": h });	
 	$.ajax({
 		type:"post",
-		url:"<!--{$basePath}-->web/register/register/id/"+id,
+		url:"<!--{$basePath}-->web/register/register/id/"+id+"/day/"+day,
 		beforeSend:function(){
 			$(".overlay").css({'display':'block','opacity':'0.1'});
 			$(".load").css({'display':'block'});

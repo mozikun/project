@@ -81,7 +81,24 @@ class api_phsschiController extends controller
 	    */
 		
 		$xml_string="<?xml version='1.0' encoding='UTF-8'?><org_id>17</org_id>";
-		$tmp=$client->ws_select_all($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>SM000001151182410A1001</org_id></where>"); 
+		$tmp=$client->ws_select_single($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>54254047451180212C2201</org_id><identity_number>511029194609031234</identity_number><ext_uuid>cd520b286c9cffe9.52112127</ext_uuid></where>"); 
+		echo $tmp;
+		
+		
+	}
+	public function ws_select_personsAction()
+	{
+		$client=new SoapClient("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path);
+		$token_xml	= $client->login('888888','1');//验证机构标准代码和密码
+        $data_xml	= new SimpleXMLElement($token_xml);		
+		$token		= $data_xml->return_string;//得到令牌
+		/*
+		$tmp=$client->ws_select_single($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>888888</org_id><identity_number>513101194109043818</identity_number><ext_uuid>1</ext_uuid></where>"); 
+	    echo $tmp;
+	    */
+		
+		$xml_string="<?xml version='1.0' encoding='UTF-8'?><org_id>17</org_id>";
+		$tmp=$client->ws_select_persons($token,"<?xml version='1.0' encoding='UTF-8'?><where><org_id>54254047451180212C2201</org_id><identity_number>511029194609031234</identity_number><ext_uuid>9B485575-DF4F-4DC5-A88F-71D64DFB82A0</ext_uuid></where>"); 
 		echo $tmp;
 		
 		

@@ -180,6 +180,7 @@ class phsmaindex extends api_phs_comm
 					$table_object->whereAdd("id='$id'");
 					$table_object->whereAdd("org_id='$org_id'");
 					$table_object->whereAdd("ext_uuid='".$rows->ext_uuid."'");
+                    //$table_object->debug(5);
 					if ($table_object->count())
 					{
 						$update_status=1;
@@ -188,6 +189,7 @@ class phsmaindex extends api_phs_comm
 					}
 					$table_object->free_statement();
 					$table_object=new $class_name();
+                    //$table_object->debug(5);
 					foreach ($rows as $colums)
 					{
 						$colums_name=$colums->getname();//字段名
@@ -236,6 +238,11 @@ class phsmaindex extends api_phs_comm
 					if (isset($table_object->staff_id))
 					{
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
+					}
+                    //2013-08-19增加，原来未处理
+                    if (isset($table_object->follow_staff))
+					{
+						$table_object->follow_staff=$this->set_doctor_number($table_object->follow_staff);//处理医生
 					}
 					if (isset($table_object->org_id))
 					{
@@ -361,7 +368,7 @@ class phsmaindex extends api_phs_comm
 			}
 			$prenatal_visit_first->find(true);
 			require_once __SITEROOT.'library/data_arr/arrdata.php';
-			$dic['prenatal_visit_first']=array("fksss"=>"fksss","auscultation_heart"=>"ma_comm","auscultation_lung"=>"ma_comm","vulva"=>"ma_comm","vaginal"=>"ma_comm","cervix"=>"ma_comm","uterus"=>"ma_comm","dnexauteri"=>"ma_comm","vaginal_cleanliness"=>"vaginal_cleanliness","result_of_vdrl"=>"ma_vdrl","div_antibody_check"=>"ma_vdrl","overall_assessment"=>"ma_comm","referral"=>"fksss");
+			$dic['prenatal_visit_first']=array("fksss"=>"fksss","auscultation_heart"=>"ma_comm","auscultation_lung"=>"ma_comm","vulva"=>"ma_comm","vaginal"=>"ma_comm","cervix"=>"ma_comm","uterus"=>"ma_comm","dnexauteri"=>"ma_comm","vaginal_cleanliness"=>"ma_vaginal_cleanliness","result_of_vdrl"=>"ma_vdrl","div_antibody_check"=>"ma_vdrl","overall_assessment"=>"ma_comm","referral"=>"fksss");
 			$dic['special']=array("clinical_history"=>"ma_clinical_history","family_history"=>"ma_family_history","personal_history"=>"ma_personal_history","vaginal_fluid"=>"vaginal_fluid","health_guide"=>"ma_health_guide");//值中有'|'符号的
 			$xml_string="<?xml version='1.0' encoding='UTF-8'?><tables><table name='prenatal_visit_first'><row><identity_number>".$identity_number."</identity_number>";
 			foreach ($dic['prenatal_visit_first'] as $m=>$n)
@@ -395,6 +402,11 @@ class phsmaindex extends api_phs_comm
 			if (isset($prenatal_visit_first->staff_id))
 			{
 				$prenatal_visit_first->staff_id=$this->get_doctor_number($prenatal_visit_first->staff_id);
+			}
+            //2013-08-19增加处理
+            if (isset($prenatal_visit_first->follow_staff))
+			{
+				$prenatal_visit_first->follow_staff=$this->get_doctor_number($prenatal_visit_first->follow_staff);
 			}
 			if (isset($prenatal_visit_first->org_id))
 			{

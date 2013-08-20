@@ -36,6 +36,20 @@ class api_phsmapostController extends controller
 		fputs($fp,$xml_file);
 		fclose($fp);
 	}
+    /**
+     * api_phsmapostController::zltestAction()
+     * 
+     * @return void
+     */
+    public function zltestAction()
+    {
+        $ws_url="http://172.16.11.251/wsdl/api_phs_mapost.wsdl";
+		//$client=new SoapClient($ws_url);
+        require_once(__SITEROOT."application/api/models/api_phs_mapost.php");
+        $client=new phsmapost();
+        echo $client->ws_update('54254047451180212C2201',iconv('gbk','utf-8',file_get_contents(__SITEROOT."chs.txt")));
+        /*echo $client->ws_select_single('54254047451180212C2201',"<?xml version='1.0' encoding='UTF-8'?><where><org_id>54254047451180212C2201</org_id><identity_number>511027198109044321</identity_number><ext_uuid>ce4bb093-40d7-4ffc-9c65-c1a736c67f01</ext_uuid></where>");*/
+    }
 	/**
 	 * 用于测试
 	 *

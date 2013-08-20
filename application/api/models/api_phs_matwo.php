@@ -252,10 +252,16 @@ class phsmatwo extends api_phs_comm
 					{
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
 					}
+                    //2013-08-19增加处理
+                    if (isset($table_object->follow_staff))
+        			{
+        				$table_object->follow_staff=$this->set_doctor_number($table_object->follow_staff);
+        			}
 					if (isset($table_object->org_id))
 					{
 						$table_object->org_id=$this->get_org_id($table_object->org_id);
 					}
+                    //$table_object->debug(5);
 					if ($update_status)
 					{
 						$table_object->whereAdd("id='$id'");
@@ -412,6 +418,11 @@ class phsmatwo extends api_phs_comm
 			if (isset($prenatal_visit_two->staff_id))
 			{
 				$prenatal_visit_two->staff_id=$this->get_doctor_number($prenatal_visit_two->staff_id);
+			}
+            //2013-08-19增加处理
+            if (isset($prenatal_visit_two->follow_staff))
+			{
+			     $prenatal_visit_two->follow_staff=$this->get_doctor_number($prenatal_visit_two->follow_staff);
 			}
 			if (isset($prenatal_visit_two->org_id))
 			{

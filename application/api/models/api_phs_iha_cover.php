@@ -613,8 +613,7 @@ class api_phs_iha_cover extends api_phs_comm{
 					//已有家庭档案
 					if($counter==1){
 						$family->where("householder_id='$individual->uuid'");
-						//临时关闭
-                        //$family->update();
+                        $family->update();
                         $logs_array=array("ext_uuid"=>$row->ext_uuid,"org_id"=>$org_id,"model_id"=>2,"upload_time"=>time(),"upload_token"=>2);
                         $this->insert_api_logs($logs_array);
 					}
@@ -624,7 +623,7 @@ class api_phs_iha_cover extends api_phs_comm{
 					$individual_temp->family_number=$family_number;
 					$individual_temp->where("householder_identity_number='$row->identity_number'");
                     //临时关闭
-					//$individual_temp->update();
+					$individual_temp->update();
 					$individual_temp->free_statement();
 				}
 			}
