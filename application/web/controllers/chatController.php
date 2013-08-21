@@ -80,9 +80,25 @@ class web_chatController extends controller
      * @return void
      */
     public function sendAction(){
+		//判断患者是否登录
+		$search_session=new Zend_Session_Namespace("iha_search");
+		if(empty($search_session->id)){
+			//没有登录
+			echo "您还没有登录！";
+			exit();
+		}
 		$fromuser=$this->_request->getParam("fromuser");
 		$touser=$this->_request->getParam("touser");
 		$content=$this->_request->getParam("info");
+		if(empty($fromuser)){
+			echo "发送者id获取失败！";exit();
+		}
+		if(empty($touser)){
+			echo "接受者id获取失败！";exit();
+		}
+		if(empty($content)){
+			echo "信息内容获取失败"; exit();
+		}
 		//序号+1
 		$chat=new Tchat();
 		$chat->query("SELECT max(ORDER_ID) as order_id FROM chat");
@@ -97,7 +113,10 @@ class web_chatController extends controller
 		$chat->content=$content;
 		$chat->order_id=$order_id;
 		if($chat->insert()){
-			echo "发送成功！";
+			echo "success";
+		}
+		else{
+			echo "发送失败！";
 		}
 		
 		

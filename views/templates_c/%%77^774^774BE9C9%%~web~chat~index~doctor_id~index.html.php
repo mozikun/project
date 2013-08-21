@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-21 17:23:54
+<?php /* Smarty version 2.6.14, created on 2013-08-22 00:18:04
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -17,6 +17,7 @@ views/js/jquery-1.4.2.js"></script>
 	height:250px;
 	border:1px solid green;
 	margin-top:10px;
+	overflow:auto;
 }
 .info_input textarea{
 	width:650px;
@@ -230,7 +231,9 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 		<input type="hidden" id="touser" value="<?php echo $this->_tpl_vars['doctor_id']; ?>
 "/>
 		<div class="info_display">
-			
+			<ul id="tab">
+				
+			</ul>
 		</div>
 		<div class="tishi">
 		请输入内容
@@ -275,11 +278,23 @@ function sendInfo(info,fromuser,touser){
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
 web/chat/send",
 		data:"info="+info+"&fromuser="+fromuser+"&touser="+touser,
-		beforSend:function(){
+		datatype:"json",
+		beforeSend:function(){
+			$(".tishi").html("发送中...");
 			
 		},
 		success:function(data){
-			alert(data);
+			if(data=="success"){
+			$("#tab").append("<li>我："+info+"</li>");
+			
+			}
+			else{
+				alert(data);
+				
+			}
+			$(".tishi").html("请输入内容");
+			$("#info").val("");
+			//alert(data);
 		},
 	});
 }
