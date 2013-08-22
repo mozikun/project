@@ -200,7 +200,7 @@ class web_askController extends controller
 		
 		$question_id=$this->_request->getParam("id");
 		$info=$this->_request->getParam("answer");
-		
+		$auth=new Zend_Session_Namespace("Zend_Auth");
 		if(empty($question_id)){
 			message( "消息id获取失败!");
 		}
@@ -209,7 +209,13 @@ class web_askController extends controller
 		$answer->answer=$info;
 		$answer->question_id=$question_id;
 		$answer->time=time();
-		//$answer->author=
+		$answer->author=$auth->storage['uuid'];
+		if($answer->insert){
+			message("保存成功！");
+		}
+		else{
+			message("保存失败！");
+		}
 		
 	}
 
