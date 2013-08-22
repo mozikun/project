@@ -151,6 +151,7 @@ class web_askController extends controller
         $ask->limit($startnum, $page_size);
 		$individual_core=new Tindividual_core();
 		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
+		$ask->orderby("time");
 		//$ask->debug(1);
 		$ask->find();
 		$result=array();
@@ -178,7 +179,7 @@ class web_askController extends controller
      * @return void
      */
 	public function answerquestionAction(){ 
-		print_r($_SESSION);
+		
 		$question_id=$this->_request->getParam("id");
 		if(empty($question_id)){
 			message( "消息id获取失败!");
@@ -210,8 +211,8 @@ class web_askController extends controller
 		$answer->question_id=$question_id;
 		$answer->time=time();
 		$answer->author=$auth->storage['uuid'];
-		if($answer->insert){
-			message("保存成功！");
+		if($answer->insert()){
+			message(__SITE_ROOT."web/ask/doctorhome","保存成功！");
 		}
 		else{
 			message("保存失败！");
