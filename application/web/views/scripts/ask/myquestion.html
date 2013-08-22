@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>问题回复</title>
+<title>我提过的问题</title>
 <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
 <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
 <link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
@@ -21,48 +21,56 @@
 <link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
 <!--引入jquery-->
 <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 </head>
 <body>		
 <table border="0" width="100%">
     <tr class="headbg">
-    	<td >
-        	问题回复
+    	<td colspan="4">
+        	提过的问题
         </td>
 	</tr>
-    
-	<tbody id="article">
-	
-	 <tr id="">
-	 	
+    <tr class="title">
+    	<td>
+        	问题
+        </td>
+        <td>
+        	提问者
+        </td>
 		<td>
-        	问题：<!--{$ask->question}-->
+        	提问时间
         </td>
-		
+		<td>
+        	操作
+        </td>
 	</tr>
+	<tbody id="article">
+	<!--{foreach from=$result item=r}-->
 	 <tr id="">
 	 	<td>
-		<form action="<!--{$basePath}-->web/ask/saveanswer" method="post" onSubmit="return check()">
-        	<textarea name="answer" id="answer" style="width:500px;height:100px;"></textarea>
-			<input type="hidden" name="id" value="<!--{$ask->id}-->"/>
-			</br>
-			<input type='submit' value="提交"/>
-			<input type='button' value="返回" onclick="history.go(-1);"/>
-		</form>	
+        	<!--{$r.question}-->
         </td>
-		
-		
+		<td>
+        	<!--{$r.author}-->
+        </td>
+		<td>
+        	<!--{$r.time}-->
+        </td>
+		<td>
+        	
+			<a href="<!--{$basePath}-->web/ask/getanswer/id/<!--{$r.id}-->">查看答案</a>
+			<a href="<!--{$basePath}-->web/ask/editquestion/id/<!--{$r.id}-->">修改</a>
+			<a href="<!--{$basePath}-->web/ask/delquestion/id/<!--{$r.id}-->" onclick="return confirm('真的要删除吗？')">删除</a>
+			
+        </td>
 	</tr>
+	<!--{/foreach}-->
+	<tr><td colspan='4'><!--{$page}--></td></tr>
 	</tbody>
 </table>
+
 </body>
 </html>
 <script>
-	function check(){ 
-		var answer=document.getElementById("answer").value;
-		if(answer==""){
-			alert("回答内容不能为空");
-			return false;
-		}
-	}
 </script>
 	

@@ -45,6 +45,6 @@ class Tanswer extends dao_oracle{
 	 * 
 	 * @var VARCHAR2(30)
 	 **/
- 	 public $qustion_id;
-	 public $_qustion_id_type='varchar2';
+ 	 public $question_id;
+	 public $_question_id_type='varchar2';
 }

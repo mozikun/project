@@ -27,7 +27,7 @@ class Task extends dao_oracle{
  	 * 注释:
 	 * 
 	 * 
-	 * @var VARCHAR2(2000)
+	 * @var VARCHAR2(1000)
 	 **/
  	 public $question;
 	 public $_question_type='varchar2';

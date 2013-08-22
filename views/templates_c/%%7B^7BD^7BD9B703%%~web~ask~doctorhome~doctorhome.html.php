@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:02:52
+<?php /* Smarty version 2.6.14, created on 2013-08-22 22:43:49
          compiled from doctorhome.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -79,11 +79,8 @@ web/ask/getanswer/id/<?php echo $this->_tpl_vars['r']['id']; ?>
         </td>
 	</tr>
 	<?php endforeach; endif; unset($_from); ?>
-	<tr><td colspan='4'><?php echo $this->_tpl_vars['page']; ?>
-</td></tr>
 	</tbody>
 </table>
-
 </body>
 </html>
 

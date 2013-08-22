@@ -191,17 +191,20 @@ zoom: 1;
         </div>
 <div class="list_right">
      
-          <div class="lr_ones">
+          <div class="lr_ones" style="height:633px;">
             <div class="lr_title"><a href="">问题列表</a></div>
             <div class="lr_conts">
               <ul>
+			  <!--{if $result}-->
               <!--{foreach from=$result item=r}-->
                 <li>
                   <div class="lr_time"><!--{$r.time}--></div>
                   <a href="<!--{$basePath}-->web/ask/detail/id/<!--{$r.id}-->">1<!--{$r.question}--></a>
 				</li>
               <!--{/foreach}-->
-              
+               <!--{else}-->
+			   <li>暂无问题！</li>
+			    <!--{/if}-->
               </ul>
             </div>
           </div>

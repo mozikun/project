@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 18:01:12
+<?php /* Smarty version 2.6.14, created on 2013-08-22 22:56:40
          compiled from answerquestion.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,8 +50,8 @@ views/js/jquery-1.4.2.js"></script>
 	 <tr id="">
 	 	<td>
 		<form action="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/saveanswer" method="post">
-        	<textarea name="answer" style="width:500px;height:100px;"></textarea>
+web/ask/saveanswer" method="post" onSubmit="return check()">
+        	<textarea name="answer" id="answer" style="width:500px;height:100px;"></textarea>
 			<input type="hidden" name="id" value="<?php echo $this->_tpl_vars['ask']->id; ?>
 "/>
 			</br>
@@ -66,5 +66,13 @@ web/ask/saveanswer" method="post">
 </table>
 </body>
 </html>
-
+<script>
+	function check(){ 
+		var answer=document.getElementById("answer").value;
+		if(answer==""){
+			alert("回答内容不能为空");
+			return false;
+		}
+	}
+</script>
 	

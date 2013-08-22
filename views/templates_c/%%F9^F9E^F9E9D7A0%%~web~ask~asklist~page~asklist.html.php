@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:13:43
-         compiled from index.html */ ?>
+<?php /* Smarty version 2.6.14, created on 2013-08-22 23:23:04
+         compiled from asklist.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -8,14 +8,74 @@ unset($_smarty_tpl_vars);
     <!--导航栏结束，主体开始-->
 <script src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/js/jquery-1.4.2.js"></script>	
+
+
 <style>
-.question{
+.org li{
+	list-style:none;
+	float:left;
+	background-color:rgb(238,238,238);
+	margin:4px;
+	padding:4px;
+	border-radius:2px;
+}
+.org li a{
+	cursor:pointer;
+	text-decoration:none;
+}
+.org li:hover{
+	background-color:rgb(113,213,234);
+}
+.clear{
+	clear:both;
+}
+#question{
 	width:650px;
-	height:150px;
-	margin-top:30px;
-	margin-bottom:10px;
+	height:100px;
+}
+</style>	
+
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+.demo{width:600px;margin:20px auto;}
+.demo th,.demo td{font-size:14px;padding-bottom:17px;line-height:28px;color:#666;font-family:"新宋体";font-weight:normal;}
+.demo th em{color:#ff0000;font-style:normal;}
+.demo td .stext{border:1px solid #ccc;font-size:14px;height:26px;line-height:26px;padding:0 3px;width:214px;color:#666;}
+/* choose-box-wrapper */
+#choose-box-wrapper{width:652px;background:#000;background-color:rgba(0, 0, 0, 0.5);padding:10px;border-radius:5px;display:none;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=#4B7D0000);
+zoom: 1;}
+#choose-box{border:1px solid #005EAC;width:650px;background:#fff;}
+#choose-box-title{background:#3777BC;color:white;padding:4px 10px 5px;font-size:14px;font-weight:700;margin:0;}
+#choose-box-title span{font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;}
+#choose-a-province, #choose-a-school{margin:5px 8px 10px 8px;border:1px solid #C3C3C3;}
+#choose-a-province a{display:inline-block;height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;margin:2px 5px;padding:1px;text-align:center;}
+#choose-a-province a:hover{text-decoration:underline;cursor:pointer;}
+#choose-a-province .choosen{background:#005EAC;color:white;}
+#choose-a-school{overflow-x:hidden;overflow-y:auto;height:200px;}
+#choose-a-school a{height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;float:left;width:160px;margin:4px 12px;padding-left:10px;background:url(http://pic002.cnblogs.com/images/2012/70278/2012072500060712.gif) no-repeat 0 9px;}
+#choose-a-school a:hover{background:#005EAC;color:#fff;}
+#choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
+#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
+
+.clear{clear:both;}
+#department li{list-style:none;margin:2px;padding:2px;float:left;}
+#doctors li{list-style:none;margin:2px;padding:2px;float:left;}
+#date li{list-style:none;margin:2px;padding:2px;float:left;}
+</style>
+<!--[if IE]>
+<style type="text/css">
+#choose-box-wrapper {
+background:transparent;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=rgb(88,114,120));
+zoom: 1;
 }
 </style>
+<![endif]-->
+
     <div class="main_body">
       <div class="top_flash"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_31.png" width="960" height="200"></a> </div>
@@ -202,14 +262,37 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
           </div>
         </div>
 <div class="list_right">
-<form action="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/ask" method="post">
-	<textarea id='question' name="question" class="question">
-		
-	
-	</textarea>
-    <input type="submit" value="提交"/>
-</form>			
+     
+          <div class="lr_ones" style="height:633px;">
+            <div class="lr_title"><a href="">问题列表</a></div>
+            <div class="lr_conts">
+              <ul>
+			  <?php if ($this->_tpl_vars['result']): ?>
+              <?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['r']):
+?>
+                <li>
+                  <div class="lr_time"><?php echo $this->_tpl_vars['r']['time']; ?>
+</div>
+                  <a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/detail/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+">1<?php echo $this->_tpl_vars['r']['question']; ?>
+</a>
+				</li>
+              <?php endforeach; endif; unset($_from); ?>
+               <?php else: ?>
+			   <li>暂无问题！</li>
+			    <?php endif; ?>
+              </ul>
+            </div>
+          </div>
+       
+          <div class="pages">
+          <ul style="width: 100%;padding-left: 8px;">
+            <?php echo $this->_tpl_vars['page']; ?>
+
+          </ul>
+          </div>
 </div>
         <div class="bbk"></div>
       </div>

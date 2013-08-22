@@ -1,10 +1,10 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:02:52
-         compiled from doctorhome.html */ ?>
+<?php /* Smarty version 2.6.14, created on 2013-08-22 23:41:39
+         compiled from myquestion.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>消息列表</title>
+<title>我提过的问题</title>
 <link rel="stylesheet" type="text/css" id="css" href="<?php echo $this->_tpl_vars['basePath']; ?>
 views/styles/admincp.css">
 <link rel="stylesheet" type="text/css" id="css" href="<?php echo $this->_tpl_vars['basePath']; ?>
@@ -35,7 +35,7 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 <table border="0" width="100%">
     <tr class="headbg">
     	<td colspan="4">
-        	消息列表
+        	提过的问题
         </td>
 	</tr>
     <tr class="title">
@@ -70,12 +70,17 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 
         </td>
 		<td>
-        	<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/answerquestion/id/<?php echo $this->_tpl_vars['r']['id']; ?>
-">回复</a>
+        	
 			<a href="<?php echo $this->_tpl_vars['basePath']; ?>
 web/ask/getanswer/id/<?php echo $this->_tpl_vars['r']['id']; ?>
 ">查看答案</a>
+			<a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/edit/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+">修改</a>
+			<a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/del/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+">删除</a>
+			
         </td>
 	</tr>
 	<?php endforeach; endif; unset($_from); ?>

@@ -16,6 +16,7 @@ class web_askController extends controller
         require_once __SITEROOT."library/Models/organization.php";
         require_once __SITEROOT."library/Models/ask.php";
         require_once __SITEROOT."library/Models/individual_core.php";
+        require_once __SITEROOT."library/Models/staff_core.php";
         require_once __SITEROOT."library/Models/answer.php";
         require_once __SITEROOT."library/Models/web_sort.php";
         require_once(__SITEROOT . 'library/custom/pager.php');    //分页表
@@ -86,7 +87,7 @@ class web_askController extends controller
 		$ask->question=$question;
 		$ask->time=time();
 		if($ask->insert()){
-			echo "提交成功";
+			$this->redirect(__BASEPATH."web/ask/asklist");
 		}
 		
 	}
@@ -103,16 +104,18 @@ class web_askController extends controller
 		$author=$search_session->identity_number;
 		//echo $author;
 		$ask=new Task();
+		$individual_core=new Tindividual_core();
+		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
 		$nums = $ask->count();
-        $page_size = 10;    //每页显示的条数
+        $page_size = 20;    //每页显示的条数
         $sub_pages = 8;          //每次显示的页数
         $pageCurrent = $this->_request->getParam('page');
         $links = new SubPages($page_size, $nums, $pageCurrent, $sub_pages, $this->_request->getBasePath() . $this->getModuleName() . '/' . $this->getControllerName() . '/' . $this->getActionName() . '/page/', 2, array());
         $pageCurrent = $links->check_page($pageCurrent); //检查当前页数是否合法
         $startnum = $page_size * ($pageCurrent - 1);  //计算开始记录数
         $ask->limit($startnum, $page_size);
-		$individual_core=new Tindividual_core();
-		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
+		
+		$ask->orderby("time");
 		//$ask->debug(1);
 		$ask->find();
 		$result=array();
@@ -141,16 +144,17 @@ class web_askController extends controller
      */
 	public function doctorhomeAction(){
 		$ask=new Task();
+		$individual_core=new Tindividual_core();
+		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
 		$nums = $ask->count();
-        $page_size = 10;    //每页显示的条数
+        $page_size = 20;    //每页显示的条数
         $sub_pages = 8;          //每次显示的页数
         $pageCurrent = $this->_request->getParam('page');
         $links = new SubPages($page_size, $nums, $pageCurrent, $sub_pages, $this->_request->getBasePath() . $this->getModuleName() . '/' . $this->getControllerName() . '/' . $this->getActionName() . '/page/', 2, array());
         $pageCurrent = $links->check_page($pageCurrent); //检查当前页数是否合法
         $startnum = $page_size * ($pageCurrent - 1);  //计算开始记录数
         $ask->limit($startnum, $page_size);
-		$individual_core=new Tindividual_core();
-		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
+		
 		$ask->orderby("time");
 		//$ask->debug(1);
 		$ask->find();
@@ -212,12 +216,112 @@ class web_askController extends controller
 		$answer->time=time();
 		$answer->author=$auth->storage['uuid'];
 		if($answer->insert()){
-			message(__SITE_ROOT."web/ask/doctorhome","保存成功！");
+			message("保存成功！",array("返回列表"=>__BASEPATH."web/ask/doctorhome"));
 		}
 		else{
 			message("保存失败！");
 		}
 		
+	}
+	/**
+     * 
+     * 
+     * 查看答案
+     * 
+     * @return void
+     */
+	public function getAnswerAction(){ 
+		
+		$question_id=$this->_request->getParam("id");
+		
+		if(empty($question_id)){
+			message( "消息id获取失败!");
+		}
+		$answer=new Tanswer();
+		$staff_core=new Tstaff_core();
+		$answer->whereAdd("question_id='$question_id'");
+		$answer->joinAdd("inner",$answer,$staff_core,"author","id");
+		$answer->find();
+		$result=array();
+		$i=0;
+		while($answer->fetch()){
+			$result[$i]['answer']=$answer->answer;
+			$result[$i]['author']=$staff_core->name_login;
+			$result[$i]['time']=date("Y-m-d",$answer->time);
+			$result[$i]['id']=$answer->id;
+			$i++;
+		}
+		$this->view->result=$result;
+		$this->view->display("getanswer.html");
+	}
+	/**
+     * 
+     * 
+     * 自己提过的问题
+     * 
+     * @return void
+     */
+	public function myquestionAction(){
+	    $search_session=new Zend_Session_Namespace("iha_search");
+		$ask=new Task();
+		$individual_core=new Tindividual_core();
+		$ask->whereAdd("author='$search_session->identity_number'");
+		$ask->joinAdd("inner",$ask,$individual_core,"author","identity_number");
+		$nums = $ask->count();
+        $page_size = 15;    //每页显示的条数
+        $sub_pages = 8;          //每次显示的页数
+        $pageCurrent = $this->_request->getParam('page');
+        $links = new SubPages($page_size, $nums, $pageCurrent, $sub_pages, $this->_request->getBasePath() . $this->getModuleName() . '/' . $this->getControllerName() . '/' . $this->getActionName() . '/page/', 2, array());
+        $pageCurrent = $links->check_page($pageCurrent); //检查当前页数是否合法
+        $startnum = $page_size * ($pageCurrent - 1);  //计算开始记录数
+        $ask->limit($startnum, $page_size);
+		$ask->orderby("time");
+		//$ask->debug(1);
+		$ask->find();
+		$result=array();
+		$i=0;
+		while($ask->fetch()){
+			
+			$result[$i]['author']=$individual_core->name;
+			$result[$i]['question']=$ask->question;
+			$result[$i]['time']=date("Y-m-d",$ask->time);
+			$result[$i]['id']=$ask->id;
+			$i++;
+		}
+		$out = $links->subPageCss2(); //获取显示样式，$out在smarty中将输出如下：
+        $this->view->page = $out; //显示分页
+        $this->view->pageCurrent = $pageCurrent; //当前页
+		$this->view->result=$result;
+		
+		$this->view->display("myquestion.html");
+	}
+	/**
+     * 
+     * 
+     * 删除问题
+     * 
+     * @return void
+     */
+	public function delquestionAction(){
+	   $id=$this->_request->getParam("id");
+	   $question=new Task();
+	   $question->whereAdd("id='$id'");
+	   if($question->delete()){
+			message("删除成功",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
+	   }
+	   else{
+			message("删除失败",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
+	   }
+	}
+	/**
+     * 
+     * 
+     * 修改问题
+     * 
+     * @return void
+     */
+	public function editquestionAction(){
+		message("功能开发中！",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
 	}
 
 }
