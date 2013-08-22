@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-14 11:25:23
+<?php /* Smarty version 2.6.14, created on 2013-08-22 08:05:58
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1826,6 +1826,33 @@ weixin/logs/index" target="mainFrame"  id="ian97_8" onclick="toUrl(this,'b')">�
          </tr>
 		 </tbody>
 	</table>
+</div>
+ <div >
+    <table  border="0" cellspacing="0" align="center" cellpadding="0" class="leftmenulist" style="margin-bottom: 5px; ">
+		 <tr class="leftmenutext">
+		<td>
+		 <span style="float:left;"><a href="###" id="ian121" onclick="collapse_change(121),toUrl(this,'a')"><img src="<?php echo $this->_tpl_vars['baseUrl']; ?>
+images/calendar_view_day.png" border="0" style="height:20px;" />医患互动</a></span>
+		 <span style="float:right;padding-top:5px;padding-right:8px;"><a href="###"><img id="menuimg_121" src="<?php echo $this->_tpl_vars['baseUrl']; ?>
+images/menu_add.gif" border="0" onclick="collapse_change(121),toUrl(this,'a')" /></a></span>
+		 </td></tr>
+		 <tbody id="menu_121" style="display:none">
+		 <tr class="leftmenutd"><td>
+		 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo">
+		
+         
+         <tr ><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/chat/doctorhome/" target="mainFrame" id="ian121_1" onclick="toUrl(this,'b'),collapse_change(1211)">我的消息</a></td></tr>
+         
+           
+		 </table>
+		 
+		 </td>
+         </tr>
+		 </tbody>
+	</table>
+    <hr/>
+ 
 </div>
 
 <div id="lougout">

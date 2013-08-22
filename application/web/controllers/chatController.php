@@ -14,6 +14,7 @@ class web_chatController extends controller
     public function init()
     {
         require_once __SITEROOT."library/Models/organization.php";
+        require_once __SITEROOT."library/Models/individual_core.php";
         require_once __SITEROOT."library/Models/chat.php";
         require_once __SITEROOT."library/Models/appointment_register.php";
         require_once __SITEROOT."library/Models/staff_core.php";
@@ -112,6 +113,7 @@ class web_chatController extends controller
 		$chat->sendtime=time();
 		$chat->content=$content;
 		$chat->order_id=$order_id;
+		$chat->r_flag=0;
 		if($chat->insert()){
 			echo "success";
 		}
@@ -121,4 +123,30 @@ class web_chatController extends controller
 		
 		
 	}
+	/**
+     * 
+     * 发送信息
+     * 
+     * @return void
+     */
+	 public function doctorhomeAction(){
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		//获取医生id
+		$receiver= $auth->storage['uuid'];
+		//echo $receiver;
+		$chat=new Tchat();
+		$individual_core=new Tindividual_core();
+		$chat->query("select sender,count(uuid) as count from chat where r_flag=0 and receiver='$receiver' group by sender");
+		$result=array();
+		$i=0;
+		while($chat->fetch()){
+			$individual_core->where("identity_number='$chat->sender'");
+			$individual_core->find(true);
+			$result[$i]['sender']=$individual_core->name;
+			$result[$i]['count']=$chat->count;
+			$i++;
+		}
+		print_r($result);
+		$this->view->display("doctorhome.html");
+	 }
 }
