@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 09:59:29
+<?php /* Smarty version 2.6.14, created on 2013-08-22 16:42:28
          compiled from doctorhome.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,16 +34,19 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 <body>		
 <table border="0" width="100%">
     <tr class="headbg">
-    	<td colspan="3">
+    	<td colspan="4">
         	消息列表
         </td>
 	</tr>
     <tr class="title">
     	<td>
-        	发送者
+        	问题
         </td>
         <td>
-        	条数
+        	提问者
+        </td>
+		<td>
+        	提问时间
         </td>
 		<td>
         	操作
@@ -55,17 +58,21 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 ?>
 	 <tr id="">
 	 	<td>
-        	<?php echo $this->_tpl_vars['r']['sender']; ?>
+        	<?php echo $this->_tpl_vars['r']['question']; ?>
 
         </td>
 		<td>
-        	<?php echo $this->_tpl_vars['r']['count']; ?>
+        	<?php echo $this->_tpl_vars['r']['author']; ?>
+
+        </td>
+		<td>
+        	<?php echo $this->_tpl_vars['r']['time']; ?>
 
         </td>
 		<td>
         	<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/chat/infoview/identity_number/<?php echo $this->_tpl_vars['r']['identity_number']; ?>
-">查看</a>
+web/ask/answerquestion/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+">回复</a>
         </td>
 	</tr>
 	<?php endforeach; endif; unset($_from); ?>

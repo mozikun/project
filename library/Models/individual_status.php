@@ -63,4 +63,12 @@ class Tindividual_status extends dao_oracle{
 	 **/
  	 public $status_flag;
 	 public $_status_flag_type='varchar2';
+	/**
+ 	 * 注释:状态备注
+	 * 
+	 * 
+	 * @var VARCHAR2(500)
+	 **/
+ 	 public $mark;
+	 public $_mark_type='varchar2';
 }

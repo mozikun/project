@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 00:18:04
+<?php /* Smarty version 2.6.14, created on 2013-08-22 10:02:13
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -226,9 +226,9 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
         </div>
 <div class="list_right">
 	<div class="chat">
-		<input type="hidden" id="fromuser" value="<?php echo $this->_tpl_vars['identity_number']; ?>
+		<input type="hidden" id="fromuser" value="<?php echo $this->_tpl_vars['sender']; ?>
 "/>
-		<input type="hidden" id="touser" value="<?php echo $this->_tpl_vars['doctor_id']; ?>
+		<input type="hidden" id="touser" value="<?php echo $this->_tpl_vars['receiver']; ?>
 "/>
 		<div class="info_display">
 			<ul id="tab">

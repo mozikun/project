@@ -26,16 +26,19 @@
 <body>		
 <table border="0" width="100%">
     <tr class="headbg">
-    	<td colspan="3">
+    	<td colspan="4">
         	消息列表
         </td>
 	</tr>
     <tr class="title">
     	<td>
-        	发送者
+        	问题
         </td>
         <td>
-        	条数
+        	提问者
+        </td>
+		<td>
+        	提问时间
         </td>
 		<td>
         	操作
@@ -45,13 +48,16 @@
 	<!--{foreach from=$result item=r}-->
 	 <tr id="">
 	 	<td>
-        	<!--{$r.sender}-->
+        	<!--{$r.question}-->
         </td>
 		<td>
-        	<!--{$r.count}-->
+        	<!--{$r.author}-->
         </td>
 		<td>
-        	<a href="<!--{$basePath}-->web/chat/infoview/identity_number/<!--{$r.identity_number}-->">查看</a>
+        	<!--{$r.time}-->
+        </td>
+		<td>
+        	<a href="<!--{$basePath}-->web/ask/answerquestion/id/<!--{$r.id}-->">回复</a>
         </td>
 	</tr>
 	<!--{/foreach}-->

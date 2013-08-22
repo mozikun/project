@@ -71,4 +71,12 @@ class Tdepartment extends dao_oracle{
 	 **/
  	 public $sort_number;
 	 public $_sort_number_type='number';
+	/**
+ 	 * 注释:上级科室
+	 * 
+	 * 
+	 * @var VARCHAR2(30)
+	 **/
+ 	 public $p_id;
+	 public $_p_id_type='varchar2';
 }

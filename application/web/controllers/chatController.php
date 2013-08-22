@@ -70,8 +70,8 @@ class web_chatController extends controller
 		//获取患者id
 		$search_session=new Zend_Session_Namespace("iha_search");
 		$identity_number=$search_session->identity_number;
-		$this->view->doctor_id=$doctor_id;
-		$this->view->identity_number=$identity_number;
+		$this->view->receiver=$doctor_id;
+		$this->view->sender=$identity_number;
 		$this->view->display("index.html");
     }
 	/**
@@ -113,7 +113,7 @@ class web_chatController extends controller
 		$chat->sendtime=time();
 		$chat->content=$content;
 		$chat->order_id=$order_id;
-		$chat->r_flag=0;
+		$chat->r_flag='0';
 		if($chat->insert()){
 			echo "success";
 		}
@@ -144,9 +144,26 @@ class web_chatController extends controller
 			$individual_core->find(true);
 			$result[$i]['sender']=$individual_core->name;
 			$result[$i]['count']=$chat->count;
+			$result[$i]['identity_number']=$chat->sender;
 			$i++;
 		}
-		print_r($result);
+		$this->view->result=$result;
 		$this->view->display("doctorhome.html");
 	 }
+	/**
+     * 
+     * 医生查看消息
+     * 
+     * @return void
+     */
+	public function infoviewAction(){
+		$identity_number=$this->_request->getParam("identity_number");
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		//获取医生id
+		$doctor_id= $auth->storage['uuid'];
+		$this->view->sender=$doctor_id;
+		$this->view->receiver=$identity_number;
+		$this->view->display("infoview.html");
+		
+	}
 }
