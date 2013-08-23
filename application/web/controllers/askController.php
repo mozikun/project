@@ -87,7 +87,10 @@ class web_askController extends controller
 		$ask->question=$question;
 		$ask->time=time();
 		if($ask->insert()){
-			$this->redirect(__BASEPATH."web/ask/asklist");
+			message("保存成功！",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
+		}
+		else{
+			message("保存失败",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
 		}
 		
 	}
@@ -219,7 +222,7 @@ class web_askController extends controller
 			message("保存成功！",array("返回列表"=>__BASEPATH."web/ask/doctorhome"));
 		}
 		else{
-			message("保存失败！");
+			message("保存失败！",array("返回列表"=>__BASEPATH."web/ask/doctorhome"));
 		}
 		
 	}
@@ -323,5 +326,33 @@ class web_askController extends controller
 	public function editquestionAction(){
 		message("功能开发中！",array("返回列表"=>__BASEPATH."web/ask/myquestion"));
 	}
+	/**
+     * 
+     * 
+     * 前端显示问题答案
+     * 
+     * @return void
+     */
+	public function answersAction(){
+		$question_id=$this->_request->getParam("id");
+		$answer=new Tanswer();
+		$staff_core=new Tstaff_core();
+		$answer->whereAdd("question_id='$question_id'");
+		$answer->joinAdd("inner",$answer,$staff_core,"author","id");
+		$answer->orderby("time");
+		$answer->find();
+		$result=array();
+		$i=0;
+		while($answer->fetch()){
+			$result[$i]['answer']=$answer->answer;
+			$result[$i]['author']=$staff_core->name_login;
+			$result[$i]['time']=date("Y-m-d",$answer->time);
+			$result[$i]['id']=$answer->id;
+			$i++;
+		}
+		$this->view->result=$result;
+		$this->view->display("answers.html");
+	}
+	
 
 }

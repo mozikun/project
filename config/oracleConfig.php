@@ -2,7 +2,7 @@
 
 
 $config=200;
-$config="localhost";
+//$config="localhost";
 
 if($config=='localhost'){
 	$databaseConfig[1]['charset']='UTF8';

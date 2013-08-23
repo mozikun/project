@@ -97,7 +97,8 @@ class api_hisclinicController extends controller
  	
 	}
 	
-	//科室查询
+	//诊室查询
+	
 	public function ws_selectAction()
 	{      
             

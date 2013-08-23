@@ -45,6 +45,7 @@
         </td>
 	</tr>
 	<tbody id="article">
+	<!--{if $result}-->
 	<!--{foreach from=$result item=r}-->
 	 <tr id="">
 	 	<td>
@@ -65,7 +66,10 @@
         </td>
 	</tr>
 	<!--{/foreach}-->
-	<tr><td colspan='4'><!--{$page}--></td></tr>
+	<!--{else}-->
+	<tr><td colspan='4'>暂无信息！</td></tr>
+	<!--{/if}-->
+	<tr><td colspan='4'>[<a style="color:red;padding:" href="<!--{$basePath}-->web/ask/index">添加新问题</a>]&nbsp;&nbsp;&nbsp;&nbsp;<!--{$page}--></td></tr>
 	</tbody>
 </table>
 

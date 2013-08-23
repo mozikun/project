@@ -79,4 +79,12 @@ class Tclinic extends dao_oracle{
 	 **/
  	 public $sort_number;
 	 public $_sort_number_type='number';
+	/**
+ 	 * 注释:科室
+	 * 
+	 * 
+	 * @var VARCHAR2(30)
+	 **/
+ 	 public $department_id;
+	 public $_department_id_type='varchar2';
 }

@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-23 14:30:14
-         compiled from asklist.html */ ?>
+<?php /* Smarty version 2.6.14, created on 2013-08-23 15:26:12
+         compiled from answers.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -109,7 +109,7 @@ $this->_sections['path']['last']       = ($this->_sections['path']['iteration'] 
 ?>&gt;<a href="<?php echo $this->_tpl_vars['basePath']; ?>
 web/default/list/lanmu/<?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['py']; ?>
 "><?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['sortname']; ?>
-</a><?php endfor; endif; ?>&gt;阅读文章</div>
+</a><?php endfor; endif; ?>&gt;问题答案</div>
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
@@ -264,24 +264,24 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 <div class="list_right">
      
           <div class="lr_ones" style="height:633px;">
-            <div class="lr_title"><a href="">问题列表</a></div>
+            <div class="lr_title"><a href="">医生的回答</a></div>
             <div class="lr_conts">
               <ul>
 			  <?php if ($this->_tpl_vars['result']): ?>
               <?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['r']):
+    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['r']):
 ?>
-                <li>
-                  <div class="lr_time"><?php echo $this->_tpl_vars['r']['time']; ?>
+                <li style='border-bottom:1px solid rgb(217,217,217);'>
+                  <div><span style="font-size:20px;color:rgb(0,112,186);width:40px;margin-right:10px;"><?php echo $this->_tpl_vars['k']+1; ?>
+</span><?php echo $this->_tpl_vars['r']['answer']; ?>
 </div>
-                  <a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/answers/id/<?php echo $this->_tpl_vars['r']['id']; ?>
-"><?php echo $this->_tpl_vars['r']['question']; ?>
-</a>
+				  <div style='text-align:right;color:rgb(150,150,150)'>回答医生:<?php echo $this->_tpl_vars['r']['author']; ?>
+&nbsp;&nbsp;时间：<?php echo $this->_tpl_vars['r']['time']; ?>
+</span></div>
 				</li>
               <?php endforeach; endif; unset($_from); ?>
                <?php else: ?>
-			   <li>暂无问题！</li>
+			   <li>暂无人回答</li>
 			    <?php endif; ?>
               </ul>
             </div>

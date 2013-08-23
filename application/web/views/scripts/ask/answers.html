@@ -73,7 +73,7 @@ zoom: 1;
       <div class="top_flash"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_31.png" width="960" height="200"></a> </div>
       <div class="top_title">
         <div class="menu_time">今天是<!--{$timer}--></div>
-        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a><!--{section name=path loop=$path}-->&gt;<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$path[path].py}-->"><!--{$path[path].sortname}--></a><!--{/section}-->&gt;阅读文章</div>
+        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a><!--{section name=path loop=$path}-->&gt;<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$path[path].py}-->"><!--{$path[path].sortname}--></a><!--{/section}-->&gt;问题答案</div>
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
@@ -192,18 +192,18 @@ zoom: 1;
 <div class="list_right">
      
           <div class="lr_ones" style="height:633px;">
-            <div class="lr_title"><a href="">问题列表</a></div>
+            <div class="lr_title"><a href="">医生的回答</a></div>
             <div class="lr_conts">
               <ul>
 			  <!--{if $result}-->
-              <!--{foreach from=$result item=r}-->
-                <li>
-                  <div class="lr_time"><!--{$r.time}--></div>
-                  <a href="<!--{$basePath}-->web/ask/answers/id/<!--{$r.id}-->"><!--{$r.question}--></a>
+              <!--{foreach from=$result item=r key=k}-->
+                <li style='border-bottom:1px solid rgb(217,217,217);'>
+                  <div><span style="font-size:20px;color:rgb(0,112,186);width:40px;margin-right:10px;"><!--{$k+1}--></span><!--{$r.answer}--></div>
+				  <div style='text-align:right;color:rgb(150,150,150)'>回答医生:<!--{$r.author}-->&nbsp;&nbsp;时间：<!--{$r.time}--></span></div>
 				</li>
               <!--{/foreach}-->
                <!--{else}-->
-			   <li>暂无问题！</li>
+			   <li>暂无人回答</li>
 			    <!--{/if}-->
               </ul>
             </div>

@@ -46,13 +46,14 @@ class hisclinic extends api_phs_comm
 		if(!$org_id){
 			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确!</return_string>" . $this->_error_message_end; 
 		}
-		
+		/*
 		//检查科室是否存在
 		$department=new Tdepartment();
 		$department->whereAdd("uuid='$xml->department_id'");
 		if($department->count()<1){
 			return $this->_error_message_start . "<return_code>2</return_code><return_string>科室编码不正确!</return_string>" . $this->_error_message_end; 
 		}
+		*/
 		$clinic=new Tclinic();
 		$clinic->uuid=$xml->uuid;
 		$clinic->created=time();
