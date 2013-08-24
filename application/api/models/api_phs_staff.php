@@ -231,6 +231,8 @@ class phsstaff extends api_phs_comm
 						$standard_code		= $rows->standard_code;
 						//身份证号
 						$identity_number_core= $rows->identity_card_number;
+                                                                                                                   //中联内部id号
+                                                                                                                   $zl_staff_code = $rows->zl_staff_code;
 						$identity_number_length=strlen($identity_number_core);
 						if ($identity_number_length!=15 && $identity_number_length!=18)
 						{
@@ -280,7 +282,7 @@ class phsstaff extends api_phs_comm
 						$staff_core ->org_id		= $org_id;
 						$staff_core ->region_path	= $region_path;
 						$staff_core ->role_id		= $role_id;
-
+                                                                                                                   $staff_code->zl_staff_code               = $zl_staff_code;
 						$staff_core->startTransaction();
 						//$staff_core->debug(3);
 						if(empty($identity_number) && empty($ext_uuid_self)){

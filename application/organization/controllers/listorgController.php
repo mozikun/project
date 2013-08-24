@@ -21,7 +21,7 @@ class organization_listorgController extends controller {
 			$currentPage = intval($this->_request->getParam('page'));
 			$realPage    = empty($currentPage)?1:$currentPage;
 			//所有机构类型
-			$orgType = array(1=>"行政机构",2=>"执法机构",3=>"医院",4=>"社区",5=>"乡镇卫生院");
+			$orgType = array(1=>"行政机构",2=>"执法机构",3=>"医院",4=>"社区",5=>"乡镇卫生院",6=>"妇幼保健院");
 			$this->view->orgType = $orgType;
 			//获取当前地区ID的信息
 			$region = new Tregion();
@@ -106,7 +106,7 @@ class organization_listorgController extends controller {
 			//regionDeepth用于判断级次 国家1 省2 市县3 街道4......
 			$regionDeepth = count(explode(',',$regionPath));
 			//所有机构类型
-			$orgType = array(1=>"卫生行政机构",2=>"卫生执法机构",3=>"医院",4=>"社区卫生服务中心",5=>"乡镇卫生院");
+			$orgType = array(1=>"卫生行政机构",2=>"卫生执法机构",3=>"医院",4=>"社区卫生服务中心",5=>"乡镇卫生院",6=>"妇幼保健院");
 			$this->view->orgType = $orgType;
 			$organization = new Torganization();
 			//$newOrg->debugLevel(9);

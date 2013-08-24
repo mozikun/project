@@ -46,11 +46,22 @@
   margin:0px;
   padding:0px;
   }
+  #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;width:260px;text-align:left;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
   <!--{$archive_rate_css}-->
 </style>
 <!--引入jquery-->
 <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<!--{$basePath}-->views/js/organization.js"></script>
 <script src="<!--{$basePath}-->views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+ <script type="text/javascript" src="<!--{$basePath}-->views/js/j.suggest.js"></script>
 <link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function(){
@@ -63,6 +74,20 @@ $(document).ready(function(){
 		var created = $('<tr><td class="right" width="45%">状态：<span class="description_span">正常档案</span><input type="hidden" name="status_array[]" value="1"  class="description_v"/></td><td align="left" width="45%"><input type="hidden" name="reason_array[]" value="正常" />时间：<input type="text" value="<!--{$current_time}-->" style="width:30%" onFocus="WdatePicker({startDate: \'%y-%M-01\' ,dateFmt:\'yyyy-MM-dd\',alwaysUseStartDate: true })" name="status_array_time[]" /></td></tr>');
 		created.appendTo(status_flag_list);
 	}
+         $("#organize").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code',onSelect:function(){
+                    var organize_code = $("#organize_code").val();
+                    $("#new_doctor").show();
+                    $("#new_archive_doctor_tr").show();
+                    //现建档人
+                    $.get("<!--{$basePath}-->iha/cover/getdoctor/org_id/"+organize_code+"/status/1",function(data){
+                         $("#new_archive_doctor_result").html(data);
+                    });
+                    //现建档人
+                    $.get("<!--{$basePath}-->iha/cover/getdoctor/org_id/"+organize_code+"/status/0",function(data){
+                         $("#new_response_doctor_result").html(data);
+                    });
+                    $("#new_org_id").val(organize_code);
+         }, attachObject:'#suggest'});
 });
 </script>
 </head>
@@ -188,9 +213,11 @@ $(document).ready(function(){
 					<tr style="display:<!--{$new_org_switch}-->">
 					<td class="right" width="45%">现建档单位:</td>
 					<td align="left" width="55%">
-					<!--{$new_organization_zh_name}-->
+					<input type="hidden" name="organize_code" id="organize_code" value="" />
+                                                                                                 <input type="text" name="organize" id="organize" size="16"  class="txt" />
+                                                                                                <div id='suggest' class="ac_results"></div>
 					<input type="checkbox" id="confirm_change_org" name="confirm_change_org" value="1" />确定更改为现单位管理
-					</td>
+					</td> 
 					</tr>
 					<tr>
 					<td class="right" width="45%" class="core_staff_id"><span style="display:<!--{$new_org_switch}-->">原</span>建档人:</td>
@@ -202,14 +229,17 @@ $(document).ready(function(){
 					</select>
 					</td>
 					</tr>
-					<tr style="display:<!--{$new_org_switch}-->">
+					<tr style="display:none;" id="new_archive_doctor_tr">
 					<td class="right" width="45%">现建档人:</td>
 					<td align="left" width="55%">
+                                            <span  id="new_archive_doctor_result"></span>
+                                                                                               <!--
 					<select name="new_archive_doctor" id="new_archive_doctor">
 						<!--{section name=new_archive_doctor loop=$new_archive_doctor}-->
 						<option value="<!--{$new_archive_doctor[new_archive_doctor].id}-->" <!--{$new_archive_doctor[new_archive_doctor].selected}--> ><!--{$new_archive_doctor[new_archive_doctor].zh_name}--></option>
 						<!--{/section}-->
 					</select>
+                                                                                                -->
 					</td>
 					</tr>
 					
@@ -223,14 +253,17 @@ $(document).ready(function(){
 					</select>
 					</td>
 					</tr>
-					<tr style="display:<!--{$new_org_switch}-->">
+					<tr style="display:none" id="new_doctor">
 					<td class="right" width="45%">现责任医生:</td>
 					<td align="left" width="55%">
+                                            <span id="new_response_doctor_result"></span>
+                                                                                              <!--
 					<select name="new_response_doctor" id="new_response_doctor">
 						<!--{section name=new_response_doctor loop=$new_response_doctor}-->
 						<option value="<!--{$new_response_doctor[new_response_doctor].id}-->" <!--{$new_response_doctor[new_response_doctor].selected}--> ><!--{$new_response_doctor[new_response_doctor].zh_name}--></option>
 						<!--{/section}-->
 					</select>
+                                                                                             -->
 					</td>
 					</tr>
 					<tr>

@@ -51,7 +51,7 @@ class api_hisdepartmentdoctorController extends controller
 		<where>
 			<department_id>2</department_id>
 			<doctor_id>1</doctor_id>
-			<default>1</default>
+			<default_id>1</default_id>
 			
 		</where>"); 
  		echo $tmp;
@@ -65,7 +65,7 @@ class api_hisdepartmentdoctorController extends controller
 	
 	public function ws_selectAction()
 	{      
-            
+        
 		$departmentdoctor=new SoapClient(__SITEROOT.$this->wsdl_path);	
 		$tmp=$departmentdoctor->ws_select(); 
  		echo $tmp;

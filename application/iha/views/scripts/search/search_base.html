@@ -55,6 +55,17 @@ function show_image(obj)
         
     }
 }
+$(document).ready(function(){
+   function get_card_status()
+   {
+       $("#jz_zt").html('');
+       $.get('<!--{$basePath}-->iha/search/getcardstatus/identity_number/<!--{$identity_number}-->',function(data){
+             $("#jz_zt").html(data);
+       });
+       setTimeout(get_card_status,5000);
+   }
+   get_card_status();
+});
 </script>
 </head>
 
@@ -83,9 +94,12 @@ function show_image(obj)
     <!--{/if}-->
     </table>
     <br />
+    <div id="jz_zt">   
+    </div>
+    <br />
     <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
     <tr class="headbg">
-    <td colspan="3"><b>信息提醒</b></td>
+    <td><b>信息提醒</b></td>
     </tr>
     <!--{foreach from=$tips_code item=v}-->
     <!--{if $v==2}--><tr><td>您是<span class="red">高血压</span>患者，您需要定期随访(<a href="<!--{$baseUrl}-->iha/search/cd">我的随访情况</a>)，并监测血压，了解近期血压变化趋势...</td></tr><!--{/if}-->

@@ -47,6 +47,7 @@ class api_phs_iha_card_status extends api_phs_comm
                            $table_name = $xml['name'];
                            foreach($xml as $k=>$element)
                            {   
+                               //var_dump($element);
                                $api_phs_comm = new api_phs_comm;
                                //取得机构代码
                                $org_id = $api_phs_comm->get_org_id($element->org_id);
@@ -68,14 +69,13 @@ class api_phs_iha_card_status extends api_phs_comm
                                    }
                                    else
                                    {
-                                        //判断这个人在此机构下是否存在
+                                        //判断这个人在平台基本档案是否存在
                                         $individual_core = new Tindividual_core();
                                         $individual_core->whereAdd("identity_number='$element->identity_number'");
-                                        $individual_core->whereAdd("org_id=$org_id");
                                         if($individual_core->count()<1)
                                         {
                                              $error = 2;
-                                             $errorstring.= '<row>身份证为'.$element->identity_number.'的病人在机构号为'.$element->org_id.'的机构不存在</row>';
+                                             $errorstring.= '<row>身份证为'.$element->identity_number.'的病人不存在</row>';
                                              $error_number++;
                                              continue;
                                         }
@@ -107,7 +107,7 @@ class api_phs_iha_card_status extends api_phs_comm
                                                    $iha_card_status = new Tiha_card_status();
                                                    $iha_card_status->whereAdd("identity_number='$element->identity_number'");
                                                    $iha_card_status->whereAdd("ext_uuid='$element->ext_uuid'");
-                                                   if($iha_card_status->count()<1)
+                                                   if($iha_card_status->count()!=1)
                                                    {
                                                        $add = true;
                                                    }

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-20 16:39:55
+<?php /* Smarty version 2.6.14, created on 2013-08-24 16:18:53
          compiled from zuozhen.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -49,6 +49,70 @@ views/js/school.js"></script>
 .overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:998;width:100%;height:100%;_padding:0 20px 0 0;background:#f6f4f5;display:none;}
 
 </style>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
+.demo{width:600px;margin:20px auto;}
+.demo th,.demo td{font-size:14px;padding-bottom:17px;line-height:28px;color:#666;font-family:"新宋体";font-weight:normal;}
+.demo th em{color:#ff0000;font-style:normal;}
+.demo td .stext{border:1px solid #ccc;font-size:14px;height:26px;line-height:26px;padding:0 3px;width:214px;color:#666;}
+/* choose-box-wrapper */
+#choose-box-wrapper{width:350px;background:#000;background-color:rgba(0, 0, 0, 0.5);padding:10px;border-radius:5px;display:none;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=#4B7D0000);
+zoom: 1;}
+#choose-box{border:1px solid #005EAC;width:350px;background:#fff;}
+#choose-box-title{background:#3777BC;color:white;padding:4px 10px 5px;font-size:14px;font-weight:700;margin:0;}
+#choose-box-title span{font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;}
+#choose-a-province, #choose-a-school{margin:5px 8px 10px 8px;border:1px solid #C3C3C3;}
+#choose-a-province a{display:inline-block;height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;margin:2px 5px;padding:1px;text-align:center;}
+#choose-a-province a:hover{text-decoration:underline;cursor:pointer;}
+#choose-a-province .choosen{background:#005EAC;color:white;}
+#choose-a-school{overflow-x:hidden;overflow-y:auto;height:130px;}
+#choose-a-school a{height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;float:left;width:160px;margin:4px 12px;padding-left:10px;background:url(http://pic002.cnblogs.com/images/2012/70278/2012072500060712.gif) no-repeat 0 9px;}
+#choose-a-school a:hover{background:#005EAC;color:#fff;}
+#choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
+#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;line-height:25px;}
+
+.clear{clear:both;}
+#department li{list-style:none;margin:2px;padding:2px;float:left;}
+#doctors li{list-style:none;margin:2px;padding:2px;float:left;}
+#date li{list-style:none;margin:2px;padding:2px;float:left;}
+
+.inputstyle {
+width:150px;
+height:20px;
+background-color:#EEEEEE;
+background-image:url(icon.png);
+background-repeat:no-repeat;
+background-position:3px 3px;
+border:#A2B700 1px solid;
+padding-left:22px;
+font-family:"宋体", "微软雅黑", "黑体";
+font-size:14px;
+color:#999900;
+line-height:20px;
+}
+.userinfo{
+	margin-top:20px;
+	margin-left:20px;
+	font-size:20px;
+	font-weight:blod;
+}
+.userinfo input{
+	margin-top:5px;
+}
+</style>
+<!--[if IE]>
+<style type="text/css">
+#choose-box-wrapper {
+background:transparent;
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#4B7D0000,endColorstr=rgb(88,114,120));
+zoom: 1;
+}
+</style>
+<![endif]-->
     <div class="main_body">
       <div class="top_flash"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_31.png" width="960" height="200"></a> </div>
@@ -82,7 +146,7 @@ $this->_sections['path']['last']       = ($this->_sections['path']['iteration'] 
 ?>&gt;<a href="<?php echo $this->_tpl_vars['basePath']; ?>
 web/default/list/lanmu/<?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['py']; ?>
 "><?php echo $this->_tpl_vars['path'][$this->_sections['path']['index']]['sortname']; ?>
-</a><?php endfor; endif; ?>&gt;阅读文章</div>
+</a><?php endfor; endif; ?>&gt;医生坐诊信息表</div>
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
@@ -270,9 +334,9 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 			<?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
-			<td ><?php if ($this->_tpl_vars['v']['shangwu'] == 1): ?><a href="#" onclick="register('<?php echo $this->_tpl_vars['v']['id']; ?>
+			<td ><?php if ($this->_tpl_vars['v']['shangwu'] == 1): ?><a href="#" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
 ',1)">预约</a><?php endif; ?></td>
-			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?><a href="#" onclick="register('<?php echo $this->_tpl_vars['v']['id']; ?>
+			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?><a href="#" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
 ',2)">预约</a><?php endif; ?></td>
 			<?php endforeach; endif; unset($_from); ?>
 		</tr>
@@ -295,14 +359,37 @@ $this->_smarty_include(array('smarty_include_tpl_file' => "../default/footer.htm
 $this->_tpl_vars = $_smarty_tpl_vars;
 unset($_smarty_tpl_vars);
  ?>
+
+<div id="choose-box-wrapper">
+	<div id="choose-box">
+		<div id="choose-box-title">
+			<span>输入用户信息</span>
+		</div>
+		<div id="choose-a-province"></div>
+		<div id="choose-a-school">
+			<table class="userinfo">
+				<tr><td align='right'>姓名：</td><td> <input type="text" class="inputstyle" id="name"  value="" maxlength="25" onmouseover="this.style.borderColor='#4499EE'" onmouseout="this.style.borderColor=''" /><span></span></td></tr>
+				<tr><td align='right'>身份证号：</td><td> <input type="text" class="inputstyle" id="identity_number"  value="" maxlength="25" onmouseover="this.style.borderColor='#4499EE'" onmouseout="this.style.borderColor=''" /><span></span></td></tr>
+				<tr><td align='right'>手机号码：</td><td> <input type="text" class="inputstyle" id="phone_number"  value="" maxlength="25" onmouseover="this.style.borderColor='#4499EE'" onmouseout="this.style.borderColor=''" /><span></span></td></tr>
+			</table>
+		
+		</div>
+		<div id="choose-box-bottom">
+			<input type="botton" onclick="send()" value="确定" />
+			<input type="botton" onclick="hide()" value="取消" />
+		</div>
+	</div>
+</div>
 <script>
-function register(id,day){
+var zuozhen_id;
+var day_time;
+function register(id,day,name,identity_number,phone_number){
 	var h = $(document).height();
 	$(".overlay").css({"height": h });	
 	$.ajax({
 		type:"post",
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/register/id/"+id+"/day/"+day,
+web/register/register/id/"+id+"/day/"+day+"/name/"+name+"/identity_number/"+identity_number+"/phone_number/"+phone_number,
 		beforeSend:function(){
 			$(".overlay").css({'display':'block','opacity':'0.1'});
 			$(".load").css({'display':'block'});
@@ -313,5 +400,56 @@ web/register/register/id/"+id+"/day/"+day,
 			$(".overlay").css({'display':'none'});
 		},
 	});
+}
+//弹出窗口
+function pop(id,d_time){ 
+	//将窗口居中
+	makeCenter(); 
+	zuozhen_id=id;
+	day_time=d_time;
+
+}
+//隐藏窗口
+function hide(){
+	$('#choose-box-wrapper').css("display","none");
+}
+//提交信息
+function send(){
+	
+	var name=$("#name").val();
+	var identity_number=$("#identity_number").val();
+	var phone_number=$("#phone_number").val();
+	if(name==""){
+		alert("姓名不能为空");return false;
+	}
+	if(identity_number==""){
+		alert("身份证不能为空");return false;
+		
+	}
+	if(!(/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/.test(identity_number))){ 
+        alert("身份证格式不正确！"); 
+        $("#identtiy_number").focus(); 
+        return false; 
+	}
+	
+	if(phone_number==""){
+		alert("手机号码不能为空");
+		return false;
+		
+	}
+	if(!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone_number))){ 
+        alert("不是完整的11位手机号或者正确的手机号前七位"); 
+        $("#phone_number").focus(); 
+        return false; 
+	}
+	//隐藏窗口并提交数据
+	hide();
+	register(zuozhen_id,day_time,name,identity_number,phone_number);
+}
+function makeCenter(){
+	$('#choose-box-wrapper').css("display","block");
+	$('#choose-box-wrapper').css("position","absolute");
+	$('#choose-box-wrapper').css("top", Math.max(0, (($(window).height() - $('#choose-box-wrapper').outerHeight()) / 2) + $(window).scrollTop()) + "px");
+	$('#choose-box-wrapper').css("left", Math.max(0, (($(window).width() - $('#choose-box-wrapper').outerWidth()) / 2) + $(window).scrollLeft()) + "px");
 }
 </script>

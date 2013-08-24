@@ -3,25 +3,27 @@ class api_orginfoController extends controller {
 	public function initAction(){
 		 require_once __SITEROOT."application/api/models/api_phs_common.php";
 	}
-	public function ws_org_selectAction(){
+	public function indexAction(){
 		require_once(__SITEROOT.'application/api/models/api_system_org.php');		
 		$server = new SoapServer(__SITEROOT.'wsdl/api_system_org.wsdl');
 		$server->setClass('api_system_org');		      
         $server->handle();   
+        
+        /*
         $api_system_organization = new api_system_org();
-        /* $xml_string="<?xml version='1.0' encoding='UTF-8'?>
+        $xml_string="<?xml version='1.0' encoding='UTF-8'?>
         <organizations>
 	        <organization>
 	          <org_id>222333</org_id>
 	        </organization>	     
 	        <organization>
-	          <org_id>222111</org_id>
+	          <org_id>222111111</org_id>
 	        </organization>     
         </organizations>"
         ;
          echo $api_system_organization->ws_del_org_info('1',$xml_string);
         exit();
-        
+       */
        /* $xml_string="<?xml version='1.0' encoding='UTF-8'?>
         <organizations>
 	        <organization>
@@ -40,29 +42,35 @@ class api_orginfoController extends controller {
         ;
          echo $api_system_organization->ws_update_org_info('1',$xml_string);
         exit();
-       /* $xml_string="<?xml version='1.0' encoding='UTF-8'?>
+        */
+        /*
+       $xml_string="<?xml version='1.0' encoding='UTF-8'?>
         <region>
           <region_standard_code>511802</region_standard_code>
           <organizations>
              <organization>
-              <org_zh_name>雨城区测试机构1</org_zh_name>
-	          <org_id>222111</org_id>
+              <org_zh_name>雨城区测试机构3</org_zh_name>
+	          <org_id>2223334</org_id>
+                             <zl_org_code>666</zl_org_code>
 	          <password>123</password>
 	          <org_type>2</org_type>
-	          <ext_uuid>323243435353535355</ext_uuid>
+	          <ext_uuid>8787878787</ext_uuid>
 	         </organization>
 	         <organization>
-	          <org_zh_name>雨城区测试机构2</org_zh_name>
-	          <org_id>222333</org_id>
+	          <org_zh_name>雨城区测试机构4</org_zh_name>
+                            <zl_org_code>44555667</zl_org_code>
+	          <org_id>33344422</org_id>
 	          <password>123</password>
 	          <org_type>1</org_type>
-	          <ext_uuid>323243435353535355</ext_uuid>
+	          <ext_uuid>gfhfh6666</ext_uuid>
 	         </organization>
           </organizations>
         </region>";
         echo $api_system_organization->ws_set_org_info('1',$xml_string);
         exit();
-      /* $api_system_organization = new api_system_org();
+         * */
+        /*
+      $api_system_organization = new api_system_org();
         $xml_string="<?xml version='1.0' encoding='UTF-8'?><tables>
         <table name='organization'>
         <row>
@@ -73,7 +81,7 @@ class api_orginfoController extends controller {
         echo $api_system_organization->ws_get_org_info('1',$xml_string);
         exit();
         */
-        /*$api_system_organization = new api_system_org();
+       /*$api_system_organization = new api_system_org();
         $xml_string="<?xml version='1.0' encoding='UTF-8'?><tables>
         <table name='organization'>
         <row>
@@ -86,7 +94,7 @@ class api_orginfoController extends controller {
         </tables>";
         echo $api_system_organization->ws_org_register_get_info('1',$xml_string);
         exit();
-        */
+   */
        /* $xml_string="<?xml version='1.0' encoding='UTF-8'?><tables>
         <table name='region'>
 	        <row>

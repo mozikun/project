@@ -1,12 +1,13 @@
 <table border="0" width="100%">
      <tr class="headbg">
-      <td colspan="7">
+      <td colspan="8">
 		<strong>未进行健康体检列表</strong>
 	  </td>
 	</tr>
 	<tr class="headbg">
 	   <th>选中状态</th>
 	   <th>姓名</th>
+	   <th>身份证号</th>
 	   <th>性别</th>
 	   <th>家庭住址</th>
 	   <th>年龄</th>
@@ -24,6 +25,9 @@
 	 	</td>
 		<td id="<!--{$row[row].uuid}-->_name">
         	<!--{$row[row].name}-->
+        </td>
+        <td>
+        	<!--{$row[row].identity_number}-->
         </td>
 		<td>
         	<!--{$row[row].sex}-->
@@ -44,13 +48,13 @@
 	</tr>
 	<!--{sectionelse}-->
 	<tr>
-		<td colspan="7">
+		<td colspan="8">
         	暂时没有数据
         </td>
 	</tr>
 	<!--{/section}-->
 	<tr>
-		<td colspan="11">
+		<td colspan="8">
         	<img src="<!--{$basePath}-->images/status_online.png" />选中状态
 			&nbsp;
 			<img src="<!--{$basePath}-->images/status_offline.png" />未选中状态&nbsp;<!--{$page}-->

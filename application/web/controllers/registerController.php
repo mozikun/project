@@ -236,22 +236,26 @@ class web_registerController extends controller
      * @return void
      */	
     public function registerAction(){
-		
+		/*
 		//检查登陆
 	    $search_session=new Zend_Session_Namespace("iha_search");
 		if(empty($search_session->id)){
 			echo "您还没有登陆!";
 			exit();
 		}
+		*/
 		$id=$this->_request->getParam("id");
 		$day=$this->_request->getParam("day");
-	
+		$name=$this->_request->getParam("name");
+		$identity_number=$this->_request->getParam("identity_number");
+		$phone_number=$this->_request->getParam("phone_number");
+	    
 		require_once __SITEROOT."library/Models/zuozhen.php";
 		require_once __SITEROOT."library/Models/appointment_register.php";
 		
 		//检查重复预约
 		$appointment=new Tappointment_register();
-		$appointment->whereAdd("zuozhen_id='$id' and identity_number='$search_session->identity_number'");
+		$appointment->whereAdd("zuozhen_id='$id' and identity_number='$identity_number'");
 		//$appointment->debug(1);
 		if($appointment->count()>0){
 			echo "您已经预约过该号了，请勿重复预约！";
@@ -264,10 +268,10 @@ class web_registerController extends controller
 		$appointment_register->uuid=uniqid();
 		$appointment_register->doctor_id=$zuozhen->user_id;
 		$appointment_register->created=time();
-		$appointment_register->name=$search_session->name;
-		$appointment_register->identity_number=$search_session->identity_number;
-		$appointment_register->gender=$search_session->sex;
-		$appointment_register->age=$search_session->age;
+		$appointment_register->name=$name;
+		$appointment_register->identity_number=$identity_number;
+		//$appointment_register->gender=$search_session->sex;
+		//$appointment_register->age=$search_session->age;
 		$appointment_register->register_date=$zuozhen->consulting_time;
 		$appointment_register->register_time=$day;
 		$appointment_register->org_id=$zuozhen->org_id;
@@ -276,10 +280,10 @@ class web_registerController extends controller
 		$appointment_register->number_species_id=$zuozhen->number_species;
 		$appointment_register->status=1;
 		$appointment_register->updated=time();
-		$appointment_register->phone_number=$search_session->phone_number;
+		$appointment_register->phone_number=$phone_number;
 		$appointment_register->zuozhen_id=$id;
 		if($appointment_register->insert()){
-			echo "预约成功";
+			echo "恭喜您，预约成功!";
 			
 		}else{
 			echo "预约失败";

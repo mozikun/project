@@ -37,6 +37,6 @@ class Tdepartment_doctor extends dao_oracle{
 	 * 
 	 * @var NUMBER(22)
 	 **/
- 	 public $default;
-	 public $_default_type='number';
+ 	 public $default_id;
+	 public $_default_id_type='number';
 }

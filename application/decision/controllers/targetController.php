@@ -65,7 +65,7 @@ class decision_targetController extends controller {
 			{
 //				var_dump($rs);
 //            	exit();
-	        	$zl_array[$rowCount]['hospatal_name']=$rs['YASYCQRMYY'];//医院名称
+	        	$zl_array[$rowCount]['hospatal_name']=iconv('gbk','utf-8//IGNORE',$rs['YASYCQRMYY']);//医院名称
 	        	$zl_array[$rowCount]['time']=$rs['SHIJIAN'];//时间
 	        	if($type=='' || $type=='workload')
 	        	{

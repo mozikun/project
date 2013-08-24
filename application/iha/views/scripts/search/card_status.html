@@ -1,0 +1,23 @@
+ <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="6"><b>就诊状态</b></td>
+    </tr>
+<tr>
+    <td>就诊时间</td>
+    <td>就诊机构</td>
+    <td>就诊科室</td>
+    <td>就诊状态</td>
+    <td>活动描述</td>
+    <td>医生姓名</td>
+</tr>
+<!--{section loop=$row name=row}-->
+<tr>
+     <td><!--{$row[row].created}--></td>
+     <td><!--{$row[row].zh_name}--></td>
+     <td><!--{$row[row].department_name}--></td>
+     <td><!--{$row[row].status}--></td>
+     <td><!--{$row[row].actions}--></td>
+     <td><!--{$row[row].name_login}--></td>
+</tr>
+<!--{/section}-->
+ </table>

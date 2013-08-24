@@ -45,29 +45,32 @@ class children_threeoldController extends controller{
 		}
 		$hypertension_core_region_path_domain=rtrim($hypertension_core_region_path_domain,' or ');
 		$staff_core_region_path_domain=rtrim($staff_core_region_path_domain,' or ');
-		$staff_core=new Tstaff_core();
-		$staff_archive=new Tstaff_archive();
-		$staff_core->joinAdd('inner',$staff_core,$staff_archive,'id','user_id');
-		$staff_core->whereAdd($staff_core_region_path_domain);
-		$staff_core->find();
-		$responseDoctorArray=array();
-		$responseDoctorArray[0]['zh_name']='请选择';
-		$responseDoctorArray[0]['id']='-9';
-		$counter=1;
-		while ($staff_core->fetch()) {
-			//生成负责医生下拉框
-			$responseDoctorArray[$counter]['zh_name']=$staff_archive->name_real;
-			$responseDoctorArray[$counter]['id']=$staff_core->id;
-			if ($search['staff_id']==$staff_core->id)
-			{
-				$responseDoctorArray[$counter]['selected']='selected';
-			}
-			else
-			{
-				$responseDoctorArray[$counter]['selected']='';
-			}
-			$counter++;
-		}
+		//2013-8-18 修改 以前不能读出随访医生
+//		$staff_core=new Tstaff_core();
+//		$staff_archive=new Tstaff_archive();
+//		$staff_core->joinAdd('inner',$staff_core,$staff_archive,'id','user_id');
+//		$staff_core->whereAdd($staff_core_region_path_domain);
+//		$staff_core->find();
+//		$responseDoctorArray=array();
+//		$responseDoctorArray[0]['zh_name']='请选择';
+//		$responseDoctorArray[0]['id']='-9';
+//		$counter=1;
+//		while ($staff_core->fetch()) {
+//			//生成负责医生下拉框
+//			$responseDoctorArray[$counter]['zh_name']=$staff_archive->name_real;
+//			$responseDoctorArray[$counter]['id']=$staff_core->id;
+//			if ($search['staff_id']==$staff_core->id)
+//			{
+//				$responseDoctorArray[$counter]['selected']='selected';
+//			}
+//			else
+//			{
+//				$responseDoctorArray[$counter]['selected']='';
+//			}
+//			$counter++;
+//		}
+		$this->view->response_doctor=get_doctor_list($this->user['current_region_path_domain'],$search['staff_id']);
+
 		$child_physical=new Tchild_physical_age_three();
 		$core=new Tindividual_core();
 		$child_physical->whereAdd($hypertension_core_region_path_domain);
@@ -135,7 +138,7 @@ class children_threeoldController extends controller{
 		}
 		$out = $links->subPageCss2();
 
-		$this->view->response_doctor=$responseDoctorArray;
+//		$this->view->response_doctor=$responseDoctorArray;
 		$this->view->search=$search;
 		$this->view->assign("pager",$out);
 //		$this->view->assign('region_id', $this->user['region_id']);//地区

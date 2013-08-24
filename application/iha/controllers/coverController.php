@@ -912,11 +912,10 @@ class iha_coverController extends controller {
             //echo $org_id."|".$this->user['org_id'];
             if ($org_id == $this->user['org_id']) {
                 $this->view->new_org_switch = 'none';
-            } else {
+           } else {
                 $this->view->new_org_switch = '';
                 $this->view->new_org_id = $this->user['org_id'];
                 $this->view->new_organization_zh_name = $this->user['org_zh_name'];
-                ;
             }
         }
         //exit();
@@ -1041,8 +1040,8 @@ class iha_coverController extends controller {
             //这里数组索引的下标有很重大不稳定的问题，待修正 luowei 2010-7-23
             $pathArray = explode(',', $individual->region_path);
             $this->view->init_region_id_2 = $pathArray['5'];
-            $this->view->init_region_id_3 = $pathArray['6'];
-            $this->view->init_region_id_4 = $pathArray['7'];
+            $this->view->init_region_id_3 = @$pathArray['6'];
+            $this->view->init_region_id_4 = @$pathArray['7'];
         }
 
         //原建档医生
@@ -2006,7 +2005,35 @@ class iha_coverController extends controller {
         "513128199304242128",
         "513128197104192120",
         "513128199601012126");
-
+    /**
+     * 选择机构后触发一个ajax取得这个机构的医生
+     * 
+     */
+    public function getdoctorAction()
+    {
+         $org_id =  $this->_request->getParam('org_id');
+         $status =  $this->_request->getParam('status');
+         $org_id = empty($org_id)?$this->user['org_id']:$org_id;
+         $str = '';
+         if($status)
+         {
+             $str.= '<select name="new_archive_doctor" id="new_archive_doctor">';
+         }
+         else
+         {
+             $str.= '<select name="new_response_doctor" id="new_response_doctor">';
+         }
+         //取机构下的医生
+         $staff_core = new Tstaff_core();
+         $staff_core->whereAdd("org_id=$org_id");
+         $staff_core->find();
+          while($staff_core->fetch())
+         {
+             $str.='<option value="'.$staff_core->id.'">'.$staff_core->name_login.'</option>';
+         }
+         $str.='</select>';
+         echo $str;
+    }
 }
 
 ?>

@@ -1,0 +1,101 @@
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script>
+$(document).ready(function(){
+    data_pic();
+});
+function data_pic()
+{
+    var colors = Highcharts.getOptions().colors,
+            categories = [<!--{section name=data loop=$data_logs}-->'<!--{$data_logs[data].org_name}-->'<!--{if $smarty.section.data.last}--><!--{else}-->,<!--{/if}--><!--{/section}-->],
+            name = '点击柱状图查看详细',
+            data = [<!--{section name=data loop=$data_logs}-->{
+                    y: <!--{$data_logs[data].nums}-->,
+                    color: colors[<!--{$smarty.section.data.rownum}-->],
+                    drilldown: {
+                        name: '<!--{$data_logs[data].org_name}-->',
+                        categories: [<!--{section name=org loop=$data_logs[data].drilldown}-->'<!--{$data_logs[data].drilldown[org].upload_token}-->'<!--{if $smarty.section.org.last}--><!--{else}-->,<!--{/if}--><!--{/section}-->],
+                        data: [<!--{section name=nums loop=$data_logs[data].drilldown}--><!--{$data_logs[data].drilldown[nums].nums}--><!--{if $smarty.section.nums.last}--><!--{else}-->,<!--{/if}--><!--{/section}-->],
+                        color: colors[<!--{$smarty.section.data.rownum}-->]
+                    }
+                }<!--{if $smarty.section.data.last}--><!--{else}-->,<!--{/if}--><!--{/section}-->];
+    
+        function setChart(name, categories, data, color) {
+			chart.xAxis[0].setCategories(categories, false);
+			chart.series[0].remove(false);
+			chart.addSeries({
+				name: name,
+				data: data,
+				color: color || 'white'
+			}, false);
+			chart.redraw();
+        }
+    
+        var chart = $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '雅安市区域卫生信息平台接口数据交换总量统计'
+            },
+            subtitle: {
+                text: '--当前统计区域：四川省雅安市'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '接口数据请求总量'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function() {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        formatter: function() {
+                            return this.y +'次';
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    var point = this.point,
+                        s = this.x +'共交换数据:<b>'+ this.y +'</b>次<br/>';
+                    if (point.drilldown) {
+                        s += '点击查看 '+ point.category +'数据交换详细数据';
+                    } else {
+                        s += '点击返回数据交换总量图';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        })
+        .highcharts(); // return chart
+}
+</script>

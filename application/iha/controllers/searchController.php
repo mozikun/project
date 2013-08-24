@@ -154,7 +154,8 @@ class iha_searchController extends controller
         require_once __SITEROOT.'/library/custom/comm_function.php';
         require_once __SITEROOT."library/securimage/securimage.php";
         require_once __SITEROOT.'/library/custom/adodb-time.inc.php';//引入时间处理
-		require_once __SITEROOT.'/library/data_arr/arrdata.php';
+        require_once __SITEROOT.'/library/data_arr/arrdata.php';
+        
         $search_session=new Zend_Session_Namespace("iha_search");
         $card=$search_session->identity_number;//身份证号码
         if($card)
@@ -257,6 +258,7 @@ class iha_searchController extends controller
                 message("对不起，没有查找到您的信息，请检查姓名和身份证是否正确",$url);
             }
             $this->view->card=base64_encode($card);
+            $this->view->identity_number=$card;
             $this->view->display("search_base.html");
         }
         else
@@ -1961,5 +1963,53 @@ class iha_searchController extends controller
 		 $this->view->display("appointment.html");
 		 
 	}
+        /**
+         * 取一个人的就诊状态
+         */
+       public function  getcardstatusAction()
+       {
+           //通过病人身份证号取得这个人的就诊的状态 
+           require_once __SITEROOT."library/Models/iha_card_status.php";
+           require_once __SITEROOT."library/Models/staff_core.php";
+           require_once __SITEROOT."library/Models/organization.php";
+           $identity_number =  $this->_request->getParam('identity_number');//病人身份证号
+           if(!empty($identity_number))
+           {
+                $iha_card_status = new Tiha_card_status();
+                $iha_card_status->whereAdd("identity_number='$identity_number'");
+                $iha_card_status->find();
+                $row = array();
+                $count = 0;
+                while($iha_card_status->fetch())
+                {
+                    $row[$count]['created'] =  date("Y-m-d H:i:s",$iha_card_status->created);
+                    //就诊机构
+                   $org = new Torganization();
+                   $org->whereAdd("id=$iha_card_status->org_id");
+                   $org->find(true);
+                   $row[$count]['zh_name'] =  $org->zh_name;
+                   //就诊状态
+                   $zl_jz = array(1=>'门诊挂号',2=>'门诊划价',3=>'门诊收费',4=>'门诊记帐',5=>'入院登记',6=>'住院记帐',7=>'科室记帐',8=>'医技科室记帐',9=>'住院结帐',10=>'门诊医生站就诊',11=>'住院医生站',12=>'住院护士工作站',13=>'检验标本采集',14=>'药房发药',15=>'影像检查',16=>'影像采集');
+                   $status = $iha_card_status->status;
+                   if(!empty($status))
+                   {
+                   //var_dump($zl_jz);
+                       $row[$count]['status'] =  $zl_jz[$status];
+                   }
+                   //活动描述
+                   $row[$count]['actions'] =  $iha_card_status->actions;
+                   //科室名称
+                   $row[$count]['department_name'] =  $iha_card_status->department_name;
+                   //医生
+                   $staff_core =  new Tstaff_core();
+                   $staff_core->whereAdd("id='$iha_card_status->staff_id'");
+                   $staff_core->find(true);
+                   $row[$count]['name_login'] = $staff_core->name_login;
+                   $count++;     
+                }
+                $this->view->row = $row;
+                $this->view->display('card_status.html');
+           }
+       }
 }
 ?>

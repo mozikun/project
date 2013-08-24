@@ -1,0 +1,20 @@
+<table id="mytable" cellspacing="0">
+<tr>
+<th scope="col">地区</th>
+<!--{foreach item=token from=$token}-->
+<th scope="col"><!--{$token}--></th>
+<!--{/foreach}-->
+</tr>
+<!--{section name=data loop=$data_logs}-->
+<tr>
+<!--{if $smarty.section.data.rownum%2==0}-->
+<th scope="row" class="spec"><!--{$data_logs[data].zh_name}--></th>
+<!--{else}-->
+<th scope="row" class="specalt"><!--{$data_logs[data].zh_name}--></th>
+<!--{/if}-->
+<!--{section name=type loop=$data_logs[data].drilldown}-->
+<td><!--{$data_logs[data].drilldown[type].nums}--></td>
+<!--{/section}-->
+</tr>
+<!--{/section}-->
+</table>

@@ -7,6 +7,7 @@
             require_once __SITEROOT . '/library/custom/comm_function.php';
             $this->view->assign("baseUrl",__BASEPATH);
 	        $this->view->assign("basePath", __BASEPATH);
+            require_once(__SITEROOT.'library/Myauth.php');
    	    }
    	    /**
    	     * decision_mainController::indexAction()
@@ -382,6 +383,7 @@
          */
         public function dataAction()
         {
+            //处理计划任务
             $this->view->display("data_index.html");
         }
    }

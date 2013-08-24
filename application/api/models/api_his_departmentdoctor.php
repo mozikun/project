@@ -15,7 +15,7 @@ class hisdepartmentdoctor extends api_phs_comm
     public function __construct()
     {
 
-        require_once __SITEROOT . "library/Models/department_doctor.php"; //坐诊表
+        require_once __SITEROOT . "library/Models/department_doctor.php"; 
       
         $this->_error_message_start = "<?xml version='1.0' encoding='UTF-8'?><message>";
         $this->_error_message_end = "</message>";
@@ -38,8 +38,7 @@ class hisdepartmentdoctor extends api_phs_comm
 		$department_doctor->uuid=uniqid();
 		$department_doctor->doctor_id=$doctor_id;
 		$department_doctor->department_id=$department_id;
-		$department_doctor->default=$xml->default;
-		return 1;
+		$department_doctor->default_id=$xml->default_id;
 		
 		if($department_doctor->insert()){
 			return $this->_error_message_start . "<return_code>1</return_code><return_string>新增成功!</return_string>" . $this->_error_message_end;
@@ -58,13 +57,13 @@ class hisdepartmentdoctor extends api_phs_comm
 			return $this->_error_message_start . "<return_code>2</return_code><return_string>没找到任何记录!</return_string>" . $this->_error_message_end; 
 		}
 		$department_doctor->find();
-		$xml_return = "<?xml version='1.0' encoding='UTF-8'?><table name='department_doctor'>";
+		$xml_return = "<?xml version='1.0' encoding='UTF-8'?><info><return_code>1</return_code><table name='department_doctor'>";
 		while($department_doctor->fetch()){
 			$xml_return.="<row>";
             $xml_return.=$department_doctor->toXML();
             $xml_return.="</row>";
 		}
-		$xml_return.="</table>";
+		$xml_return.="</table></info>";
 		return $xml_return;
 		
 	}	

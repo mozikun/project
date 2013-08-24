@@ -17,23 +17,27 @@ class api_phsstaffController extends controller
 	public function indexAction()
 	{
 		require_once(__SITEROOT."application/api/models/api_phs_staff.php");	
-		/*$client=new phsstaff();
-		$xml_string="<?xml version='1.0' encoding='UTF-8'?>
+		$client=new phsstaff();
+		/*$xml_string="<?xml version='1.0' encoding='UTF-8'?>
                                 <tables>
                                 <table name='staff_core'>
                                 <row>
-                                <org_id>888888</org_id>
+                                <org_id>45254011251180211A1001</org_id>
                                 <identity_card_number>50038319880103721X</identity_card_number>
                                 <ext_uuid>45564704-4326-4cf6-ad7a-34f942d97ebc</ext_uuid>
-                                <standard_code>国家标准档案号</standard_code><name_login>liuyan</name_login><passwd>123</passwd>
+                                <standard_code>国家标准档案号</standard_code>
+                                <name_login>陈涛</name_login>
+                                <passwd>123</passwd>
+                                <zl_staff_code>1</zl_staff_code>
                                 </row>
                                 </table>
                                 <table name='staff_archive'>
                                 <row>
-                                <name_real>刘彦</name_real>
+                                <name_real>陈涛</name_real>
+                                <zl_staff_code>1</zl_staff_code>
                                 <status_flag>1</status_flag>
                                 <identity_card_number>50038319880103721X</identity_card_number>
-                                <sex>1</sex>
+                                  <sex>1</sex>
                                 <ext_uuid>45564704-4326-4cf6-ad7a-34f942d97ebc</ext_uuid>
                                 </row>
                                 </table>

@@ -122,6 +122,9 @@ class et_indexController  extends controller {
 		$time = time();
 		$this->view->starttime = adodb_date("Y-m-d",adodb_mktime(0,0,0,adodb_date("n",$time),adodb_date("j",$time),adodb_date("Y",$time)-1));
         $this->view->endtime   = adodb_date("Y-m-d",adodb_mktime(0,0,0,adodb_date("n",$time),adodb_date("j",$time),adodb_date("Y",$time)));
+		//获取时间 默认为本年时间(未体检时间)
+		$this->view->starts_time=adodb_date("Y-m-d",adodb_mktime(0,0,0,01,01,adodb_date("Y",$time)));
+		$this->view->ends_time=adodb_date("Y-m-d",adodb_mktime(23,59,59,adodb_date("m",$time),adodb_date("d",$time),adodb_date("Y",$time)));
 		//地区id
 		$region_id =  $this->user['region_id'];
   	 	$this->view->region_id     =  $region_id;

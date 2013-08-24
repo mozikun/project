@@ -221,8 +221,30 @@ class  MyAcl{
 		//echo $e-$s."<br>";
 		if(!in_array($resource_en_name,$this->resource_arr) && $resource_en_name!=''){
 			//throw new Exception("资源 $resource 没有注册！");
-			exit("资源 $resource_en_name 没有注册！");
-			
+            $resource_table=new Tresources();
+            $resource_table->whereAdd("resource_en_name='".$resource_en_name."'");
+            if(!$resource_table->count())
+            {
+                //我好笨 2013-08-22增加自动写入资源
+                $resource_table=new Tresources();
+                $resource_table->resource_id=uniqid(true);
+                $resource_table->resource_en_name=$resource_en_name;
+                $resource_table->resource_zh_name=$resource_en_name;
+                if($resource_table->insert())
+                {
+                    $file=__SITEROOT.'cache/resource_cache_file.php';
+            		if(file_exists($file))
+                    {
+            			unlink($file);
+            			$acl_file=__SITEROOT.'cache/acl_cache_file.php';//授权文件缓存
+            			if(file_exists($acl_file))
+                        {
+            				unlink($acl_file);	
+            			}
+            		}
+                }
+            }
+			exit("资源 $resource_en_name 已自动注册，请联系管理员给角色授权！");
 		}
 		//print_r($this->resource_arr);
 		//var_dump($resource_en_name);

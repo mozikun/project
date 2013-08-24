@@ -78,7 +78,7 @@ class api_his_image extends api_phs_comm
                         continue;
                     }
                     //根据身份证查询此用户是否建档
-                    $core = new Tindividual_core();
+                    /*$core = new Tindividual_core();
                     $core->whereAdd("individual_core.identity_number='" . $identity_number . "'");
                     $core->find(true);
                     $id = $core->uuid; //个人档案号
@@ -106,7 +106,7 @@ class api_his_image extends api_phs_comm
                             continue;
                         }
                     }
-                    $core->free_statement();
+                    $core->free_statement();*/
                     //判定ext_uuid不能为空
                     if ($rows->ext_uuid == '')
                     {
@@ -172,7 +172,15 @@ class api_his_image extends api_phs_comm
                     $table_object->free_statement();
                 }
             }
-            return $this->_error_message_start . $error_message_xml . "<return_string>成功更新" .
+            if($error==0)
+            {
+                $return_code=1;
+            }
+            else
+            {
+                $return_code=2;
+            }
+            return $this->_error_message_start . $error_message_xml . "<return_code>".$return_code."</return_code><return_string>成功更新" .
                 $success . "条记录，" . $error . "条记录更新失败</return_string>" . $this->
                 _error_message_end;
         }

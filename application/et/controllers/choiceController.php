@@ -19,10 +19,15 @@
   	 {
   	 	require_once __SITEROOT."library/custom/pager.php";
   	 	require_once __SITEROOT.'library/data_arr/arrdata.php';
-  	 	$table_comment  = $this->_request->getParam('table_comment');
-  	 	$this->view->table_comment = $table_comment;
+//  	 	$table_comment  = $this->_request->getParam('table_comment');
+//  	 	$this->view->table_comment = $table_comment;
   	 	$search =  array();
   	 	$time   = time();
+  	 	//获取时间
+  	 	$start_time=$this->_request->getParam('starts_time');
+  	 	$end_time=$this->_request->getParam('ends_time');
+  	 	$search['start_time']=$start_time;
+  	 	$search['end_time']=$end_time;
   	 	//获取地区的信息
   	 	$region_id =  $this->user['region_id'];
   	 	$this->view->region_id   = $region_id;
@@ -34,12 +39,15 @@
         $search['age_start'] = intval($this->_request->getParam('age_start'))?intval($this->_request->getParam('age_start')):0; //年龄段
         $search['age_end']   = (intval($this->_request->getParam('age_end'))>=$search['age_start'])?intval($this->_request->getParam('age_end')) : '';
         $search['sex']       = $this->_request->getParam('sex');
+        $search['name']		 =trim($this->_request->getParam('name'));
+        $search['identity_number']=trim($this->_request->getParam('identity_number'));
         //echo $region_path_domain;
   	 	$basepath = $this->_request->getBasePath();	 	
   	 	require_once __SITEROOT . "/library/custom/pager.php";  	 	
-  	 	$searchtable = $this->_request->getParam('chiocetable');   
+  	 	$searchtable = $this->_request->getParam('chiocetable');
   	 	$search['chiocetable'] = $searchtable;
   	 	$where = '';   
+  	 	$wheres= '';
   	 	if( $searchtable !=  "")
   	 	{
   	 		if(file_exists(__SITEROOT.'library/Models/'.$searchtable.'.php'))
@@ -66,10 +74,45 @@
 		            {
 		                $where.=" and individual_core.$k = '$v'";
 		            }
+		            if($k=='name'&&$v!='')
+		            {
+		            	$where.=" and individual_core.$k = '$v'";
+		            }
+		            if($k=='identity_number'&&$v!='')
+		            {
+		            	$where.=" and individual_core.$k = '$v'";
+		            }
+		            if ($k=='start_time'&& $v!='')
+		            {
+		            	$v=strtotime($v);
+		            	$starttime=adodb_mktime(0,0,0,adodb_date("m",$v),adodb_date("d",$v),adodb_date("Y",$v));
+		            	$wheres.=" and examination_table.examination_date >=$starttime";
+		            }
+		            if ($k=='end_time' && $v!='')
+		            {
+		            	$v=strtotime($v);
+		            	$endtime=adodb_mktime(23,59,59,adodb_date("m",$v),adodb_date("d",$v),adodb_date("Y",$v));
+		            	$wheres.=" and examination_table.examination_date <=$endtime";
+		            }
 			     }
-			    // echo $where;
-  	 			$tabobj->query("select count(*) as nums from individual_core where not exists(select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid)".$where."");
-  	 			//echo "select count(*) as nums from individual_core where  not exists(select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid)".$where;
+			     //print_r($search);
+			     //点击绿色小叉没有传递查询时间段，这里获取时间段（默认为本年时间）
+			     if(empty($search['start_time']))
+			     {
+	            	$starttime=adodb_mktime(0,0,0,01,01,adodb_date("Y",$time));
+	            	$wheres.=" and examination_table.examination_date >=$starttime";
+	            	$search['start_time']=date("Y-m-d",$starttime);
+  	 	
+			     }
+			     if(empty($search['end_time']))
+			     {
+			     	$endtime=adodb_mktime(23,59,59,adodb_date("m",$time),adodb_date("d",$time),adodb_date("Y",$time));
+		            $wheres.=" and examination_table.examination_date <=$endtime";
+		            $search['end_time']=date("Y-m-d",$endtime);
+			     }
+			    //echo $where;
+  	 			$tabobj->query("select count(*) as nums from individual_core where not exists(select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid ".$wheres.")".$where."");
+  	 			//echo "select count(*) as nums from individual_core where  not exists(select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid".$wheres.")".$where;
   	 			$tabobj->fetch();
   	 			$nums = $tabobj->nums;
   	 			$pageCurrent = intval($this->_request->getParam('page'));
@@ -80,12 +123,14 @@
 		        $pageCurrent = $links->check_page($pageCurrent); //检查当前页数是否合法
 		        $startnum = __ROWSOFPAGE * ($pageCurrent - 1); //计算开始记录数
 		        $newtabobj = new $objtabname(); 
-		        $newtabobj->query("select * from (select A.*,ROWNUM as RN from (select * from individual_core where not exists (select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid)".$where." ) A where ROWNUM <= ".(__ROWSOFPAGE+$startnum).") where RN > ".$startnum."");
+		        $newtabobj->query("select * from (select A.*,ROWNUM as RN from (select * from individual_core where not exists (select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid".$wheres.")".$where." ) A where ROWNUM <= ".(__ROWSOFPAGE+$startnum).") where RN > ".$startnum."");
+		        //echo "select * from (select A.*,ROWNUM as RN from (select * from individual_core where not exists (select 1 from ".$searchtable." where ".$searchtable.".id=individual_core.uuid".$wheres.")".$where." ) A where ROWNUM <= ".(__ROWSOFPAGE+$startnum).") where RN > ".$startnum;
 		        $row   = array();
 		        $count = 0;
   	 			while ($newtabobj->fetch())
   	 			{
   	 				$row[$count]['name']  =  $newtabobj->name;//姓名
+  	 				$row[$count]['identity_number'] = $newtabobj->identity_number;
   	 				$row[$count]['uuid']  =  $newtabobj->uuid;
   	 				//性别
   	 				foreach($sex as $k=>$v)
@@ -111,7 +156,7 @@
   	 			$this->view->para_page = $pageCurrent;
   	 			$this->view->row       =  $row;
   	 			$newtabobj->free_statement();	
-  	 			$tabobj->free_statement();	 			
+  	 			$tabobj->free_statement();
   	 		}
   	 	}
   	 	$this->view->display("list_extra.html");

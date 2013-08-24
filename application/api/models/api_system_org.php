@@ -370,94 +370,127 @@
 		     }
 		     else
 		     {
-		     	//判断这个地区标准码在表中是否存在
-		     	$region = new Tregion();
-		     	$region->whereAdd("standard_code='$region_standard_code'");
-		     	if($region->count()==0)
-		     	{
-		     		$errorString.='地区标准码为'.$region_standard_code.'的地区不存在';
+                                                         //判断这个地区标准码是多少位 如果只有6位那么是在县区那级
+                                                         $strlength = strlen($region_standard_code);
+                                                         if($strlength>6&&$strlength<=9)
+                                                         {
+                                                             //说明这级为乡镇
+                                                             $region_standard_code_top = substr($region_standard_code,0,6);
+                                                             $region_info = new Tregion();
+                                                             $region_info->whereAdd("standard_code='$region_standard_code_top'");
+                                                             $region_info->find(true);
+                                                             $p_id = $region_info->id;
+                                                             $current_region_code = substr($region_standard_code,6,3);
+                                                             //再取p_id等于$p_id和standard_code的关联数据
+                                                             $select_region = new Tregion();
+                                                             $select_region->whereAdd("standard_code='$current_region_code'");
+                                                             $select_region->whereAdd("p_id=$p_id");
+                                                             $select_region->find(true);
+                                                             if(empty($select_region->region_path))
+                                                             {
+                                                                            $errorString.='地区标准码为'.$region_standard_code.'的地区不存在';
 		     		$errorNumber++;
-		     	}
-		     	else 
-		     	{
-		     		//地区标准码不为空且标准码存在
-		     		$region->find(true);
-		     		$return_string.='<region_standard_code>'.$region_standard_code.'</region_standard_code>';
-		     		$region_path =  $region->region_path;//取得当前地区的path
-		     		$org_object = $getxml->organizations->organization;//数组
-		     		$return_string.='<organizations>';		
-		     		foreach ($org_object as $k=>$v)
-		     		{ 
-		     			if(empty($v->org_id))
-		     			{
-		     				//机构标准码为空
-		     				$errorString.='机构标准码不能为空';
-		     				$errorNumber++;
-		     			}
-		     			else 
-		     			{
-		     				//机构标准码不为空
-		     				$organization = new Torganization();
-		     				$organization->whereAdd("standard_code='$v->org_id'");
-		     				if($organization->count()>0)
-		     				{
-		     					//机构标准码已经存在
-		     					$errorString.='机构标准码为'.$v->org_id.'的机构已经存在';
-		     					$errorNumber++;
-		     				}
-		     				else 
-		     				{
-		     					//机构标准码不存在(可以进行新增了)
-		     					//构造org的id	
-		     					$org_info = new Torganization();
-		     					$org_info->orderby("id DESC");
-		     					$org_info->limit(0,1);
-		     					$org_info->find(true);
-		     					$new_org_id = $org_info->id+1;
-		     					//写入表中
-		     					$org = new Torganization();
-		     					$org->id = $new_org_id;
-		     					$org->zh_name = $v->org_zh_name;
-		     					$org->region_path_domain = $region_path;
-		     					$org->region_path = $region_path;
-		     					$org->type = $v->org_type;
-		     					$org->standard_code = $v->org_id;
-		     					$org->password = md5($v->password);
-		     					$org->ext_uuid = $v->ext_uuid;
-		     					if(empty($v->org_zh_name)||empty($v->ext_uuid)||empty($v->password)||empty($v->org_type))
-		     					{
-		     						$errorString.='机构名称，业务号，机构类型，机构密码不能为空';
-		     						$errorNumber++;
-		     					}
-		     					else 
-		     					{			
-			     					if($org->insert())
-			     					{
-			     						$return_string.='<organization>';
-			     						$return_string.='<org_zh_name>'.$v->org_zh_name.'</org_zh_name>';
-			     						$return_string.='<org_id>'.$v->org_id.'</org_id>';
-			     						$return_string.='<password>'.$v->password.'</password>';
-			     						$return_string.='<org_type>'.$v->org_type.'</org_type>';
-			     						$return_string.='<ext_uuid>'.$v->ext_uuid.'</ext_uuid>';
-			     						$return_string.='</organization>';
-			     						//生成一个js数组文件
-										createjs(__SITEROOT.'views/js','organization.js','Torganization','organizationArray');
-										//单个JS文件的生成用于首页flash点击
-								        createlonejs(__SITEROOT.'views/js','5','organizationArray');
-			     						$successNumber++;
-			     					}
-			     					else 
-			     					{
-			     						$errorNumber++;
-			     					}
-		     					}
-		     				}
-		     			}	
-		     		}
-		     		$return_string.='</organizations>';
-		     	}
-		     	
-		     }
+                                                             }
+                                                             else
+                                                             {
+                                                                   $region_path =  $select_region->region_path;
+                                                             }
+                                                             $region_info->free_statement();
+                                                             $select_region->free_statement();
+                                                         }
+                                                         else  if($strlength==6)
+                                                         {  
+                                                            //判断这个地区标准码在表中是否存在
+                                                            $region = new Tregion();
+                                                            $region->whereAdd("standard_code='$region_standard_code'");
+                                                            if($region->count()==0)
+                                                            {
+                                                                    $errorString.='地区标准码为'.$region_standard_code.'的地区不存在';
+                                                                    $errorNumber++;
+                                                            }
+                                                            else 
+                                                            {     
+                                                                    //地区标准码不为空且标准码存在
+                                                                    $region->find(true);
+                                                                    $region_path =  $region->region_path;//取得当前地区的path
+                                                            }
+                                                         }
+                                                                    $return_string.='<region_standard_code>'.$region_standard_code.'</region_standard_code>';           
+                                                                    $org_object = $getxml->organizations->organization;//数组
+                                                                    $return_string.='<organizations>';		
+                                                                    foreach ($org_object as $k=>$v)
+                                                                    { 
+                                                                            if(empty($v->org_id))
+                                                                            {
+                                                                                    //机构标准码为空
+                                                                                    $errorString.='机构标准码不能为空';
+                                                                                    $errorNumber++;
+                                                                            }
+                                                                            else 
+                                                                            {
+                                                                                    //机构标准码不为空
+                                                                                    $organization = new Torganization();
+                                                                                    $organization->whereAdd("standard_code='$v->org_id'");
+                                                                                    if($organization->count()>0)
+                                                                                    {
+                                                                                            //机构标准码已经存在
+                                                                                            $errorString.='机构标准码为'.$v->org_id.'的机构已经存在';
+                                                                                            $errorNumber++;
+                                                                                    }
+                                                                                    else 
+                                                                                    {
+                                                                                            //机构标准码不存在(可以进行新增了)
+                                                                                            //构造org的id	
+                                                                                            $org_info = new Torganization();
+                                                                                            $org_info->orderby("id DESC");
+                                                                                            $org_info->limit(0,1);
+                                                                                            $org_info->find(true);
+                                                                                            $new_org_id = $org_info->id+1;
+                                                                                            //写入表中
+                                                                                            $org = new Torganization();
+                                                                                            $org->id = $new_org_id;
+                                                                                            $org->zh_name = $v->org_zh_name;
+                                                                                            $org->region_path_domain = $region_path;
+                                                                                            $org->region_path = $region_path;
+                                                                                            $org->type = $v->org_type;
+                                                                                            $org->standard_code = $v->org_id;
+                                                                                            $org->password = md5($v->password);
+                                                                                            $org->ext_uuid = $v->ext_uuid;
+                                                                                            $org->zl_org_code = $v->zl_org_code;
+                                                                                            if(empty($v->org_zh_name)||empty($v->ext_uuid)||empty($v->password)||empty($v->org_type))
+                                                                                            {
+                                                                                                    $errorString.='机构名称，业务号，机构类型，机构密码不能为空';
+                                                                                                    $errorNumber++;
+                                                                                            }
+                                                                                            else 
+                                                                                            {	
+                                                                                                
+                                                                                                    if($org->insert())
+                                                                                                    {
+                                                                                                            $return_string.='<organization>';
+                                                                                                            $return_string.='<org_zh_name>'.$v->org_zh_name.'</org_zh_name>';
+                                                                                                            $return_string.='<org_id>'.$v->org_id.'</org_id>';
+                                                                                                            $return_string.='<org_id>'.$v->zl_org_code.'</org_id>';
+                                                                                                            $return_string.='<password>'.$v->password.'</password>';
+                                                                                                            $return_string.='<org_type>'.$v->org_type.'</org_type>';
+                                                                                                            $return_string.='<ext_uuid>'.$v->ext_uuid.'</ext_uuid>';
+                                                                                                            $return_string.='</organization>';
+                                                                                                            //生成一个js数组文件
+                                                                                                                    createjs(__SITEROOT.'views/js','organization.js','Torganization','organizationArray');
+                                                                                                                    //单个JS文件的生成用于首页flash点击
+                                                                                                            createlonejs(__SITEROOT.'views/js','5','organizationArray');
+                                                                                                            $successNumber++;
+                                                                                                    }
+                                                                                                    else 
+                                                                                                    {
+                                                                                                            $errorNumber++;
+                                                                                                    }
+                                                                                            }
+                                                                                    }
+                                                                            }	
+                                                                    }
+                                                                    $return_string.='</organizations>';
+                                                            }
 		     $return_string.='</region>';
 		     if($errorNumber==0)
 		     {
