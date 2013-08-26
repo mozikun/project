@@ -6,11 +6,11 @@ class android_hospitalController extends controller
 {
     public function init()
     {
-        require_once(__SITEROOT.'library/Models/staff_core.php');//用户核心表
-		require_once(__SITEROOT.'library/Models/staff_archive.php');//用户扩展表
-		require_once(__SITEROOT.'library/Models/department.php');//用户扩展表
-		require_once(__SITEROOT.'library/Models/organization.php');//用户扩展表
-		require_once(__SITEROOT.'library/Models/individual_core.php');//用户扩展表
+        require_once(__SITEROOT.'library/Models/staff_core.php');
+		require_once(__SITEROOT.'library/Models/staff_archive.php');
+		require_once(__SITEROOT.'library/Models/department.php');
+		require_once(__SITEROOT.'library/Models/organization.php');
+		require_once(__SITEROOT.'library/Models/individual_core.php');
 		require_once(__SITEROOT.'library/Myauth.php');
 		$this->auth=Zend_Auth::getInstance();		
 		$this->view->basePath = $this->_request->getBasePath();
@@ -31,7 +31,7 @@ class android_hospitalController extends controller
 		}
 		//print_r($result);
 		$this->view->title="找医院";
-		$this->view->rows=$result;
+		$this->view->result=$result;
 		$this->view->display("list.html");
 	}
 	//医院首页

@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
-   
-    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/android.css"/>
-	<style type="text/css">
-       body{margin:0 auto;padding:0 auto;text-align:left;background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x;height:100%; }
-       div,img,table,tr{margin:0 auto;padding:0 auto;text-align:left;}
-       .title_bg{background:url(<!--{$basePath}-->views/images/bg_search_ext.jpg) repeat-x;height:25px;line-height:25px;text-align:left;padding-left:2em;color:white;font-weight:bold;}
-       .div_content{background:url(<!--{$basePath}-->views/images/div_bg.jpg) repeat-x center top;height:auto;}
-    </style>
-</head>
 
-   <!--{include file="../header.html"}-->
-   <div>
-     <ul>
-      <!--{foreach from =$rows item=r k=key}-->
-	
-		<li class="lie"><!--{$r.name}--> <a href="<!--{$basePath}-->android/chat/chat/receiver_id/<!--{$r.id}-->"><span>咨询</span></a></li>
-	 
-	  <!--{/foreach}-->	
-     </ul>
-   </div>
-  <!--{include file="../footer.html"}-->
-   </div>
-</body>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            <!--{$title}-->
+        </h3>
+    </div>
+    <div data-role="content">
+		
+		 <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                         专家列表
+                    </li>
+					<!--{if $rows}-->
+			<!--{foreach from=$rows item=r key=k}-->
+                    <li data-theme="c">
+                        <a href="<!--{$basePath}-->android/chat/chat/receiver_id/<!--{$r.id}-->" data-transition="slide" data-ajax="false">
+						
+                            <!--{$r.name}-->
+                        </a>
+                    </li>
+			 <!--{/foreach}-->
+			<!--{else}-->
+			<li data-theme="c">
+                暂无信息！
+                         </li>
+			<!--{/if}-->	
+         </ul>
+    </div>
+</div>
+
 </html>

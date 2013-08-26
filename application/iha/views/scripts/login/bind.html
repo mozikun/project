@@ -1,0 +1,17 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
+<title>居民健康掌中宝</title>
+<link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/mobileindex.css"/>
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+</head>
+你的手机还未与身份证绑定，是否将手机与身份证绑定？<br/>
+<form name="form1" action="<!--{$basePath}-->iha/login/bind" method="post">
+<input type="submit" name="bind" value="是"> 
+<input type="button" name="bind" value="否" onclick="window.locaiton='<!--{$basePath}-->iha/login/index/'">
+<input type="hidden" name="device_id" value="<!--{$device_id}-->" >
+<input type="hidden" name="identity_number" value="<!--{$identity_number}-->"> 
+</form>
+</html>

@@ -1,31 +1,49 @@
-<?php /* Smarty version 2.6.14, created on 2013-05-02 09:55:31
+<?php /* Smarty version 2.6.14, created on 2013-08-26 17:00:06
          compiled from list.html */ ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="<?php echo $this->_tpl_vars['basePath']; ?>
-views/styles/android.css"/>
-</head>
-<body>
-  <?php $_smarty_tpl_vars = $this->_tpl_vars;
-$this->_smarty_include(array('smarty_include_tpl_file' => "../header.html", 'smarty_include_vars' => array()));
-$this->_tpl_vars = $_smarty_tpl_vars;
-unset($_smarty_tpl_vars);
- ?>
-   <div>
-      <ul>
-      <?php $_from = $this->_tpl_vars['rows']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['r']):
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<?php echo $this->_tpl_vars['basePath']; ?>
+views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/jquery-1.9.1.min.js"></script>
+<script src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/jquerymobile.min.js"></script>
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            <?php echo $this->_tpl_vars['title']; ?>
+
+        </h3>
+    </div>
+    <div data-role="content">
+		
+		 <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                         医院列表
+                    </li>
+					<?php if ($this->_tpl_vars['result']): ?>
+			<?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+    foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['r']):
 ?>
-		<a  href="<?php echo $this->_tpl_vars['basePath']; ?>
+                    <li data-theme="c">
+                        <a href="<?php echo $this->_tpl_vars['basePath']; ?>
 android/hospital/hospital/org_id/<?php echo $this->_tpl_vars['r']['id']; ?>
 /org_name/<?php echo $this->_tpl_vars['r']['zh_name']; ?>
-"><li class="lie" ><?php echo $this->_tpl_vars['r']['zh_name']; ?>
-</li></a>
-	  <?php endforeach; endif; unset($_from); ?>	
-    </ul>
-   </div>
-   
-</body>
+" data-transition="slide" data-ajax="false">
+						
+                            <?php echo $this->_tpl_vars['r']['zh_name']; ?>
+
+                        </a>
+                    </li>
+			 <?php endforeach; endif; unset($_from); ?>
+			<?php else: ?>
+			<li data-theme="c">
+                暂无信息！
+                         </li>
+			<?php endif; ?>	
+         </ul>
+    </div>
+</div>
+
 </html>

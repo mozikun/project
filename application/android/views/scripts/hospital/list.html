@@ -1,18 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="<!--{$basePath}-->views/styles/android.css"/>
-</head>
-<body>
-  <!--{include file="../header.html"}-->
-   <div>
-      <ul>
-      <!--{foreach from =$rows item=r k=key}-->
-		<a  href="<!--{$basePath}-->android/hospital/hospital/org_id/<!--{$r.id}-->/org_name/<!--{$r.zh_name}-->"><li class="lie" ><!--{$r.zh_name}--></li></a>
-	  <!--{/foreach}-->	
-    </ul>
-   </div>
-   
-</body>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+<div data-role="page" id="page1">
+    <div data-theme="a" data-role="header">
+        <h3>
+            <!--{$title}-->
+        </h3>
+    </div>
+    <div data-role="content">
+		
+		 <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                         医院列表
+                    </li>
+					<!--{if $result}-->
+			<!--{foreach from=$result item=r key=k}-->
+                    <li data-theme="c">
+                        <a href="<!--{$basePath}-->android/hospital/hospital/org_id/<!--{$r.id}-->/org_name/<!--{$r.zh_name}-->" data-transition="slide" data-ajax="false">
+						
+                            <!--{$r.zh_name}-->
+                        </a>
+                    </li>
+			 <!--{/foreach}-->
+			<!--{else}-->
+			<li data-theme="c">
+                暂无信息！
+                         </li>
+			<!--{/if}-->	
+         </ul>
+    </div>
+</div>
+
 </html>

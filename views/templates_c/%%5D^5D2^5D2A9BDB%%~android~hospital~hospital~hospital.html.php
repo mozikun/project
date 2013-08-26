@@ -1,30 +1,18 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-26 15:26:47
+<?php /* Smarty version 2.6.14, created on 2013-08-26 14:35:01
          compiled from hospital.html */ ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
-<link rel="stylesheet" href="<?php echo $this->_tpl_vars['basePath']; ?>
-views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
-<script src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/js/jquery-1.9.1.min.js"></script>
-<script src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/js/jquerymobile.min.js"></script>
-
-<style>
-.hospital ul li{
-	list-style:none;
-	float:left;
-	margin:20px;
-}
-
-</style>
-<div data-role="page" id="page1">
- <div data-theme="a" data-role="header">
-        <h3>
-            <?php echo $this->_tpl_vars['title']; ?>
-
-        </h3>
-    </div>
+<link href="<?php echo $this->_tpl_vars['basePath']; ?>
+views/styles/android.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/jquery-1.4.2.js"></script>
+<body style="background:rgb(236,245,249)">
+ <?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => "../header.html", 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
 <div class="hospital">
 	<ul>
 		<li><a ><img src="<?php echo $this->_tpl_vars['basePath']; ?>
@@ -46,7 +34,11 @@ views/images/android/hos_ksjx.png" width=60px;/><br/>科室介绍</a></li>
 	</ul>
 	
 </div>
-</div>
-
+<<?php $_smarty_tpl_vars = $this->_tpl_vars;
+$this->_smarty_include(array('smarty_include_tpl_file' => "../footer.html", 'smarty_include_vars' => array()));
+$this->_tpl_vars = $_smarty_tpl_vars;
+unset($_smarty_tpl_vars);
+ ?>
+</body>
 
 </html>

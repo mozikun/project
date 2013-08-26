@@ -33,7 +33,7 @@
 	$(document).ready(function(){
 		$("#send").click(function(){
 			var content=$("#send_content").serialize();
-			
+			var receiver_id=$("#receiver_id").val();
 			//禁止发送空内容
 			if($("#send_content").val()==""){
 				$("#send_content").html("发送内容不能为空...");

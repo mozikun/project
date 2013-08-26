@@ -15,8 +15,8 @@ class android_chatController extends controller{
 		$this->view->basePath = $this->_request->getBasePath();
 		
 		//判断登陆状态
-		$schat=new Zend_Session_Namespace("schat");
-		if(!empty($schat->identity_number)||!empty($schat->doctor_id)){
+		$mobile=new Zend_Session_Namespace("mobile");
+		if(!empty($mobile->identity_number)){
 			$this->view->login=1;
 		}
 		
@@ -25,10 +25,12 @@ class android_chatController extends controller{
 	 
 	//聊天窗口
 	public function chatAction(){
+	
 		$receiver_id=$this->_request->getParam("receiver_id");
-		$schat=new Zend_Session_Namespace("schat");
-		$identity_number=$schat->identity_number;
-		$doctor_id=$schat->doctor_id;
+		/*
+		//$mobile=new Zend_Session_Namespace("mobile");
+		//$identity_number=$mobile->identity_number;
+		//$doctor_id=$mobile->doctor_id;
 		
 		//取得聊天标题
 		$title="";
@@ -52,6 +54,7 @@ class android_chatController extends controller{
 			$this->redirect(__BASEPATH.'android/user/login');
 		}
 		$this->view->title=$title;
+		*/
 		$this->view->receiver_id=$receiver_id;
 		$this->view->display("chat.html");
 		
@@ -60,14 +63,14 @@ class android_chatController extends controller{
 	public function sendAction(){
 		$content=$this->_request->getParam("send_content");
 		$receiver_id=$this->_request->getParam("receiver_id");
-		$sender_id=$this->_request->getParam("sender_id");
+		//$sender_id=$this->_request->getParam("sender_id");
 		
-		$schat=new Zend_Session_Namespace("schat");
-		$identity_number=$schat->identity_number;
-		$doctor_id=$schat->doctor_id;
+		$mobile=new Zend_Session_Namespace("mobile");
+		$identity_number=$mobile->identity_number;
+		//$doctor_id=$mobile->doctor_id;
 		//去这个两人聊天记录的最大排序
 		$chat=new Tchat();
-		$chat->whereAdd("(receiver='$receiver_id' and sender='$sender_id') or (receiver='$sender_id' and sender='$receiver_id')");
+		//$chat->whereAdd("(receiver='$receiver_id' and sender='$sender_id') or (receiver='$sender_id' and sender='$receiver_id')");
 		$chat->orderby("order_id desc");
 		$chat->find(true);
 	    $order_max=$chat->order_id;
@@ -77,13 +80,10 @@ class android_chatController extends controller{
 			$chat->sender=$identity_number;
 			
 		}
-		if($doctor_id){
-			$chat->sender=$doctor_id;
-		}
-		
 		
 		$chat->uuid=uniqid();
 		$chat->receiver=$receiver_id;
+		$chat->sender=$identity_number;
 		$chat->sendtime=time();
 		$chat->content=$content;
 		$chat->order_id=$order_max+1;
@@ -94,9 +94,10 @@ class android_chatController extends controller{
 	//刷新聊天信息
 	public function getinfoAction(){
 		$receiver_id=$this->_request->getParam("receiver_id");
-		$sender_id=$this->_request->getParam("sender_id");
+		
+		$mobile=new Zend_Session_Namespace("mobile");
+		$sender_id=$mobile->identity_number;
 
-		$schat=new Zend_Session_Namespace("schat");
 		$chat=new Tchat();
 		$staff_core=new Tstaff_core();
 		$individual_core=new Tindividual_core();
@@ -109,7 +110,8 @@ class android_chatController extends controller{
         while($chat->fetch()){
 		
 			//判断该消息是不是自己发的，已选择对应的样式
-			if(($schat->identity_number==$chat->sender)||($schat->doctor_id==$chat->sender))
+			//自己发的
+			if($receiver_id==$chat->receiver)
 			$class="systemitem";
 			else
 			$class="chatitem";

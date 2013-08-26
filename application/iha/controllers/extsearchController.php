@@ -30,8 +30,8 @@
    	 		$mobile = new Zend_Session_Namespace("mobile");
    	 		$moblie_identity = $mobile->identity_number;
    	 		$moblie_device_id = $mobile->device_id;
-   	 		$moblie_card = $mobile->card;
-   	 		if((empty($moblie_identity)||empty($moblie_card))&&empty($moblie_device_id))
+   	 		//$moblie_card = $mobile->card;
+   	 		if(empty($moblie_identity)&&empty($moblie_device_id))
    	 		{
    	 			$url=array("未能通过验证，请重新登录"=>__BASEPATH.'iha/login/index');
 			    message("重新登录！",$url);

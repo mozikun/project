@@ -1,10 +1,24 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
+<html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<!--{$basePath}-->views/styles/android.css" rel="stylesheet" type="text/css" media="screen">
-<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
-<body style="background:rgb(236,245,249)">
- <!--{include file="../header.html"}-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+<link rel="stylesheet" href="<!--{$basePath}-->views/styles/jquerymobile.min.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="<!--{$basePath}-->views/js/jquery-1.9.1.min.js"></script>
+<script src="<!--{$basePath}-->views/js/jquerymobile.min.js"></script>
+
+<style>
+.hospital ul li{
+	list-style:none;
+	float:left;
+	margin:20px;
+}
+
+</style>
+<div data-role="page" id="page1">
+ <div data-theme="a" data-role="header">
+        <h3>
+            <!--{$title}-->
+        </h3>
+    </div>
 <div class="hospital">
 	<ul>
 		<li><a ><img src="<!--{$basePath}-->views/images/android/hos_yyjx.png" width=60px;/><br/>医院介绍</a></li>
@@ -17,7 +31,7 @@
 	</ul>
 	
 </div>
-<<!--{include file="../footer.html"}-->
-</body>
+</div>
+
 
 </html>

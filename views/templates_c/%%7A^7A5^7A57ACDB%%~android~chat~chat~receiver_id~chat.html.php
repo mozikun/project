@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-05-02 09:55:41
+<?php /* Smarty version 2.6.14, created on 2013-08-26 17:20:01
          compiled from chat.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
@@ -38,7 +38,7 @@ views/js/jquery-1.4.2.js"></script>
 	$(document).ready(function(){
 		$("#send").click(function(){
 			var content=$("#send_content").serialize();
-			
+			var receiver_id=$("#receiver_id").val();
 			//禁止发送空内容
 			if($("#send_content").val()==""){
 				$("#send_content").html("发送内容不能为空...");
