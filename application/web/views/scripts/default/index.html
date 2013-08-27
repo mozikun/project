@@ -144,20 +144,15 @@
           </div>
           <div class="bbk"></div>
           <div class="lil_left">
-            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">医患互动</span><a href="#">更多》</a></div>
+            <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">医患互动</span><a href="<!--{$basePath}-->web/ask/asklist">更多》</a></div>
             <div class="li_conts">
-            <div class="lic_tops">
-            <div class="li_ltimg"><img src="<!--{$basePath}-->views/images/mh/ws_30.png" width="100" height="85"></div>
-            <div class="li_rttext">
-            <h2>关注体育锻炼 正视运动损伤</h2>
-            <p>运动损伤是指运动过程中发生的各种损伤及专损伤及专损伤及专项...<a href="#">【详情】</a></p>
-            </div>
-            <div class="bbk"></div>
-            </div>
+            
             <ul class="ulst">
-                <li><a href="#">·手长老茧或手太软预示...</a></li>
-                <li><a href="#"> ·昼夜织“围脖”小心眼中风从"嘴破"</a></li>
-                <li><a href="#"> ·让你越放假越累冬天用达克宁效果更好</a></li>
+			<!--{section name=item loop=$ask}-->
+                <li><a href="<!--{$basePath}-->web/ask/answers/id/<!--{$ask[item].id}-->">·<!--{$ask[item].question}--></a></li>
+             <!--{sectionelse}-->
+              <li><a href="#">暂时还没有内容</a></li>
+			<!--{/section}-->  
               </ul>
             </div>
           </div>

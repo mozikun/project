@@ -1,8 +1,12 @@
+<?php /* Smarty version 2.6.14, created on 2013-08-27 14:48:52
+         compiled from chat.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<!--{$basePath}-->views/styles/chat.css" rel="stylesheet" type="text/css" media="screen">
-<script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+<link href="<?php echo $this->_tpl_vars['basePath']; ?>
+views/styles/chat.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/jquery-1.4.2.js"></script>
 <body class="body">
 <style>
 .btn { 
@@ -13,7 +17,8 @@ width:50px;height:50px;
 <div id="content">
   <div id="chatbox">
     <div id="chatwnd">
-      <h3><font><font><!--{$title}--></font></font></h3>
+      <h3><font><font><?php echo $this->_tpl_vars['title']; ?>
+</font></font></h3>
       <div id="talked"><font id="f">正在加载最新的聊天记录...</font>
 	  </div>
       <div id="chatinput" onclick="$(&#39;#sms&#39;).focus();return false">
@@ -48,7 +53,10 @@ width:50px;height:50px;
 			mydate.toLocaleString( ); //获取日期与时间
 			$("#talked").append(" <div class='systemitem'>我:<span class='time_tag'><font>"+date+"&nbsp"+mytime+"</font></span><br><span>"+$("#send_content").val()+"</span></div>");
 			
-			$.post("<!--{$basePath}-->android/chat/send/receiver_id/<!--{$receiver_id}-->/sender_id/<!--{$sender_id}-->",content,function(info){
+			$.post("<?php echo $this->_tpl_vars['basePath']; ?>
+android/chat/send/receiver_id/<?php echo $this->_tpl_vars['receiver_id']; ?>
+/sender_id/<?php echo $this->_tpl_vars['sender_id']; ?>
+",content,function(info){
 				//alert(info);
 			});
 			
@@ -66,12 +74,14 @@ width:50px;height:50px;
         }
 
 //实时刷新聊天信息		
- setInterval("getinfo('<!--{$receiver_id}-->')",3000)
+ setInterval("getinfo('<?php echo $this->_tpl_vars['receiver_id']; ?>
+')",3000)
  function getinfo(receiver_id){
 	
 	$.ajax({
 		type:"post",
-		url:"<!--{$basePath}-->android/chat/getinfo/receiver_id/"+receiver_id,
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+android/chat/getinfo/receiver_id/"+receiver_id,
 		dataType:"json",
 		success:function(info){
 		//$("#talked").html(info.length);

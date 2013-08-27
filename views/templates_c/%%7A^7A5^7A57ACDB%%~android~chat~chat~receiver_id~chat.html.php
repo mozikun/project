@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-26 17:20:01
+<?php /* Smarty version 2.6.14, created on 2013-08-27 14:48:16
          compiled from chat.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
@@ -8,6 +8,12 @@ views/styles/chat.css" rel="stylesheet" type="text/css" media="screen">
 <script type="text/javascript" src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/js/jquery-1.4.2.js"></script>
 <body class="body">
+<style>
+.btn { 
+BORDER-RIGHT: #2C59AA 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #2C59AA 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#D7E7FA); BORDER-LEFT: #2C59AA 1px solid; CURSOR: hand; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: #2C59AA 1px solid; 
+width:50px;height:50px;
+} 
+</style>
 <div id="content">
   <div id="chatbox">
     <div id="chatwnd">
@@ -17,19 +23,14 @@ views/js/jquery-1.4.2.js"></script>
 	  </div>
       <div id="chatinput" onclick="$(&#39;#sms&#39;).focus();return false">
       <textarea class="in" name="send_content" id="send_content" type="text"></textarea>
-      <font>
-	  <div id="chatinput" onclick="$(&#39;#sms&#39;).focus();return false"><font>
-      </font>
-	  </div>
-	  </font>
-	  <input class="send" type="button" id="send" value="发送">
+	  <button class="btn"  id="send" >发送</button>
 	  <div class="clear"></div>
        </div>
     </div>
   </div>
 </div>
 <script type='text/javascript'>
-	$("#talked").height($(window).height()-110);
+	$("#talked").height($(window).height()-88);
 	$("#talked").width($(window).width()-26);
 	$("#send_content").width($(window).width()-100);
 </script>
@@ -76,13 +77,22 @@ android/chat/send/receiver_id/<?php echo $this->_tpl_vars['receiver_id']; ?>
  setInterval("getinfo('<?php echo $this->_tpl_vars['receiver_id']; ?>
 ')",3000)
  function getinfo(receiver_id){
-	$.get("<?php echo $this->_tpl_vars['basePath']; ?>
-android/chat/getinfo/receiver_id/"+receiver_id+"/sender_id/"+"<?php echo $this->_tpl_vars['sender_id']; ?>
-",function(info){
-		$("#talked").html(info);
-		scrollToBottom();
-	});
 	
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+android/chat/getinfo/receiver_id/"+receiver_id,
+		dataType:"json",
+		success:function(info){
+		//$("#talked").html(info.length);
+			for(var i=0;i<info.length;i++){
+				$("#talked").append("<div class='chatitem'>["+info[i].name+"]<span class='time_tag'><font>"+info[i].sendtime+"</font></span><br><span>"+info[i].content+"</span></div>");
+			     $("#talked").scrollTop(5000);
+			}
+			
+		},
+		
+	});
  }
  
  function clear(){

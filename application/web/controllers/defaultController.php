@@ -16,6 +16,7 @@ class web_defaultController extends controller
     {
         require_once __SITEROOT."library/Models/organization.php";
         require_once __SITEROOT."library/Models/appointment_register.php";
+        require_once __SITEROOT."library/Models/ask.php";
         require_once __SITEROOT."library/Models/staff_core.php";
         require_once __SITEROOT."library/Models/web_sort.php";
         require_once __SITEROOT."library/Models/web_article_base.php";
@@ -123,6 +124,21 @@ class web_defaultController extends controller
 			}
 		}
 		$this->view->doctors=$doctors;
+		
+		//获取医患互动
+		$ask=new Task();
+		$staff=new Tstaff_core();
+		$ask->orderby("time");
+		$ask->limit(0,8);
+		$ask->find();
+		$ask_array=array();
+		$i=0;
+		while($ask->fetch()){
+			$ask_array[$i]['id']=$ask->id;
+			$ask_array[$i]['question']=$ask->question;
+			$i++;
+		}
+		$this->view->ask=$ask_array;
         $this->view->display('index.html');
     }
     /**

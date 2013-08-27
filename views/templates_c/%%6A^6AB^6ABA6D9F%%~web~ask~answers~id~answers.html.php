@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-23 15:26:12
+<?php /* Smarty version 2.6.14, created on 2013-08-27 16:45:13
          compiled from answers.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -263,7 +263,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
         </div>
 <div class="list_right">
      
-          <div class="lr_ones" style="height:633px;">
+          <div class="lr_ones" style="height:700px;over-fllow:auto;">
             <div class="lr_title"><a href="">医生的回答</a></div>
             <div class="lr_conts">
               <ul>
@@ -273,7 +273,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 ?>
                 <li style='border-bottom:1px solid rgb(217,217,217);'>
                   <div><span style="font-size:20px;color:rgb(0,112,186);width:40px;margin-right:10px;"><?php echo $this->_tpl_vars['k']+1; ?>
-</span><?php echo $this->_tpl_vars['r']['answer']; ?>
+、</span><?php echo $this->_tpl_vars['r']['answer']; ?>
 </div>
 				  <div style='text-align:right;color:rgb(150,150,150)'>回答医生:<?php echo $this->_tpl_vars['r']['author']; ?>
 &nbsp;&nbsp;时间：<?php echo $this->_tpl_vars['r']['time']; ?>

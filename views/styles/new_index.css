@@ -26,22 +26,22 @@ red{color:#f00}
 .logo a{display:block;width:100%;height:100%;line-height:2000;overflow:hidden}
 
 /* 方块 */
-.bank_1,.bank_2,.bank_3,.bank_4,.bank_5,.bank_6,.bank_7,.bank_8{position:absolute;cursor: pointer;}
-.bank_1,.bank_2,.bank_4{top:135px;}
-.bank_5,.bank_6,.bank_7,.bank_8{top:401px}
-.bank_3{top:268px}
-.bank_1,.bank_4,.bank_6{width:311px;height:244px;}
+.bank_1,.bank_2,.bank_3,.bank_4,.bank_5,.bank_7,.bank_6,.bank_8{position:absolute;cursor: pointer;}
+.bank_1,.bank_4,.bank_6{top:135px;}
+.bank_5,.bank_7,.bank_8,.bank_2{top:401px}
+.bank_3{top:534px}
+.bank_1,.bank_4,.bank_6{width:311px;height:444px;}
 .bank_1,.bank_5{left:4px;}
 .bank_1{background:#FEB800 url(../images/bank_lo1.png) bottom right no-repeat;text-align:center}
-.bank_2,.bank_3{width:311px;height:110px;left:335px }
+.bank_2,.bank_3{width:311px;height:110px;left:225px }
 .bank_2{background:#63D4FC url(../images/bank_lo2.png) right bottom no-repeat}
 .bank_3{background:#3A8E39 url(../images/bank_lo3.png) right bottom no-repeat;}
 .bank_4{background:#fff url(../images/bank_lo4.png) right bottom no-repeat;left:668px}
 .bank_5,.bank_7,.bank_8{width:197px;height:244px}
 .bank_5{background:#72E4BD url(../images/bank_lo5.png) right bottom no-repeat;}
-.bank_6{background:#9E55E9 url(../images/bank_lo6.png) bottom center no-repeat;left:225px}
+.bank_6{background:#9E55E9 url(../images/bank_lo6.png) bottom center no-repeat;left:335px}
 .bank_7{background:#B2FD62 url(../images/bank_lo7.png) bottom center no-repeat;left:560px}
-.bank_8{background:white url(../images/bank_lo8.png ) bottom center no-repeat;left:782px}
+.bank_8{background:#F73D40 url(../images/bank_lo8.png) bottom center no-repeat;left:782px}
 
 /* 方块中的文字*/
 .bank_tit1,.bank_tit4,.bank_tit6{font-weight:normal;letter-spacing:2px}
@@ -50,7 +50,7 @@ red{color:#f00}
 .bank_p1,.bank_p4,.bank_p6{margin-top:5px }
 .bank_tit4,.bank_p4{padding-left:20px}
 .bank_p1{font-size:18px;color:#4E4E4E;text-align:center;letter-spacing:3px;}
-.bank_p4{font-size:17px;color:#4F4F4F;text-align:left;letter-spacing:2px;line-height:24px}
+.bank_p4{font-size:17px;color:#05519E;text-align:left;letter-spacing:2px;line-height:24px}
 .bank_tit6{font-size:32px;color:#fff;}
 .bank_p6{font-size:17px;color:#fff;}
 .bank_tit6,.bank_p6{text-align:left;padding-left:25px}
@@ -62,10 +62,22 @@ red{color:#f00}
 .bank_p5{font-size:17px;color:#0C860B;padding-left:12px;padding-top:5px}
 .bank_tit7{text-align:left;color:#315A06;font-size:24px;padding-left:15px;font-weight:normal;padding-top:6px}
 .bank_p7{font-size:17px;color:#54990B;padding-left:15px;padding-top:5px}
-.bank_tit8{font-size:28px;color:#353630;}
+.bank_tit8a,.bank_tit8b{text-align:left;font-size:20px;font-weight:normal;}
+.bank_tit8a,.bank_tit8a a{color:#343334;}
+.bank_tit8a{margin:15px 0 0 95px}
+.bank_tit8b,.bank_tit8b a{color:#fff;}
+.bank_tit8b{margin:120px 0 0 12px}
+#closeDiv1,#closeDiv2{ text-align:center; height:20px; line-height:20px; overflow:hidden; color:#FF0;cursor:pointer}
+#closeDiv1{padding-top:600px;}
+#closeDiv2{padding-top:660px;}
+.notice{width:980px;height:auto;padding:10px;margin:20px auto;}
+#scrollDiv{height:25px;line-height:25px;overflow:hidden;color: #fff;text-align: left;}
+#scrollDiv li{height:25px;padding-left:10px;}
+.roll-wrap{height:130px;overflow:hidden;}
+
 /* 底部 */
-.foot{padding-top:680px;}
+.foota{padding-top:20px;}
+.footb{padding-top:20px;}
 .foot_p1{text-align:center;color:#909EC4}
 .foot_p1 a{color:#909EC4;}
 .foot_p1 a:hover{color:#FC0}
-

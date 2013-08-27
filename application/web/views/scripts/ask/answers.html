@@ -191,14 +191,14 @@ zoom: 1;
         </div>
 <div class="list_right">
      
-          <div class="lr_ones" style="height:633px;">
+          <div class="lr_ones" style="height:700px;over-fllow:auto;">
             <div class="lr_title"><a href="">医生的回答</a></div>
             <div class="lr_conts">
               <ul>
 			  <!--{if $result}-->
               <!--{foreach from=$result item=r key=k}-->
                 <li style='border-bottom:1px solid rgb(217,217,217);'>
-                  <div><span style="font-size:20px;color:rgb(0,112,186);width:40px;margin-right:10px;"><!--{$k+1}--></span><!--{$r.answer}--></div>
+                  <div><span style="font-size:20px;color:rgb(0,112,186);width:40px;margin-right:10px;"><!--{$k+1}-->、</span><!--{$r.answer}--></div>
 				  <div style='text-align:right;color:rgb(150,150,150)'>回答医生:<!--{$r.author}-->&nbsp;&nbsp;时间：<!--{$r.time}--></span></div>
 				</li>
               <!--{/foreach}-->

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 16:14:03
+<?php /* Smarty version 2.6.14, created on 2013-08-27 09:39:32
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1842,7 +1842,9 @@ images/menu_add.gif" border="0" onclick="collapse_change(121),toUrl(this,'a')" /
 		
          
          <tr ><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/doctorhome/" target="mainFrame" id="ian121_1" onclick="toUrl(this,'b'),collapse_change(1211)">我的消息</a></td></tr>
+web/ask/doctorhome/" target="mainFrame" id="ian121_1" onclick="toUrl(this,'b'),collapse_change(1211)">患者留言</a></td></tr>
+         <tr ><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+android/chat/doctorhome" target="mainFrame" id="ian121_2" onclick="toUrl(this,'b'),collapse_change(1212)">在线交流</a></td></tr>
          
            
 		 </table>

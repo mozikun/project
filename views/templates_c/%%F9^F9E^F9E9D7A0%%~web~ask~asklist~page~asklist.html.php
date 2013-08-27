@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:23:04
+<?php /* Smarty version 2.6.14, created on 2013-08-27 16:47:02
          compiled from asklist.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -275,8 +275,8 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
                   <div class="lr_time"><?php echo $this->_tpl_vars['r']['time']; ?>
 </div>
                   <a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/detail/id/<?php echo $this->_tpl_vars['r']['id']; ?>
-">1<?php echo $this->_tpl_vars['r']['question']; ?>
+web/ask/answers/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+"><?php echo $this->_tpl_vars['r']['question']; ?>
 </a>
 				</li>
               <?php endforeach; endif; unset($_from); ?>

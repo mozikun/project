@@ -334,11 +334,20 @@ class web_askController extends controller
      * @return void
      */
 	public function answersAction(){
+
 		$question_id=$this->_request->getParam("id");
 		$answer=new Tanswer();
 		$staff_core=new Tstaff_core();
 		$answer->whereAdd("question_id='$question_id'");
 		$answer->joinAdd("inner",$answer,$staff_core,"author","id");
+		$nums = $answer->count();
+        $page_size = 10;    //每页显示的条数
+        $sub_pages = 8;          //每次显示的页数
+        $pageCurrent = $this->_request->getParam('page');
+        $links = new SubPages($page_size, $nums, $pageCurrent, $sub_pages, $this->_request->getBasePath() . $this->getModuleName() . '/' . $this->getControllerName() . '/' . $this->getActionName() . '/page/', 2, array());
+        $pageCurrent = $links->check_page($pageCurrent); //检查当前页数是否合法
+        $startnum = $page_size * ($pageCurrent - 1);  //计算开始记录数
+        $answer->limit($startnum, $page_size);
 		$answer->orderby("time");
 		$answer->find();
 		$result=array();
@@ -350,9 +359,12 @@ class web_askController extends controller
 			$result[$i]['id']=$answer->id;
 			$i++;
 		}
+		$out = $links->subPageCss2(); //获取显示样式，$out在smarty中将输出如下：
+        $this->view->page = $out; //显示分页
+        $this->view->pageCurrent = $pageCurrent; //当前页
 		$this->view->result=$result;
 		$this->view->display("answers.html");
 	}
 	
-
+    
 }

@@ -1,5 +1,11 @@
-<!--{section name=data loop=$data_bak}-->
-<tr><td><!--{$data_bak[data].timer}--> <!--{$data_bak[data].txt}--></td></tr>
-<!--{sectionelse}-->
-<tr><td>还没有制定计划任务</td></tr>
-<!--{/section}-->
+<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;margin: 0;">
+        <tr class="headbg">
+        <td class="title_tjb" id="data_bak" style="padding-left: 36px;background: no-repeat 2px 50%;
+    background-image: url('<!--{$basePath}-->images/future-projects.png');color: #ff6e00;">平台计划任务</td>
+        </tr>
+        <!--{section name=data loop=$data_bak}-->
+        <tr><td <!--{if $data_bak[data].overtime>0}--> class="overtime"<!--{else}--> class="plantime"<!--{/if}-->><!--{$data_bak[data].timer}--> <!--{$data_bak[data].txt}--></td></tr>
+        <!--{sectionelse}-->
+        <tr><td>还没有制定计划任务</td></tr>
+        <!--{/section}-->
+    </table>

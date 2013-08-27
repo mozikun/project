@@ -10,6 +10,8 @@ class SMS{
 private $phone_token=1;	
 //应用程序号
 private $sms_application_id=__SMS_APPLICATIONID;
+//发送状态
+private $send_status=0;
 /**
  * 设置应用程序号
  *
@@ -32,14 +34,67 @@ public function getSMSApplicationID($sms_application_id){
 
 /**
  * 发送短信
- *
+ *  我好笨
+ *  2013-08-26 改为调用其他接口
  * @param String $sms_id
  * @param String $telephone_number
  * @param String $content
  * @param String $requesttime 2012-12-12 H:i:s
- * @return Boolean
+ * @return Boolean 
  */
-public function sendSMS($sms_id,$telephone_number,$content,$requesttime){
+ public function sendSMS($sms_id,$telephone_number,$content,$requesttime)
+ {
+    $result=false;
+	if(__SMS==true)
+    {
+		$this->telecomOperator($telephone_number);
+		switch ($this->phone_token)
+        {
+		case 1://移动
+			require_once __SITEROOT."library/Models/sms_outbox.php";
+			$sms_outbox=new Tsms_outbox(4);
+			$sms_outbox->sismsid=$sms_id;
+			$sms_outbox->extcode=$this->sms_application_id;
+			$sms_outbox->destaddr=$telephone_number;
+			$sms_outbox->messagecontent=$content;
+			$sms_outbox->reqdeliveryreport=1;
+			$sms_outbox->msgfmt=15;
+			$sms_outbox->sendmethod=0;
+			$sms_outbox->requesttime=$requesttime;
+			$sms_outbox->applicationid=$this->sms_application_id;
+			//$sms_outbox->debug(2);
+			if($sms_outbox->insert()){
+				 $result=true;
+			}
+			break;
+		case 2:
+			//2联通
+			break;
+		case 3:
+			//3电信
+			break;
+		case 9:
+			//9其它
+			break;
+		
+		}
+        //新接口代码
+        $result=false;
+        if($telephone_number && $content)
+        {
+            $content=iconv('utf-8','gb2312',$content.'【蓝图信息】');
+            require_once __SITEROOT."config/sms_config.php";
+            $result_sms=file_get_contents("http://jiekou.56dxw.com/sms/HttpInterface.aspx?comid=".SMS_COMID."&username=".SMS_USER."&userpwd=".SMS_PWD."&handtel=$telephone_number&sendcontent=".urlencode($content)."&sendtime=&smsnumber=".SMS_NUMBER);
+            if($result_sms==1)
+            {
+                $result=true;
+                $this->send_status=1;
+            }
+        }
+	}
+	return $result;
+ }
+/*public function sendSMS($sms_id,$telephone_number,$content,$requesttime){
 	//返回结果 
 	$result=false;
 	if(__SMS==true){
@@ -79,8 +134,7 @@ public function sendSMS($sms_id,$telephone_number,$content,$requesttime){
 	}
 	return $result;
 	
-}
-
+}*/
 /**
  * 返回短信状态 
  *
@@ -120,10 +174,11 @@ public function resultSMS($sms_id,$telephone_number){
 			break;
 		
 		}
-		
-		
-	
-		
+        //新的认证
+        if($this->send_status==1)
+        {
+            $result=true;
+        }
 	}
 	return $result;
 	

@@ -106,13 +106,15 @@ class decision_dataController extends controller
         require_once __SITEROOT.'library/Models/organization.php';
         //判定动作
         $action=$this->_request->getParam('ac');
-        $data = phpFastCache::get("org_logs_".$this->user['region_id']);
+        $region_id=$this->_request->getParam('region');
+        $region_id=$region_id?$region_id:$this->user['region_id'];
+        $data = phpFastCache::get("org_logs_".$region_id);
         $token=array(1=>"行政机构",2=>"执法机构",3=>"医院",4=>"社区",5=>"乡镇卫生院",6=>"妇幼保健院");
         //判断缓存
         if($data==null)
         {
             $organization=new Torganization();
-            $organization->query("select region_path,id,zh_name from region where p_id= '".$this->user['region_id']."' order by region_path desc");
+            $organization->query("select region_path,id,zh_name from region where p_id= '".$region_id."' order by region_path desc");
             $i=0;
             $data_logs=array();
             while($organization->fetch())
@@ -158,7 +160,7 @@ class decision_dataController extends controller
             {
                 $data_logs[$k]['percent']=@round($v['nums']/$total,4)*100;
             }
-            phpFastCache::set("org_logs_".$this->user['region_id'],$data_logs,DATA_CACHE_TIME);
+            phpFastCache::set("org_logs_".$region_id,$data_logs,DATA_CACHE_TIME);
             $data=$data_logs;
         }
         $this->view->token=$token;
@@ -188,13 +190,135 @@ class decision_dataController extends controller
         $current=mktime(12,0,0,date('m'),date('d')-$today,date('Y'));
         $data_bak=array();
         $j=0;
-        for($i=-4;$i<4;$i++)
+        for($i=4;$i>-4;$i--)
         {
             $data_bak[$j]['timer']=date('Y-m-d H:i:s',mktime(12,0,0,date('m'),date('d')-$today-($i*7),date('Y')));
-            $data_bak[$j]['txt']=(time()-mktime(12,0,0,date('m'),date('d')-$today-($i*7),date('Y'))>0)?'已成功完成任务':'计划任务已创建';
+            $data_bak[$j]['overtime']=time()-mktime(12,0,0,date('m'),date('d')-$today-($i*7),date('Y'));
+            $data_bak[$j]['txt']=($data_bak[$j]['overtime']>0)?'已成功完成任务':'计划任务已创建';
             $j++;
         }
         $this->view->data_bak=$data_bak;
         $this->view->display("data_bak.html");
+    }
+    /**
+     * decision_dataController::archiveAction()
+     * 
+     * 机构建档信息
+     * 
+     * @return void
+     */
+    public function archiveAction()
+    {
+        $region_path=$this->user['current_region_path'];
+        $region_id=$this->_request->getParam('region');
+        $data = phpFastCache::get("archive_logs_".$region_id);
+        //判断缓存
+        if($data==null)
+        {
+            require_once __SITEROOT."library/Models/individual_core.php";
+            require_once __SITEROOT . '/library/data_arr/arrdata.php';
+            $individual_core=new Tindividual_core();
+            $individual_core->whereAdd("individual_core.region_path like '".$region_path."%'");
+            $individual_core->selectAdd("count(*) as nums,individual_core.census");
+            $individual_core->groupBy("individual_core.census");
+            $individual_core->find();
+            $data_logs=array();
+            $i=1;
+            $data_logs[0]['nums']=0;
+            while($individual_core->fetch())
+            {
+                $archive_census=@$census[array_search_for_other($individual_core->census, $census)][1];
+                if($archive_census)
+                {
+                    $data_logs[$i]['name']=$archive_census;
+                    $data_logs[$i]['nums']=$individual_core->nums;
+                    $i++;
+                }
+                else
+                {
+                    $data_logs[0]['name']='未说明';
+                    $data_logs[0]['nums']+=$individual_core->nums;
+                }
+            }
+            phpFastCache::set("archive_logs_".$region_id,$data_logs,DATA_CACHE_TIME);
+            $data=$data_logs;
+        }
+        $this->view->data_archive=$data;
+        $this->view->display("data_archive.html");
+    }
+    /**
+     * decision_dataController::clinicalAction()
+     * 
+     * 慢病信息
+     * 
+     * @return void
+     */
+    public function clinicalAction()
+    {
+        $region_path=$this->user['current_region_path'];
+        $region_id=$this->_request->getParam('region');
+        $data = phpFastCache::get("clinical_logs_".$region_id);
+        //判断缓存
+        if($data==null)
+        {
+            require_once __SITEROOT."library/Models/individual_core.php";
+            require_once __SITEROOT."library/Models/clinical_history.php";
+            require_once __SITEROOT . '/library/data_arr/arrdata.php';
+            $individual_core=new Tindividual_core();
+            $clinical_history=new Tclinical_history();
+            $individual_core->whereAdd("individual_core.region_path like '".$region_path."%'");
+            $individual_core->whereAdd("clinical_history.disease_code is not null and clinical_history.disease_code!=1");
+            $individual_core->joinAdd('left',$individual_core,$clinical_history,'uuid','id');
+            $individual_core->selectAdd("count(*) as nums,clinical_history.disease_code");
+            $individual_core->groupBy("clinical_history.disease_code");
+            $individual_core->find();
+            $data_logs=array();
+            $i=0;
+            while($individual_core->fetch())
+            {
+                $archive_disease_history=@$disease_history[array_search_for_other($individual_core->disease_code, $disease_history)][1];
+                $data_logs[$i]['name']=$archive_disease_history?$archive_disease_history:'未说明';
+                $data_logs[$i]['nums']=$individual_core->nums;
+                $i++;
+            }
+            phpFastCache::set("clinical_logs_".$region_id,$data_logs,DATA_CACHE_TIME);
+            $data=$data_logs;
+        }
+        $this->view->data_clinical=$data;
+        $this->view->display("data_clinical.html");
+    }
+    /**
+     * decision_dataController::statusAction()
+     * 
+     * 就诊人数
+     * 
+     * @return void
+     */
+    public function statusAction()
+    {
+        $region_path=$this->user['current_region_path'];
+        $region_id=$this->_request->getParam('region');
+        $data = phpFastCache::get("status_logs_".$region_id);
+        //判断缓存
+        if($data==null)
+        {
+            require_once __SITEROOT."library/Models/individual_core.php";
+            require_once __SITEROOT."library/Models/iha_card_status.php";
+            $timer=mktime(0,0,0,date("n")-8,date('d'),date('Y'));
+            $individual_core=new Tindividual_core();
+            $individual_core->query("select * from(select count(individual_core.uuid) as nums,to_char(unixts_to_date(iha_card_status.updated),'yyyy-mm') as day from individual_core inner join iha_card_status on individual_core.identity_number=iha_card_status.identity_number where individual_core.region_path like '$region_path%' and iha_card_status.updated>'$timer' group by to_char(unixts_to_date(iha_card_status.updated),'yyyy-mm')) where rownum<8");
+            $data_logs=array();
+            $i=0;
+            while($individual_core->fetch())
+            {
+                $data_logs[$i]['name']=$individual_core->day;
+                $data_logs[$i]['nums']=$individual_core->nums;
+                $i++;
+            }
+            phpFastCache::set("status_logs_".$region_id,$data_logs,DATA_CACHE_TIME);
+            $data=$data_logs;
+        }
+        $this->view->data_status=$data;
+        $this->view->display("data_status.html");
     }
 }

@@ -69,7 +69,7 @@ class tp_messageController extends controller{
 				
 				
 				for($i=1;$i<7;$i++){
-					sleep($i);
+					//sleep($i);
 					$sms_result_status=$sms->resultSMS($uuid,$phone_number);//短信返回结果
 					if($sms_status && $sms_result_status){
 						break;

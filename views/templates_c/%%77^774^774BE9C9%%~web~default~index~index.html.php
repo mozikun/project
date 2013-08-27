@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-14 14:31:57
+<?php /* Smarty version 2.6.14, created on 2013-08-27 16:46:24
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -202,21 +202,42 @@ web/default/view/uuid/<?php echo $this->_tpl_vars['jkxw']['articles'][$this->_se
           <div class="bbk"></div>
           <div class="lil_left">
             <div class="li_title"><span class="spn1"><img class="im_l" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_18.png" width="11" height="11">医患互动</span><a href="#">更多》</a></div>
+views/images/mh/ws_18.png" width="11" height="11">医患互动</span><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/asklist">更多》</a></div>
             <div class="li_conts">
-            <div class="lic_tops">
-            <div class="li_ltimg"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_30.png" width="100" height="85"></div>
-            <div class="li_rttext">
-            <h2>关注体育锻炼 正视运动损伤</h2>
-            <p>运动损伤是指运动过程中发生的各种损伤及专损伤及专损伤及专项...<a href="#">【详情】</a></p>
-            </div>
-            <div class="bbk"></div>
-            </div>
+            
             <ul class="ulst">
-                <li><a href="#">·手长老茧或手太软预示...</a></li>
-                <li><a href="#"> ·昼夜织“围脖”小心眼中风从"嘴破"</a></li>
-                <li><a href="#"> ·让你越放假越累冬天用达克宁效果更好</a></li>
+			<?php unset($this->_sections['item']);
+$this->_sections['item']['name'] = 'item';
+$this->_sections['item']['loop'] = is_array($_loop=$this->_tpl_vars['ask']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['item']['show'] = true;
+$this->_sections['item']['max'] = $this->_sections['item']['loop'];
+$this->_sections['item']['step'] = 1;
+$this->_sections['item']['start'] = $this->_sections['item']['step'] > 0 ? 0 : $this->_sections['item']['loop']-1;
+if ($this->_sections['item']['show']) {
+    $this->_sections['item']['total'] = $this->_sections['item']['loop'];
+    if ($this->_sections['item']['total'] == 0)
+        $this->_sections['item']['show'] = false;
+} else
+    $this->_sections['item']['total'] = 0;
+if ($this->_sections['item']['show']):
+
+            for ($this->_sections['item']['index'] = $this->_sections['item']['start'], $this->_sections['item']['iteration'] = 1;
+                 $this->_sections['item']['iteration'] <= $this->_sections['item']['total'];
+                 $this->_sections['item']['index'] += $this->_sections['item']['step'], $this->_sections['item']['iteration']++):
+$this->_sections['item']['rownum'] = $this->_sections['item']['iteration'];
+$this->_sections['item']['index_prev'] = $this->_sections['item']['index'] - $this->_sections['item']['step'];
+$this->_sections['item']['index_next'] = $this->_sections['item']['index'] + $this->_sections['item']['step'];
+$this->_sections['item']['first']      = ($this->_sections['item']['iteration'] == 1);
+$this->_sections['item']['last']       = ($this->_sections['item']['iteration'] == $this->_sections['item']['total']);
+?>
+                <li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/answers/id/<?php echo $this->_tpl_vars['ask'][$this->_sections['item']['index']]['id']; ?>
+">·<?php echo $this->_tpl_vars['ask'][$this->_sections['item']['index']]['question']; ?>
+</a></li>
+             <?php endfor; else: ?>
+              <li><a href="#">暂时还没有内容</a></li>
+			<?php endif; ?>  
               </ul>
             </div>
           </div>
