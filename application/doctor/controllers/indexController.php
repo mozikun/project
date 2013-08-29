@@ -130,19 +130,21 @@ class doctor_indexController extends controller
 		//var_dump($resources_arr);
 		$resources_arr=MyAcl::getInstance()->getResource() ;//所有注册的资源
 		$allow_module=array();
-		foreach ($resources_arr as $resource){
+		foreach ($resources_arr as $resource)
+        {
 			$module_name=explode('_',$resource);
-			$allow_module[$module_name[0]]=false;
-			if($this->acl->isAllowed($role_en_name,$resource,'r')){
+            //2013-08-29 我好笨 修改授权初始值，当一个模块中有一个资源未授权时不会影响其他已授权资源
+			$allow_module[$module_name[0]]=isset($allow_module[$module_name[0]])?$allow_module[$module_name[0]]:false;
+			if($this->acl->isAllowed($role_en_name,$resource,'r'))
+            {
 				$allow_module[$module_name[0]]=true;
 				$this->view->$resource='';
-			}else{
-				
-				
+			}
+            else
+            {
 				$this->view->$resource='none';
 			}
 		}
-		//var_dump($allow_module);
 		foreach ($allow_module as $key=>$value){
 			if($allow_module[$key]==true){
 				$this->view->$key='';

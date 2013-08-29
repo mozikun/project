@@ -7,7 +7,7 @@
 <div data-role="page" id="page1">
     <div data-theme="a" data-role="header">
         <h3>
-            <!--{$title}-->
+            选择医院
         </h3>
     </div>
     <div data-role="content">
@@ -19,7 +19,7 @@
 					<!--{if $result}-->
 			<!--{foreach from=$result item=r key=k}-->
                     <li data-theme="c">
-                        <a href="<!--{$basePath}-->android/hospital/hospital/org_id/<!--{$r.id}-->/org_name/<!--{$r.zh_name}-->" data-transition="slide" data-ajax="false">
+                        <a href="<!--{$basePath}-->android/hospital/doctor/org_id/<!--{$r.id}-->/org_name/<!--{$r.zh_name}-->" data-transition="slide" data-ajax="false">
 						
                             <!--{$r.zh_name}-->
                         </a>

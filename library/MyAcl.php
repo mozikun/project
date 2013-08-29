@@ -5,6 +5,8 @@ require_once('Zend/Acl/Role.php');
 require_once(__SITEROOT.'library/Models/role_resource.php');//角色对应的资源权限
 require_once(__SITEROOT.'library/Models/role_table.php');//角色表
 require_once(__SITEROOT.'library/Models/resources.php');//资源表
+require_once(__SITEROOT.'library/custom/php_fast_cache.php');
+phpFastCache::$storage = "auto";
 /**
  * 取得角色对应的资源的权限
  *
@@ -15,17 +17,15 @@ class  MyAcl{
 	private   $role_arr; //role
 
 	private  $resource_arr;//resource;
-
-	private  $role_cache_file="cache/role_cache_file.php";//角色缓存文件
-	private  $resource_cache_file="cache/resource_cache_file.php";//资源缓存文件
-	private  $acl_cache_file="cache/acl_cache_file.php";//角色资源对应的规则文件
+    private $acl_cach_time;//资源缓存时间
 	/**
 	 * 初始化 
 	 *
 	 */
 	private function __construct()
 	{
-
+	   //初始化缓存时间
+	   $this->acl_cach_time=3600*24;
 		$this->acl=new Zend_Acl();
 	}
 	/**
@@ -45,35 +45,29 @@ class  MyAcl{
 	/**
 	 * 取得数据库中role_resource表的role
 	 *
+     * 我好笨
+     * 
+     * 2013-08-29 修改为fastcache缓存，默认缓存24小时
+     * 
 	 */
-	public     function getRole(){
+	public function getRole(){
 		//不存在缓存文件，取出内容存放到文件中。
-		if(!file_exists ($this->role_cache_file)){
-			//$role_resource=new Trole_resource();
+        $role_cache = phpFastCache::get("role_cache");
+		if($role_cache==null)
+        {
 			$role_table=new Trole_table();
 			$role_table->selectAdd("role_en_name");
 			$role_table->selectAdd("role_id");
-			//$role_resource->selectAdd("role_resource.role_id");
-			//$role_resource->joinAdd('inner',$role_resource,$role_table,'role_id','role_id');
 			$role_table->find();
-			while ($role_table->fetch()) {
+			while ($role_table->fetch())
+            {
 				$this->role_arr[$role_table->role_id]=$role_table->role_en_name;
 			}
-			$content=serialize($this->role_arr);
-            //我好笨增加判定目录是否存在，如果不存在则自动创建
-            $dir=dirname(__SITEROOT.$this->role_cache_file);
-            if(!is_dir($dir))
-            {
-                mkdir($dir,0777,true);
-            }
-			$fp=fopen(__SITEROOT.$this->role_cache_file,"w");
-			if (fwrite($fp, $content) === FALSE) {
-				throw new Exception(__FILE__.__FUNCTION__."文件写入失败！");
-			}
-			fclose($fp);
-		}else{
-			$role_str=file_get_contents($this->role_cache_file);
-			$this->role_arr=unserialize($role_str);
+			phpFastCache::set("role_cache",$this->role_arr,$this->acl_cach_time);
+		}
+        else
+        {
+			$this->role_arr=$role_cache;
 		}
 		return $this->role_arr;
 
@@ -90,10 +84,17 @@ class  MyAcl{
 	}
 	/**
 	 * 取得role_resource表中的的所有资源
-	 *
+     * 
+	 * 我好笨
+     * 
+     * 2013-08-29 修改为fastcache缓存，默认缓存24小时
+     * 
 	 */
-	public    function getResource(){
-		if(!file_exists ($this->resource_cache_file)){
+	public function getResource()
+    {
+	    $role_resource = phpFastCache::get("role_resource");
+		if($role_resource==null)
+        {
 
 			$resource_table=new Tresources();
 			$resource_table->selectAdd("resources.resource_id AS resource_id");
@@ -101,24 +102,15 @@ class  MyAcl{
 			
 			//$role_resource->debugLevel(9);
 			$resource_table->find();
-			while ($resource_table->fetch()) {
+			while ($resource_table->fetch())
+            {
 				$this->resource_arr[$resource_table->resource_id]=$resource_table->resource_en_name;
 			}
-
-
-			$content=serialize($this->resource_arr);
-
-			$fp=fopen(__SITEROOT.$this->resource_cache_file,"w");
-			if (fwrite($fp, $content) === FALSE) {
-				throw new Exception(__FILE__.__FUNCTION__."文件写入失败！");
-			}
-			fclose($fp);
-
-			//$$this->resource_arr;
-
-		}else{
-			$resource_str=file_get_contents($this->resource_cache_file);
-			$this->resource_arr=unserialize($resource_str);
+            phpFastCache::set("role_resource",$this->resource_arr,$this->acl_cach_time);
+		}
+        else
+        {
+			$this->resource_arr=$role_resource;
 		}
 		return $this->resource_arr;
 
@@ -137,8 +129,11 @@ class  MyAcl{
 	 * 根据role和resource设置权限
 	 *
 	 */
-	private     function  setAcl(){
-		if(!file_exists ($this->acl_cache_file)){
+	private function setAcl()
+    {
+        $acl_cache = phpFastCache::get("acl_cache");
+		if($acl_cache==null)
+        {
 			$role_resource=new Trole_resource();
 			$resource_table=new Tresources();
 			$role_table=new Trole_table();
@@ -154,36 +149,19 @@ class  MyAcl{
 			$role_resource->find();
 			$acl_array=array();
 			$i=0;
-			while ($role_resource->fetch()) {
-				//$this->acl->add(new Zend_Acl_Resource($resource_table->resource_en_name));//
-				//$this->acl->addRole(new Zend_Acl_Role($role_table->role_en_name));
-
-				//if($role_resource->read==1){
-				//	$this->acl->allow($role_table->role_en_name,$resource_table->resource_en_name,'r');
-				//}
-				//if($role_resource->write==1){
-
-				//	$this->acl->allow($role_table->role_en_name,$resource_table->resource_en_name,'w');
-				//}
+			while ($role_resource->fetch())
+            {
 				$acl_array[$i]['role_en_name']=$role_table->role_en_name;//角色英文名
 				$acl_array[$i]['resource_en_name']=$resource_table->resource_en_name;//资源名
 				$acl_array[$i]['read']=$role_resource->read;//读
 				$acl_array[$i]['write']=$role_resource->write;//写
 				$i++;
 			}
-			$content=serialize($acl_array);
-
-			$fp=fopen(__SITEROOT.$this->acl_cache_file,"w");
-			if (fwrite($fp, $content) === FALSE) {
-				throw new Exception(__FILE__.__FUNCTION__."文件写入失败！");
-			}
-			fclose($fp);
-
-
-
-		}else{
-			$acl_str=file_get_contents($this->acl_cache_file);
-			$acl_array=unserialize($acl_str);
+			phpFastCache::set("acl_cache",$acl_array,$this->acl_cach_time);
+		}
+        else
+        {
+			$acl_array=$acl_cache;
 		}
 		foreach ($acl_array as $key=>$acl_arr){
 			//允许读

@@ -254,8 +254,17 @@ class phsschi extends api_phs_comm
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
 					}
 					if (isset($table_object->org_id)){
-						$table_object->org_id=$this->get_org_id($table_object->org_id);//处理医生
+						$table_object->org_id=$this->get_org_id($table_object->org_id);
 					}
+					if (isset($table_object->followup_doctor)){
+						$table_object->followup_doctor=$this->set_doctor_number($table_object->followup_doctor);//处理医生
+					}
+					//2013-8-28 中联无法上传信息 原因是本系统里面找不到该医生
+					//如果staff_id 为空 则放弃该条信息
+					if(empty($table_object->staff_id))
+						continue;
+					if(empty($table_object->followup_doctor))
+						continue;	
 					//根据标致来确定是修改还是插入
 					if ($update_status){
 						$table_object->whereAdd("id='$id'");

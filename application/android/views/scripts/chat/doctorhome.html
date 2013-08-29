@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>消息列表</title>
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css">
+<link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css">
+<link type="text/css" rel="stylesheet" href="<!--{$basePath}-->views/styles/vtip.css" />
+<style>
+	table
+	{
+		background:#ffffff;
+	}
+	.line
+	{
+		border-top:0px;
+		border-left:0px;
+		border-right:0px;
+	}
+</style>
+<link href="<!--{$basePath}-->views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
+<!--引入jquery-->
+<script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+
+</head>
+<body>		
+<table border="0" width="100%">
+    <tr class="headbg">
+    	<td colspan="3">
+        	消息列表
+        </td>
+	</tr>
+    <tr class="title">
+    	<td>
+        	发送者
+        </td>
+        <td>
+        	未读信息条数
+        </td>
+		<td>
+        	操作
+        </td>
+	</tr>
+	<tbody id="info">
+	<!--{foreach from=$result item=r}-->
+	 <tr id="">
+	 	<td>
+        	<!--{$r.name}-->
+        </td>
+		<td>
+        	<!--{$r.count}-->
+        </td>
+		<td>
+        	<a href="<!--{$basePath}-->web/chat/infoview/identity_number/<!--{$r.identity_number}-->">与他交流</a>
+        </td>
+	</tr>
+	<!--{/foreach}-->
+	</tbody>
+</table>
+</body>
+</html>
+<script>
+getuserinfo();
+setInterval("getuserinfo()",5000)
+//获取最新患者发来的消息
+function getuserinfo(){
+	$.ajax({
+		type:"get",
+		url:"<!--{$basePath}-->android/chat/getuserinfo",
+		beforeSend:function(){
+			$("#info").html("<tr><td colspan='3'>刷新中-<img src='<!--{$basePath}-->views/images/load.gif'/></td>");
+		},
+		dataType:"json",
+		success:function(info){
+			var obj="";
+			for(var i=0;i<info.length;i++){
+				obj+="<tr><td>"+info[i].name+"</td><td>"+info[i].count+"</td><td><a  target='new' href='<!--{$basePath}-->android/chat/chat/isdoctor/1/receiver_id/"+info[i].identity_number+"'>与他交流</a></td></tr>";
+			}
+			$("#info").html(obj);
+		}
+	});
+}
+</script>
+	

@@ -70,6 +70,14 @@ class cmp_indexController
 		
 	 
      }
+	 
+	public function testAction(){
+		$test=new Tregion();
+		$test->query("SELECT COLUMN_NAME as name, COMMENTS as comment FROM user_col_comments WHERE TABLE_NAME = 'SCHIZOPHRENIA'");
+		while($test->fetch()){
+			echo $test->name;
+		}
+	} 
 }
 
 ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-26 17:00:06
+<?php /* Smarty version 2.6.14, created on 2013-08-29 14:23:24
          compiled from list.html */ ?>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,8 +12,7 @@ views/js/jquerymobile.min.js"></script>
 <div data-role="page" id="page1">
     <div data-theme="a" data-role="header">
         <h3>
-            <?php echo $this->_tpl_vars['title']; ?>
-
+            选择医院
         </h3>
     </div>
     <div data-role="content">
@@ -28,7 +27,7 @@ views/js/jquerymobile.min.js"></script>
 ?>
                     <li data-theme="c">
                         <a href="<?php echo $this->_tpl_vars['basePath']; ?>
-android/hospital/hospital/org_id/<?php echo $this->_tpl_vars['r']['id']; ?>
+android/hospital/doctor/org_id/<?php echo $this->_tpl_vars['r']['id']; ?>
 /org_name/<?php echo $this->_tpl_vars['r']['zh_name']; ?>
 " data-transition="slide" data-ajax="false">
 						

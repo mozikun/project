@@ -15,7 +15,10 @@ class admin_grantController extends controller {
 		require_once(__SITEROOT."application/admin/models/getRoles.php");//取得角色
 		require_once(__SITEROOT."application/admin/models/getResources.php");//取得资源
 		require_once(__SITEROOT.'library/Models/role_resource.php');//角色对应的资源
-		
+		require_once(__SITEROOT.'library/Models/resources.php');
+        require_once(__SITEROOT.'library/Models/role_table.php');//角色表
+        require_once __SITEROOT . '/library/custom/php_fast_cache.php';
+        phpFastCache::$storage = "auto";
 		
 	}
 	/**
@@ -156,12 +159,59 @@ class admin_grantController extends controller {
 		
 		
 	}
-    //删除授权规则缓存文件
-	private function delete_acl_cache_file(){
-		$file=__SITEROOT.'cache/acl_cache_file.php';
-		if(file_exists($file)){
-			unlink($file);
+    //更新授权规则缓存
+	private function delete_acl_cache_file()
+    {
+		//更新资源缓存
+		$resource_table=new Tresources();
+		$resource_table->selectAdd("resources.resource_id AS resource_id");
+		$resource_table->selectAdd("resources.resource_en_name AS   resource_en_name");
+		$resource_table->find();
+        $tmp_resource=array();
+		while ($resource_table->fetch())
+        {
+		  $tmp_resource[$resource_table->resource_id]=$resource_table->resource_en_name;
 		}
+        $resource_table->free_statement();
+        phpFastCache::set("role_resource",$tmp_resource,3600*24);
+        //更新授权缓存
+        $role_resource=new Trole_resource();
+		$resource_table=new Tresources();
+		$role_table=new Trole_table();
+		$resource_table->selectAdd("resources.resource_id");
+		$resource_table->selectAdd("resources.resource_en_name");
+		$role_table->selectAdd("role_table.role_en_name");
+		$role_table->selectAdd("role_table.role_id");
+		$role_resource->selectAdd("role_resource.read");
+		$role_resource->selectAdd("role_resource.write");
+		$role_resource->joinAdd('inner',$role_resource,$resource_table,'resource_id','resource_id');
+		$role_resource->joinAdd('inner',$role_resource,$role_table,'role_id','role_id');
+		//$role_resource->debugLevel(9);
+		$role_resource->find();
+		$acl_array=array();
+		$i=0;
+		while ($role_resource->fetch())
+        {
+			$acl_array[$i]['role_en_name']=$role_table->role_en_name;//角色英文名
+			$acl_array[$i]['resource_en_name']=$resource_table->resource_en_name;//资源名
+			$acl_array[$i]['read']=$role_resource->read;//读
+			$acl_array[$i]['write']=$role_resource->write;//写
+			$i++;
+		}
+        $role_resource->free_statement();
+		phpFastCache::set("acl_cache",$acl_array,3600*24);
+        //更新角色缓存
+        $role_table=new Trole_table();
+		$role_table->selectAdd("role_en_name");
+		$role_table->selectAdd("role_id");
+		$role_table->find();
+        $role_arr=array();
+		while ($role_table->fetch())
+        {
+			$role_arr[$role_table->role_id]=$role_table->role_en_name;
+		}
+        $role_table->free_statement();
+		phpFastCache::set("role_cache",$role_arr,3600*24);
 	}
 	
 }

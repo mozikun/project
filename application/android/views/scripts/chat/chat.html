@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" class="translated-ltr"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<!--{$basePath}-->views/styles/chat.css" rel="stylesheet" type="text/css" media="screen">
+<title><!--{$title}--></title>
 <script type="text/javascript" src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
 <body class="body">
 <style>
@@ -13,8 +14,8 @@ width:50px;height:50px;
 <div id="content">
   <div id="chatbox">
     <div id="chatwnd">
-      <h3><font><font><!--{$title}--></font></font></h3>
-      <div id="talked"><font id="f">正在加载最新的聊天记录...</font>
+      <h3><font><font></font></font></h3>
+      <div id="talked"><font id="f"></font>
 	  </div>
       <div id="chatinput" onclick="$(&#39;#sms&#39;).focus();return false">
       <textarea class="in" name="send_content" id="send_content" type="text"></textarea>
@@ -34,7 +35,7 @@ width:50px;height:50px;
 	$(document).ready(function(){
 		$("#send").click(function(){
 			var content=$("#send_content").serialize();
-			var receiver_id=$("#receiver_id").val();
+			//var receiver_id=$("#receiver_id").val();
 			//禁止发送空内容
 			if($("#send_content").val()==""){
 				$("#send_content").html("发送内容不能为空...");
@@ -48,7 +49,7 @@ width:50px;height:50px;
 			mydate.toLocaleString( ); //获取日期与时间
 			$("#talked").append(" <div class='systemitem'>我:<span class='time_tag'><font>"+date+"&nbsp"+mytime+"</font></span><br><span>"+$("#send_content").val()+"</span></div>");
 			
-			$.post("<!--{$basePath}-->android/chat/send/receiver_id/<!--{$receiver_id}-->/sender_id/<!--{$sender_id}-->",content,function(info){
+			$.post("<!--{$basePath}-->android/chat/send/isdoctor/<!--{$isdoctor}-->/receiver_id/<!--{$receiver_id}-->/sender_id/<!--{$sender_id}-->",content,function(info){
 				//alert(info);
 			});
 			
@@ -71,13 +72,14 @@ width:50px;height:50px;
 	
 	$.ajax({
 		type:"post",
-		url:"<!--{$basePath}-->android/chat/getinfo/receiver_id/"+receiver_id,
+		url:"<!--{$basePath}-->android/chat/getinfo/isdoctor/<!--{$isdoctor}-->/receiver_id/<!--{$receiver_id}-->",
 		dataType:"json",
-		success:function(info){
+		success:function(info){ 
 		//$("#talked").html(info.length);
-			for(var i=0;i<info.length;i++){
+			for(i=0;i<info.length;i++){
 				$("#talked").append("<div class='chatitem'>["+info[i].name+"]<span class='time_tag'><font>"+info[i].sendtime+"</font></span><br><span>"+info[i].content+"</span></div>");
 			     $("#talked").scrollTop(5000);
+				
 			}
 			
 		},

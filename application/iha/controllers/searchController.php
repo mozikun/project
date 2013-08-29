@@ -1790,7 +1790,7 @@ class iha_searchController extends controller
                     $data[$i]['doctor_id']=get_staff_name_byid($api_summary->doctor_id);
                     $data[$i]['org_id']=get_organization_name($api_summary->org_id);
                     $data[$i]['patient_name']=$api_summary->patient_name;
-                    $data[$i]['patient_sex']=@$sex[array_search_for_other($api_summary->patient_sex, $sex)][1];
+                    $data[$i]['patient_sex']=@$sex[$api_summary->patient_sex][1];
                     $i++;
                 }
                 $this->view->data=$data;

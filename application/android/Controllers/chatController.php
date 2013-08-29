@@ -11,6 +11,7 @@ class android_chatController extends controller{
 		require_once(__SITEROOT."library/Models/staff_archive.php");
 		require_once(__SITEROOT."library/Models/chat.php");
 		require_once(__SITEROOT."library/Models/organization.php");
+		require_once(__SITEROOT."library/Models/region.php");
 		require_once(__SITEROOT."library/Models/individual_core.php");
 		$this->view->basePath = $this->_request->getBasePath();
 		
@@ -27,46 +28,58 @@ class android_chatController extends controller{
 	public function chatAction(){
 	
 		$receiver_id=$this->_request->getParam("receiver_id");
-		/*
-		//$mobile=new Zend_Session_Namespace("mobile");
-		//$identity_number=$mobile->identity_number;
-		//$doctor_id=$mobile->doctor_id;
+		$isdoctor=$this->_request->getParam("isdoctor");
 		
-		//取得聊天标题
+		
+		//取得聊天标题，不确定是医生还是患者，在两张表中都查找，在那张表中找到就是哪个角色
 		$title="";
-		if($doctor_id){
+		$str="";	
 			$individual_core=new Tindividual_core();
+			$region=new Tregion();
 			$individual_core->whereAdd("identity_number='$receiver_id'");
-			$individual_core->find(true);
-			$name=$individual_core->name;
-			$title="正在和居民[$name]聊天";
-			$this->view->sender_id=$doctor_id;
-		}
-		if($identity_number){
+			if($individual_core->count()>0){
+				$individual_core->find(true);
+				$name=$individual_core->name;
+				$region_array=explode(",", $individual_core->region_path);
+				for($i=3;$i<count($region_array);$i++){
+					$region->where("id='$region_array[$i]'");
+					$region->find(true);
+					$str.=$region->zh_name;
+				}
+				$title="正在和".$str."的居民【".$name."】交流";
+			}
+			
+		
 			$staff_core=new Tstaff_core();
 			$staff_core->whereAdd("id='$receiver_id'");
-			$staff_core->find(true);
-			$name=$staff_core->name_login;
-			$title="正在和[$name]聊天";
-			$this->view->sender_id=$identity_number;
-		}
-		if(!$doctor_id&&!$identity_number){
-			$this->redirect(__BASEPATH.'android/user/login');
-		}
+			if($staff_core->count()>0){
+				$staff_core->find(true);
+				$name=$staff_core->name_login;
+				$title="正在和医生【".$name."】交流";
+			}
+		
+	
 		$this->view->title=$title;
-		*/
+		
+		
+		
+		$this->view->isdoctor=$isdoctor;
 		$this->view->receiver_id=$receiver_id;
 		$this->view->display("chat.html");
 		
 	}
 	//发送消息
 	public function sendAction(){
+		
 		$content=$this->_request->getParam("send_content");
 		$receiver_id=$this->_request->getParam("receiver_id");
-		//$sender_id=$this->_request->getParam("sender_id");
+		$isdoctor=$this->_request->getParam("isdoctor");
+		
 		
 		$mobile=new Zend_Session_Namespace("mobile");
 		$identity_number=$mobile->identity_number;
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		$doctor_id=$auth->storage['uuid'];
 		//$doctor_id=$mobile->doctor_id;
 		//去这个两人聊天记录的最大排序
 		$chat=new Tchat();
@@ -75,15 +88,15 @@ class android_chatController extends controller{
 		$chat->find(true);
 	    $order_max=$chat->order_id;
 		$chat=new Tchat();
-		if(!empty($identity_number)){
-			
+		if($isdoctor==1){
+			$chat->sender=$doctor_id;
+		}else{
 			$chat->sender=$identity_number;
-			
 		}
 		
 		$chat->uuid=uniqid();
 		$chat->receiver=$receiver_id;
-		$chat->sender=$identity_number;
+		//$chat->sender=$identity_number;
 		$chat->sendtime=time();
 		$chat->r_flag='0';
 		$chat->content=$content;
@@ -92,26 +105,39 @@ class android_chatController extends controller{
 		
 	}
 	
-	//刷新聊天信息
-	public function getinfoAction(){
-		$doctor_id=$this->_request->getParam("receiver_id");
+	//聊天窗口刷新发来的信息
+	public function getinfoAction(){ 
+	//print_r($_GET);
+		$receiver_id=$this->_request->getParam("receiver_id");
+		
+		$isdoctor=$this->_request->getParam("isdoctor");
 		
 		$mobile=new Zend_Session_Namespace("mobile");
-		$sender_id=$mobile->identity_number;
-
+		$identity_number=$mobile->identity_number;
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		$doctor_id=$auth->storage['uuid'];
+		if($isdoctor==1){
+			$sender_id=$doctor_id;
+		}else{
+			$sender_id=$identity_number;
+		}
 		$chat=new Tchat();
 		$staff_core=new Tstaff_core();
 		$individual_core=new Tindividual_core();
-		$chat->whereAdd("((chat.receiver='$sender_id' and chat.sender='$doctor_id'))and chat.r_flag=0");
+		$chat->whereAdd("chat.receiver='$sender_id' and chat.sender='$receiver_id' and chat.r_flag=0");
 		$chat->orderby("order_id");
-		$chat->joinAdd("left",$chat,$individual_core,"sender","identity_number");
-		$chat->joinAdd("left",$chat,$staff_core,"sender","id");
+		if($isdoctor==1){
+		
+			$chat->joinAdd("inner",$chat,$individual_core,"sender","identity_number");
+		}
+		else{
+			$chat->joinAdd("inner",$chat,$staff_core,"sender","id");
+		}
 		$r_flag=new Tchat();
 		$chat->find();
 		$result=array();
 		$i=0;
         while($chat->fetch()){
-		
 			/*
 			//判断该消息是不是自己发的，已选择对应的样式
 			//自己发的
@@ -125,8 +151,12 @@ class android_chatController extends controller{
 			$r_flag->where("uuid='$chat->uuid'");
 			$r_flag->r_flag=1;
 			$r_flag->update();
-			
-			$result[$i]['name']=$staff_core->name_login;
+			if($isdoctor==1){
+				
+				$result[$i]['name']=$individual_core->name;
+			}else{
+				$result[$i]['name']=$staff_core->name_login;
+			}
 			$result[$i]['content']=$chat->content;
 			$result[$i]['sendtime']=date("Y-m-d H:i:s",$chat->sendtime);
 			$i++;
@@ -137,9 +167,50 @@ class android_chatController extends controller{
 	}
 	//医生在线交流主页
 	public function doctorhomeAction(){
-		$this->view->display("chat.html");
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		$doctor_id=$auth->storage['uuid'];
+		$chat=new Tchat();
+		$individual_core=new Tindividual_core();
+		//$chat->joinAdd("inner",$chat,$indivadual_core,"sender","identity_number");
+		$chat->query("select count(sender) as c,sender from chat where receiver='4c73332777df2' and r_flag=0 group by sender");
+		//$chat->debug(1);
+		$result=array();
+		$i=0;
+		while($chat->fetch()){
+			$individual_core->where("identity_number='$chat->sender'");
+			$individual_core->find(true);
+			$result[$i]['name']=$individual_core->name;
+			$result[$i]['identity_number']=$chat->sender;
+			$result[$i]['count']=$chat->c;
+			$i++;
+			
+		}
+		$this->view->result=$result;
+		$this->view->display("doctorhome.html");
 	}
-	
+	//获取患者发来的消息列表
+	public function getuserinfoAction(){
+		$auth=new Zend_Session_Namespace("Zend_Auth");
+		$doctor_id=$auth->storage['uuid'];
+		$chat=new Tchat();
+		$individual_core=new Tindividual_core();
+		//$chat->joinAdd("inner",$chat,$indivadual_core,"sender","identity_number");
+		$chat->query("select count(sender) as c,sender from chat where receiver='$doctor_id' and r_flag=0 group by sender");
+		//$chat->debug(1);
+		$result=array();
+		$i=0;
+		while($chat->fetch()){
+			$individual_core->where("identity_number='$chat->sender'");
+			$individual_core->find(true);
+			$result[$i]['name']=$individual_core->name;
+			$result[$i]['identity_number']=$chat->sender;
+			$result[$i]['count']=$chat->c;
+			$i++;
+			
+		}
+		echo json_encode($result);
+		
+	}
 	
 }
 ?>

@@ -50,7 +50,8 @@
 			if(isset($this->haveWritePrivilege)){
 				$this->haveWritePrivilege=false;
 			}else{
-				exit("没有权限！");
+			     require_once __SITEROOT . '/library/custom/comm_function.php';
+				 message("对不起，您没有当前功能的操作权限，可能的错误是：您有当前模块其他功能操作权限，而没有当前操作功能的权限，请联系管理员授权。<br /><br />", array());
 			}
 			
 		}

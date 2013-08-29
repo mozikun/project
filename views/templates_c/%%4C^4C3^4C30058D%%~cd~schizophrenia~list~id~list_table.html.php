@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-06-24 11:05:59
+<?php /* Smarty version 2.6.14, created on 2013-08-28 11:35:19
          compiled from list_table.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'list_table.html', 234, false),)), $this); ?>
@@ -989,7 +989,7 @@ $this->_sections['customer']['last']       = ($this->_sections['customer']['iter
       <?php endfor; endif; ?>
    	</tr>
    	<tr>
-   	  <td  colspan="2">下次随访日期</td>
+   	  <td  colspan="2">随访医生签名</td>
    	  <?php unset($this->_sections['customer']);
 $this->_sections['customer']['name'] = 'customer';
 $this->_sections['customer']['loop'] = is_array($_loop=$this->_tpl_vars['nums']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
@@ -1015,7 +1015,7 @@ $this->_sections['customer']['first']      = ($this->_sections['customer']['iter
 $this->_sections['customer']['last']       = ($this->_sections['customer']['iteration'] == $this->_sections['customer']['total']);
 ?>
 	      
-	      <td colspan="3">随访医生签名:
+	      <td colspan="3">
 	     	<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['customer']['index']]['followup_doctor']; ?>
 
 	      </td>

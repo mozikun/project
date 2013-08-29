@@ -81,6 +81,7 @@ class api_his_index extends api_phs_comm
             				    }
             				}
             			}
+                        //针对这些有电子病历的人在平台上可能没有档案存在 那么 判断一次
             			$patient_name = $this->getval($xml,'EMR02.00.01.018');
             			$patient_sex = $this->getval($xml,'EMR02.00.01.021');
             			$document_time = $this->getval($xml,'EMR02.00.01.006');
@@ -1468,6 +1469,8 @@ class api_his_index extends api_phs_comm
             				}
             			}	 
   		                $staff_core_id =  $this->get_staff($org_standard_code,$staff_standard_core);
+//                                echo  $staff_core_id;
+//                                exit();
   		                if(empty($staff_core_id))
   		                {
   		                	return $xmlhead."<return_code>2</return_code><return_string>转诊医生不存在</return_string>".$xmlend;
@@ -1604,8 +1607,7 @@ class api_his_index extends api_phs_comm
             						//向万双向转诊表中写入数据    
 	                        		$patient_referral_out_info = new Tpatient_referral_out();
 	                        		$patient_referral_out_info->uuid = uniqid('o_',true);
-	                        		$patient_referral_out_info->document_id = $document_id;
-	                        		$patient_referral_out_info->staff_id = $staff_core_id;//通过平台反转出来的医生id
+	                        	                    $patient_referral_out_info->staff_id = $staff_core_id;//通过平台反转出来的医生id
 	                        		$patient_referral_out_info->created = empty($document_time)?time():strtotime($document_time);	//创建时间 为文档创建时间
 	                        		$patient_referral_out_info->id = $individual_core->uuid;//平台个人id号	
 	                        		$patient_referral_out_info->age = $age;//病人年龄	
@@ -1644,13 +1646,12 @@ class api_his_index extends api_phs_comm
                         			$staff_archive->whereAdd("user_id='$staff_core_id'");
                         			$staff_archive->find(true);
                         			$phone_number = $staff_archive->telephone_number;
-                        			$sms=new SMS();
+                                               		$sms=new SMS();
                         			$uuid = uniqid('zc_',true);
                                     $sms_date= date("Y-m-d H:i:s",time());
                                     $sms_content ='病人'.$individual_core->name.'，因病情需要于'.$sms_date.'将转入'.$zr_org_name_real.'就诊';
                                     $sms_status=$sms->sendSMS($uuid,$phone_number,$sms_content,$sms_date);//发送短信
                         			$logs_array=array("ext_uuid"=>$document_id,"org_id"=>$org_id,"model_id"=>24,"upload_time"=>time(),"upload_token"=>1);
-									$this->insert_api_logs($logs_array);
                         			return $xmlhead."<return_code>1</return_code><return_string>转诊记录数据交换成功</return_string>".$xmlend;
                         		}
                         		else 
@@ -1734,7 +1735,7 @@ class api_his_index extends api_phs_comm
                         	{
                         		//这里需要先删除api_xml表中之前存在的那条记录
                         		$del_xml = new Tapi_xml();
-                        		$del_xml->whereAdd("document_id='$document_id'");
+                        		$del_xml->whereAdd("document_id='$document_id'");           
                         		$del_xml->delete();
                         		$xml_string = iconv('utf-8','gbk',$xml_string);
                         		if($this->insert_xml($document_id,$xml_string))
@@ -2043,7 +2044,7 @@ class api_his_index extends api_phs_comm
                         			}
                         			$logs_array=array("ext_uuid"=>$document_id,"org_id"=>$org_id,"model_id"=>18,"upload_time"=>time(),"upload_token"=>1);
 									$this->insert_api_logs($logs_array);
-									echo $org_id;
+									//echo $org_id;
                         			return $xmlhead."<return_code>1</return_code><return_string>病案首页数据交换成功</return_string>".$xmlend;
                         		}
                         		else 
