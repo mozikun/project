@@ -25,13 +25,12 @@ class admindecision_ylywController extends controller{
 		set_time_limit(0);
 		//require_once(__SITEROOT.'library/privilege.php');
 		
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		$this->user = $this->auth->getIdentity();
 		
 		require_once(__SITEROOT.'library/Models/region.php');
 		require_once(__SITEROOT.'library/Models/organization.php');
-		require_once(__SITEROOT.'library/Myauth.php');
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		$this->view->basePath = $this->_request->getBasePath();
 		

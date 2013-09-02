@@ -17,7 +17,7 @@ class rate_indexController extends controller
 		require_once(__SITEROOT.'library/privilege.php');
 		require_once __SITEROOT."library/Models/organization.php";
 		require_once __SITEROOT."library/Models/standard_archive_rate.php";
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once __SITEROOT."library/Models/region.php";
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		$this->view->assign("baseUrl",__BASEPATH);

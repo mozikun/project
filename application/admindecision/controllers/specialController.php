@@ -27,7 +27,7 @@ class admindecision_specialController extends controller
 		require_once __SITEROOT."library/Models/postpartum_visit.php";
 		require_once __SITEROOT."library/Models/postpartum_heathcheck.php";
 		require_once __SITEROOT.'/library/custom/comm_function.php';
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();

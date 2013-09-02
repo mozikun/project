@@ -12,7 +12,7 @@
 		require_once(__SITEROOT.'library/Models/organization.php');
 		require_once(__SITEROOT.'library/Models/tb_yw_ywsrtj.php');
         require_once(__SITEROOT.'library/Models/yw_ywsrtj_v.php');
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		$this->view->basePath = $this->_request->getBasePath();
 	}

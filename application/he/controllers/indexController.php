@@ -22,7 +22,7 @@ class he_indexController extends controller
 		require_once __SITEROOT."library/Models/organization.php";
 		require_once __SITEROOT."library/Models/individual_archive.php";
 		require_once __SITEROOT."library/Models/individual_core.php";
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		require_once __SITEROOT.'/library/custom/adodb-time.inc.php';//引入时间处理
 		$this->view->assign("baseUrl",__BASEPATH);

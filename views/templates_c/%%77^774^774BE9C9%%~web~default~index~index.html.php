@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-27 16:46:24
+<?php /* Smarty version 2.6.14, created on 2013-08-30 10:33:32
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -14,11 +14,11 @@ unset($_smarty_tpl_vars);
             <li><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_09.png" width="670" height="250"></a></li>
             <li style="display:none;"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_09.png" width="670" height="250"></a></li>
+views/images/mh/h1.png" width="670" height="250"></a></li>
             <li style="display:none;"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_09.png" width="670" height="250"></a></li>
+views/images/mh/h2.png" width="670" height="250"></a></li>
             <li style="display:none;"><a href="#"><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_09.png" width="670" height="250"></a></li>
+views/images/mh/h3.png" width="670" height="250"></a></li>
           </ul>
         </div>
         <div class="bm_right">

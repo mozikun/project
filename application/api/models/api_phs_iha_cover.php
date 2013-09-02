@@ -132,7 +132,7 @@ class api_phs_iha_cover extends api_phs_comm{
 		require_once __SITEROOT."library/Models/region.php";
         require_once __SITEROOT."library/Models/individual_status.php";
 		//require_once __SITEROOT."library/Models/logs.php";
-		//require_once __SITEROOT.'library/Myauth.php';
+		//require_once __SITEROOT.'library/MyAuth.php';
 		require_once __SITEROOT.'library/pinyin/pinyin.php';
 		/*	$data_xml=new SimpleXMLElement($xml_string);
 		$identity_number=$data_xml->children()->children()->children()->identity_number;

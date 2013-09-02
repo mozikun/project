@@ -26,7 +26,7 @@ class iha_coverController extends controller {
         require_once __SITEROOT . "library/Models/staff_core.php";
         require_once __SITEROOT . "library/Models/region.php";
         require_once __SITEROOT . "library/Models/logs.php";
-        require_once __SITEROOT . 'library/Myauth.php';
+        require_once __SITEROOT . 'library/MyAuth.php';
         require_once __SITEROOT . 'library/pinyin/pinyin.php';
         $this->view->assign("basePath", __BASEPATH);
         /* 		$this->auth=Zend_Auth::getInstance();

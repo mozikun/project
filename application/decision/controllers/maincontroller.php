@@ -7,7 +7,7 @@
             require_once __SITEROOT . '/library/custom/comm_function.php';
             $this->view->assign("baseUrl",__BASEPATH);
 	        $this->view->assign("basePath", __BASEPATH);
-            require_once(__SITEROOT.'library/Myauth.php');
+            require_once(__SITEROOT.'library/MyAuth.php');
    	    }
    	    /**
    	     * decision_mainController::indexAction()

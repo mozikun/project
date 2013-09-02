@@ -25,7 +25,7 @@ class iha_indexController extends controller
         require_once __SITEROOT . "library/Models/family_archive.php";
         require_once __SITEROOT . "library/Models/standard_archive_rate.php";
         require_once __SITEROOT . "library/Models/t_jk_card.php";//银海健康卡
-        require_once (__SITEROOT . 'library/Myauth.php');
+        require_once (__SITEROOT . 'library/MyAuth.php');
         $this->view->assign("baseUrl", __BASEPATH);
         $this->view->assign("basePath", __BASEPATH);
 

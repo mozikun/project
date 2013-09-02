@@ -9,7 +9,7 @@ class android_androidController extends controller
         require_once(__SITEROOT.'library/Models/staff_core.php');//用户核心表
 		require_once(__SITEROOT.'library/Models/staff_archive.php');//用户扩展表
 		require_once(__SITEROOT.'library/Models/department.php');//用户扩展表
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth=Zend_Auth::getInstance();
 		
 		$this->view->basePath = $this->_request->getBasePath();

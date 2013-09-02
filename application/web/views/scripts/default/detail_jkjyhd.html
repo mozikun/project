@@ -1,0 +1,233 @@
+<!--{include file=header.html}-->
+    <!--导航栏结束，主体开始-->
+    <div class="main_body">
+      <div class="top_flash"><a href="#"><img src="<!--{$basePath}-->views/images/mh/ws_31.png" width="960" height="200"></a> </div>
+      <div class="top_title">
+        <div class="menu_time">今天是<!--{$timer}--></div>
+        当前位置：<a href="<!--{$basePath}-->web/default/index">首页</a><!--{section name=path loop=$path}-->&gt;<a href="<!--{$basePath}-->web/default/list/lanmu/<!--{$path[path].py}-->"><!--{$path[path].sortname}--></a><!--{/section}-->&gt;阅读文章</div>
+      <div class="null"></div>
+      <div class="list_body">
+        <div class="list_left">
+          <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="healthy">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
+            <div class="bv_conts">
+              <form id="form2" action="<!--{$basePath}-->iha/search/search" method="post">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">登录方式：</td>
+                      <td width="71%"><select class="bv_text">
+                          <option>请选择</option>
+                          <option value="sfz">身份证号码登陆</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">身份证号：</td>
+                      <td><input type="text" name="card" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">密码：</td>
+                      <td><input type="password" name="password" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell">
+                        <input class="cell_img" type="image" src="<!--{$basePath}-->views/images/mh/ws_16.png" />
+                        </span><span class="td_cell"><a href="#"><img class="cell_img" src="<!--{$basePath}-->views/images/mh/ws_17.png" width="73" height="23" /></a></span></td>
+                    </tr>
+                    <tr>
+                      <td align="right">&nbsp;</td>
+                      <td><span class="td_cell"><a href="#">查询说明</a></span><span class="td_cell"><a href="#">使用帮助</a></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="lir_inner notal">
+            <div class="notal_top">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">接种查询</span></div>
+              <div class="ntop_conts">
+                <form id="" action="#">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <td width="27%">免疫卡片:</td>
+                        <td width="45%"><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td width="28%">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>接种时间:</td>
+                        <td><input type="text" name="mycard" class="mycard" id="mycard"></td>
+                        <td><input type="image" name="imageField" id="imageField" src="<!--{$basePath}-->views/images/mh/ws_26.png" class="img_btn"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+            <div class="notal_bottm">
+              <div class="li_title"><span class="spn1"><img class="im_l" src="<!--{$basePath}-->views/images/mh/ws_18.png" width="11" height="11">联网医院</span><a href="<!--{$basePath}-->web/hospital/index">更多》</a></div>
+              <div class="hospital">
+                <ul>
+                  <!--{section name=orgs loop=$orgs}-->
+                  <li><a href="<!--{$basePath}-->web/hospital/detail/id/<!--{$orgs[orgs].id}-->"><!--{$orgs[orgs].zh_name}--></a></li>
+                  <!--{/section}-->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="list_right">
+          <div class="lr_ones four">
+            <h1 class="four_title">
+              <div class="ftext"><!--{if $tips.next}--><a href="<!--{$basePath}-->web/default/jkjyhd/uuid/<!--{$tips.next}-->">下一条》</a><!--{else}-->没有了<!--{/if}--></div>
+              <div class="fpres"><!--{if $tips.before}--><a href="<!--{$basePath}-->web/default/jkjyhd/uuid/<!--{$tips.before}-->">《上一条</a><!--{else}-->没有了<!--{/if}--></div>
+              <!--{$health_education->activity_theme}--></h1>
+            <div class="four_conts">
+              <div class="fc_time"> 日期：<!--{$health_education->updated}--> 　　来源：<!--{$health_education->org_id}--> </div>
+              <div class="fc_text">
+    <table border="0" width="100%" class="nobg">
+	<tr>
+		<td style="font-size:14px;font-weight:bold;text-align:center;line-height:68px;">
+        	健康教育活动记录表
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:center;">
+        	<table border="0" width="100%" class="line_table">
+			    <tr>
+			        <td style="width:50%;">
+			        	活动时间:&nbsp;
+						<!--{$health_education->activity_time}-->
+			        </td>			
+					<td style="width:50%;">
+			        	活动地点:&nbsp;<!--{$health_education->activity_address}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="2">
+			        	活动形式:&nbsp;
+						<span>
+						<!--{foreach key=k item=v from=$he_active_type}-->
+						&nbsp;<label style="padding-left: 28px;cursor: pointer;"><input type="checkbox" readonly="true" value="<!--{$k}-->" <!--{$v.check}--> name="activity_type[]" /><!--{$v[1]}--></label>
+						<!--{/foreach}-->
+						</span>
+			        </td>			
+					
+				</tr>
+                <tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活&nbsp;动&nbsp;主&nbsp;题&nbsp;:&nbsp;&nbsp;</span>
+						<!--{$health_education->activity_theme}-->
+			        </td>			
+				</tr>
+                <tr>
+                <td colspan="2">
+			        	组织者:&nbsp;<!--{$health_education->sponsor}-->
+			        </td>
+                </tr>
+				<tr>
+			        <td style="width:50%;">
+			        	接受健康教育人员类别:&nbsp;<!--{$health_education->person_category}-->
+			        </td>			
+					<td style="width:50%;">
+			        	接受健康教育人数:&nbsp;<!--{$health_education->person_num}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td style="width:50%;">
+			        	健康教育资料发放种类:&nbsp;<!--{$health_education->promo_type}-->
+			        </td>			
+					<td style="width:50%;">
+			        	健康教育资料发放数量:&nbsp;<!--{$health_education->promo_num}-->
+			        </td>
+				</tr>
+				<tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活&nbsp;动&nbsp;内&nbsp;容&nbsp;:&nbsp;&nbsp;</span>
+						<!--{$health_education->active_summary}-->
+			        </td>			
+				</tr>
+				<tr>
+			        <td colspan="2" style="height:100px;">
+			        	<span style="float: left;line-height: 100px;">活动总结评价:</span><!--{$health_education->activity_juggde}-->
+			        </td>			
+				</tr>
+				<tr>
+			        <td colspan="2">
+			        	存档材料请附后：
+						<!--{foreach key=k item=v from=$health_more_info}-->
+						<input type="checkbox" readonly="true" value="<!--{$k}-->" <!--{$v.check}--> name="more_info[]" /><!--{$v[1]}--></label>&nbsp;
+						<!--{/foreach}-->
+			        </td>			
+				</tr>
+				
+			</table>
+        </td>
+	</tr>
+	<tr>
+		<td>
+        	<span style="float: left;">填表人（签字）:
+			<!--{$people_fillin_form}-->
+            </span>
+            <span style="float: right;">负责人（签字）:
+			<!--{$response_doctor}-->
+            </span>
+        </td>
+	</tr>
+	<tr>
+		<td style="text-align:right;">
+        	填表时间：&nbsp;<!--{if $health_education->updated}--><!--{$health_education->updated}--><!--{else}--><!--{$updated}--><!--{/if}-->
+        </td>
+	</tr>
+</table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bbk"></div>
+      </div>
+    </div>
+<!--{include file=footer.html}-->

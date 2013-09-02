@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-07-23 11:03:59
+<?php /* Smarty version 2.6.14, created on 2013-08-30 14:59:40
          compiled from search_base.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -68,6 +68,19 @@ iha/image/index/card/<?php echo $this->_tpl_vars['card']; ?>
         
     }
 }
+$(document).ready(function(){
+   function get_card_status()
+   {
+       $("#jz_zt").html('');
+       $.get('<?php echo $this->_tpl_vars['basePath']; ?>
+iha/search/getcardstatus/identity_number/<?php echo $this->_tpl_vars['identity_number']; ?>
+',function(data){
+             $("#jz_zt").html(data);
+       });
+       setTimeout(get_card_status,5000);
+   }
+   get_card_status();
+});
 </script>
 </head>
 
@@ -110,9 +123,12 @@ views/images/nopic.gif"<?php endif; ?> id="headpic" style="width:95px;height: 12
     <?php endif; ?>
     </table>
     <br />
+    <div id="jz_zt">   
+    </div>
+    <br />
     <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
     <tr class="headbg">
-    <td colspan="3"><b>信息提醒</b></td>
+    <td><b>信息提醒</b></td>
     </tr>
     <?php $_from = $this->_tpl_vars['tips_code']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['v']):

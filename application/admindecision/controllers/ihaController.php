@@ -10,7 +10,7 @@ class admindecision_ihaController extends controller{
 	public function  init(){
 		set_time_limit(0);
 		//require_once(__SITEROOT.'library/privilege.php');
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		$this->user = $this->auth->getIdentity();
 		$this->view->assign("basePath",__BASEPATH);

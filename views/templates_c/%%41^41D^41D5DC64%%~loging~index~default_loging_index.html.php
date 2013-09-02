@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-28 09:58:04
+<?php /* Smarty version 2.6.14, created on 2013-08-30 09:32:12
          compiled from default_loging_index.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -36,7 +36,7 @@ iha/search/index'">
     <div class="bank_6" onclick="window.location='<?php echo $this->_tpl_vars['basePath']; ?>
 loging/index/user'">
      	<h2 class="bank_tit6 mar_t_12">医疗业务</h2>
-        <p class="bank_p6">为健康找想,为了更好<br />的明天</p>
+        <p class="bank_p6">为健康着想,为了更好<br />的明天</p>
      </div>
       <div class="bank_4" onclick="window.location='<?php echo $this->_tpl_vars['basePath']; ?>
 loging/index/decision'">

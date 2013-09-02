@@ -4,7 +4,7 @@ class admindecision_drugController extends controller{
 	private $p_id;
 	private $cache_time=__CACHING_LEFTTIME;	
 	public function  init(){
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();

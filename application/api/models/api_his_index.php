@@ -1607,7 +1607,8 @@ class api_his_index extends api_phs_comm
             						//向万双向转诊表中写入数据    
 	                        		$patient_referral_out_info = new Tpatient_referral_out();
 	                        		$patient_referral_out_info->uuid = uniqid('o_',true);
-	                        	                    $patient_referral_out_info->staff_id = $staff_core_id;//通过平台反转出来的医生id
+	                        		$patient_referral_out_info->document_id = $document_id;
+	                        		$patient_referral_out_info->staff_id = $staff_core_id;//通过平台反转出来的医生id
 	                        		$patient_referral_out_info->created = empty($document_time)?time():strtotime($document_time);	//创建时间 为文档创建时间
 	                        		$patient_referral_out_info->id = $individual_core->uuid;//平台个人id号	
 	                        		$patient_referral_out_info->age = $age;//病人年龄	

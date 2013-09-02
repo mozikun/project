@@ -25,7 +25,7 @@ class elder_elderController extends controller
 		require_once __SITEROOT."library/Models/standard_archive_rate.php";
 		require_once __SITEROOT.'/library/Models/et_lifecase_assessment.php';
 		require_once __SITEROOT.'/library/Models/clinical_history.php';
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->view->assign("baseUrl",__BASEPATH);
 		$this->view->assign( "basePath", __BASEPATH );
 		require_once __SITEROOT.'/library/custom/comm_function.php';
@@ -822,6 +822,7 @@ class elder_elderController extends controller
 						$scoreList[$i]['name']     = $individual->name;
 					}
 				//$scoreList[$i]['sex'] = $sex[array_search_for_other($individual->sex,$sex)][1];
+				$scoreList[$i]['address']=$individual->address;
 				$scoreList[$i]['age'] = getBirthday($individual->date_of_birth,time());
 				$temp ='';
 				$temp1 = '';
@@ -881,6 +882,43 @@ class elder_elderController extends controller
 		$uuid=$this->_request->getParam('uuid')?$this->_request->getParam('uuid'):$individual_session->uuid;
         diagnose_disease($uuid,3,time());
         
+    }
+    /**
+     * 
+     * @todo 用于打印老年人自理能力评估表
+     */
+    public function printAction()
+    {
+    	$uuid=$this->_request->getParam("uuid");
+    	//获取姓名身份证号
+    	if($uuid)
+    	{
+	     	$individual=new Tindividual_core();
+	     	$lifecase=new Tet_lifecase_assessment();
+	     	$individual->joinAdd('left',$individual,$lifecase,'uuid','id');
+			$individual->whereAdd("et_lifecase_assessment.uuid='$uuid'");
+			$individual->find(true);
+			$this->view->identity_name=$individual->name;
+			$this->view->identity_number=$individual->identity_number;
+			
+	   		$lifecase_get = new Tet_lifecase_assessment();
+			$lifecase_get->whereAdd("uuid='{$uuid}'");
+			$lifecase_get->find(true);
+			$this->view->uuid=$lifecase_get->uuid;
+			$this->view->meal = $lifecase_get->meal;
+			$this->view->cleanup = $lifecase_get->cleanup;
+			$this->view->dress = $lifecase_get->dress;
+			$this->view->toilet = $lifecase_get->toilet;
+			$this->view->activity = $lifecase_get->activity;
+			$this->view->totalscore = $lifecase_get->totalscore;
+			$this->view->created=date("Y-m-d",$lifecase_get->created);
+    	}else 
+    	{
+    		$url=array("老年人生活能力评估列表"=> __BASEPATH . 'elder/elder/scorelist');
+    		message("老年人生活能力评估表获取失败！",$url);
+    	}
+    	
+    	$this->view->display("elder_print.html");
     }
 }
 ?>

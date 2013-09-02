@@ -2,7 +2,7 @@
 class admindecision_indexController extends controller{
 	public function  init(){
 		require_once(__SITEROOT.'library/privilege.php');
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();

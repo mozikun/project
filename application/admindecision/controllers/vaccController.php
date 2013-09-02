@@ -20,7 +20,7 @@ class admindecision_vaccController extends controller
 		require_once __SITEROOT."library/Models/vac_info.php";
 		require_once __SITEROOT."library/Models/premarital_examination.php";
 		require_once __SITEROOT.'/library/custom/comm_function.php';
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();

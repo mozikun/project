@@ -11,7 +11,7 @@ class lead_indexController extends controller {
 		$this->view->basePath = $this->_request->getBasePath();
 		//用户认证与权限
 		//require_once(__SITEROOT.'library/privilege.php');
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth=Zend_Auth::getInstance();
 		$this->identity = $this->auth->getIdentity();
 		if (!$this->auth->hasIdentity())

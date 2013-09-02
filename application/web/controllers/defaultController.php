@@ -91,20 +91,41 @@ class web_defaultController extends controller
             }
             $web_sort_son->free_statement();
             //取文章列表
-            $article=new Tweb_article_base();
-            $article->whereAdd("sort_id in(select uuid from web_sort where path like '".$web_sort->path."%')");
-            $article->orderBy("updated desc");
-            $article->limit(0,8);
-            $article->find();
-            $i=0;
-            while($article->fetch())
+            if($web_sort->sortname_py=='jkjy')
             {
-                $sort_list[$web_sort->sortname_py]['articles'][$i]['uuid']=$article->uuid;
-                $sort_list[$web_sort->sortname_py]['articles'][$i]['title']=cut_str($article->title,18);
-                $sort_list[$web_sort->sortname_py]['articles'][$i]['info']=cut_str($article->info,42);
-                $i++;
+                require_once __SITEROOT."library/Models/health_education.php";
+                $health=new Thealth_education();
+                $health->whereAdd("activity_address is not null");
+                $health->orderBy("activity_time desc");
+                $health->limit(0,7);
+                $health->find();
+                $i=0;
+                while($health->fetch())
+                {
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['uuid']=$health->uuid;
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['title']=($health->activity_time?date("Y-m-d",$health->activity_time):"").'在'.$health->activity_address."举办健康教育活动";
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['info']=$sort_list[$web_sort->sortname_py]['articles'][$i]['title'];
+                    $i++;
+                }
+                $health->free_statement();
             }
-            $article->free_statement();
+            else
+            {
+                $article=new Tweb_article_base();
+                $article->whereAdd("sort_id in(select uuid from web_sort where path like '".$web_sort->path."%')");
+                $article->orderBy("updated desc");
+                $article->limit(0,8);
+                $article->find();
+                $i=0;
+                while($article->fetch())
+                {
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['uuid']=$article->uuid;
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['title']=cut_str($article->title,18);
+                    $sort_list[$web_sort->sortname_py]['articles'][$i]['info']=cut_str($article->info,42);
+                    $i++;
+                }
+                $article->free_statement();
+            }
             $this->view->$sort_list[$web_sort->sortname_py]['py']=$sort_list[$web_sort->sortname_py];
         }
 		//获取医生挂号排行
@@ -304,5 +325,79 @@ class web_defaultController extends controller
             $this->view->article_content=$article_content;
         }
         $this->view->display("detail.html");
+    }
+    /**
+     * web_defaultController::jkjyhdAction()
+     * 
+     * 显示健康教育活动表格
+     * 
+     * @return void
+     */
+    public function jkjyhdAction()
+    {
+        $uuid=$this->_request->getParam('uuid');
+        require_once __SITEROOT."library/Models/health_education.php";
+        require_once __SITEROOT.'/library/custom/comm_function.php';
+		$health_education=new Thealth_education();
+		$health_education->whereAdd("uuid='$uuid'");
+		$health_education->find(true);
+		//格式化时间
+		$health_education->activity_time=$health_education->activity_time?date("Y-m-d",$health_education->activity_time):"";
+        $updated=$health_education->created;
+		$health_education->updated=$health_education->created?date("Y-m-d",$health_education->created):"";
+        $health_education->org_id=get_organization_name($health_education->org_id);
+		$this->view->health_education=$health_education;
+		//负责医生列表
+		$this->view->response_doctor=get_staff_name_byid($health_education->person_in_charge);
+        //填表人医生列表
+		$this->view->people_fillin_form=get_staff_name_byid($health_education->people_fillin_form);
+		require_once __SITEROOT.'/library/data_arr/arrdata.php';
+		$temp=@explode("|",$health_education->more_info);
+		foreach ($health_more_info as $k=>$v)
+		{
+            if (@in_array($v[0],$temp))
+            {
+                $health_more_info[$k]['check']="checked='checked'";
+            }
+    		else 
+    		{
+                $health_more_info[$k]['check']="";
+    		}
+		}
+		$this->view->assign("health_more_info",$health_more_info);
+		$temp_type=@explode("|",$health_education->activity_type);
+		foreach ($he_active_type as $k=>$v)
+		{
+    		if (@in_array($v[0],$temp_type))
+    		{
+  				$he_active_type[$k]['check']="checked='checked'";
+    		}
+    		else 
+            {
+                $he_active_type[$k]['check']="";
+            }
+		}
+		$this->view->assign("he_active_type",$he_active_type);
+        $tips=array();
+        //取上一条
+        $tips['before']='';
+        $article=new Thealth_education();
+        $article->whereAdd("created<='$updated'");
+        $article->whereAdd("uuid!='$uuid'");
+        $article->orderBy('created desc');
+        $article->find(true);
+        $tips['before']=$article->uuid;
+        $article->free_statement();
+        //取下一条
+        $tips['next']='';
+        $article=new Thealth_education();
+        $article->whereAdd("created>='$updated'");
+        $article->whereAdd("uuid!='$uuid'");
+        $article->orderBy('created desc');
+        $article->find(true);
+        $tips['next']=$article->uuid;
+        $article->free_statement();
+        $this->view->tips=$tips;
+		$this->view->display('detail_jkjyhd.html');
     }
 }

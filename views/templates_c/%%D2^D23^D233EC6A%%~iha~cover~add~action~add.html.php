@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.14, created on 2013-07-25 10:02:07
+<?php /* Smarty version 2.6.14, created on 2013-09-02 10:52:18
          compiled from add.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'add.html', 238, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('modifier', 'date_format', 'add.html', 271, false),)), $this); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,14 +53,27 @@ views/styles/admincp.css" rel="stylesheet" type="text/css" />
   margin:0px;
   padding:0px;
   }
+  #suggest,#suggest2{width:340px;font-size:12px; font-weight:normal;}
+ .gray{color:gray;}
+ .ac_results {background:#fff;border:1px solid #7f9db9;position: absolute;z-index: 10000;display: none;width:260px;text-align:left;}
+ .ac_results ul{margin:0;padding:0;list-style:none;}
+ .ac_results li a{white-space: nowrap;text-decoration:none;display:block;color:#05a;padding:1px 3px;}
+.ac_results li{border:1px solid #fff;}
+.ac_over,.ac_results li a:hover {background:#c8e3fc;}
+.ac_results li a span{float:right;}
+.ac_result_tip{border-bottom:1px dashed #666;padding:3px;}
   <?php echo $this->_tpl_vars['archive_rate_css']; ?>
 
 </style>
 <!--引入jquery-->
 <script src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/organization.js"></script>
 <script src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/js/calendar/WdatePicker.js" type="text/javascript"></script>   <!--时间控件的加载!-->
+ <script type="text/javascript" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/js/j.suggest.js"></script>
 <link href="<?php echo $this->_tpl_vars['basePath']; ?>
 views/js/calendar/skin/default/datePicker.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
@@ -76,6 +89,22 @@ $(document).ready(function(){
 " style="width:30%" onFocus="WdatePicker({startDate: \'%y-%M-01\' ,dateFmt:\'yyyy-MM-dd\',alwaysUseStartDate: true })" name="status_array_time[]" /></td></tr>');
 		created.appendTo(status_flag_list);
 	}
+         $("#organize").suggest(organizationArray,{hot_list:organizationArray,dataContainer:'#organize_code',onSelect:function(){
+                    var organize_code = $("#organize_code").val();
+                    $("#new_doctor").show();
+                    $("#new_archive_doctor_tr").show();
+                    //现建档人
+                    $.get("<?php echo $this->_tpl_vars['basePath']; ?>
+iha/cover/getdoctor/org_id/"+organize_code+"/status/1",function(data){
+                         $("#new_archive_doctor_result").html(data);
+                    });
+                    //现建档人
+                    $.get("<?php echo $this->_tpl_vars['basePath']; ?>
+iha/cover/getdoctor/org_id/"+organize_code+"/status/0",function(data){
+                         $("#new_response_doctor_result").html(data);
+                    });
+                    $("#new_org_id").val(organize_code);
+         }, attachObject:'#suggest'});
 });
 </script>
 </head>
@@ -310,10 +339,11 @@ views/images/unchecked.gif" onclick="return del_item('<?php echo $this->_tpl_var
 ">
 					<td class="right" width="45%">现建档单位:</td>
 					<td align="left" width="55%">
-					<?php echo $this->_tpl_vars['new_organization_zh_name']; ?>
-
+					<input type="hidden" name="organize_code" id="organize_code" value="" />
+                                                                                                 <input type="text" name="organize" id="organize" size="16"  class="txt" />
+                                                                                                <div id='suggest' class="ac_results"></div>
 					<input type="checkbox" id="confirm_change_org" name="confirm_change_org" value="1" />确定更改为现单位管理
-					</td>
+					</td> 
 					</tr>
 					<tr>
 					<td class="right" width="45%" class="core_staff_id"><span style="display:<?php echo $this->_tpl_vars['new_org_switch']; ?>
@@ -352,10 +382,11 @@ $this->_sections['archive_doctor']['last']       = ($this->_sections['archive_do
 					</select>
 					</td>
 					</tr>
-					<tr style="display:<?php echo $this->_tpl_vars['new_org_switch']; ?>
-">
+					<tr style="display:none;" id="new_archive_doctor_tr">
 					<td class="right" width="45%">现建档人:</td>
 					<td align="left" width="55%">
+                                            <span  id="new_archive_doctor_result"></span>
+                                                                                               <!--
 					<select name="new_archive_doctor" id="new_archive_doctor">
 						<?php unset($this->_sections['new_archive_doctor']);
 $this->_sections['new_archive_doctor']['name'] = 'new_archive_doctor';
@@ -387,6 +418,7 @@ $this->_sections['new_archive_doctor']['last']       = ($this->_sections['new_ar
 </option>
 						<?php endfor; endif; ?>
 					</select>
+                                                                                                -->
 					</td>
 					</tr>
 					
@@ -427,10 +459,11 @@ $this->_sections['response_doctor']['last']       = ($this->_sections['response_
 					</select>
 					</td>
 					</tr>
-					<tr style="display:<?php echo $this->_tpl_vars['new_org_switch']; ?>
-">
+					<tr style="display:none" id="new_doctor">
 					<td class="right" width="45%">现责任医生:</td>
 					<td align="left" width="55%">
+                                            <span id="new_response_doctor_result"></span>
+                                                                                              <!--
 					<select name="new_response_doctor" id="new_response_doctor">
 						<?php unset($this->_sections['new_response_doctor']);
 $this->_sections['new_response_doctor']['name'] = 'new_response_doctor';
@@ -462,6 +495,7 @@ $this->_sections['new_response_doctor']['last']       = ($this->_sections['new_r
 </option>
 						<?php endfor; endif; ?>
 					</select>
+                                                                                             -->
 					</td>
 					</tr>
 					<tr>

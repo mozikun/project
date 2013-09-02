@@ -11,7 +11,7 @@ class mdecision_berthController extends controller
 		require_once(__SITEROOT.'library/privilege.php');
 		require_once(__SITEROOT.'library/Models/region.php');
 		require_once(__SITEROOT.'library/Models/organization.php');
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		$this->view->basePath = $this->_request->getBasePath();
 		//床位使用表

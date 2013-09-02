@@ -42,7 +42,7 @@ class admin_testController extends controller {
 			echo "用户名和密码格式有错";
 			exit();
 		}		
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		
 		$auth = Zend_Auth::getInstance();//创建认证session的命名空间，并放到Zend_Auth的实例的存储器中
 		//$auth->setStorage(new Zend_Auth_Storage_Session('userNamespace'));		

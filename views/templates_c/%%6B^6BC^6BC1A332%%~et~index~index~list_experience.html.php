@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-05-06 10:32:39
+<?php /* Smarty version 2.6.14, created on 2013-09-02 09:51:15
          compiled from list_experience.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -166,11 +166,13 @@ images/status_online.png");
 " id="region_p_id" />
 			   <input type="hidden" name="chiocetable" value="<?php echo $this->_tpl_vars['searchtable']; ?>
 " id="searchtable" />
-			   地区:<span id="menuDropDownBox"></span>
-			    &nbsp;年龄:<input type="text" name="age_start" class="line" style="width:28px" size="6" />
-				~<input type="text" name="age_end" class="line" style="width:28px" size="6" />
-				&nbsp;
-				性别:&nbsp;<select name="sex">
+			   地区：<span id="menuDropDownBox"></span>
+			   &nbsp;姓名：<input type="text" name="name" size="18" value="" />
+			   &nbsp;身份证号：<input type="text" name='identity_number' size="18" value="" />
+			   &nbsp;年龄：<input type="text" name="age_start" class="line" style="width:28px" size="6" />
+			   ~<input type="text" name="age_end" class="line" style="width:28px" size="6" />
+			   &nbsp;<br />
+				性别：&nbsp;<select name="sex">
 				<option value="">请选择</option>
 		        <?php $_from = $this->_tpl_vars['sex']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
@@ -180,7 +182,10 @@ images/status_online.png");
 </option>
 				<?php endforeach; endif; unset($_from); ?>
 		        </select>
-		       
+		       未体检时间：<input type="text" name="starts_time" size="18" onClick="WdatePicker({firstDayOfWeek:1,maxDate:'#F{$dp.$D(\'ends_time\')||\'2030-12-31\'}'})"  value="<?php echo $this->_tpl_vars['starts_time']; ?>
+"  id="starts_time"/>-
+		       			 <input type="text" name="ends_time" size="18" onClick="WdatePicker({firstDayOfWeek:1,minDate:'#F{$dp.$D(\'starts_time\')}',maxDate:'2030-12-31'})" value="<?php echo $this->_tpl_vars['ends_time']; ?>
+"  id="ends_time"/>&nbsp;
 		        <input type="button" value="搜索" class="inputbutton" onclick="ajaxsearch('<?php echo $this->_tpl_vars['basePath']; ?>
 et/choice/index')"/>
 		   </form>
@@ -251,7 +256,7 @@ et/index/add/uuid/<?php echo $this->_tpl_vars['et_id']; ?>
 			<tr id="body_tr" style="display:<?php echo $this->_tpl_vars['display_sign']; ?>
 ;"><td>
 				地区：<span id="region_area"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-			    体检日期：<input type="text" name="start_time" size="18" onClick="WdatePicker({firstDayOfWeek:1})"  value=""  id="start_time"/>-<input type="text" name="end_time" size="18" onClick="WdatePicker({firstDayOfWeek:1})" value=""  id="end_time"/>&nbsp;
+			    体检日期：<input type="text" name="start_time" size="18" onClick="WdatePicker({firstDayOfWeek:1,maxDate:'#F{$dp.$D(\'end_time\')||\'2030-12-31\'}'})"  value=""  id="start_time"/>-<input type="text" name="end_time" size="18" onClick="WdatePicker({firstDayOfWeek:1,minDate:'#F{$dp.$D(\'start_time\')}',maxDate:'2030-12-31'})" value=""  id="end_time"/>&nbsp;
 				<input type="hidden" name="display_sign" id="display_sign" value="<?php echo $this->_tpl_vars['display_sign']; ?>
 " />
 			    <input type="hidden" name="region_p_id_search" value="<?php echo $this->_tpl_vars['region_p_id_search']; ?>

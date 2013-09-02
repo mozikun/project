@@ -12,7 +12,7 @@ class android_userController extends controller
 		require_once(__SITEROOT.'library/Models/organization.php');//用户扩展表
 		require_once(__SITEROOT.'library/Models/individual_core.php');//用户扩展表
 		require_once(__SITEROOT.'library/Models/chat.php');//用户扩展表
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth=Zend_Auth::getInstance();		
 		$this->view->basePath = $this->_request->getBasePath();
     }

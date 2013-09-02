@@ -244,6 +244,8 @@ class web_registerController extends controller
 			exit();
 		}
 		*/
+		require_once(__SITEROOT.'library/sms.php');//发短信库
+		$sms=new SMS();
 		$id=$this->_request->getParam("id");
 		$day=$this->_request->getParam("day");
 		$name=$this->_request->getParam("name");
@@ -283,6 +285,16 @@ class web_registerController extends controller
 		$appointment_register->phone_number=$phone_number;
 		$appointment_register->zuozhen_id=$id;
 		if($appointment_register->insert()){
+			//发送短息
+			$organization=new Torganization();
+			$organization->whereAdd("id='$zuozhen->org_id'");
+			$organization->find(true);
+			$department=new Tdepartment();
+			$department->whereAdd("uuid='$zuozhen->department'");
+			$department->find(true);
+			$message_id=uniqid();
+			$sms_content="您已经成功预约".$organization->zh_name.$department->department_name."，就诊时间为".date("Y年m月d日",$zuozhen->consulting_time).",请准时到医院就诊!";
+			$sms->sendSMS($message_id,$phone_number,$sms_content,time());//发送短信
 			echo "恭喜您，预约成功!";
 			
 		}else{

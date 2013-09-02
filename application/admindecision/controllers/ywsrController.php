@@ -2,7 +2,7 @@
 class admindecision_ywsrController extends  controller {
     public function init()
 	{
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();
@@ -12,7 +12,6 @@ class admindecision_ywsrController extends  controller {
 		require_once(__SITEROOT.'library/Models/region.php');
 		require_once(__SITEROOT.'library/Models/organization.php');
 		require_once(__SITEROOT.'library/Models/tb_yw_ywsrtj.php');
-		require_once(__SITEROOT.'library/Myauth.php');
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		$this->view->basePath = $this->_request->getBasePath();
 	}

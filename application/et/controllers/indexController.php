@@ -1,6 +1,5 @@
 <?php
 class et_indexController  extends controller {
-
 	public function init(){
 		$this->view->basePath = $this->_request->getBasePath();
 		//用户验证和权限
@@ -32,6 +31,7 @@ class et_indexController  extends controller {
     * 健康体检表列表
     */
 	public function indexAction(){
+                      
 		//查看当前选中居民的健康体检信息
 		$individual_session=new Zend_Session_Namespace("individual_core");
 		$seeion_id=$individual_session->uuid;
@@ -143,7 +143,7 @@ class et_indexController  extends controller {
 		//$experience->debugLevel(9);
 		$experience->joinAdd('left',$experience,$staffArchive,'examination_doctor','user_id');//关联医生ID
 		$experience->joinAdd('left',$experience,$individual,'id','uuid');//关联个人信息
-        $experience->whereAdd($region_path_domain);
+                                      $experience->whereAdd($region_path_domain);
 		if(!empty($realName)){
 			$experience->whereAdd("individual_core.name='$realNewName'");
 		}
@@ -1771,41 +1771,110 @@ class et_indexController  extends controller {
 		$et_examination->lowcholesterol = $this->_request->getParam('lowcholesterol');//血脂血清低密度脂蛋白胆固醇
 		$et_examination->highcholesterol = $this->_request->getParam('highcholesterol');//血脂血清高密度脂蛋白胆固醇
 		$et_examination->ghemoglobin = $this->_request->getParam('ghemoglobin');//糖化血红蛋白
-		foreach ($et_hbsurface as $k=>$v){
-			if($this->_request->getParam('hbsurface')==$k){
-				$et_examination->hbsurface = $v[0];//乙型肝炎表面抗原|radio|1=>阳性|2=>阴性
-			}
-		}
-		foreach ($et_fundus as $k=>$v){
-			if($this->_request->getParam('fundus')==$k){
-				$et_examination->fundus = $v[0];//眼底|radio|1=>正常|2=>异常
-				$et_examination->veryfundus = $this->_request->getParam('veryfundus');//眼底异常名称
-			}
-		}
-		foreach ($et_ecg as $k=>$v){
-			if($this->_request->getParam('ecg')==$k){
-				$et_examination->ecg = $v[0];//心电图|radio|1=>正常|2=>异常
-				$et_examination->veryecg = $this->_request->getParam('veryecg');//心电图异常名称
-			}
-		}
+                                      $hbsurface_update =  $this->_request->getParam('hbsurface');//乙型肝炎表面抗原
+                                      $fundus_update = $this->_request->getParam('fundus');//眼底
+                                      $ecg_update    = $this->_request->getParam('ecg');//心电图
+                                      $xrayfilm_update = $this->_request->getParam('xrayfilm');//胸部x片
+                                      $bc_update = $this->_request->getParam('bc');//B超
+                                      $csmear_update = $this->_request->getParam('csmear');//宫颈涂片
+                                      //乙型肝炎表面抗原
+                                      if(!empty($hbsurface_update))
+                                      {
+                                            foreach ($et_hbsurface as $k=>$v)
+                                            {                  
+                                                    if($hbsurface_update==$k)
+                                                     {
+                                                            $et_examination->hbsurface = $v[0];//乙型肝炎表面抗原|radio|1=>阳性|2=>阴性
+                                                    }
+                                            }
+                                      }
+                                      else
+                                      {
+                                                  $et_examination->hbsurface ='';
+                                      }
+                //眼底
+                if(!empty($fundus_update))
+                {
+                        foreach ($et_fundus as $k=>$v)
+                        {
+                                    if($fundus_update==$k)
+                                    {
+
+                                            $et_examination->fundus = $v[0];//眼底|radio|1=>正常|2=>异常
+                                            $et_examination->veryfundus = $this->_request->getParam('veryfundus');//眼底异常名称
+                                    }              
+                        }
+                }
+                else
+                {
+                        $et_examination->fundus = '';//眼底|radio|1=>正常|2=>异常
+                        $et_examination->veryfundus = '';//眼底异常名称
+                }
+                //心电图
+                if(!empty($ecg_update))
+                {
+                             foreach ($et_ecg as $k=>$v)
+                             {
+	              if($ecg_update==$k)
+                                  {
+                                        $et_examination->ecg = $v[0];//心电图|radio|1=>正常|2=>异常
+                                        $et_examination->veryecg = $this->_request->getParam('veryecg');//心电图异常名称
+	               }
+                              }
+                }
+                else
+                {
+                     $et_examination->ecg ='';
+                     $et_examination->veryecg ='';
+                }
+                if(!empty($xrayfilm_update))
+                {
 		foreach ($et_xrayfilm as $k=>$v){
-			if($this->_request->getParam('xrayfilm')==$k){
+			if($xrayfilm_update==$k)
+                                                         {
 				$et_examination->xrayfilm = $v[0];//胸部x线片|radio|1=>正常|2=>异常
 				$et_examination->veryxrayfilm = $this->_request->getParam('veryxrayfilm');//胸部x线片异常 名称
 			}
 		}
-		foreach ($et_bc as $k=>$v){
-			if($this->_request->getParam('bc')==$k){
-				$et_examination->bc = $v[0];//B超|radio|1=>正常|2=>异常
-				$et_examination->verybc = $this->_request->getParam('verybc');//B超x线片异常名称
-			}
-		}
-		foreach ($et_csmear as $k=>$v){
-			if($this->_request->getParam('csmear')==$k){
-				$et_examination->csmear = $v[0];//宫颈涂片|radio|1=>正常|2=>异常
-				$et_examination->verycsmear = $this->_request->getParam('verycsmear');//宫颈涂片异常名称
-			}
-		}
+                }
+                else
+                {
+                    $et_examination->xrayfilm ='';//胸部x线片|radio|1=>正常|2=>异常
+	 $et_examination->veryxrayfilm ='';//胸部x线片异常 名称
+                }
+                //B超
+                if(!empty($bc_update))
+                {
+	foreach ($et_bc as $k=>$v)
+                    {
+                        if($bc_update==$k)
+                        {
+                                $et_examination->bc = $v[0];//B超|radio|1=>正常|2=>异常
+                                $et_examination->verybc = $this->_request->getParam('verybc');//B超x线片异常名称
+                        }
+	 }
+                }
+                else
+                {
+                    $et_examination->bc ='';
+                    $et_examination->verybc ='';
+                }
+              if(!empty($csmear_update))
+              {
+                    foreach ($et_csmear as $k=>$v)
+                    {
+	       if($csmear_update==$k)
+                            {
+                                $et_examination->csmear = $v[0];//宫颈涂片|radio|1=>正常|2=>异常
+                                $et_examination->verycsmear = $this->_request->getParam('verycsmear');//宫颈涂片异常名称
+	         }
+	}
+              }
+              else
+              {
+                   $et_examination->csmear='';
+                   $et_examination->verycsmear ='';
+              }
 		$et_examination->examination_other = $this->_request->getParam('examination_other');//其它|text
 		if(empty($uuid)){//添加
 			$et_examination->created = $time;//添加记录时间
@@ -1819,6 +1888,7 @@ class et_indexController  extends controller {
 			}
 		}else{//修改
 			$et_examination->whereAdd("uuid='{$uuid}'");
+                       // $et_examination->debugLevel(9);
 			if($et_examination->update(array($this->user['uuid'],'updated'))){
 				$update_token=true;//修改成功
 			}

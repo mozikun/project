@@ -23,7 +23,7 @@ class weixin_userController extends controller
         require_once (__SITEROOT . 'library/privilege.php');
         require_once __SITEROOT . "library/Models/organization.php";
         require_once __SITEROOT . "library/Models/weixin_user.php";
-        require_once (__SITEROOT . 'library/Myauth.php');
+        require_once (__SITEROOT . 'library/MyAuth.php');
         require_once __SITEROOT.'/library/custom/adodb-time.inc.php';//引入时间处理
 		require_once __SITEROOT.'/library/custom/comm_function.php';
 		require_once __SITEROOT."/library/custom/pager.php";

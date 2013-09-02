@@ -6,7 +6,7 @@
  */
 class wsmodule_wsmanageController extends controller{
    	     public function init(){   	
-   	     	require_once(__SITEROOT.'library/Myauth.php');
+   	     	require_once(__SITEROOT.'library/MyAuth.php');
 		    require_once(__SITEROOT.'library/privilege.php');
    	     	require_once __SITEROOT.'library/Models/ws_module.php';
    	     	require_once __SITEROOT.'library/Models/ws_info.php';

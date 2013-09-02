@@ -15,7 +15,7 @@ class doctor_indexController extends controller
 	{
 		$this->view->assign("baseUrl",__BASEPATH);
 		$this->view->basePath = $this->_request->getBasePath();
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
         //require_once(__SITEROOT.'library/privilege.php');
 		$this->auth=Zend_Auth::getInstance();
 		$this->identity = $this->auth->getIdentity();
@@ -41,7 +41,7 @@ class doctor_indexController extends controller
 	 */
 	public function topAction()
 	{
-	    require_once(__SITEROOT.'library/Myauth.php');
+	    require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 
 		if ($this->auth->hasIdentity()) {
@@ -104,7 +104,7 @@ class doctor_indexController extends controller
 	 */
 	public function leftdhAction()
 	{
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 
 		if ($this->auth->hasIdentity()) {

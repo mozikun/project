@@ -155,7 +155,7 @@ class web_indexController extends controller
         $article->updated=time();
         if(!$article->info)
         {
-            $article->info=cut_str(strip_tags($content),255);
+            $article->info=cut_str(trim(strip_tags($content)),100);
         }
         $article->source=$this->_request->getParam('source')?trim($this->_request->getParam('source')):"网络转载";
         if($uuid)

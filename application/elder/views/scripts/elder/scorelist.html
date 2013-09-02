@@ -91,11 +91,14 @@ table th{
     <tr class="headbg">
     	<th>&nbsp;    	
         </th>
-        <th title="身份证号" style="width:200px">
+        <th title="身份证号" style="width:140px">
         	身份证号
         </th>
 		<th title="姓名" >
         	姓名
+        </th>
+        <th title="地址" >
+        	地址
         </th>
         <th title="年龄">
         	年龄
@@ -133,6 +136,9 @@ table th{
 		<td >
         	<!--{$scoreList[scoreList].name}-->
         </td>
+        <td >
+        	<!--{$scoreList[scoreList].address}-->
+        </td>
         <td>
         	<!--{$scoreList[scoreList].age}-->
         </td>
@@ -165,13 +171,14 @@ table th{
         	<!--{$scoreList[scoreList].totalscore}-->
         </td>
 		<td >
-        	<a href="<!--{$basepath}-->elder/elder/add/uuid/<!--{$scoreList[scoreList].uuid}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="<!--{$basepath}-->elder/elder/del/actionname/dellone/uuid/<!--{$scoreList[scoreList].uuid}-->" onClick="return confirm('您确定删除吗?确定');">[删除]</a>
+        	<a href="<!--{$basepath}-->elder/elder/add/uuid/<!--{$scoreList[scoreList].uuid}-->">[编辑]</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="<!--{$basepath}-->elder/elder/del/actionname/dellone/uuid/<!--{$scoreList[scoreList].uuid}-->" onClick="return confirm('您确定删除吗?确定');">[删除]</a>&nbsp;&nbsp;&nbsp; 
+        	<a href="<!--{$basepath}-->elder/elder/print/uuid/<!--{$scoreList[scoreList].uuid}-->" target="_blank">[打印]</a>
         </td>
 	</tr>
 	  <!--{/section}-->
 	  <!--{$str}-->
 	  <tr>
-	  <td colspan="10" align="center">
+	  <td colspan="11" align="center">
 	   <input type="checkbox" value="" name="ifAll" id="ifAll" onClick="return checkselect();"/>全选      &nbsp;&nbsp;<!--{$page}-->&nbsp;&nbsp;<input type="submit" name="delAll" value="全部删除" class="inputbutton" onClick="	if(confirm('确定要删除这些内容吗？')){return true;}else{return false;}
 "/>
 	</td>

@@ -17,7 +17,7 @@ class iha_hisController extends controller
         require_once __SITEROOT . "library/Models/organization.php";
         require_once __SITEROOT . "library/Models/individual_core.php";
 
-        require_once (__SITEROOT . 'library/Myauth.php');
+        require_once (__SITEROOT . 'library/MyAuth.php');
         $this->view->assign("baseUrl", __BASEPATH);
         $this->view->assign("basePath", __BASEPATH);
     }

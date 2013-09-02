@@ -12,7 +12,7 @@ class document_docController extends controller{
 		//权限验证
 		require_once(__SITEROOT.'library/privilege.php');
 		require_once __SITEROOT."library/Models/individual_core.php";
-		//require_once(__SITEROOT.'library/Myauth.php');
+		//require_once(__SITEROOT.'library/MyAuth.php');
 		require_once(__SITEROOT.'library/Models/region.php');
 		require_once(__SITEROOT.'library/Models/organization.php');
 		require_once(__SITEROOT.'library/Models/staff_core.php');

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:41:39
+<?php /* Smarty version 2.6.14, created on 2013-08-30 10:13:17
          compiled from myquestion.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -53,6 +53,7 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
         </td>
 	</tr>
 	<tbody id="article">
+	<?php if ($this->_tpl_vars['result']): ?>
 	<?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['r']):
 ?>
@@ -75,21 +76,26 @@ views/js/calendar/WdatePicker.js" type="text/javascript"></script>
 web/ask/getanswer/id/<?php echo $this->_tpl_vars['r']['id']; ?>
 ">查看答案</a>
 			<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/edit/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+web/ask/editquestion/id/<?php echo $this->_tpl_vars['r']['id']; ?>
 ">修改</a>
 			<a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/ask/del/id/<?php echo $this->_tpl_vars['r']['id']; ?>
-">删除</a>
+web/ask/delquestion/id/<?php echo $this->_tpl_vars['r']['id']; ?>
+" onclick="return confirm('真的要删除吗？')">删除</a>
 			
         </td>
 	</tr>
 	<?php endforeach; endif; unset($_from); ?>
-	<tr><td colspan='4'><?php echo $this->_tpl_vars['page']; ?>
+	<?php else: ?>
+	<tr><td colspan='4'>暂无信息！</td></tr>
+	<?php endif; ?>
+	<tr><td colspan='4'>[<a style="color:red;padding:" href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/ask/index">添加新问题</a>]&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->_tpl_vars['page']; ?>
 </td></tr>
 	</tbody>
 </table>
 
 </body>
 </html>
-
+<script>
+</script>
 	

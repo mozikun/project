@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-29 14:21:50
+<?php /* Smarty version 2.6.14, created on 2013-09-02 09:39:33
          compiled from index.html */ ?>
 <!doctype html>
 <html>
@@ -19,7 +19,7 @@ views/js/jquery-1.4.2.js"></script>
     <div class="absorbs two"><a href="#" onclick="check(4);" title="慢病信息">慢病信息</a></div>
     <div class="absorbs three"><a href="#" onclick="check(2);"title="健康信息">健康信息</a></div>
     <div class="absorbs four"><a href="#" onclick="check(1);"title="个人信息">个人信息</a></div>
-    <div class="absorbs six"><a href="#" onclick="hospital()">找医院</a></div>
+    <div class="absorbs six"><a href="#" onclick="hospital()">医患互动</a></div>
     <div class="absorbs seven"><a href="#" onclick="check(7);" title="健康教育">健康教育</a></div>
     <div class="absorbs eight"><a href="#"onclick="check(5);" title="就诊查询">就诊查询</a></div>
 	<div class="absorbs five"><a href="#" onclick="check(6);" title="处方记录">处方记录</a></div>

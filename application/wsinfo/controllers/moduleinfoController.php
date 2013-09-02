@@ -8,7 +8,7 @@ class wsinfo_moduleinfoController extends controller{
 		require_once __SITEROOT.'library/Models/api_info.php';
                 require_once __SITEROOT.'library/Models/api_module.php';
 		require_once __SITEROOT.'application/wsinfo/models/Column.php';
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once(__SITEROOT.'library/privilege.php');
 	}
 	/**

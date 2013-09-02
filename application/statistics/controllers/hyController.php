@@ -23,7 +23,7 @@ class statistics_hyController extends controller {
         require_once __SITEROOT."library/Models/hypertension_follow_up.php";
         require_once __SITEROOT."library/Models/physical_base.php";//取血压结果
         require_once __SITEROOT."library/Models/clinical_history.php";
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once(__SITEROOT.'library/privilege.php');
 	}
     /**

@@ -5,7 +5,7 @@ class admindecision_buildingController extends controller{
 	private $cache_time=__CACHING_LEFTTIME;
 	public function  init(){
 		set_time_limit(0);
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		$this->auth = Zend_Auth::getInstance();
 		if ($this->auth->hasIdentity()) {
 			$this->user = $this->auth->getIdentity();

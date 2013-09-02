@@ -8,7 +8,7 @@ class wsinfo_infmanageController extends controller{
 		require_once __SITEROOT.'library/Models/ws_module.php';
 		require_once __SITEROOT.'library/Models/ws_info.php';
 		require_once __SITEROOT.'application/wsinfo/models/createColumn.php';
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once(__SITEROOT.'library/privilege.php');
 	}
 	/**

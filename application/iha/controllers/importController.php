@@ -23,7 +23,7 @@ class iha_importController extends controller {
 		//require_once(__SITEROOT.'library/Myauth.php');
 		require_once(__SITEROOT.'library/privilege.php');
 		require_once(__SITEROOT.'library/pinyin/pinyin.php');
-        require_once(__SITEROOT.'library/Myauth.php');
+        require_once(__SITEROOT.'library/MyAuth.php');
 	}
 	public function indexAction()
 	{

@@ -26,7 +26,7 @@ class decision_dataController extends controller
         phpFastCache::$storage = "auto";
         $this->view->assign("baseUrl",__BASEPATH);
         $this->view->assign("basePath", __BASEPATH);
-        require_once(__SITEROOT.'library/Myauth.php');
+        require_once(__SITEROOT.'library/MyAuth.php');
     }
     /**
      * decision_dataController::dataAction()

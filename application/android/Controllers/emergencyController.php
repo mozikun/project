@@ -14,7 +14,7 @@ class android_emergencyController extends controller
         require_once(__SITEROOT.'library/Models/staff_core.php');//用户核心表
 		require_once(__SITEROOT.'library/Models/staff_archive.php');//用户扩展表
 		require_once(__SITEROOT.'library/Models/zhibao.php');//用户扩展表
-		require_once(__SITEROOT.'library/Myauth.php');
+		require_once(__SITEROOT.'library/MyAuth.php');
 		require_once (__SITEROOT . '/library/custom/comm_function.php');
 		 require_once(__SITEROOT . 'library/custom/pager.php'); //分页表
 		$this->auth=Zend_Auth::getInstance();
