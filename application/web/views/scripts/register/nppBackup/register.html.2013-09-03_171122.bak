@@ -1,0 +1,67 @@
+       <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">      
+			<form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text" name="hospital">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+		  </div>
+          </div>
+<script>
+$(document).ready(function(){
+	$("select[name='hospital']").click(function(){
+	  gethospital();
+	});
+});	
+//获取医院列表
+function gethospital(){
+	$.ajax({
+		type:"post",
+		url:"<!--{$basePath}-->web/register/gethospital",
+		beforSend:function(){
+			$("select[name='hospital']").html("<option>获取中,请稍后...</option>");
+		},
+		dataType:"json",
+		success:function(info){
+			var str='';
+			for(i=0;i<info.length;i++){
+				str+="<option value='"+info[i].id+"'>"+info[i].name+"</option>";
+			}
+			$("select[name='hospital']").html(str);
+		}
+	});
+}
+	
+</script>		  

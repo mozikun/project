@@ -95,4 +95,12 @@ class Tet_lifecase_assessment extends dao_oracle{
 	 **/
  	 public $org_id;
 	 public $_org_id_type='varchar2';
+	/**
+ 	 * 注释:医生档案号
+	 * 
+	 * 
+	 * @var VARCHAR2(30)
+	 **/
+ 	 public $staff_id;
+	 public $_staff_id_type='varchar2';
 }

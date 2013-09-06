@@ -1,0 +1,95 @@
+<style>
+ #tips{
+	border:1px solid red;    
+    width:600px;
+	height:300px;
+	overflow:auto;
+    text-align:center;
+    padding:6px;  
+    word-wrap: break-word;
+	background-color:wihte;
+    position:absolute;
+    z-index:99;
+    display:none;    /*使div初始化时隐藏*/
+ }
+ #tips li{
+	width:180px;
+	float:left;
+	list-style:none;
+ }
+</style>		
+
+
+	  <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">      
+			<form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><input name="yiyuan"/></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+		  </div>
+          </div>
+<div id="tips"><ul><li>dfsdf</li><li>fsdfsd</li><li>sfddfd</li><li>fsdfsdfsd</li><li>fsdfsdfsdf</li><li></li><li></li><li></li><li></li></ul></div>		  
+		  
+<script>
+$(document).ready(function(){
+	$("input[name='yiyuan']").click(function(){
+	var input=$(this);
+	$("#tips").css("top",input.offset().top+input.height()+5+"px").css("left",input.offset().left).show();
+	input.blur(function(){
+		$("#tips").hide();
+	});
+	 gethospital();
+	});
+});	
+//获取医院列表
+function gethospital(){
+	$.ajax({
+		type:"post",
+		url:"<!--{$basePath}-->web/register/gethospital",
+		beforeSend:function(){
+			$("#tips").css("width","200px").css("height","50px").html("<ul><li><img src='<!--{$basePath}-->views/images/load.gif'/></li></ul> ");
+		},
+		dataType:"json",
+		success:function(info){
+			var str="";
+			for(i=0;i<info.length;i++){
+				str+="<li>"+info[i].name+"</li>";
+			}
+			$("#tips").html("<ul><a>"+str+"</a></ul>");
+		}
+		
+	});
+}
+	
+</script>		  

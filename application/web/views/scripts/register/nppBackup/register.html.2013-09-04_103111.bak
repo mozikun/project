@@ -1,0 +1,117 @@
+       <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_conts">      
+			<form id="form2" action="#">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">预约时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">地区：</td>
+                      <td><select class="bv_selecd">
+                          <option>选择地区</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text" name="hospital">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+		  </div>
+          </div>
+		  <style type="text/css">
+*{ padding:0; margin:0; list-style-type:none;}
+body{font-family: "̎ͥ";font-size: 12px;}
+#t_con{ width:460px; line-height:20px; color:#00F; cursor:pointer; margin:20px auto 0 auto; border:1px #09C dashed; text-align:center;}
+#t_area1{ width:268px; height:118px;overflow:hidden; border:2px #09C solid; background-color:#F1F9FC; margin:10px auto; padding-bottom:10px;display:none; }
+#t_area{ width:268px; height:118px;overflow:hidden; border:2px #09C solid; background-color:#F1F9FC; margin:10px auto; padding-bottom:10px;display:none; }
+#t_area ul{ margin:10px 0;}
+#t_area li{ width:60px; height:18px; float:left; display:inline; text-align:center; line-height:18px; margin:4px auto auto 5px; }
+#t_area li a{ color:#fff; text-decoration:none;}
+#t_area li a:hover,a:active{ color:#fff; text-decoration:underline;}
+</style>
+<script type="text/javascript">
+function showarea(){
+	var con = document.getElementById("t_area");
+	var arealist = con.getElementsByTagName("li");
+	var g = document.getElementById("t_con");
+	var val2 = "seeeeeee";
+	con.style.display = "block";
+	for (var i=0;i<arealist.length;i++){
+	arealist[i].onmouseover = function(){this.style.backgroundColor = "red"}
+	arealist[i].onmouseout = function(){this.style.backgroundColor = "#F1F9FC"}
+	arealist[i].onclick = function(){
+	 	g.innerHTML = this.innerHTML ;
+	document.getElementById("textnew").innerHTML=g.innerHTML;//赋值给下面一个form的值
+	document.getElementById("ttt").value  = document.getElementById("t_con").innerHTML;//赋值给下面一个form的值
+		con.style.display = "none";
+		}
+		}	
+	}
+function offarea(){      //dissappeared when mouse move out this div
+	var con = document.getElementById("t_area");
+	con.style.display = "none";
+	}
+var timer;
+</script>
+</head>
+<body>
+<div id="t_con" onClick="showarea();clearTimeout(timer);return false;" onmouseout="timer=setTimeout('offarea()',3500);">
+ 点击查看详细说明</div>
+<div id="t_area" onmouseover="showarea() ;clearTimeout(timer);return false;" onmouseout="offarea();clearTimeout(timer)">
+    <ul>
+        <li>ASP源码</li>
+       <li>PHP源码</li>
+        <li>JAVA源码</li>
+       <li>Android源码</li>
+    </ul>
+</div>
+</body></td>
+	  </tr>
+	</table>
+<script>
+$(document).ready(function(){
+	$("select[name='hospital']").click(function(){
+	  gethospital();
+	});
+});	
+//获取医院列表
+function gethospital(){
+	$.ajax({
+		type:"post",
+		url:"<!--{$basePath}-->web/register/gethospital",
+		beforeSend:function(){
+			$("select[name='hospital']").html("<option>获取中,请稍后...</option>");
+		},
+		dataType:"json",
+		success:function(info){
+			$("select[name='hospital']").html("");
+			for(i=0;i<info.length;i++){
+				$("select[name='hospital']").append("<option value='"+info[i].id+"'>"+info[i].name+"</option>");
+			}
+			
+		}
+	});
+}
+	
+</script>		  

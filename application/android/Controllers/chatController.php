@@ -22,8 +22,7 @@ class android_chatController extends controller{
 		}
 		
 	}
-	
-	 
+
 	//聊天窗口
 	public function chatAction(){
 	
@@ -48,8 +47,7 @@ class android_chatController extends controller{
 				}
 				$title="正在和".$str."的居民【".$name."】交流";
 			}
-			
-		
+
 			$staff_core=new Tstaff_core();
 			$staff_core->whereAdd("id='$receiver_id'");
 			if($staff_core->count()>0){
@@ -208,9 +206,7 @@ class android_chatController extends controller{
 			$i++;
 			
 		}
-		echo json_encode($result);
-		
+		echo json_encode($result);	
 	}
-	
 }
 ?>

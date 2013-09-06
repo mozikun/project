@@ -15,6 +15,7 @@ class web_registerController extends controller
     {
         require_once __SITEROOT."library/Models/organization.php";
         require_once __SITEROOT."library/Models/appointment_register.php";
+        require_once __SITEROOT."library/Models/department_doctor.php";
         require_once __SITEROOT."library/Models/staff_core.php";
         require_once __SITEROOT."library/Models/web_sort.php";
         require_once __SITEROOT."library/Models/web_article_base.php";
@@ -301,5 +302,69 @@ class web_registerController extends controller
 			echo "预约失败";
 		}
 	}
-   
+   /**
+     * web_registerController::gethospitalAction()
+     * 
+     * 查询机构
+     * 
+     * @return void
+     */
+	public function gethospitalAction(){
+		$organization=new Torganization();
+		$organization->orderby("id");
+		$organization->find();
+		$result=array();
+		$i=0;
+		while($organization->fetch()){
+			$result[$i]['id']=$organization->id;
+			$result[$i]['name']=$organization->zh_name;
+			$i++;
+		}
+		echo json_encode($result);
+	}
+	 /**
+     * web_registerController::getdepartmentAction()
+     * 
+     * 根据医院查询科室
+     * 
+     * @return void
+     */
+	public function getdepartmentAction(){
+		$hospital_id=$this->_request->getParam("hospital_id");
+		$department=new Tdepartment();
+		$department->whereAdd("org_id='$hospital_id'");
+		$department->find();
+		$result=array();
+		$i=0;
+		while($department->fetch()){
+			$result[$i]['id']=$department->uuid;
+			$result[$i]['name']=$department->department_name;
+			$i++;
+		}
+		echo json_encode($result);
+	} 
+	/**
+     * web_registerController::getdoctorAction()
+     * 
+     * 根据医院查询科室
+     * 
+     * @return void
+     */
+	public function getdoctorAction(){
+		$department_id=$this->_request->getParam("department_id");
+		$department_doctor=new Tdepartment_doctor();
+		$staff_core=new Tstaff_core();
+		$department_doctor->joinAdd("inner",$department_doctor,$staff_core,"doctor_id","zl_staff_code");
+		$department_doctor->whereAdd("department_id='$department_id'");
+		//$department_doctor->debug(1);
+		$department_doctor->find();
+		$result=array();
+		$i=0;
+		while($department_doctor->fetch()){
+			$result[$i]['id']=$staff_core->id;
+			$result[$i]['name']=$staff_core->name_login;
+			$i++;
+		}
+		echo json_encode($result);
+	} 
 }

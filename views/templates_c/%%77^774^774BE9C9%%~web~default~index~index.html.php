@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-30 10:33:32
+<?php /* Smarty version 2.6.14, created on 2013-09-03 16:29:16
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -579,7 +579,7 @@ $this->_sections['jkjy']['first']      = ($this->_sections['jkjy']['iteration'] 
 $this->_sections['jkjy']['last']       = ($this->_sections['jkjy']['iteration'] == $this->_sections['jkjy']['total']);
 ?>
                 <li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/default/view/uuid/<?php echo $this->_tpl_vars['jkjy']['articles'][$this->_sections['jkjy']['index']]['uuid']; ?>
+web/default/jkjyhd/uuid/<?php echo $this->_tpl_vars['jkjy']['articles'][$this->_sections['jkjy']['index']]['uuid']; ?>
 ">·<?php echo $this->_tpl_vars['jkjy']['articles'][$this->_sections['jkjy']['index']]['title']; ?>
 </a></li>
               <?php endfor; else: ?>
