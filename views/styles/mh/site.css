@@ -3,7 +3,7 @@
 body, td, th { font-size: 12px; color: #333; font-family: "微软雅黑", "宋体", "新宋体", "黑体", "楷体"; }
 a:link, a:visited, a:active { color: #333; text-decoration: none; }
 a:hover { color: #301B94; text-decoration: underline; }
-.bbk:after { content: ""; display: block; height: 0; clear: both; visibility: hidden; overflow:hidden; }
+.bbk:after { content: ""; display: block; height: 0; clear: both; visibility: hidden;  }
 img, a { border:none; }
 *{ margin:0px; padding:0px; }
 ol, ul, li, di, dt, dd { list-style:none; }

@@ -313,9 +313,18 @@ class router{
 						$this->controller=$this->controller_name.$controller_suffix;
 						$this->controller_file=$temp_file_name;
 						$controller_file_exist=true;
-						//echo $this->controller;
-						//echo "aaaa<br />";
 					}
+                    //我好笨 检测不规范的目录名，项目中部分首字母大写，部分没有写
+                    if(!$controller_file_exist && !file_exists($temp_file_name))
+                    {
+                        $temp_file_name=$this->root.str_replace('controllers','Controllers',$this->modules[$this->module_name]).$this->controller_name.$controller_suffix.$php_file_suffix;
+                        if(file_exists($temp_file_name) and !is_dir($temp_file_name))
+                        {
+    						$this->controller=$this->controller_name.$controller_suffix;
+    						$this->controller_file=$temp_file_name;
+    						$controller_file_exist=true;
+					    }
+                    }
 				}
 			}
 		}

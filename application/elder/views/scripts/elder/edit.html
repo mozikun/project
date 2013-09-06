@@ -156,9 +156,18 @@ span{
 		  </tr>
 		  <tr align="left" onmousemove="this.className='mouseover2'" onmouseout="this.className='mouseout'">
 		  	<td>评估时间</td>
-		  	<td colspan="5"  align="left"><input type="text" name="time" id="time" value="<!--{$created}-->" style="border:none;width:100px;
+		  	<td align="left"><input type="text" name="time" id="time" value="<!--{$created}-->" style="border:none;width:100px;
 	height:15px;" onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"/>
 		  	  </td>
+		  	<td>责任医生</td>
+		  	<td colspan="3" align="left">
+		  		<select name="staff_id" >
+		  			<option value="">请选择</option>
+		  			<!--{section loop=$response_doctor name=v}-->
+		  			<option value="<!--{$response_doctor[v].user_id}-->" <!--{if $fdoctor==$response_doctor[v].user_id}--> selected='selected' <!--{/if}--> ><!--{$response_doctor[v].name_real}--></option>
+		  			<!--{/section}-->
+		  		</select>
+		  	</td>
 		  </tr>
 		  <tr>
 		  	<td colspan="6">

@@ -18,7 +18,7 @@ else{
 //setBasePath();
 require_once("./config/config.php");
 //设计查找文件路径
-set_include_path(__SITEROOT."library".";".get_include_path());
+set_include_path(__SITEROOT."library".PATH_SEPARATOR.get_include_path());
 require_once(__SITEROOT."library/router.php");
 require_once(__SITEROOT."library/function.php");
 require_once(__SITEROOT."library/controller.php");//相对于index.php的文件位置

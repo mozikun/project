@@ -1,5 +1,5 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-06 17:01:45
-         compiled from ./register.html */ ?>
+<?php /* Smarty version 2.6.14, created on 2013-09-06 17:08:18
+         compiled from ../register/register.html */ ?>
 <style>
  #tips{
 	border:10px solid rgb(55,119,188);    

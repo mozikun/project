@@ -554,6 +554,12 @@ class elder_elderController extends controller
 	 */
 	public function addAction()
 	{
+		//获取当前机构医生
+		$org_region_domain                   = $this->user['current_region_path_domain'];
+		$responseDoctorArray                 = region_users($org_region_domain);
+		$this->view->response_doctor         = $responseDoctorArray;
+
+//		var_dump($responseDoctorArray);
 		$uuid=$this->_request->getParam('uuid');
 		$editid=$this->_request->getParam('editid');//获取从体检表传过来的个人档案号 或者从表单提交上来的个人档案号
 		$individual_session=new Zend_Session_Namespace("individual_core");
@@ -574,6 +580,7 @@ class elder_elderController extends controller
 		$time = time();//系统日期
 		if(empty($uuid))
 		{
+			$this->view->fdoctor=$this->user['uuid'];
 			//判断添加从体检表传递过来居民的评估表，还是添加状态栏选中居民的评估表
 			if(empty($editid))
 			{
@@ -590,6 +597,7 @@ class elder_elderController extends controller
 					$lifecase = new Tet_lifecase_assessment();
 					$lifecase->uuid = $lifecase_id;//编号
 					$lifecase->id = $serial_number;//个人档案号
+					$lifecase->staff_id=$this->_request->getParam('staff_id');
 					$lifecase->meal = $this->_request->getParam('meal1');//进餐得分
 					$lifecase->cleanup = $this->_request->getParam('meal2');//梳洗得分
 					$lifecase->dress = $this->_request->getParam('meal3');//穿衣得分
@@ -622,6 +630,7 @@ class elder_elderController extends controller
 					$lifecase_id=uniqid('et',true);//档案编号
 					$lifecase->uuid = $lifecase_id;//编号
 					$lifecase->id = $this->_request->getParam('editid');//个人档案号	
+					$lifecase->staff_id=$this->_request->getParam('staff_id');
 					$lifecase->meal = $this->_request->getParam('meal1');//进餐得分
 					$lifecase->cleanup = $this->_request->getParam('meal2');//梳洗得分
 					$lifecase->dress = $this->_request->getParam('meal3');//穿衣得分
@@ -655,6 +664,7 @@ class elder_elderController extends controller
 			$lifecase_get->whereAdd("uuid='{$uuid}'");
 			$lifecase_get->find(true);
 			$this->view->uuid=$lifecase_get->uuid;
+			$this->view->fdoctor=$lifecase_get->staff_id;
 			$this->view->meal = $lifecase_get->meal;
 			$this->view->cleanup = $lifecase_get->cleanup;
 			$this->view->dress = $lifecase_get->dress;
@@ -662,12 +672,13 @@ class elder_elderController extends controller
 			$this->view->activity = $lifecase_get->activity;
 			$this->view->totalscore = $lifecase_get->totalscore;
 			$this->view->created=date("Y-m-d",$lifecase_get->created);
-			
+
 			if (!empty($_POST['submit']))
 			{
 				$lifecase = new Tet_lifecase_assessment();
 				$lifecase->uuid = $uuid;//编号
 //				$lifecase->id = $serial_number;//个人档案号
+				$lifecase->staff_id=$this->_request->getParam('staff_id');//医生id
 				$lifecase->meal = $this->_request->getParam('meal1');//进餐得分
 				$lifecase->cleanup = $this->_request->getParam('meal2');//梳洗得分
 				$lifecase->dress = $this->_request->getParam('meal3');//穿衣得分
@@ -890,6 +901,10 @@ class elder_elderController extends controller
     public function printAction()
     {
     	$uuid=$this->_request->getParam("uuid");
+    	//获取当前机构医生
+		$org_region_domain                   = $this->user['current_region_path_domain'];
+		$responseDoctorArray                 = region_users($org_region_domain);
+		//$this->view->response_doctor         = $responseDoctorArray;
     	//获取姓名身份证号
     	if($uuid)
     	{
@@ -905,6 +920,16 @@ class elder_elderController extends controller
 			$lifecase_get->whereAdd("uuid='{$uuid}'");
 			$lifecase_get->find(true);
 			$this->view->uuid=$lifecase_get->uuid;
+			$fdoctor=$lifecase_get->staff_id;
+			foreach ($responseDoctorArray as $v)
+			{
+				if($v['user_id']==$fdoctor)
+				{
+					$this->view->doctor=$v['name_real'];
+				}
+				
+			}
+			
 			$this->view->meal = $lifecase_get->meal;
 			$this->view->cleanup = $lifecase_get->cleanup;
 			$this->view->dress = $lifecase_get->dress;

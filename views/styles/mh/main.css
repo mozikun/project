@@ -1,8 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 body { background-color: #03355a; }
-.content { width:100%; background-size-x:100%; margin: 0 auto; background: url(../../images/mh/ws_00.png) no-repeat top center; }
-.inner { width: 980px; margin: 0 auto; }
+.content { width:100%; background-size-x:100%; margin: 0 auto; background: url(../../images/mh/ws_00.png) no-repeat top center;  }
+.inner { width: 980px; margin: 0 auto;}
 .header { height: 86px; }
 .logo { float: left; height: 86px; width: 315px; }
 .search { float: right; height: 86px; width: 324px; }

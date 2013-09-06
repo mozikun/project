@@ -1674,7 +1674,7 @@ function get_doctor_list($org_region_domain,$current_doctor)
 	require_once __SITEROOT."library/Models/staff_archive.php";
 	require_once __SITEROOT."library/Models/organization.php";
 	//引入权限
-	require_once(__SITEROOT.'library/Myauth.php');
+	require_once(__SITEROOT.'library/MyAuth.php');
 	$auth = Zend_Auth::getInstance();
 	$user = $auth->getIdentity();
 	$org_region=$user['current_region_path'];
@@ -1736,7 +1736,7 @@ function get_doctor_list($org_region_domain,$current_doctor)
 function get_region_path($param,$search="")
 {
 	//引入权限
-	require_once(__SITEROOT.'library/Myauth.php');
+	require_once(__SITEROOT.'library/MyAuth.php');
 	$auth = Zend_Auth::getInstance();
 	$user = $auth->getIdentity();
 	$org_region=$user['current_region_path'];
