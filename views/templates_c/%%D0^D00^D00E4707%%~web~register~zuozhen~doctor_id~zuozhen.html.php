@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-04 09:29:35
+<?php /* Smarty version 2.6.14, created on 2013-09-11 15:14:44
          compiled from zuozhen.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -47,6 +47,8 @@ views/js/school.js"></script>
 } 
 
 .overlay{position:fixed;top:0;right:0;bottom:0;left:0;z-index:998;width:100%;height:100%;_padding:0 20px 0 0;background:#f6f4f5;display:none;}
+
+
 
 </style>
 
@@ -102,6 +104,110 @@ line-height:20px;
 }
 .userinfo input{
 	margin-top:5px;
+}
+
+/* CSS Document */		
+
+/* BUTTONS */
+
+.buttons a, .buttons button{
+    display:block;
+    float:left;
+    margin:0 7px 0 0;
+    background-color:#f5f5f5;
+    border:1px solid #dedede;
+    border-top:1px solid #eee;
+    border-left:1px solid #eee;
+
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:12px;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    color:#565656;
+    cursor:pointer;
+    padding:5px 10px 6px 7px; /* Links */
+}
+.buttons button{
+    width:auto;
+    overflow:visible;
+    padding:4px 10px 3px 7px; /* IE6 */
+}
+.buttons button[type]{
+    padding:5px 10px 5px 7px; /* Firefox */
+    line-height:17px; /* Safari */
+}
+*:first-child+html button[type]{
+    padding:4px 10px 3px 7px; /* IE7 */
+}
+.buttons button img, .buttons a img{
+    margin:0 3px -3px 0 !important;
+    padding:0;
+    border:none;
+    width:16px;
+    height:16px;
+}
+
+/* STANDARD */
+
+button:hover, .buttons a:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.buttons a:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
+}
+
+/* POSITIVE */
+
+button.positive, .buttons a.positive{
+    color:#529214;
+	float:right;
+}
+.buttons a.positive:hover, button.positive:hover{
+    background-color:#E6EFC2;
+    border:1px solid #C6D880;
+    color:#529214;
+}
+.buttons a.positive:active{
+    background-color:#529214;
+    border:1px solid #529214;
+    color:#fff;
+}
+
+/* NEGATIVE */
+
+.buttons a.negative, button.negative{
+    color:#d12f19;
+}
+.buttons a.negative:hover, button.negative:hover{
+    background:#fbe3e4;
+    border:1px solid #fbc2c4;
+    color:#d12f19;
+}
+.buttons a.negative:active{
+    background-color:#d12f19;
+    border:1px solid #d12f19;
+    color:#fff;
+}
+
+/* REGULAR */
+
+button.regular, .buttons a.regular{
+    color:#336699;
+}
+.buttons a.regular:hover, button.regular:hover{
+    background-color:#dff4ff;
+    border:1px solid #c2e1ef;
+    color:#336699;
+}
+.buttons a.regular:active{
+    background-color:#6299c5;
+    border:1px solid #6299c5;
+    color:#fff;
 }
 </style>
 <!--[if IE]>
@@ -294,17 +400,29 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 			<td width="6%" style="background-color:#E6E6FA; width:6%">下午</td>
 		</tr>
 		<tr>
+			<?php if ($this->_tpl_vars['result']): ?>
 			<?php $_from = $this->_tpl_vars['result']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
-			<td ><?php if ($this->_tpl_vars['v']['shangwu'] == 1): ?><a href="#" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
-',1)">预约</a><?php endif; ?></td>
-			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?><a href="#" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
-',2)">预约</a><?php endif; ?></td>
+			<td ><?php if ($this->_tpl_vars['v']['shangwu'] == 1): ?><a href="#" style="color:#529214;" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
+',1)">预约</a><?php endif; ?>&nbsp;</td>
+			<td><?php if ($this->_tpl_vars['v']['xiawu'] == 1): ?><a href="#" style="color:#529214;" onclick="pop('<?php echo $this->_tpl_vars['v']['id']; ?>
+',2)">预约</a><?php endif; ?>&nbsp;</td>
 			<?php endforeach; endif; unset($_from); ?>
+			<?php else: ?>
+			<td colspan='14'>暂无该医生的号源信息！</td>
+			<?php endif; ?>
 		</tr>
 		
 	</table>
+<div class="buttons">
+    <button type="submit" onclick="history.go(-1);" class="positive" name="save">
+      
+        返回
+    </button>
+
+   
+</div>
 		<div class='load' style="display:none;margin:10px;text-align:center;" >
 			<span ><img src='<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/load.gif'/></span>

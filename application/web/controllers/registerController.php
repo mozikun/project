@@ -312,6 +312,7 @@ class web_registerController extends controller
 	public function gethospitalAction(){
 		$organization=new Torganization();
 		$organization->orderby("id");
+		$organization->whereAdd("type>2");
 		$organization->find();
 		$result=array();
 		$i=0;

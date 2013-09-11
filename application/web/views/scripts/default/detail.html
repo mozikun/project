@@ -9,20 +9,18 @@
       <div class="list_body">
         <div class="list_left">
           <div class="bm_right notright">
-            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康体检查询</span> </div>
             <div class="bv_conts">
-              <form id="form2" action="#">
+              <form id="form2" method="post" action="http://172.16.11.246/loging/index/user">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
                   <tbody>
                     <tr>
-                      <td width="29%" align="right">预约时间：</td>
+                      <td width="29%" align="right">体检时间：</td>
                       <td width="71%"><input type="text" name="" class="bv_text"></td>
                     </tr>
                     <tr>
-                      <td align="right">地区：</td>
-                      <td><select class="bv_selecd">
-                          <option>选择地区</option>
-                        </select></td>
+                      <td align="right">体检编号：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
                     </tr>
                     <tr>
                       <td align="right">医院：</td>
@@ -49,6 +47,7 @@
               </form>
             </div>
           </div>
+          <!--{include file='../register/register.html'}-->
           <div class="healthy">
             <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
             <div class="bv_conts">
@@ -122,8 +121,8 @@
         <div class="list_right">
           <div class="lr_ones four">
             <h1 class="four_title">
-              <div class="ftext"><!--{if $tips.next}--><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$tips.next}-->">下一条》</a><!--{else}-->没有了<!--{/if}--></div>
-              <div class="fpres"><!--{if $tips.before}--><a href="<!--{$basePath}-->web/default/view/uuid/<!--{$tips.before}-->">《上一条</a><!--{else}-->没有了<!--{/if}--></div>
+              <div class="ftext"><!--{if $tips.next}--><a href="<!--{$basePath}-->web/default/<!--{if $article->sort_id}-->view<!--{else}-->jkjycf<!--{/if}-->/uuid/<!--{$tips.next}-->">下一条》</a><!--{else}-->没有了<!--{/if}--></div>
+              <div class="fpres"><!--{if $tips.before}--><a href="<!--{$basePath}-->web/default/<!--{if $article->sort_id}-->view<!--{else}-->jkjycf<!--{/if}-->/uuid/<!--{$tips.before}-->">《上一条</a><!--{else}-->没有了<!--{/if}--></div>
               <!--{$article->title}--></h1>
             <div class="four_conts">
               <div class="fc_time"> 日期：<!--{$article->updated}--> 　　来源：<!--{$article->source}--> </div>

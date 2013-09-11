@@ -209,26 +209,75 @@ class web_defaultController extends controller
                     $sort_list[$i]['uuid']=$web_sort->uuid;
                     $sort_list[$i]['py']=$web_sort->sortname_py;
                     $sort_list[$i]['name']=$web_sort->sortname;
-                    //取文章列表
-                    $article=new Tweb_article_base();
-                    $sort=new Tweb_sort();
-                    $article->joinAdd('left',$article,$sort,'sort_id','uuid');
-                    $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$web_sort->path."%')");
-                    $article->orderBy("web_article_base.updated desc");
-                    $article->limit(0,6);
-                    $article->find();
-                    $x=0;
-                    while($article->fetch())
+                    //单独取健康教育
+                    if($web_sort->sortname_py=='jkjyhd' || $web_sort->sortname_py=='jkjycf')
                     {
-                        $sort_list[$i]['articles'][$x]['uuid']=$article->uuid;
-                        $sort_list[$i]['articles'][$x]['sortname']=$sort->sortname;
-                        $sort_list[$i]['articles'][$x]['title']=cut_str($article->title,40);
-                        $sort_list[$i]['articles'][$x]['info']=cut_str($article->info,42);
-                        $sort_list[$i]['articles'][$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
-                        $x++;
+                        if($web_sort->sortname_py=='jkjyhd')
+                        {
+                            require_once __SITEROOT."library/Models/health_education.php";
+                            $health=new Thealth_education();
+                            $health->whereAdd("activity_address is not null");
+                            $health->orderBy("activity_time desc");
+                            $health->limit(0,6);
+                            $health->find();
+                            $x=0;
+                            while($health->fetch())
+                            {
+                                $sort_list[$i]['articles'][$x]['uuid']=$health->uuid;
+                                $sort_list[$i]['articles'][$x]['sortname']="健康教育活动";
+                                $sort_list[$i]['articles'][$x]['title']=($health->activity_time?date("Y-m-d",$health->activity_time):"").'在'.$health->activity_address."举办健康教育活动";
+                                $sort_list[$i]['articles'][$x]['info']=$sort_list[$i]['articles'][$x]['title'];
+                                $sort_list[$i]['articles'][$x]['updated']=$health->updated?date('Y-m-d',$health->updated):'';
+                                $x++;
+                            }
+                            $health->free_statement();
+                            $i++;
+                        }
+                        if($web_sort->sortname_py=='jkjycf')
+                        {
+                            require_once __SITEROOT."library/Models/health_prescription.php";
+                            $health=new Thealth_prescription();
+                            //$health->whereAdd("status_type != 1");
+                            $health->orderBy("edit_time desc");
+                            $health->limit(0,6);
+                            $health->find();
+                            $x=0;
+                            while($health->fetch())
+                            {
+                                $sort_list[$i]['articles'][$x]['uuid']=$health->uuid;
+                                $sort_list[$i]['articles'][$x]['sortname']="健康教育处方";
+                                $sort_list[$i]['articles'][$x]['title']=cut_str($health->title,40);
+                                $sort_list[$i]['articles'][$x]['info']=$sort_list[$i]['articles'][$x]['title'];
+                                $sort_list[$i]['articles'][$x]['updated']=$health->edit_time?date('Y-m-d',$health->edit_time):'';
+                                $x++;
+                            }
+                            $health->free_statement();
+                            $i++;
+                        }
                     }
-                    $article->free_statement();
-                    $i++;
+                    else
+                    {
+                        //取文章列表
+                        $article=new Tweb_article_base();
+                        $sort=new Tweb_sort();
+                        $article->joinAdd('left',$article,$sort,'sort_id','uuid');
+                        $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$web_sort->path."%')");
+                        $article->orderBy("web_article_base.updated desc");
+                        $article->limit(0,6);
+                        $article->find();
+                        $x=0;
+                        while($article->fetch())
+                        {
+                            $sort_list[$i]['articles'][$x]['uuid']=$article->uuid;
+                            $sort_list[$i]['articles'][$x]['sortname']=$sort->sortname;
+                            $sort_list[$i]['articles'][$x]['title']=cut_str($article->title,40);
+                            $sort_list[$i]['articles'][$x]['info']=cut_str($article->info,42);
+                            $sort_list[$i]['articles'][$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
+                            $x++;
+                        }
+                        $article->free_statement();
+                        $i++;
+                    }
                 }
                 $out = $links->subPageCss2();
                 $this->view->assign("pager",$out);
@@ -237,31 +286,97 @@ class web_defaultController extends controller
             }
             else
             {
-                //文章列表
-                $article=new Tweb_article_base();
-                $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$path."%')");
-                $nums=$article->count();
-        		$pageCurrent = intval($this->_request->getParam('page'));
-        		$pageCurrent = $pageCurrent?$pageCurrent:1;
-        		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
-        		$links = new SubPages(__ROWSOFPAGE,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
-        		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
-        		$startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
-        		$article->limit($startnum,__ROWSOFPAGE);
-                $article->orderBy("web_article_base.updated desc");
-                $article->limit($startnum,__ROWSOFPAGE);
-                $article->find();
-                $x=0;
-                $articles=array();
-                while($article->fetch())
+                //单独取健康教育
+                if($web_sort->sortname_py=='jkjyhd' || $web_sort->sortname_py=='jkjycf')
                 {
-                    $articles[$x]['uuid']=$article->uuid;
-                    $articles[$x]['title']=cut_str($article->title,45);
-                    $articles[$x]['info']=cut_str($article->info,42);
-                    $articles[$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
-                    $x++;
+                        if($web_sort->sortname_py=='jkjyhd')
+                        {
+                            require_once __SITEROOT."library/Models/health_education.php";
+                            $health=new Thealth_education();
+                            $health->whereAdd("activity_address is not null");
+                            $nums=$health->count();
+                      		$pageCurrent = intval($this->_request->getParam('page'));
+                      		$pageCurrent = $pageCurrent?$pageCurrent:1;
+                      		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
+                      		$links = new SubPages(__ROWSOFPAGE,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
+                      		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
+                      		$startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
+                      		$health->limit($startnum,__ROWSOFPAGE);
+                            $health->orderBy("activity_time desc");
+                            $health->find();
+                            $x=0;
+                            $articles=array();
+                            while($health->fetch())
+                            {
+                                $articles[$x]['uuid']=$health->uuid;
+                                $articles[$x]['sortname']="健康教育活动";
+                                $articles[$x]['sort_id']='jkjyhd';
+                                $articles[$x]['title']=($health->activity_time?date("Y-m-d",$health->activity_time):"").'在'.$health->activity_address."举办健康教育活动";
+                                $articles[$x]['info']=$articles[$x]['title'];
+                                $articles[$x]['updated']=$health->updated?date('Y-m-d',$health->updated):'';
+                                $x++;
+                            }
+                            $health->free_statement();
+                        }
+                        if($web_sort->sortname_py=='jkjycf')
+                        {
+                            require_once __SITEROOT."library/Models/health_prescription.php";
+                            $health=new Thealth_prescription();
+                            //$health->whereAdd("status_type != 1");
+                            $nums=$health->count();
+                      		$pageCurrent = intval($this->_request->getParam('page'));
+                      		$pageCurrent = $pageCurrent?$pageCurrent:1;
+                      		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
+                      		$links = new SubPages(__ROWSOFPAGE,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
+                      		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
+                      		$startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
+                      		$health->limit($startnum,__ROWSOFPAGE);
+                            $health->orderBy("edit_time desc");
+                            $health->find();
+                            $x=0;
+                            $articles=array();
+                            while($health->fetch())
+                            {
+                                $articles[$x]['uuid']=$health->uuid;
+                                $articles[$x]['sort_id']='jkjycf';
+                                $articles[$x]['sortname']="健康教育处方";
+                                $articles[$x]['title']=cut_str($health->title,40);
+                                $articles[$x]['info']=$articles[$x]['title'];
+                                $articles[$x]['updated']=$health->edit_time?date('Y-m-d',$health->edit_time):'';
+                                $x++;
+                            }
+                            $health->free_statement();
+                        }
                 }
-                $article->free_statement();
+                else
+                {
+                    //文章列表
+                    $article=new Tweb_article_base();
+                    $article->whereAdd("web_article_base.sort_id in(select uuid from web_sort where path like '".$path."%')");
+                    $nums=$article->count();
+              		$pageCurrent = intval($this->_request->getParam('page'));
+              		$pageCurrent = $pageCurrent?$pageCurrent:1;
+              		//new subpages(每页显示调试，总条数，当前页数，每次显示页数索引，URL地址，样式，URL参数数组);
+              		$links = new SubPages(__ROWSOFPAGE,$nums,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'web/default/list/lanmu/'.$lanmu.'/page/',2,$search);
+              		$pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
+              		$startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
+              		$article->limit($startnum,__ROWSOFPAGE);
+                    $article->orderBy("web_article_base.updated desc");
+                    $article->limit($startnum,__ROWSOFPAGE);
+                    $article->find();
+                    $x=0;
+                    $articles=array();
+                    while($article->fetch())
+                    {
+                        $articles[$x]['uuid']=$article->uuid;
+                        $articles[$x]['sort_id']=$article->sort_id;
+                        $articles[$x]['title']=cut_str($article->title,45);
+                        $articles[$x]['info']=cut_str($article->info,42);
+                        $articles[$x]['updated']=$article->updated?date('Y-m-d',$article->updated):'';
+                        $x++;
+                    }
+                    $article->free_statement();
+                }
                 $out = $links->subPageCss2();
                 $this->view->assign("pager",$out);
                 $this->view->articles=$articles;
@@ -399,5 +514,54 @@ class web_defaultController extends controller
         $article->free_statement();
         $this->view->tips=$tips;
 		$this->view->display('detail_jkjyhd.html');
+    }
+    /**
+     * web_defaultController::jkjycfAction()
+     * 
+     * 健康教育处方详细
+     * 
+     * @return void
+     */
+    public function jkjycfAction()
+    {
+        $uuid=$this->_request->getParam('uuid');
+        if($uuid)
+        {
+            require_once __SITEROOT."library/Models/health_prescription.php";
+            //取文章详细
+            $article=new Thealth_prescription();
+            $article->whereAdd("uuid='$uuid'");
+            $article->find(true);
+            $article->source=get_organization_name($article->org_id);
+            $updated=$article->edit_time;
+            $sort=$article->sort_id;
+            $article->updated=$article->edit_time?date('Y-m-d H:i',$article->edit_time):'';
+            $this->view->article=$article;
+            //显示路径
+            $this->view->path=get_sort_path($article->sort_id);
+            $article->free_statement();
+            $tips=array();
+            //取上一条
+            $tips['before']='';
+            $article=new Thealth_prescription();
+            $article->whereAdd("edit_time<='$updated'");
+            $article->whereAdd("uuid!='$uuid'");
+            $article->orderBy('edit_time desc');
+            $article->find(true);
+            $tips['before']=$article->uuid;
+            $article->free_statement();
+            //取下一条
+            $tips['next']='';
+            $article=new Thealth_prescription();
+            $article->whereAdd("edit_time>='$updated'");
+            $article->whereAdd("uuid!='$uuid'");
+            $article->orderBy('edit_time desc');
+            $article->find(true);
+            $tips['next']=$article->uuid;
+            $article->free_statement();
+            $this->view->tips=$tips;
+            $this->view->article_content=$article;
+        }
+        $this->view->display("detail.html");
     }
 }

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-06 16:52:53
+<?php /* Smarty version 2.6.14, created on 2013-09-11 14:45:34
          compiled from ./register.html */ ?>
 <style>
  #tips{
@@ -64,7 +64,7 @@ views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
                     <tr>
                       <td>&nbsp;</td>
                       <td><input onclick="zuozhen()" type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_13.png"></td>
+views/images/mh/ws_gh.png"></td>
                     </tr>
                   </tbody>
                 </table>

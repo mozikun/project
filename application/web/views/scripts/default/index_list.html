@@ -8,6 +8,45 @@
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
+          <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>体检信息查询</span> </div>
+            <div class="bv_conts">
+              <form id="form2" method="post" action="http://172.16.11.246/loging/index/user">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">体检时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">体检编号：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<!--{$basePath}-->views/images/mh/ws_13.png" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
        <!--{include file='../register/register.html'}-->
           <div class="healthy">
             <div class="bv_title"> <span><i><img src="<!--{$basePath}-->views/images/mh/ws_12.png" width="25" height="26"></i>健康档案查询</span> </div>
@@ -88,7 +127,7 @@
               <!--{section name=articles loop=$sort_list[sorts].articles}-->
                 <li>
                   <div class="lr_time"><!--{$sort_list[sorts].articles[articles].updated}--></div>
-                  [<!--{$sort_list[sorts].articles[articles].sortname}-->] <a href="<!--{$basePath}-->web/default/view/uuid/<!--{$sort_list[sorts].articles[articles].uuid}-->"><!--{$sort_list[sorts].articles[articles].title}--></a></li>
+                  [<!--{$sort_list[sorts].articles[articles].sortname}-->] <a href="<!--{$basePath}-->web/default/<!--{if $sort_list[sorts].py=='jkjyhd'}-->jkjyhd<!--{elseif $sort_list[sorts].py=='jkjycf'}-->jkjycf<!--{else}-->view<!--{/if}-->/uuid/<!--{$sort_list[sorts].articles[articles].uuid}-->"><!--{$sort_list[sorts].articles[articles].title}--></a></li>
               <!--{sectionelse}-->
               <li>
                   此分类下暂时还没有信息发布</li>

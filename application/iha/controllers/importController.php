@@ -1189,7 +1189,7 @@ class iha_importController extends controller {
                     }
                     else
                     {
-                        if(file_exists(__SITEROOT."cache/importsq.php"))
+                        if(is_file(__SITEROOT."cache/importsq.php") && file_exists(__SITEROOT."cache/importsq.php"))
                         {
                             unlink(__SITEROOT."cache/importsq.php");
                         }
@@ -1259,7 +1259,7 @@ class iha_importController extends controller {
             $config['region_p_id']=$region_p_id;
             $this->create_cache(__SITEROOT."cache/importsq.php",$config);
             //首次，清空原来的日志文件
-            if(file_exists(__SITEROOT."cache/import_errorlog.log"))
+            if(is_file(__SITEROOT."cache/import_errorlog.log") && file_exists(__SITEROOT."cache/import_errorlog.log"))
             {
                 unlink(__SITEROOT."cache/import_errorlog.log");
             }
@@ -1982,7 +1982,7 @@ class iha_importController extends controller {
                     }
                     else
                     {
-                        if(file_exists(__SITEROOT."cache/importsq.php"))
+                        if(is_file(__SITEROOT."cache/importsq.php") && file_exists(__SITEROOT."cache/importsq.php"))
                         {
                             unlink(__SITEROOT."cache/importsq.php");
                         }

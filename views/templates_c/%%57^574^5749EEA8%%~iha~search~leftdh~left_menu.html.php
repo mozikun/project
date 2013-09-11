@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-22 23:41:10
+<?php /* Smarty version 2.6.14, created on 2013-09-11 15:23:39
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -160,8 +160,7 @@ iha/search/hislist/mid/<?php echo $this->_tpl_vars['menu_url'][$this->_sections[
          <?php endfor; endif; ?>
          <tr><td><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
 iha/image/index" target="mainFrame" id="ian2_98" onclick="collapse_change(298);toUrl(this,'b');">影像资料</a></td></tr>
-         <tr><td><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
-iha/search/appointment" target="mainFrame" id="ian2_99" onclick="collapse_change(299);toUrl(this,'b');">预约挂号查询</a></td></tr>
+        
 		 </table>
 		 </td></tr>
 		 </tbody>

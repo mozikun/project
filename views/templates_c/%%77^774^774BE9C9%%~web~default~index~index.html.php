@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-03 16:29:16
+<?php /* Smarty version 2.6.14, created on 2013-09-11 14:45:36
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -23,31 +23,22 @@ views/images/mh/h3.png" width="670" height="250"></a></li>
         </div>
         <div class="bm_right">
           <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
+views/images/mh/ws_12.png" width="25" height="26"></i>健康体检查询</span> </div>
           <div class="bv_conts">
-            <form id="form2" action="<?php echo $this->_tpl_vars['basePath']; ?>
-appointment/reservation/index" method="post">
+            <form id="form2" method="post" action="http://172.16.11.246/loging/index/user">
               <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
                 <tr>
-                  <td width="29%" align="right">预约时间：</td>
+                  <td width="29%" align="right">体检时间：</td>
                   <td width="71%"><input type="text" name="" class="bv_text"></td>
                 </tr>
                 <tr>
-                  <td align="right">地区：</td>
-                  <td><select class="bv_selecd">
-                      <option>选择地区</option>
-                    </select></td>
+                  <td align="right">体检编号：</td>
+                  <td><input type="text" name="" class="bv_text"></td>
                 </tr>
                 <tr>
                   <td align="right">医院：</td>
                   <td><select class="bv_text">
                       <option>请选择医院</option>
-                    </select></td>
-                </tr>
-                <tr>
-                  <td align="right">科室：</td>
-                  <td><select class="bv_text">
-                      <option>请选择科室</option>
                     </select></td>
                 </tr>
                 <tr>

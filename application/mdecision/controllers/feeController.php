@@ -100,16 +100,16 @@ class mdecision_feeController extends controller
             }
             while($api_summary->fetch())
             {
-                $total[$api_summary->medical_code]['inspection_fees']+=$row[$rowCount][$api_summary->medical_code]['inspection_fees']=$api_summary->inspection_fees;
-                $total[$api_summary->medical_code]['western_medicine']+=$row[$rowCount][$api_summary->medical_code]['western_medicine']=$api_summary->western_medicine;
-                $total[$api_summary->medical_code]['treatment_costs']+=$row[$rowCount][$api_summary->medical_code]['treatment_costs']=$api_summary->treatment_costs;
-                $total[$api_summary->medical_code]['bed_fee']+=$row[$rowCount][$api_summary->medical_code]['bed_fee']=$api_summary->bed_fee;
-                $total[$api_summary->medical_code]['nursing_fees']+=$row[$rowCount][$api_summary->medical_code]['nursing_fees']=$api_summary->nursing_fees;
-                $total[$api_summary->medical_code]['special_fee']+=$row[$rowCount][$api_summary->medical_code]['special_fee']=$api_summary->special_fee;
-                $total[$api_summary->medical_code]['other_fee']+=$row[$rowCount][$api_summary->medical_code]['other_fee']=$api_summary->other_fee;
-                $total[$api_summary->medical_code]['chinese_medicine']+=$row[$rowCount][$api_summary->medical_code]['chinese_medicine']=$api_summary->chinese_medicine;
-                $total[$api_summary->medical_code]['difference_fee']+=$row[$rowCount][$api_summary->medical_code]['difference_fee']=$api_summary->difference_fee;
-                $total[$api_summary->medical_code]['sum_fee']+=$row[$rowCount][$api_summary->medical_code]['sum_fee']=$api_summary->sum_fee;
+                $total[$api_summary->medical_code]['inspection_fees']+=$row[$rowCount][$api_summary->medical_code]['inspection_fees']=round($api_summary->inspection_fees,2);
+                $total[$api_summary->medical_code]['western_medicine']+=$row[$rowCount][$api_summary->medical_code]['western_medicine']=round($api_summary->western_medicine,2);
+                $total[$api_summary->medical_code]['treatment_costs']+=$row[$rowCount][$api_summary->medical_code]['treatment_costs']=round($api_summary->treatment_costs,2);
+                $total[$api_summary->medical_code]['bed_fee']+=$row[$rowCount][$api_summary->medical_code]['bed_fee']=round($api_summary->bed_fee,2);
+                $total[$api_summary->medical_code]['nursing_fees']+=$row[$rowCount][$api_summary->medical_code]['nursing_fees']=round($api_summary->nursing_fees,2);
+                $total[$api_summary->medical_code]['special_fee']+=$row[$rowCount][$api_summary->medical_code]['special_fee']=round($api_summary->special_fee,2);
+                $total[$api_summary->medical_code]['other_fee']+=$row[$rowCount][$api_summary->medical_code]['other_fee']=round($api_summary->other_fee,2);
+                $total[$api_summary->medical_code]['chinese_medicine']+=$row[$rowCount][$api_summary->medical_code]['chinese_medicine']=round($api_summary->chinese_medicine,2);
+                $total[$api_summary->medical_code]['difference_fee']+=$row[$rowCount][$api_summary->medical_code]['difference_fee']=round($api_summary->difference_fee,2);
+                $total[$api_summary->medical_code]['sum_fee']+=$row[$rowCount][$api_summary->medical_code]['sum_fee']=round($api_summary->sum_fee,2);
                 $j++;
             }
             $api_summary->free_statement();

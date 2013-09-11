@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-29 11:25:11
+<?php /* Smarty version 2.6.14, created on 2013-09-11 11:42:53
          compiled from doctorhome.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

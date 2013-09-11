@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-05 11:13:36
+<?php /* Smarty version 2.6.14, created on 2013-09-11 11:18:44
          compiled from ./register.html */ ?>
 <style>
  #tips{
@@ -32,41 +32,43 @@
             <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
             <div class="bv_conts">      
-			<form id="form2" action="#">
+			
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
                   <tbody>
-                    <tr>
-                      <td width="29%" align="right">预约时间：</td>
-                      <td width="71%"><input type="text" name="" class="bv_text"></td>
-                    </tr>
+                  
                     <tr>
                       <td align="right">地区：</td>
                       <td><select class="bv_selecd">
                           <option>选择地区</option>
+                          <option>雅安</option>
                         </select></td>
                     </tr>
                     <tr>
                       <td align="right">医院：</td>
-                      <td><input name="yiyuan"/></td>
+                      <td><select name="yiyuan" class="bv_text"/>
+						  <option>请选择医院</option>
+					  </select></td>
                     </tr>
                     <tr>
                       <td align="right">科室：</td>
-                      <td><select class="bv_text">
+                      <td><select class="bv_text" name="keshi">
                           <option>请选择科室</option>
                         </select></td>
                     </tr>
                     <tr>
                       <td align="right">医生：</td>
-                      <td><input type="text" name="" class="bv_text"></td>
+                      <td><select class="bv_text" name="yisheng">
+                          <option>请选择医生</option>
+                        </select></td>
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
-                      <td><input type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
+                      <td><input onclick="zuozhen()" type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_13.png"></td>
                     </tr>
                   </tbody>
                 </table>
-              </form>
+              
 		  </div>
           </div>
 <div id="tips"></div>		  
@@ -79,9 +81,9 @@ function gethospital(){
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
 web/register/gethospital",
 		beforeSend:function(){
-			var input=$("input[name='yiyuan']");
+			var input=$("select[name='yiyuan']");
 			$("#tips").css("top",input.offset().top+input.height()+5+"px").css("left",input.offset().left);
-			$("#tips").css("width","200px").css("height","25px").html("<img src='<?php echo $this->_tpl_vars['basePath']; ?>
+			$("#tips").css("width","150px").css("height","20px").html("<img src='<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/load.gif'/> ").show();
 		},
 		dataType:"json",
@@ -93,22 +95,76 @@ views/images/load.gif'/> ").show();
 			}
 			$("#tips").css("width","600px").css("height","300px").html("<ul>"+str+"</ul>");
 			$('.hospital-item').mouseover(function(){$(this).css("background-color","rgb(0,94,172)").css("color","white");});
-			$('.hospital-item').mouseout(function(){$(this).css("background-color","").css("color","#005EAC");});
+			$('.hospital-item').mouseout(function(){$(this).css("background-color","").css("color","#005EAC"); });
+			$('.hospital-item').click(function(){
+				var hospital_id=$(this).attr('hopital-id');
+				var hospital_name=$(this).text();
+				$("select[name='yiyuan']").html("<option>"+hospital_name+"</option>");
+				
+				getdepartment(hospital_id);$("#tips").hide();
+			});
 		}
 		
 	});
 }
+
+//获取科室
+function getdepartment(hospital_id){
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/getdepartment/hospital_id/"+hospital_id,
+		beforeSend:function(){
+			
+		},
+		dataType:"json",
+		success:function(info){
+			var str=''; 
+			for(var i=0;i<info.length;i++){
+				str+="<option value='"+info[i].id+"'>"+info[i].name+"</option>";
+				
+			}
+			$("select[name='keshi']").html(str);
+			//alert(info);
+		},
+	});	
+}		
+
+//获取医生
+function getdoctor(department_id){
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/getdoctor/department_id/"+department_id,
+		beforeSend:function(){
+			
+		},
+		dataType:"json",
+		success:function(info){
+			var str=''; 
+			for(var i=0;i<info.length;i++){
+				str+="<option value='"+info[i].id+"'>"+info[i].name+"</option>";
+				
+			}
+			$("select[name='yisheng']").html(str);
+			
+		},
+	});	
+}
+
 $(document).ready(function(){
-	$("input[name='yiyuan']").click(function(){
+	$("select[name='yiyuan']").click(function(){
 	
 	 gethospital();
 	});
-	
-	$("input[name='yiyuan']").blur(function(){
-		$("#tips").hide();
+	$("select[name='keshi']").change(function(){
+	//alert(1);
+	 getdoctor($(this).val());
 	});
-	
 });		
-
-sdfsfsdfsdfsdf
+function zuozhen(){
+	var doctor_id=$("select[name='yisheng']").val(); 
+	window.location.href='<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/zuozhen/doctor_id/'+doctor_id;
+}
 </script>		  
