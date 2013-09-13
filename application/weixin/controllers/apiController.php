@@ -53,15 +53,47 @@ class weixin_apiController extends controller
             }
             else
             {
-                $this->wx_obj->responseSubscribe('欢迎关注健康微门户，您可以输入index查看功能列表，也可以直接提出您想要问的问题。');
+                $this->wx_obj->responseSubscribe('欢迎关注健康微门户，您可以输入index查看功能列表，输入help获取帮助信息，也可以直接提出您想要问的问题。');
             }
         }
         elseif($this->data['msgType']=='text' && $this->data['keyword'] != "Hello2BizUser")
         {
             //调用相应的模块
             $tmp_module=explode(':',strtolower($this->data['keyword']));
-            if($tmp_module[0] && method_exists($this,$tmp_module[0]))
+            if($tmp_module[0] && (method_exists($this,$tmp_module[0]) || in_array($tmp_module[0],array(1,2,3,4,5))))
             {
+                switch($tmp_module[0])
+                {
+                    case 1:
+                    {
+                        $tmp_module[0]='index';
+                        break;
+                    }
+                    case 2:
+                    {
+                        $tmp_module[0]='help';
+                        break;
+                    }
+                    case 3:
+                    {
+                        $tmp_module[0]='mb';
+                        break;
+                    }
+                    case 4:
+                    {
+                        $tmp_module[0]='nt';
+                        break;
+                    }
+                    case 5:
+                    {
+                        $tmp_module[0]='hea';
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
                 $this->$tmp_module[0]();
             }
             else
@@ -118,6 +150,17 @@ class weixin_apiController extends controller
         $this->wx_obj->responseText('demo');
     }
     /**
+     * weixin_apiController::meet()
+     * 
+     * 现场会-展示会议纪要
+     * 
+     * @return void
+     */
+    private function meet()
+    {
+        $this->wx_obj->responseText('输入1获取，会议纪要连接');
+    }
+    /**
      * 慢病工作计划列表
      */
     private function mb()
@@ -127,6 +170,10 @@ class weixin_apiController extends controller
         $toUsername     = $param['toUsername'];//被关注的机构的微信号
         //取时间获取模块数据
         $keyword  = $param['keyword'];// 模块：时间格式
+        if(strpos($keyword,":")===false)
+        {
+            $keyword=$keyword.":".date('Y-m-d');
+        }
         if(!empty($keyword)&&(strpos($keyword, ':')!==false))
         {
             $keyword_array = explode(':', $keyword);
@@ -189,6 +236,10 @@ class weixin_apiController extends controller
     	$tousername=$params["toUsername"];//被关注的机构的微信号
     	//取时间获取模块数据
     	$keyword=$params['keyword'];
+        if(strpos($keyword,":")===false)
+        {
+            $keyword=$keyword.":".date('Y-m-d');
+        }
     	if(!empty($keyword) && strpos($keyword,":")!==false)
     	{
     		$keyword_array=explode(":",$keyword);
@@ -312,6 +363,10 @@ class weixin_apiController extends controller
         $toUsername     = $param['toUsername'];//被关注的机构的微信号
         //取时间获取模块数据
         $keyword  = $param['keyword'];// 模块：时间格式
+        if(strpos($keyword,":")===false)
+        {
+            $keyword=$keyword.":".date('Y-m-d');
+        }
         if(!empty($keyword) && strpos($keyword,":")!==false)
         {
             $keyword_array = explode(':', $keyword);
@@ -419,7 +474,7 @@ class weixin_apiController extends controller
 						$this->wx_obj->responseText($answer);
 					}	
 					else{
-						$this->wx_obj->responseText("噢噢，没有找到答案！输入'index'试试吧！");
+						$this->wx_obj->responseText("噢噢，没有找到答案！输入'1'查看首页，输入'2'获取帮助，试试吧！");
 					}
                 }	
                 else
@@ -439,7 +494,7 @@ class weixin_apiController extends controller
      * 
      */	
 	public function help(){
-		$help=array("操作指令说明：","慢病工作计划：mb:2012-7-1","健康教育活动：hea:2013-7-1","机构通知：nt:2013-7-1","功能首页：index","用户帮助：help");
+		$help=array("操作指令说明：","慢病工作计划：mb:2012-7-1或者3查看今天","健康教育活动：hea:2013-7-1或者5查看今天","机构通知：nt:2013-7-1或者4查看今天","功能首页：1或者index","用户帮助：2或者help");
 		$data_array=array();
 		$count=0;
 		foreach($help as $v){

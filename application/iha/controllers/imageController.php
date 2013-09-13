@@ -33,7 +33,7 @@ class iha_imageController extends controller
      */
     public function indexAction()
     {
-        $card=base64_decode(stripslashes($this->_request->getParam("card")));//身份证号码
+        /*$card=base64_decode(stripslashes($this->_request->getParam("card")));//身份证号码
         require_once __SITEROOT."library/Models/tb_ris_report.php";
         $tb_ris_report=new Ttb_ris_report(2);
         $tb_ris_report->whereAdd("tb_ris_report.identity_number='$card'");
@@ -56,9 +56,49 @@ class iha_imageController extends controller
             $imgs[$i]['jcbw']=$tb_ris_report->jcbw;
             $imgs[$i]['jysj']=$tb_ris_report->jysj;
             $i++;
+        }*/
+        require_once __SITEROOT."library/Models/his_image_info.php";
+        $search_session=new Zend_Session_Namespace("iha_search");
+        $card=$search_session->identity_number;//身份证号码
+        if($card)
+        {
+            //取姓名、性别等基本信息
+            $individual_core=new Tindividual_core();
+            $individual_core->whereAdd("identity_number='$card'");
+            $individual_core->find(true);
+            if($individual_core->uuid)
+            {
+                $his_image=new This_image_info();
+                $his_image->whereAdd("id='".$individual_core->uuid."'");
+                $his_image->find();
+                $imgs=array();
+                $i=0;
+                while($his_image->fetch())
+                {
+                    $imgs[$i]['uuid']=$his_image->uuid;
+                    $imgs[$i]['img_thumb']=$his_image->img_thumb;
+                    $imgs[$i]['img_url']=$his_image->img_url;
+                    $imgs[$i]['org_id']=@get_organization_name($his_image->org_id);
+                    $imgs[$i]['staff_id']=@get_staff_name_byid($his_image->staff_id);
+                    $imgs[$i]['serial_number']=$his_image->serial_number;
+                    $i++;
+                }
+                $this->view->imgs=$imgs;
+                $this->view->display('his_image.html');
+            }
+            else
+            {
+                //没找到人
+                $url=array("重新查询"=>__BASEPATH.'iha/search/index');
+                message("对不起，没有查找到您的信息，请检查姓名和身份证是否正确",$url);
+            }
         }
-        $this->view->imgs=$imgs;
-        $this->view->display('index.html');
+        else
+        {
+            //验证码错误
+            $url=array("重新查询"=>__BASEPATH.'iha/search/index');
+			message("对不起，校验错误，请重新登陆",$url);
+        }
     }
     /**
      * iha_imageController::viewAction()

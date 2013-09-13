@@ -277,6 +277,7 @@ hr{
                      <!--{section name=mu loop=$menu_url}-->
 		 <tr><td><a href="<!--{$baseUrl}-->his/apisummary/index/mid/<!--{$menu_url[mu].module_id}-->" target="mainFrame" id="ian37_<!--{$smarty.section.mu.rownum}-->" onclick="collapse_change(37<!--{$smarty.section.mu.rownum}-->);toUrl(this,'b');"><!--{$menu_url[mu].module_name}--></a></td></tr>
          <!--{/section}-->
+         <tr><td><a href="<!--{$baseUrl}-->iha/search/search_card_status" target="mainFrame" id="ian37_110" onclick="collapse_change(37110);toUrl(this,'b');">就诊状态列表</a></td></tr>
 				 </table>
 			 </td>
 	         </tr>
@@ -326,7 +327,7 @@ hr{
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_gwgl_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_4" target="mainFrame" onclick="toUrl(this,'b')">高危孕产妇管理</a></td></tr>
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_fmjl_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_5" target="mainFrame" onclick="toUrl(this,'b')">产时分娩情况</a></td></tr>
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_chfs_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_6" target="mainFrame" onclick="toUrl(this,'b')">产妇产后访视</a></td></tr>
-                 <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/etbj/etbj_cszm_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_7" target="mainFrame" onclick="toUrl(this,'b')">新生儿出生证明</a></td></tr>
+                 <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/etbj_cszm_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_7" target="mainFrame" onclick="toUrl(this,'b')">新生儿出生证明</a></td></tr>
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_xsechfs_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_8" target="mainFrame" onclick="toUrl(this,'b')">新生儿产后访视</a></td></tr>
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_ch42jc_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_9" target="mainFrame" onclick="toUrl(this,'b')">产后42天检查</a></td></tr>
                  <tr style="display:<!--{$jinshi_fuyou}-->"><td><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_xse42jc_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian45_10" target="mainFrame" onclick="toUrl(this,'b')">新生儿42天检查</a></td></tr>
@@ -985,11 +986,12 @@ hr{
 				 <tbody id="menu_441" style="display:none">
 					 <tr ><td>
 					 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo2">
-					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_fxjc_jbqk.aspx?website=ycfbj&rhin=ehrplat&region=<!--{$standard_code}-->" id="ian44_1_1" target="mainFrame" onclick="toUrl(this,'c')">基本情况</a></td></tr>
-					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_fxjc_gwjbqk.aspx?website=ycfbj&rhin=ehrplat&region=<!--{$standard_code}-->" id="ian44_1_2" target="mainFrame" onclick="toUrl(this,'c')">高危孕产妇</a></td></tr>
-					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_chfsdfp_cx.aspx?website=ycfbj&rhin=ehrplat&region=<!--{$standard_code}-->" id="ian44_1_3" target="mainFrame" onclick="toUrl(this,'c')">产后访视安排</a></td></tr>
-					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_bbtj_tjfx.aspx?website=ycfbj&rhin=ehrplat&region=<!--{$standard_code}-->" id="ian44_1_4" target="mainFrame" onclick="toUrl(this,'c')">统计分析</a></td></tr>
-                     <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_jxgl_tjfx.aspx?website=ycfbj&rhin=ehrplat&region=<!--{$standard_code}-->" id="ian44_1_5" target="mainFrame" onclick="toUrl(this,'c')">绩效管理</a></td></tr>
+					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_fxjc_jbqk.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_1" target="mainFrame" onclick="toUrl(this,'c')">基本情况</a></td></tr>
+					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_fxjc_gwjbqk.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_2" target="mainFrame" onclick="toUrl(this,'c')">高危孕产妇</a></td></tr>
+					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_chfsdfp_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_3" target="mainFrame" onclick="toUrl(this,'c')">产后访视安排</a></td></tr>
+					 <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_bbtj_tjfx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_4" target="mainFrame" onclick="toUrl(this,'c')">统计分析</a></td></tr>
+                     <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/ycfbj/ycfbj_jxgl_tjfx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_5" target="mainFrame" onclick="toUrl(this,'c')">绩效管理</a></td></tr>
+                     <tr><td><span>●</span><a href="http://<!--{$jinshiip}-->/zhcxtj/zhcxtj_bb_tj.aspx?rhin=ehrplat&dwdm=<!--{$standard_code}-->" id="ian44_1_6" target="mainFrame" onclick="toUrl(this,'c')">报表统计</a></td></tr>
 					 </table>
 					 </td></tr>
 				 </tbody>
@@ -1144,7 +1146,8 @@ hr{
 		 <tr><td><a href="<!--{$basePath}-->tp/index/index/day/today" target="mainFrame"  id="ian36_1" onclick="toUrl(this,'b')">每日提醒</a></td></tr>
 		 <tr><td><a href="<!--{$basePath}-->tp/index" target="mainFrame"  id="ian36_2" onclick="toUrl(this,'b')">工作计划</a></td></tr>
 		 <tr><td><a href="<!--{$basePath}-->planmenu/planmenu/list" target="mainFrame" id="ian36_3" onclick="toUrl(this,'b')">计划类型维护</a></td></tr>
-		 <tr><td><a href="<!--{$basePath}-->tp/sms/havesend" target="mainFrame" id="ian36_3" onclick="toUrl(this,'b')">已发短信统计</a></td></tr>
+         <tr><td><a href="<!--{$basePath}-->tp/sendsms/index" target="mainFrame" id="ian36_4" onclick="toUrl(this,'b')">群发短信</a></td></tr>
+		 <tr><td><a href="<!--{$basePath}-->tp/sms/havesend" target="mainFrame" id="ian36_5" onclick="toUrl(this,'b')">已发短信统计</a></td></tr>
 		
 
 		 </table>

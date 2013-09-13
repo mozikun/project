@@ -51,9 +51,27 @@ zoom: 1;}
 #choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
 
 .clear{clear:both;}
-#department li{list-style:none;margin:2px;padding:2px;float:left;}
-#doctors li{list-style:none;margin:2px;padding:2px;float:left;}
-#date li{list-style:none;margin:2px;padding:2px;float:left;}
+
+
+.check{
+	color:white;
+	background-color:rgb(71,139,210);
+	
+
+}
+.list-item  li{
+	list-style:none;margin:2px;padding:2px;float:left;
+	width:90px;
+	text-align:center;
+	height:20px;
+	line-height:20px;
+}
+.list-item  li a{
+	text-decoration:none;
+	cursor:pointer;
+	
+}
+
 </style>
 <!--[if IE]>
 <style type="text/css">
@@ -146,51 +164,37 @@ zoom: 1;
           </div>
         </div>
 <div class="list_right">
-	<div class="demo">
+	
+	<div class="demo" style="border:1px solid rgb(71,139,210) ;">
+		<div style="height:30px;background-color:rgb(71,139,210);margin-bottom:10px;font-size:15px;color:white;padding-left:15px;line-height:30px;"><span><b>综合搜索</b></span></div>
 		<table width="100%">
 			<tr >
-				<th style="width:100px;"><em>*</em> 医院名称：</th>
-				<td><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
+				<th style="width:100px;" valign="center"><em></em> 医院名称：</th>
+				<td valign="center"><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
 			</tr>
 			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em>科室名称：</th>
-				<td>
-					<ul id="department">
+				<th valign="center"><em></em>科室名称：</th>
+				<td valign="center">
+					<ul id="department" class="list-item">
 					
 					</ul>
 				</td>
 			</tr>
 			<div class="clear"></div>
 			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em> 医生列表：</th>
-				<td>
-					<ul id="doctors">
+				<th valign="center"><em></em> 医生列表：</th>
+				<td valign="center">
+					<ul id="doctors" class="list-item">
 						
 					</ul>
 				</td>
 			</tr>
-			<!--
-			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em> 就诊时间：</th>
-				<td>
-					<ul id="date">
-						<!--{foreach from=$dates item=date}-->
-						<li><a><!--{$date}--></a></li>
-						<!--{/foreach}-->
-					</ul>
-				</td>
-			</tr>
-			-->
-			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em></em> </th>
-				<td>
-					<ul id="zuozhen">
-						
-					</ul>
-				</td>
-			</tr>	
+			
+				
 		</table>
    </div>
+  
+   
    <div id="department"></div>
 	<div id="choose-box-wrapper">
 	<div id="choose-box">
@@ -306,9 +310,11 @@ function getDepartment(id){
 			}
 		},	
 	});
+	
 }
 //获取医生列表
-function getDoctor(org_id,department_id){ 
+function getDoctor(org_id,department_id){
+ 
 	$.ajax({
 		type:"post",
 		url:"<!--{$basePath}-->web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
@@ -318,11 +324,19 @@ function getDoctor(org_id,department_id){
 		},
 		success:function(doctor){
 			$("#doctors").html(''); 
-			for(i=0;i<department.length;i++){
+			for(i=0;i<doctor.length;i++){
 				$("#doctors").append('<li><a href="<!--{$basePath}-->web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+				
 			}
+			
 		},	
 	});
+	
+	//给科室列表加上选择样式
+	$(".list-item>li").click(function(){
+				
+				$(this).addClass('check').siblings().removeClass('check');
+			});
 }
 
 </script>

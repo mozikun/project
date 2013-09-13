@@ -42,7 +42,7 @@ class decision_dataController extends controller
         $action=$this->_request->getParam('ac');
         $data = phpFastCache::get("data_logs_".$this->user['org_id']);
         //判断缓存
-        if($data==null)
+        if(1)
         {
             $api_logs=new Tapi_logs();
             $api_logs->query("select * from (select count(uuid) as nums,org_id from api_logs where org_id in (select org_id from organization where region_path like '".$this->user['current_region_path']."%') group by org_id) where rownum<10 order by nums desc");
@@ -76,6 +76,11 @@ class decision_dataController extends controller
                     $org_logs->free_statement();
                     $logs->free_statement();
                     $i++;
+                }
+                else
+                {
+                    //获取名称失败时，需要注销数组
+                    unset($data_logs[$i]);
                 }
             }
             phpFastCache::set("data_logs_".$this->user['org_id'],$data_logs,DATA_CACHE_TIME);
@@ -149,6 +154,10 @@ class decision_dataController extends controller
                     $region->free_statement();
                     $org_count->free_statement();
                     $i++;
+                }
+                else
+                {
+                    unset($data_logs[$i]);
                 }
             }
             $total=0;

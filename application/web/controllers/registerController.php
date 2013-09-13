@@ -245,6 +245,7 @@ class web_registerController extends controller
 			exit();
 		}
 		*/
+		
 		require_once(__SITEROOT.'library/sms.php');//发短信库
 		$sms=new SMS();
 		$id=$this->_request->getParam("id");

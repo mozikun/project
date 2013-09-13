@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-11 15:14:44
+<?php /* Smarty version 2.6.14, created on 2013-09-13 17:16:04
          compiled from zuozhen.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -15,7 +15,7 @@ views/js/school.js"></script>
 	margin:5px;
 }
 .box th { 
-    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    font: bold 15px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
     color: #4f6b72; 
     border-right: 1px solid #C1DAD7; 
     border-bottom: 1px solid #C1DAD7; 
@@ -38,7 +38,7 @@ views/js/school.js"></script>
     border-right: 1px solid #C1DAD7; 
     border-bottom: 1px solid #C1DAD7; 
     background: #fff; 
-    font-size:11px; 
+    font-size:12px; 
     padding: 6px 6px 6px 12px; 
     color: #4f6b72; 
     padding: 5px 2px 5px 2px;
@@ -367,12 +367,12 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
             </div>
           </div>
         </div>
-<div class="list_right">
+<div class="list_right" style="padding:14px;">
 
 	<table width="100%"  border="0"cellspacing="0" cellpadding="0"  class="box" style="border:1px #d2d2d2  solid;border-bottom:none; border-top:none;border-collapse:collapse;">
 		<tr>
-			<td colspan='14'><?php echo $this->_tpl_vars['staff']->name_login; ?>
-</td>
+			<td colspan='14' style="background-color:rgb(71,139,210);color:white;font-size:14px;"><b><?php echo $this->_tpl_vars['staff']->name_login; ?>
+</b></td>
 		</tr>
 		<tr>
 			<?php $_from = $this->_tpl_vars['days']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
@@ -416,9 +416,10 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 		
 	</table>
 <div class="buttons">
-    <button type="submit" onclick="history.go(-1);" class="positive" name="save">
+    <button type="submit" onclick="window.location.href='<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/index'" class="positive" name="save">
       
-        返回
+        返回前一页
     </button>
 
    
@@ -456,8 +457,8 @@ unset($_smarty_tpl_vars);
 		
 		</div>
 		<div id="choose-box-bottom">
-			<input type="botton" onclick="send()" value="确定" />
-			<input type="botton" onclick="hide()" value="取消" />
+			<input type="button" onclick="send()" value="确定" />
+			<input type="button" onclick="hide()" value="取消" />
 		</div>
 	</div>
 </div>
@@ -497,7 +498,8 @@ function hide(){
 //提交信息
 function send(){
 	
-	var name=$("#name").val();
+	var name=$("#name").val(); 
+	var name=encodeURIComponent(name,'UTF-8')
 	var identity_number=$("#identity_number").val();
 	var phone_number=$("#phone_number").val();
 	if(name==""){

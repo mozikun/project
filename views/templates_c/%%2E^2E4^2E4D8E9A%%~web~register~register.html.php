@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-06 16:19:50
+<?php /* Smarty version 2.6.14, created on 2013-09-13 09:28:11
          compiled from ./register.html */ ?>
 <style>
  #tips{
@@ -32,7 +32,7 @@
             <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
 views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
             <div class="bv_conts">      
-			<form id="form2" action="#">
+			
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
                   <tbody>
                   
@@ -45,7 +45,9 @@ views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
                     </tr>
                     <tr>
                       <td align="right">医院：</td>
-                      <td><select name="yiyuan" class="bv_text"/></td>
+                      <td><select name="yiyuan" class="bv_text"/>
+						  <option>请选择医院</option>
+					  </select></td>
                     </tr>
                     <tr>
                       <td align="right">科室：</td>
@@ -61,12 +63,12 @@ views/images/mh/ws_12.png" width="25" height="26"></i>预约挂号</span> </div>
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
-                      <td><input type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
-views/images/mh/ws_13.png"></td>
+                      <td><input onclick="zuozhen()" type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/mh/ws_gh.png"></td>
                     </tr>
                   </tbody>
                 </table>
-              </form>
+              
 		  </div>
           </div>
 <div id="tips"></div>		  
@@ -145,7 +147,7 @@ web/register/getdoctor/department_id/"+department_id,
 				
 			}
 			$("select[name='yisheng']").html(str);
-			//alert(info);
+			
 		},
 	});	
 }
@@ -160,5 +162,9 @@ $(document).ready(function(){
 	 getdoctor($(this).val());
 	});
 });		
-
+function zuozhen(){
+	var doctor_id=$("select[name='yisheng']").val(); 
+	window.location.href='<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/zuozhen/doctor_id/'+doctor_id;
+}
 </script>		  

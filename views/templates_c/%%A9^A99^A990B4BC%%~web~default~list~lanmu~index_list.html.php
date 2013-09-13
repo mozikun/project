@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-06 17:08:18
+<?php /* Smarty version 2.6.14, created on 2013-09-13 16:22:41
          compiled from index_list.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "header.html", 'smarty_include_vars' => array()));
@@ -43,6 +43,47 @@ web/default/list/lanmu/<?php echo $this->_tpl_vars['path'][$this->_sections['pat
       <div class="null"></div>
       <div class="list_body">
         <div class="list_left">
+          <div class="bm_right notright">
+            <div class="bv_title"> <span><i><img src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/mh/ws_12.png" width="25" height="26"></i>体检信息查询</span> </div>
+            <div class="bv_conts">
+              <form id="form2" method="post" action="http://172.16.11.246/loging/index/user">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="bv_tbs">
+                  <tbody>
+                    <tr>
+                      <td width="29%" align="right">体检时间：</td>
+                      <td width="71%"><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">体检编号：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医院：</td>
+                      <td><select class="bv_text">
+                          <option>请选择医院</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">科室：</td>
+                      <td><select class="bv_text">
+                          <option>请选择科室</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                      <td align="right">医生：</td>
+                      <td><input type="text" name="" class="bv_text"></td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td><input type="image" src="<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/mh/ws_13.png" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
+            </div>
+          </div>
        <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => '../register/register.html', 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -213,7 +254,7 @@ $this->_sections['articles']['last']       = ($this->_sections['articles']['iter
 </div>
                   [<?php echo $this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['articles'][$this->_sections['articles']['index']]['sortname']; ?>
 ] <a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/default/view/uuid/<?php echo $this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['articles'][$this->_sections['articles']['index']]['uuid']; ?>
+web/default/<?php if ($this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['py'] == 'jkjyhd'): ?>jkjyhd<?php elseif ($this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['py'] == 'jkjycf'): ?>jkjycf<?php else: ?>view<?php endif; ?>/uuid/<?php echo $this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['articles'][$this->_sections['articles']['index']]['uuid']; ?>
 "><?php echo $this->_tpl_vars['sort_list'][$this->_sections['sorts']['index']]['articles'][$this->_sections['articles']['index']]['title']; ?>
 </a></li>
               <?php endfor; else: ?>

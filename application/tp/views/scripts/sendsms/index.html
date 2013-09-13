@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="yaachis" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/admincp.css" />
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/tabs.css" />
+    <script src="<!--{$basePath}-->views/js/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="<!--{$basePath}-->views/js/kandytabs.pack.js"></script>
+    <script src="<!--{$basePath}-->views/js/popup.js" type="text/javascript"></script> 
+    <link rel="stylesheet" type="text/css" id="css" href="<!--{$basePath}-->views/styles/kandytabs.css" />
+	<title>区域卫生信息公众平台-【雅安】-短信群发</title>
+    <style type="text/css">
+    input.line{border:0px;border-bottom: 1px solid #ccc;}
+    .red,.red a{color: red;}
+    </style>
+    <script>
+    function clear_text(obj)
+    {
+        if($(obj).val()=='多个号码以英文逗号","隔开')
+        {
+            $(obj).val('');
+        }
+    }
+    function show_text(obj)
+    {
+        if($(obj).val()=='')
+        {
+            $(obj).val('多个号码以英文逗号","隔开');
+        }
+    }
+    function chk_form()
+    {
+        if($("textarea[name='number']").val()=='' || $("textarea[name='number']").val()=='多个号码以英文逗号","隔开')
+        {
+            alert("手机号码不能为空");
+            $("textarea[name='number']").focus();
+            return false;
+        }
+        if($("textarea[name='message']").val()=='')
+        {
+            alert("短信内容不能为空");
+            $("textarea[name='message']").focus();
+            return false;
+        }
+    }
+    </script>
+</head>
+
+<body>
+<form method="post" action="<!--{$basePath}-->tp/sendsms/result" onsubmit="return chk_form()">
+<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+    <tr class="headbg">
+    <td colspan="2"><b>群发短信息</b></td>
+    </tr>
+    <tr><td>手机号码</td><td><textarea name="number" rows="3" cols="60" onfocus="clear_text(this)" onblur="show_text(this)">多个号码以英文逗号","隔开</textarea></td></tr>
+    <tr><td>短信内容</td><td><textarea name="message" rows="3" cols="60"></textarea></td></tr>
+    <tr><td colspan="2" class="endbg"><input type="hidden" name="token" value="<!--{$token}-->" /><input type="submit" name="submit" value="发送短信" /></td></tr>
+    <tr><td colspan="2" class="red">*请不要恶意群发短消息，每条短信内容小于75个字。</td></tr>
+    </table>
+</form>
+</body>
+</html>

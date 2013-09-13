@@ -102,6 +102,7 @@ class weixin
         $org->whereAdd("id='".$orgs->org_id."'");
         $org->find(true);
         $orgname=$org->zh_name?$org->zh_name:'雅安市区域卫生信息平台';
+        $orgname='雅安市卫生局 成都中医药大学';
         $orgpic="http://182.132.138.30:8866/images/wx.png";
         $orgdesc=$orgname;
         $url='';

@@ -67,7 +67,7 @@ class doctor_indexController extends controller
             //医生页面
             if($this->user['role_en_name']=='doctor')
             {
-                $this->view->topimg=__BASEPATH."images/logo.jpg";
+                $this->view->topimg=__BASEPATH."images/logo_doctor.jpg";
             }
             //院长页面
             if($this->user['role_en_name']=='dean')

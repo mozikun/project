@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-26 16:58:16
+<?php /* Smarty version 2.6.14, created on 2013-09-13 14:28:15
          compiled from doctor.html */ ?>
 
 <html>
