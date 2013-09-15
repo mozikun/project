@@ -128,6 +128,7 @@ class web_registerController extends controller
 		
 		$org_id=$this->_request->getParam("org_id");
 		$department_id=$this->_request->getParam("department_id");
+		/*
 		$staff_core=new Tstaff_core();
 		//$zuozhen=new Tzuozhen();
 		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
@@ -154,6 +155,22 @@ class web_registerController extends controller
 		}
 		//print_r($doctors);
 		echo json_encode($doctors);
+		*/
+		$department_id=$this->_request->getParam("department_id");
+		$department_doctor=new Tdepartment_doctor();
+		$staff_core=new Tstaff_core();
+		$department_doctor->joinAdd("inner",$department_doctor,$staff_core,"doctor_id","id");
+		$department_doctor->whereAdd("department_id='$department_id'");
+		//$department_doctor->debug(1);
+		$department_doctor->find();
+		$result=array();
+		$i=0;
+		while($department_doctor->fetch()){
+			$result[$i]['id']=$staff_core->id;
+			$result[$i]['doctor_name']=$staff_core->name_login;
+			$i++;
+		}
+		echo json_encode($result);
 		
 	}
 	/**
@@ -348,7 +365,7 @@ class web_registerController extends controller
 	/**
      * web_registerController::getdoctorAction()
      * 
-     * 根据医院查询科室
+     * 根据科室查询医生
      * 
      * @return void
      */
@@ -356,7 +373,7 @@ class web_registerController extends controller
 		$department_id=$this->_request->getParam("department_id");
 		$department_doctor=new Tdepartment_doctor();
 		$staff_core=new Tstaff_core();
-		$department_doctor->joinAdd("inner",$department_doctor,$staff_core,"doctor_id","zl_staff_code");
+		$department_doctor->joinAdd("inner",$department_doctor,$staff_core,"doctor_id","id");
 		$department_doctor->whereAdd("department_id='$department_id'");
 		//$department_doctor->debug(1);
 		$department_doctor->find();

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-13 15:17:13
+<?php /* Smarty version 2.6.14, created on 2013-09-15 11:15:53
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -56,7 +56,7 @@ zoom: 1;}
 #choose-a-school a{height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;float:left;width:160px;margin:4px 12px;padding-left:10px;background:url(http://pic002.cnblogs.com/images/2012/70278/2012072500060712.gif) no-repeat 0 9px;}
 #choose-a-school a:hover{background:#005EAC;color:#fff;}
 #choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
-#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
+#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;line-height:25px;}
 
 .clear{clear:both;}
 
@@ -279,7 +279,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 		<div id="choose-a-province"></div>
 		<div id="choose-a-school"></div>
 		<div id="choose-box-bottom">
-			<input type="botton" onclick="hide()" value="关闭" />
+			<input type="button" onclick="hide()" value="关闭" />
 		</div>
 	</div>
 </div><!--choose-box-wrapper end-->

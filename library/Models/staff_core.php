@@ -80,10 +80,10 @@ class Tstaff_core extends dao_oracle{
  	 public $ext_uuid;
 	 public $_ext_uuid_type='varchar2';
 	/**
- 	 * 注释:中联内部医生号
+ 	 * 注释:
 	 * 
 	 * 
-	 * @var VARCHAR2(30)
+	 * @var VARCHAR2(50)
 	 **/
  	 public $zl_staff_code;
 	 public $_zl_staff_code_type='varchar2';

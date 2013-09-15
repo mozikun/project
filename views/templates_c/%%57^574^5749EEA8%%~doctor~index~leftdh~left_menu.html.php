@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-27 09:39:32
+<?php /* Smarty version 2.6.14, created on 2013-09-15 11:22:58
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -410,6 +410,8 @@ his/apisummary/index/mid/<?php echo $this->_tpl_vars['menu_url'][$this->_section
 );toUrl(this,'b');"><?php echo $this->_tpl_vars['menu_url'][$this->_sections['mu']['index']]['module_name']; ?>
 </a></td></tr>
          <?php endfor; endif; ?>
+         <tr><td><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
+iha/search/search_card_status" target="mainFrame" id="ian37_110" onclick="collapse_change(37110);toUrl(this,'b');">就诊状态列表</a></td></tr>
 				 </table>
 			 </td>
 	         </tr>
@@ -489,7 +491,7 @@ images/menu_add.gif" border="0" onclick="collapse_change(45),toUrl(this,'a')" />
 " id="ian45_6" target="mainFrame" onclick="toUrl(this,'b')">产妇产后访视</a></td></tr>
                  <tr style="display:<?php echo $this->_tpl_vars['jinshi_fuyou']; ?>
 "><td><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/etbj/etbj_cszm_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/etbj_cszm_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian45_7" target="mainFrame" onclick="toUrl(this,'b')">新生儿出生证明</a></td></tr>
                  <tr style="display:<?php echo $this->_tpl_vars['jinshi_fuyou']; ?>
 "><td><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
@@ -1000,7 +1002,10 @@ appointment/preferential/index/region_id/<?php echo $this->_tpl_vars['user']['re
 /go_back/true" target="mainFrame" id="ian120_5" onclick="toUrl(this,'b'),collapse_change(1205)">优惠管理</a></td></tr>
           <tr>
             <td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-appointment/register/list" target="mainFrame" id="ian120_6" onclick="toUrl(this,'b'),collapse_change(1206)">挂号列表</a></td></tr>		
+appointment/register/list" target="mainFrame" id="ian120_6" onclick="toUrl(this,'b'),collapse_change(1206)">挂号列表</a></td></tr>	
+ <tr>
+            <td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+appointment/doctordepartment/doctors" target="mainFrame" id="ian120_7" onclick="toUrl(this,'b'),collapse_change(1207)">医生所在科室管理</a></td></tr>				
            
 		 </table>
 		 
@@ -1421,20 +1426,23 @@ images/menu_add.gif" border="0" onclick="collapse_change(44),toUrl(this,'a')" />
 					 <tr ><td>
 					 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo2">
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/ycfbj/ycfbj_fxjc_jbqk.aspx?website=ycfbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/ycfbj_fxjc_jbqk.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_1_1" target="mainFrame" onclick="toUrl(this,'c')">基本情况</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/ycfbj/ycfbj_fxjc_gwjbqk.aspx?website=ycfbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/ycfbj_fxjc_gwjbqk.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_1_2" target="mainFrame" onclick="toUrl(this,'c')">高危孕产妇</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/ycfbj/ycfbj_chfsdfp_cx.aspx?website=ycfbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/ycfbj_chfsdfp_cx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_1_3" target="mainFrame" onclick="toUrl(this,'c')">产后访视安排</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/ycfbj/ycfbj_bbtj_tjfx.aspx?website=ycfbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/ycfbj_bbtj_tjfx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_1_4" target="mainFrame" onclick="toUrl(this,'c')">统计分析</a></td></tr>
                      <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/ycfbj/ycfbj_jxgl_tjfx.aspx?website=ycfbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/ycfbj/ycfbj_jxgl_tjfx.aspx?website=ycfbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_1_5" target="mainFrame" onclick="toUrl(this,'c')">绩效管理</a></td></tr>
+                     <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
+/zhcxtj/zhcxtj_bb_tj.aspx?rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
+" id="ian44_1_6" target="mainFrame" onclick="toUrl(this,'c')">报表统计</a></td></tr>
 					 </table>
 					 </td></tr>
 				 </tbody>
@@ -1632,8 +1640,10 @@ tp/index/index/day/today" target="mainFrame"  id="ian36_1" onclick="toUrl(this,'
 tp/index" target="mainFrame"  id="ian36_2" onclick="toUrl(this,'b')">工作计划</a></td></tr>
 		 <tr><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
 planmenu/planmenu/list" target="mainFrame" id="ian36_3" onclick="toUrl(this,'b')">计划类型维护</a></td></tr>
+         <tr><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+tp/sendsms/index" target="mainFrame" id="ian36_4" onclick="toUrl(this,'b')">群发短信</a></td></tr>
 		 <tr><td><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-tp/sms/havesend" target="mainFrame" id="ian36_3" onclick="toUrl(this,'b')">已发短信统计</a></td></tr>
+tp/sms/havesend" target="mainFrame" id="ian36_5" onclick="toUrl(this,'b')">已发短信统计</a></td></tr>
 		
 
 		 </table>

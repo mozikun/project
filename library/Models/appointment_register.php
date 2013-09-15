@@ -91,7 +91,7 @@ class Tappointment_register extends dao_oracle{
  	 * 注释:科室ID
 	 * 
 	 * 
-	 * @var VARCHAR2(40)
+	 * @var VARCHAR2(80)
 	 **/
  	 public $department_id;
 	 public $_department_id_type='varchar2';
@@ -99,7 +99,7 @@ class Tappointment_register extends dao_oracle{
  	 * 注释:号种
 	 * 
 	 * 
-	 * @var VARCHAR2(40)
+	 * @var VARCHAR2(80)
 	 **/
  	 public $number_species_id;
 	 public $_number_species_id_type='varchar2';
@@ -107,7 +107,7 @@ class Tappointment_register extends dao_oracle{
  	 * 注释:诊室ID
 	 * 
 	 * 
-	 * @var VARCHAR2(40)
+	 * @var VARCHAR2(80)
 	 **/
  	 public $clinic_id;
 	 public $_clinic_id_type='varchar2';

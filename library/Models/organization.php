@@ -119,12 +119,4 @@ class Torganization extends dao_oracle{
 	 **/
  	 public $org_info;
 	 public $_org_info_type='varchar2';
-	/**
- 	 * 注释:中联机构号
-	 * 
-	 * 
-	 * @var VARCHAR2(30)
-	 **/
- 	 public $zl_org_code;
-	 public $_zl_org_code_type='varchar2';
 }

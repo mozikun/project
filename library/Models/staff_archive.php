@@ -287,12 +287,4 @@ class Tstaff_archive extends dao_oracle{
 	 **/
  	 public $ext_uuid;
 	 public $_ext_uuid_type='varchar2';
-	/**
- 	 * 注释:中联内部医生ID号
-	 * 
-	 * 
-	 * @var VARCHAR2(30)
-	 **/
- 	 public $zl_staff_code;
-	 public $_zl_staff_code_type='varchar2';
 }

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-04 09:39:03
+<?php /* Smarty version 2.6.14, created on 2013-09-15 08:52:33
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -56,12 +56,30 @@ zoom: 1;}
 #choose-a-school a{height:18px;line-height:18px;color:#005EAC;text-decoration:none;font-size:9pt;font-family:Tahoma, Verdana, STHeiTi, simsun, sans-serif;float:left;width:160px;margin:4px 12px;padding-left:10px;background:url(http://pic002.cnblogs.com/images/2012/70278/2012072500060712.gif) no-repeat 0 9px;}
 #choose-a-school a:hover{background:#005EAC;color:#fff;}
 #choose-box-bottom{background:#F0F5F8;padding:8px;text-align:right;border-top:1px solid #CCC;height:40px;}
-#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;}
+#choose-box-bottom input{vertical-align:middle;text-align:center;background:#005EAC;color:white;border-top:1px solid #B8D4E8;border-left:1px solid #B8D4E8;border-right:1px solid #114680;border-bottom:1px solid #114680;cursor:pointer;width:60px;height:25px;margin-top:6px;margin-right:6px;line-height:25px;}
 
 .clear{clear:both;}
-#department li{list-style:none;margin:2px;padding:2px;float:left;}
-#doctors li{list-style:none;margin:2px;padding:2px;float:left;}
-#date li{list-style:none;margin:2px;padding:2px;float:left;}
+
+
+.check{
+	color:white;
+	background-color:rgb(71,139,210);
+	
+
+}
+.list-item  li{
+	list-style:none;margin:2px;padding:2px;float:left;
+	width:90px;
+	text-align:center;
+	height:20px;
+	line-height:20px;
+}
+.list-item  li a{
+	text-decoration:none;
+	cursor:pointer;
+	
+}
+
 </style>
 <!--[if IE]>
 <style type="text/css">
@@ -221,54 +239,37 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
           </div>
         </div>
 <div class="list_right">
-	<div class="demo">
+	
+	<div class="demo" style="border:1px solid rgb(71,139,210) ;">
+		<div style="height:30px;background-color:rgb(71,139,210);margin-bottom:10px;font-size:15px;color:white;padding-left:15px;line-height:30px;"><span><b>综合搜索</b></span></div>
 		<table width="100%">
 			<tr >
-				<th style="width:100px;"><em>*</em> 医院名称：</th>
-				<td><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
+				<th style="width:100px;" valign="center"><em></em> 医院名称：</th>
+				<td valign="center"><input type="text" class="stext" name="hospital" id="hospital" value="请选择医院" onblur="if(this.value==''){this.value='请选择医院'}" onfocus="if(this.value=='请选择医院'){this.value=''}" onclick="pop()" /></td>
 			</tr>
 			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em>科室名称：</th>
-				<td>
-					<ul id="department">
+				<th valign="center"><em></em>科室名称：</th>
+				<td valign="center">
+					<ul id="department" class="list-item">
 					
 					</ul>
 				</td>
 			</tr>
 			<div class="clear"></div>
 			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em> 医生列表：</th>
-				<td>
-					<ul id="doctors">
+				<th valign="center"><em></em> 医生列表：</th>
+				<td valign="center">
+					<ul id="doctors" class="list-item">
 						
 					</ul>
 				</td>
 			</tr>
-			<!--
-			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em>*</em> 就诊时间：</th>
-				<td>
-					<ul id="date">
-						<?php $_from = $this->_tpl_vars['dates']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
-    foreach ($_from as $this->_tpl_vars['date']):
-?>
-						<li><a><?php echo $this->_tpl_vars['date']; ?>
-</a></li>
-						<?php endforeach; endif; unset($_from); ?>
-					</ul>
-				</td>
-			</tr>
-			-->
-			<tr style="border-top:1px solid rgb(0,138,201);">
-				<th ><em></em> </th>
-				<td>
-					<ul id="zuozhen">
-						
-					</ul>
-				</td>
-			</tr>	
+			
+				
 		</table>
    </div>
+  
+   
    <div id="department"></div>
 	<div id="choose-box-wrapper">
 	<div id="choose-box">
@@ -278,7 +279,7 @@ web/hospital/detail/id/<?php echo $this->_tpl_vars['orgs'][$this->_sections['org
 		<div id="choose-a-province"></div>
 		<div id="choose-a-school"></div>
 		<div id="choose-box-bottom">
-			<input type="botton" onclick="hide()" value="关闭" />
+			<input type="button" onclick="hide()" value="关闭" />
 		</div>
 	</div>
 </div><!--choose-box-wrapper end-->
@@ -390,9 +391,11 @@ views/images/load.gif'/></li>");
 			}
 		},	
 	});
+	
 }
 //获取医生列表
-function getDoctor(org_id,department_id){ 
+function getDoctor(org_id,department_id){
+ 
 	$.ajax({
 		type:"post",
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
@@ -404,12 +407,20 @@ views/images/load.gif'/></li>");
 		},
 		success:function(doctor){
 			$("#doctors").html(''); 
-			for(i=0;i<department.length;i++){
+			for(i=0;i<doctor.length;i++){
 				$("#doctors").append('<li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
 web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+				
 			}
+			
 		},	
 	});
+	
+	//给科室列表加上选择样式
+	$(".list-item>li").click(function(){
+				
+				$(this).addClass('check').siblings().removeClass('check');
+			});
 }
 
 </script>
