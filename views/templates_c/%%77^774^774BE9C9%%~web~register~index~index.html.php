@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-15 11:15:53
+<?php /* Smarty version 2.6.14, created on 2013-09-16 11:09:06
          compiled from index.html */ ?>
 <?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "../default/header.html", 'smarty_include_vars' => array()));
@@ -351,7 +351,7 @@ function initSchool(provinceID){
 		//获取科室
 		getDepartment(school,'');
 		//获取医生
-		getDoctor(school);
+		getallDoctors(school);
 	});
 }
 
@@ -393,13 +393,13 @@ views/images/load.gif'/></li>");
 	});
 	
 }
-//获取医生列表
+//获取某个科室的医生列表
 function getDoctor(org_id,department_id){
  
 	$.ajax({
 		type:"post",
 		url:"<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
+web/register/getdoctor/org_id/"+org_id+"/department_id/"+department_id,
 		dataType:"json",
 		beforeSend:function(){
 			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
@@ -409,7 +409,7 @@ views/images/load.gif'/></li>");
 			$("#doctors").html(''); 
 			for(i=0;i<doctor.length;i++){
 				$("#doctors").append('<li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
-web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].name+'</a></li>');
 				
 			}
 			
@@ -422,5 +422,33 @@ web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+
 				$(this).addClass('check').siblings().removeClass('check');
 			});
 }
-
+//获取医院所有医生
+function getallDoctors(org_id){
+ 
+	$.ajax({
+		type:"post",
+		url:"<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/getalldoctors/org_id/"+org_id,
+		dataType:"json",
+		beforeSend:function(){
+			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<?php echo $this->_tpl_vars['basePath']; ?>
+views/images/load.gif'/></li>"); 
+		},
+		success:function(doctor){
+			$("#doctors").html(''); 
+			for(i=0;i<doctor.length;i++){
+				$("#doctors").append('<li><a href="<?php echo $this->_tpl_vars['basePath']; ?>
+web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].name+'</a></li>');
+				
+			}
+			
+		},	
+	});
+	
+	//给科室列表加上选择样式
+	$(".list-item>li").click(function(){
+				
+				$(this).addClass('check').siblings().removeClass('check');
+			});
+}
 </script>

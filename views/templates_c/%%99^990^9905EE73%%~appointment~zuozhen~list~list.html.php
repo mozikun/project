@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-05-02 11:16:00
+<?php /* Smarty version 2.6.14, created on 2013-09-16 11:26:01
          compiled from list.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -38,7 +38,7 @@ views/js/calendar/default/datepicker.css"/>
                     <td align="center" colspan="2"><strong><?php echo $this->_tpl_vars['v']['day']; ?>
 <br/><?php echo $this->_tpl_vars['v']['week']; ?>
  <?php if ($this->_tpl_vars['k'] == 0): ?>
-                            <font color="#99CC33">（今日）</font><?php endif; ?></strong></td>
+                          <?php endif; ?></strong></td>
 
                     <?php endforeach; endif; unset($_from); ?>
                     <td></td>

@@ -39,8 +39,8 @@ class appointment_doctordepartmentController extends controller{
 		$department=new Tdepartment();
 		$department->whereAdd("org_id='$org_id'");
 		$department->find();
-		 $i=0;
-		 $result=array();
+		$i=0;
+		$result=array();
 		 
 		 while($department->fetch()){
 			$result[$i]['id']=$department->uuid;
@@ -68,7 +68,7 @@ class appointment_doctordepartmentController extends controller{
 		$department_id=$this->_request->getParam("department_id");
 		$doctor_id=$this->_request->getParam("doctor_id");
 		$todo=$this->_request->getParam("todo");
-		echo $todo;
+		
 		//新增所属科室
 		if($todo==1){
 			$department_doctor->uuid=uniqid();

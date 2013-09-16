@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-16 00:12:45
+<?php /* Smarty version 2.6.14, created on 2013-09-16 10:24:19
          compiled from edit.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -89,6 +89,7 @@ appointment/doctordepartment/save/doctor_id/<?php echo $this->_tpl_vars['doctor'
 					$("#back").html("保存中...");
 				},
 				success:function(info){
+				//alert(info);
 					$("#back").html("保存成功");
 					setTimeout(function(){$("#back").html("");},1000);
 				}
@@ -97,26 +98,7 @@ appointment/doctordepartment/save/doctor_id/<?php echo $this->_tpl_vars['doctor'
 		
 	}); 
 
-	function checkState()
-	{
-		var flag = false;
-		$("input[name='department']").each(function(){
-			var isCheck = $(this).attr("checked");	  
-			if(isCheck != null && isCheck == "checked")
-			{
-				flag = true;
-			}
-		});
-		
-		if(flag)
-		{
-			alert(1);
-		}
-		else
-		{
-			alert(2);
-		}
-	}	
+	
 });
 </script>
 </html>

@@ -54,8 +54,13 @@ class hisappointment extends api_phs_comm
         $register->whereAdd("uuid='{$where_xml->id}'");
 		}
 		if(!empty($org_id))
-		{
-        $register->whereAdd("org_id='{$org_id}'");
+		{ 
+		//机构转码
+            $organization = new Torganization();
+            $organization->whereAdd("standard_code='$where_xml->org_id'");
+            $organization->find(true);
+            $org_id = $organization->id;
+			$register->whereAdd("org_id='{$org_id}'");
 		}
         if (!empty($department_id))
         {

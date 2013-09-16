@@ -53,7 +53,7 @@ class appointment_zuozhenController extends controller
         {
             $today = date("y-m-d"); //获取今天的格式化时间
             $nowtime = strtotime($today); //今天中午12点的时间戳
-            for ($i = 0; $i <= 6; $i++)
+            for ($i = 1; $i <= 7; $i++)
             { //循环从当天起的8天
                 $consulting_time = strtotime("+" . $i . "day", $nowtime);
                 $zuozhen->where("consulting_time='" . $consulting_time . "' and user_id='{$dictionary->user_id}'"); //查找该天是否已经存在于坐诊表，如存在就不再生成当日的记录
@@ -116,7 +116,8 @@ class appointment_zuozhenController extends controller
             $staff_core->find(true);
             $rows[$count]['name'] = $staff_core->name_login; //用户登录名
             $rows[$count]['id'] = $staff_core->id;
-            $zuozhen_list->where("zuozhen.org_id='" . $org_id . "' and zuozhen.user_id='" . $dict->user_id . "' and zuozhen.CONSULTING_TIME>'" . strtotime("-1 day") . "'");
+            $zuozhen_list->where("zuozhen.org_id='" . $org_id . "' and zuozhen.user_id='" . $dict->user_id . "' and zuozhen.CONSULTING_TIME>='" . mktime(23,59,59,date('m'),date('d'),date('Y')) . "'");
+			$zuozhen_list->limit(0,7);
             $zuozhen_list->orderby("CONSULTING_TIME asc");
             $zuozhen_list->find();
             $index = 0; //医生坐诊时间的下标
@@ -157,7 +158,7 @@ class appointment_zuozhenController extends controller
         //获取未来的7天时间
         $days = array();
         $j = 0; //为了数组下标从0开始，但是又能正确取到从明天开始的天数
-        for ($i = 0; $i <= 6; $i++)
+        for ($i = 1; $i <= 7; $i++)
         {
             $thedays = strtotime("+" . $i . "day");
             $days[$j]['day'] = date("m月d日", $thedays); //日期
@@ -189,7 +190,7 @@ class appointment_zuozhenController extends controller
         if ($action == "edit")
         {
             $days = array();
-            for ($i = 0; $i <= 6; $i++)
+            for ($i = 1; $i <= 7; $i++)
             {
                 $today = strtotime("+" . $i . "day", strtotime(date('y-m-d')));
                 $days[$i]['day'] = date("m月d日", $today); //日期
@@ -198,7 +199,7 @@ class appointment_zuozhenController extends controller
 
             $zuozhen = new Tzuozhen();
             $zuozhen->whereAdd("user_id='$user_id'");
-            $todaytime = strtotime("-1 day");
+            $todaytime = strtotime("now");
             $zuozhen->whereAdd("consulting_time>'$todaytime'");
             $zuozhen->orderby("CONSULTING_TIME asc");
             $zuozhen->find();

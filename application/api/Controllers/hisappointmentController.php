@@ -47,7 +47,7 @@ class api_hisappointmentController extends controller
              
 		$client=new SoapClient(__SITEROOT.$this->wsdl_path);	
 		 
-		$tmp=$client->ws_select("17","<?xml version='1.0' encoding='UTF-8'?><where><id>6</id></where>"); 
+		$tmp=$client->ws_select("17","<?xml version='1.0' encoding='UTF-8'?><where><org_id>45254011251180211A1001</org_id></where>"); 
  		echo $tmp;
  	
 	}

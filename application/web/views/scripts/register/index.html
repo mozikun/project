@@ -276,7 +276,7 @@ function initSchool(provinceID){
 		//获取科室
 		getDepartment(school,'');
 		//获取医生
-		getDoctor(school);
+		getallDoctors(school);
 	});
 }
 
@@ -312,12 +312,12 @@ function getDepartment(id){
 	});
 	
 }
-//获取医生列表
+//获取某个科室的医生列表
 function getDoctor(org_id,department_id){
  
 	$.ajax({
 		type:"post",
-		url:"<!--{$basePath}-->web/register/doctor/org_id/"+org_id+"/department_id/"+department_id,
+		url:"<!--{$basePath}-->web/register/getdoctor/org_id/"+org_id+"/department_id/"+department_id,
 		dataType:"json",
 		beforeSend:function(){
 			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<!--{$basePath}-->views/images/load.gif'/></li>"); 
@@ -325,7 +325,7 @@ function getDoctor(org_id,department_id){
 		success:function(doctor){
 			$("#doctors").html(''); 
 			for(i=0;i<doctor.length;i++){
-				$("#doctors").append('<li><a href="<!--{$basePath}-->web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].doctor_name+'</a></li>');
+				$("#doctors").append('<li><a href="<!--{$basePath}-->web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].name+'</a></li>');
 				
 			}
 			
@@ -338,5 +338,30 @@ function getDoctor(org_id,department_id){
 				$(this).addClass('check').siblings().removeClass('check');
 			});
 }
-
+//获取医院所有医生
+function getallDoctors(org_id){
+ 
+	$.ajax({
+		type:"post",
+		url:"<!--{$basePath}-->web/register/getalldoctors/org_id/"+org_id,
+		dataType:"json",
+		beforeSend:function(){
+			$("#doctors").html("<li style='text-align:center;width:100%'><img src='<!--{$basePath}-->views/images/load.gif'/></li>"); 
+		},
+		success:function(doctor){
+			$("#doctors").html(''); 
+			for(i=0;i<doctor.length;i++){
+				$("#doctors").append('<li><a href="<!--{$basePath}-->web/register/zuozhen/doctor_id/'+doctor[i].id+'" doctor_id="'+doctor[i].id+'">'+doctor[i].name+'</a></li>');
+				
+			}
+			
+		},	
+	});
+	
+	//给科室列表加上选择样式
+	$(".list-item>li").click(function(){
+				
+				$(this).addClass('check').siblings().removeClass('check');
+			});
+}
 </script>

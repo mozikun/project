@@ -118,56 +118,25 @@ class web_registerController extends controller
 	/**
      * web_registerController::departmentAction()
      * 
-     * 获取科室
+     * 获取所有医生
      * 
      * @return void
      */
-	public function doctorAction(){
+	public function getalldoctorsAction(){
 		require_once __SITEROOT."library/Models/zuozhen.php";
 		require_once __SITEROOT."library/Models/staff_core.php";
 		
 		$org_id=$this->_request->getParam("org_id");
-		$department_id=$this->_request->getParam("department_id");
-		/*
 		$staff_core=new Tstaff_core();
-		//$zuozhen=new Tzuozhen();
-		//$zuozhen->whereAdd("zuozhen.org_id='$org_id'");
-		//今天
-		//$tomorrow=strtotime("+1 day");
-		//七天后
-		//$sevenday=strtotime("+8 day");
-		//$zuozhen->whereAdd("consulting_time>='$tomorrow' and consulting_time<'$sevenday'");
-		//$zuozhen->joinAdd("inner",$zuozhen,$staff_core,"user_id","id");
-		//$zuozhen->groupby("zuozhen.user_id");
-		$staff_core->whereAdd("staff_core.org_id='$org_id'");
-		//$staff_core->joinAdd("inner",$staff_core,$zuozhen,"id","user_id");
-		//$zuozhen->whereAdd("zuozhen.department='$department_id'");
-		//$staff_core->distinct("staff_core.id");
-		//$staff_core->debug(1);
-		$staff_core->find();
-		
-		$doctors=array();
-		$i=0;
-		while($staff_core->fetch()){
-			$doctors[$i]['id']=$staff_core->id;
-			$doctors[$i]['doctor_name']=$staff_core->name_login;
-			$i++;
-		}
-		//print_r($doctors);
-		echo json_encode($doctors);
-		*/
-		$department_id=$this->_request->getParam("department_id");
-		$department_doctor=new Tdepartment_doctor();
-		$staff_core=new Tstaff_core();
-		$department_doctor->joinAdd("inner",$department_doctor,$staff_core,"doctor_id","id");
-		$department_doctor->whereAdd("department_id='$department_id'");
+		$staff_core->whereAdd("org_id='$org_id'");
+		$staff_core->whereAdd("role_id='14c29a32c28c09'");
 		//$department_doctor->debug(1);
-		$department_doctor->find();
+		$staff_core->find();
 		$result=array();
 		$i=0;
-		while($department_doctor->fetch()){
+		while($staff_core->fetch()){
 			$result[$i]['id']=$staff_core->id;
-			$result[$i]['doctor_name']=$staff_core->name_login;
+			$result[$i]['name']=$staff_core->name_login;
 			$i++;
 		}
 		echo json_encode($result);

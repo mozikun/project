@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-15 11:22:58
+<?php /* Smarty version 2.6.14, created on 2013-09-16 11:23:43
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1466,16 +1466,16 @@ images/menu_add.gif" border="0" onclick="collapse_change(44),toUrl(this,'a')" />
 					 <tr ><td>
 					 <table border="0" cellspacing="0" cellpadding="0" class="leftmenuinfo2">
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/etbj/etbj_fxjc_jbqk.aspx?website=etbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/etbj/etbj_fxjc_jbqk.aspx?website=etbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_3_1" target="mainFrame" onclick="toUrl(this,'c')">基本情况</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/etbj/etbj_fxjc_trejbqk.aspx?website=etbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/etbj/etbj_fxjc_trejbqk.aspx?website=etbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_3_2" target="mainFrame" onclick="toUrl(this,'c')">体弱儿专案</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/etbj/etbj_bbtj_tjfx.aspx?website=etbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/etbj/etbj_bbtj_tjfx.aspx?website=etbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_3_3" target="mainFrame" onclick="toUrl(this,'c')">统计分析</a></td></tr>
 					 <tr><td><span>●</span><a href="http://<?php echo $this->_tpl_vars['jinshiip']; ?>
-/etbj/etbj_jxgl_tjfx.aspx?website=etbj&rhin=ehrplat&region=<?php echo $this->_tpl_vars['standard_code']; ?>
+/etbj/etbj_jxgl_tjfx.aspx?website=etbj&rhin=ehrplat&dwdm=<?php echo $this->_tpl_vars['standard_code']; ?>
 " id="ian44_3_4" target="mainFrame" onclick="toUrl(this,'c')">绩效管理</a></td></tr>
 					 </table>
 					 </td></tr>

@@ -2020,40 +2020,53 @@ class iha_searchController extends controller
            require_once __SITEROOT."/library/custom/pager.php";
            require_once __SITEROOT."library/Models/iha_card_status.php";
            $this->view->basepath = __BASEPATH;
+           $search = array();
            $start_time = $this->_request->getParam("start_time");
            $end_time = $this->_request->getParam("end_time");
+           $identity_number = $this->_request->getParam("identity_number");
            //取得当前的时间赋初值时间2个小时前和当前时间
            $current_time = time();
            $start_time = empty($start_time)?$current_time-2*3600:strtotime($start_time);
            $end_time = empty($end_time)?$current_time:strtotime($end_time);
+           $search['start_time'] = date("Y-m-d H:i:s",$start_time);
+           $search['end_time']=date("Y-m-d H:i:s",$end_time);
            $this->view->start_time = date("Y-m-d H:i:s",$start_time);
            $this->view->end_time = date("Y-m-d H:i:s",$end_time);
+           if(!empty($identity_number))
+           {
+               $where_str = "  and  iha_card_status.identity_number='$identity_number' ";
+           }
+           else
+           {
+               $where_str = "";
+           }
            //取得该时段内的就诊状态人的列表
            $iha_card_status = new Tiha_card_status();
-           $iha_card_status->query("select count(distinct iha_card_status.identity_number) as cou from iha_card_status where iha_card_status.identity_number is not null and iha_card_status.identity_number in (select individual_core.identity_number from individual_core) and  iha_card_status.created>=$start_time and  iha_card_status.created<=$end_time");
+           $iha_card_status->query("select count(distinct iha_card_status.identity_number) as cou from iha_card_status where iha_card_status.identity_number is not null and iha_card_status.identity_number in (select individual_core.identity_number from individual_core) and  iha_card_status.created>=$start_time and  iha_card_status.created<=$end_time $where_str");
            //echo "select count(distinct iha_card_status.identity_number) as cou from iha_card_status where iha_card_status.identity_number is not null and iha_card_status.identity_number in (select individual_core.identity_number from individual_core) and  iha_card_status.created>=$start_time and  iha_card_status.created<=$end_time";
            $iha_card_status->fetch();
            $counter =  $iha_card_status->cou;
            //分页处理
            $pageCurrent = intval($this->_request->getParam('page'));
            $pageCurrent = $pageCurrent?$pageCurrent:1;
-           $search = array();
            $links = new SubPages(__ROWSOFPAGE,$counter,$pageCurrent,__goodsListRowOfPage,__BASEPATH.'iha/search/search_card_status/page/',3,$search);
            $pageCurrent = $links->check_page($pageCurrent);//检查当前页数是否合法
            $startnum = __ROWSOFPAGE*($pageCurrent-1);  //计算开始记录数
            $endnum = $startnum+__ROWSOFPAGE;
            $iha_card_status_list = new Tiha_card_status();
-           $iha_card_status_list->query("select * from (select A.*,ROWNUM as RN from (select distinct iha_card_status.identity_number  from iha_card_status where iha_card_status.identity_number is not null and iha_card_status.identity_number in (select individual_core.identity_number from individual_core) and  iha_card_status.created>=$start_time and  iha_card_status.created<=$end_time ) A where ROWNUM <= $endnum) where RN > $startnum");
+           $iha_card_status_list->query("select * from (select A.*,ROWNUM as RN from (select * from (select iha_card_status.identity_number as c,max(iha_card_status.created) as d from iha_card_status where iha_card_status.identity_number is not null and iha_card_status.identity_number in (select individual_core.identity_number from individual_core) and  iha_card_status.created>=$start_time and  iha_card_status.created<=$end_time $where_str group by iha_card_status.identity_number) order by d DESC ) A where ROWNUM <= $endnum) where RN > $startnum");
            $row = array();
            $i = 0;
            while($iha_card_status_list->fetch())
            {
                //取得病人姓名
                $individual_core = new Tindividual_core();
-               $individual_core->whereAdd("identity_number='$iha_card_status_list->identity_number'");
+               $individual_core->whereAdd("identity_number='$iha_card_status_list->c'");
                $individual_core->find(true);
                $row[$i]['name']    = $individual_core->name;
-               $row[$i]['identity_number']    = base64_encode($iha_card_status_list->identity_number);
+               //$sex = array(0=>'未知的性别', 1=>'男', 2=>'女', 9=>'未说明的性别');
+              // $row[$i]['sex'] = $sex[$individual_core->sex];
+               $row[$i]['identity_number']    = base64_encode($iha_card_status_list->c);
                $i++;
            }
            $this->view->row = $row;

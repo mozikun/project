@@ -19,24 +19,24 @@ class Tdepartment_doctor extends dao_oracle{
  	 * 注释:
 	 * 
 	 * 
-	 * @var NUMBER(22)
+	 * @var VARCHAR2(18)
 	 **/
  	 public $department_id;
-	 public $_department_id_type='number';
+	 public $_department_id_type='varchar2';
 	/**
  	 * 注释:
 	 * 
 	 * 
-	 * @var NUMBER(22)
+	 * @var VARCHAR2(18)
 	 **/
  	 public $doctor_id;
-	 public $_doctor_id_type='number';
+	 public $_doctor_id_type='varchar2';
 	/**
  	 * 注释:
 	 * 
 	 * 
-	 * @var NUMBER(22)
+	 * @var VARCHAR2(10)
 	 **/
  	 public $default_id;
-	 public $_default_id_type='number';
+	 public $_default_id_type='varchar2';
 }
