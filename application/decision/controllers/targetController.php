@@ -56,7 +56,7 @@ class decision_targetController extends controller {
         if(!$this->view->is_cached("index.html",$type.$decision_time))
         {   
         	$conn = oci_connect($databaseConfig[2]['user'],$databaseConfig[2]['password'],$databaseConfig[2]['host']);
-        	$str="select * from zl_his_szb where shijian>='$start_time' and shijian <='$decision_time'";
+        	$str="select * from zl_his_szb where shijian>='$start_time' and shijian <='$decision_time' order by shijian desc";
         	$zl=oci_parse($conn,$str);
         	oci_execute($zl);
 	        $zl_array=array();

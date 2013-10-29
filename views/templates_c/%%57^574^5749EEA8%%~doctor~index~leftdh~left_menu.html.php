@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-09-16 11:23:43
+<?php /* Smarty version 2.6.14, created on 2013-10-28 14:49:24
          compiled from left_menu.html */ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -110,7 +110,10 @@ iha/index/import" id="ian1_1_10" target="mainFrame" onclick="toUrl(this,'c')">�
 iha/family/import" id="ian1_1_16" target="mainFrame" onclick="toUrl(this,'c')">导出家庭档案excel</a></td></tr>
 					 <tr  style="display:<?php echo $this->_tpl_vars['iha_repeat']; ?>
 "><td><span>●</span><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
-iha/repeat/index" id="ian1_1_14" target="mainFrame" onclick="toUrl(this,'c')">个人档案查重</a></td></tr>
+iha/repeat/index" id="ian1_1_14" target="mainFrame" onclick="toUrl(this,'c')">个人档案身份证查重</a></td></tr>
+					 <tr  style="display:<?php echo $this->_tpl_vars['iha_repeatname']; ?>
+"><td><span>●</span><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
+iha/repeatname/index" id="ian1_1_17" target="mainFrame" onclick="toUrl(this,'c')">个人档案姓名查重</a></td></tr>
 					 <tr  style="display:<?php echo $this->_tpl_vars['iha_blank']; ?>
 "><td><span>●</span><a href="<?php echo $this->_tpl_vars['baseUrl']; ?>
 iha/blank/index" id="ian1_1_15" target="mainFrame" onclick="toUrl(this,'c')">身份证号为空</a></td></tr>

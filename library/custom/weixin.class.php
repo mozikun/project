@@ -88,7 +88,7 @@ class weixin
                     </xml>';
         $itemTpl = '<item>
                              <Title><![CDATA[%s]]></Title>
-                             <Discription><![CDATA[%s]]></Discription>
+                             <Description><![CDATA[%s]]></Description>
                              <PicUrl><![CDATA[%s]]></PicUrl>
                              <Url><![CDATA[%s]]></Url>
                          </item>';

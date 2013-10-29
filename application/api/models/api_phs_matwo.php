@@ -219,9 +219,9 @@ class phsmatwo extends api_phs_comm
 						{
 							$table_object->$colums_name=$colums_value;//赋值
 							//特殊处理有'|'字符的数据
-							if(in_array($colums_name,$dic['special']))
+							if(isset($dic['special'][$colums_name]))
 							{
-								if (strpos($colums_value,'|')===false)
+								if (strpos($colums_value,'|')!==false)
 								{
 									//有|才做转换
 									$temp=array();
@@ -237,6 +237,14 @@ class phsmatwo extends api_phs_comm
 									}
 									$table_object->$colums_name=implode('|',$temp);
 								}
+                                else
+                                {
+                                    if ($colums_value!="" && $table_object->$colums_name!="#^&*^&*#" && isset($dic["special"]["$colums_name"]) && isset($table_object->$colums_name))
+								    {
+								        $n=$dic["special"]["$colums_name"];
+								        $table_object->$colums_name=array_code_change($colums_value,$$n);
+								    }
+                                }
 							}
 							else 
 							{
@@ -408,11 +416,15 @@ class phsmatwo extends api_phs_comm
 						{
 							if ($v!="")
 							{
-								$temp_implode[$k]=array_code_change($v,$$n);
+								$temp_implode[$k]=array_search_for_other($v,$$n);
 							}
 						}
 						$prenatal_visit_two->$m=implode('|',$temp_implode);
 					}
+                    else
+                    {
+                        $prenatal_visit_two->$m=array_search_for_other($colums_value,$$n);
+                    }
 				}
 			}
 			if (isset($prenatal_visit_two->staff_id))

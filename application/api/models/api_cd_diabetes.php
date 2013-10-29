@@ -295,6 +295,10 @@ class api_cd_diabetes{
 							$errornumber++;
 							continue;
 						  }
+ else {
+     $diabetes_core->find(true);
+     $disabled_uuid = $diabetes_core->uuid;
+ }
 //						echo $individual_id;
 //						exit();
 						$individual->free_statement();
@@ -314,7 +318,8 @@ class api_cd_diabetes{
                         $drugobj->drug_amount = $row->drug_amount;
                         $drugobj->drug_frequency = $row->drug_frequency;
                         $drugobj->call_module = 'diabetes';
-                        $drugobj->follow_uuid = $uuid;     
+                        $drugobj->follow_uuid = $disabled_uuid;     
+                        //$drugobj->debugLevel(9);
 						$drugobj->insert();
 						$drugobj->free_statement();
 				    }	

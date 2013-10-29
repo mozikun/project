@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-05-06 10:32:45
+<?php /* Smarty version 2.6.14, created on 2013-09-26 14:53:49
          compiled from experience_table.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'count', 'experience_table.html', 1589, false),)), $this); ?>
@@ -842,12 +842,12 @@ images/comments.png" class="vtip" /></strong></td>
          <tr>
 		     <td colspan="2" >体检日期</td>
 			 <td colspan="2" width="80%">
-			 <input type="text" name="examination_date_year" class="inputnone3" id="examination_date_year" value="<?php echo $this->_tpl_vars['examination_date_year']; ?>
-"/>年
+			 <input type="text" name="examination_date_year" class="inputnone4" id="examination_date_year" value="<?php echo $this->_tpl_vars['examination_date_year']; ?>
+" onClick="WdatePicker({dateFmt:'yyyy'})"/>年
 			 <input type="text" name="examination_date_month" class="inputnone3" id="examination_date_month" value="<?php echo $this->_tpl_vars['examination_date_month']; ?>
-"/>月
+" onClick="WdatePicker({dateFmt:'MM'})" />月
 			 <input type="text" name="examination_date_day" class="inputnone3" id="examination_date_day" value="<?php echo $this->_tpl_vars['examination_date_day']; ?>
-"/>日			 </td>
+" onClick="WdatePicker({dateFmt:'dd'})" />日			 </td>
 			 <td width="12%">责任医生<img title="“此处呈现后台维护好的人员列表，也可自行添加；自行添加的人员自动添加到人员列表中，供以后选择。”" src="<?php echo $this->_tpl_vars['basePath']; ?>
 images/comments.png" class="vtip" /></td>
 			 <td colspan="2">	

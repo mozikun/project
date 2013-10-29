@@ -91,11 +91,11 @@ class decision_statisticsController extends controller
                                 $individual_core = new Tindividual_core();                                            
                                 $individual_core->whereAdd("individual_core.date_of_birth<=$tagNumber");
                                 $individual_core->whereAdd("individual_core.region_path like '$antherRegion->region_path%'");
-                                //$individual_core->whereAdd("individual_core.status_flag=1"); //档案状态    
+                                $individual_core->whereAdd("individual_core.status_flag=1"); //档案状态    
                                 //65岁以上接收健康管理总人数
                                 //先找出65岁以上的正常档案，然后从体检表、老年人服务管理中去筛选
                                 $individual_core->whereAdd("individual_core.uuid in (select id from examination_table where examination_table.examination_date>='$year_start'and examination_table.examination_date<='$time_tag' union select id from et_lifecase_assessment where et_lifecase_assessment.created>='$year_start'and et_lifecase_assessment.created<='$time_tag' ) ");
-                                 $lonePerson = $individual_core->count("distinct individual_core.uuid ");
+                                $lonePerson = $individual_core->count("distinct individual_core.uuid ");
                                 
                                  //老年人生活自理能力评估人数
                                 $individual_core = new Tindividual_core();  
@@ -132,12 +132,12 @@ class decision_statisticsController extends controller
                                 $individual_core->whereAdd("individual_core.uuid in (select id from examination_table where examination_table.examination_date>='$year_start'and examination_table.examination_date<='$time_tag' ) ");
                                  $examination_table = $individual_core->count("distinct individual_core.uuid ");
                                  //健康指导
-                               $individual_core = new Tindividual_core();                                            
+                                $individual_core = new Tindividual_core();                                            
                                 $individual_core->whereAdd("individual_core.date_of_birth<=$tagNumber");
                                 $individual_core->whereAdd("individual_core.region_path like '$antherRegion->region_path%'");
                                 $individual_core->whereAdd("individual_core.status_flag=1"); //档案状态                             
                                 $individual_core->whereAdd("individual_core.uuid in (select id from et_health_guidance where et_health_guidance.created>='$year_start'and et_health_guidance.created<='$time_tag' ) ");
-                                 $et_health_guidance = $individual_core->count("distinct individual_core.uuid ");  
+                                $et_health_guidance = $individual_core->count("distinct individual_core.uuid ");  
                                   
                                   
                                  

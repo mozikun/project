@@ -31,37 +31,37 @@ table
 <table border="1px" align="center" width="100%">
      <tr class="bigfont">
      	<!--{if $type==''}-->
-     		<td colspan="17" align="center">  	
+     		<td colspan="18" align="center">  	
      	<!--{elseif $type=='workload'}-->
-     		<td colspan="6" align="center">   
+     		<td colspan="7" align="center">   
      	<!--{elseif $type=='efficiency'}-->
-     		<td colspan="2" align="center">  
-     	<!--{elseif $type=='quality'}-->
      		<td colspan="3" align="center">  
+     	<!--{elseif $type=='quality'}-->
+     		<td colspan="4" align="center">  
      	<!--{elseif $type=='cost'}-->
-     		<td colspan="6" align="center">  
+     		<td colspan="7" align="center">  
      	<!--{elseif $type=='medicine'}-->
-     		<td colspan="3" align="center"> 
+     		<td colspan="4" align="center"> 
      	<!--{elseif $type=='dispute'}-->
-     		<td colspan="2" align="center"> 
+     		<td colspan="3" align="center"> 
      	<!--{/if}-->
      	<center><strong>业务指标监管(<!--{$start_time}-->~<!--{$decision_time}-->)</strong></center></td>  
      </tr>
      <tr class="bigfont">
      	<!--{if $type==''}-->
-     		<td colspan="17" align="center">  	
+     		<td colspan="18" align="center">  	
      	<!--{elseif $type=='workload'}-->
-     		<td colspan="6" align="center">   
+     		<td colspan="7" align="center">   
      	<!--{elseif $type=='efficiency'}-->
-     		<td colspan="2" align="center">  
-     	<!--{elseif $type=='quality'}-->
      		<td colspan="3" align="center">  
+     	<!--{elseif $type=='quality'}-->
+     		<td colspan="4" align="center">  
      	<!--{elseif $type=='cost'}-->
-     		<td colspan="6" align="center">  
+     		<td colspan="7" align="center">  
      	<!--{elseif $type=='medicine'}-->
-     		<td colspan="3" align="center"> 
+     		<td colspan="4" align="center"> 
      	<!--{elseif $type=='dispute'}-->
-     		<td colspan="2" align="center"> 
+     		<td colspan="3" align="center"> 
      	<!--{/if}-->
      	<form action="" method="POST">
             开始时间：<input type="text" onClick="WdatePicker({firstDayOfWeek:1,maxDate:'#F{$dp.$D(\'search_time\')||\'2030-12-31\'}'})" class="" id="form_start_time" name="form_start_time" value="<!--{$start_time}-->"/> -
@@ -71,11 +71,9 @@ table
          </form>
        </td>
      </tr>
-    <!-- <tr class="headbg">
-     	<td colspan="8"><!--{section loop=$rs name=rs}--><a href="<!--{$basePath}-->decision/target/index/parent_id/<!--{$rs[rs].id}-->/model/<!--{$model}-->/type/<!--{$type}-->/start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><!--{if $add_need_id eq $rs[rs].id}--><font color="Red"><strong><!--{$rs[rs].zh_name}--></strong></font></a><!--{else}--><a href="<!--{$basePath}-->decision/target/index/parent_id/<!--{$rs[rs].id}-->/model/<!--{$model}-->/type/<!--{$type}-->/start_time/<!--{$start_time}-->/decision_time/<!--{$decision_time}-->"><strong><!--{$rs[rs].zh_name}--></strong></a><!--{/if}-->&nbsp;&nbsp;->&nbsp;&nbsp;<!--{/section}--></td>
-     </tr>-->
      <tr class="bigfont">
      	<td rowspan="2"  style="text-align:center" width="8%"><strong>单位</strong></td>
+     	<td rowspan="2"  style="text-align:center" width="6%"><strong>时间</strong></td>
      	<!--{if $type=='' || $type=='workload'}-->
      	<td colspan="5" style="text-align:center" align="center"><strong>工作量</strong></td>
      	<!--{/if}-->
@@ -97,34 +95,35 @@ table
      </tr>
      <tr class="bigfont">
 	    <!--{if $type=='' || $type=='workload'}-->
-	    <td width="4">日均门诊量（人次）</td>
-	    <td width="4">日均急诊量（人次）</td>
-	    <td width="4">专家门诊每日人均诊疗人次（人次/日.人）</td>
-	    <td width="4">总手术台次（台次）</td>
-	    <td width="4">出院人数（人）</td>
+	    <td width="4%">日均门诊量（人次）</td>
+	    <td width="4%">日均急诊量（人次）</td>
+	    <td width="4%">专家门诊每日人均诊疗人次（人次/日.人）</td>
+	    <td width="4%">总手术台次（台次）</td>
+	    <td width="4%">出院人数（人）</td>
 	    <!--{/if}-->
 	    <!--{if $type=='' || $type=='efficiency'}-->
-	    <td width="4">出院病人平均住院日（日）</td>
+	    <td width="4%">出院病人平均住院日（日）</td>
 	    <!--{/if}-->
      	<!--{if $type=='' || $type=='quality'}-->
-	    <td width="4">入出院诊断符合率（%）</td>
-	    <td width="4">无菌切口甲级愈合率（%）</td>
+	    <td width="4%">入出院诊断符合率（%）</td>
+	    <td width="4%">无菌切口甲级愈合率（%）</td>
 	    <!--{/if}-->
      	<!--{if $type=='' || $type=='cost'}-->
-	    <td width="4">门诊例均医疗费用（元）</td>
-	    <td width="4">门诊例均费用中检查费比例（%）</td>
-		<td width="4">出院患者例均医疗费用（元）</td>
-	    <td width="4">出院患者例均费用中检查费比例（%）</td>
-	    <td width="4">药品收入占总收入比例（%）</td>
+	    <td width="4%">门诊例均医疗费用（元）</td>
+	    <td width="4%">门诊例均费用中检查费比例（%）</td>
+		<td width="4%">出院患者例均医疗费用（元）</td>
+	    <td width="4%">出院患者例均费用中检查费比例（%）</td>
+	    <td width="4%">药品收入占总收入比例（%）</td>
 	    <!--{/if}-->
      	<!--{if $type=='' || $type=='medicine'}-->
-	    <td width="4">门诊抗菌药物处方比例（%）</td>
-	    <td width="4">住院患者抗菌药物使用率（%）</td>
+	    <td width="4%">门诊抗菌药物处方比例（%）</td>
+	    <td width="4%">住院患者抗菌药物使用率（%）</td>
 	    <!--{/if}-->
  	 </tr>
  	 <!--{section loop=$rows name=rows}-->
      <tr onmousemove="this.className='table_mouseover'" onmouseout="this.className='table_mouseout'">
      	<td><!--{$rows[rows].hospatal_name}--></td>
+     	<td><!--{$rows[rows].time}--></td>
      	<!--{if $type=='' || $type=='workload'}-->
      	<td><!--{$rows[rows].rmzl}--></td>
      	<td><!--{$rows[rows].rjzl}--></td>
@@ -157,23 +156,24 @@ table
 	  <!--{/section}-->
      <tr>
 	     <!--{if $type==''}-->
-     		<td colspan="17" align="center">  	
+     		<td colspan="18" align="center">  	
      	<!--{elseif $type=='workload'}-->
-     		<td colspan="6" align="center">   
+     		<td colspan="7" align="center">   
      	<!--{elseif $type=='efficiency'}-->
-     		<td colspan="2" align="center">  
-     	<!--{elseif $type=='quality'}-->
      		<td colspan="3" align="center">  
+     	<!--{elseif $type=='quality'}-->
+     		<td colspan="4" align="center">  
      	<!--{elseif $type=='cost'}-->
-     		<td colspan="6" align="center">  
+     		<td colspan="7" align="center">  
      	<!--{elseif $type=='medicine'}-->
-     		<td colspan="3" align="center"> 
+     		<td colspan="4" align="center"> 
      	<!--{elseif $type=='dispute'}-->
-     		<td colspan="2" align="center"> 
+     		<td colspan="3" align="center"> 
      	<!--{/if}-->
 	     选择时间时，开始时间不能大于结束时间，结束时间也不能小于开始时间。<br />
 	     统计口径：1、门诊量：指门诊诊疗人次；2、急诊量：指急诊人次；3、住院费用中不可报销费用：指超出国家基本用药和诊疗目录以外的费用；4、个人自付：含不可报销费用和可报销费用中的剩余部分及门槛费等；5、医疗纠纷投诉：包括书记、市（县、区）长信箱投诉；来信来访；电话投诉；现场处置等情况。															
 	     </td>
-     </tr>							
+     </tr>	
+  </table>						
 </body>
 </html>

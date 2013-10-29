@@ -79,4 +79,12 @@ class Thealth_prescription extends dao_oracle{
 	 **/
  	 public $status_type;
 	 public $_status_type_type='number';
+	/**
+ 	 * 注释:
+	 * 
+	 * 
+	 * @var VARCHAR2(60)
+	 **/
+ 	 public $ext_uuid;
+	 public $_ext_uuid_type='varchar2';
 }

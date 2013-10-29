@@ -10,6 +10,7 @@ class api_phs_iha_cover extends api_phs_comm{
 		return login($org_id,$password);
 	}
 	public function ws_delete($token,$xml_string){
+		return false;
 		/*		if(checkToken($token)!=1){
 		$xml_string="<?xml version='1.0' encoding='UTF-8'?><message><return_code>2</return_code><return_string>请先登陆后在进行数据处理</return_string></message>";
 		return $xml_string;
@@ -440,8 +441,12 @@ class api_phs_iha_cover extends api_phs_comm{
 					$individual->region_path=$region_path;
 					$individual->status_flag=$status_flag_array_e_i["$row->status_flag"];
 					$individual->org_id=$org_id;
-					$individual->staff_id=$staff_id;
-					$individual->response_doctor=$response_doctor;
+                    //原方法，罗老师使用的数组技术
+					//$individual->staff_id=$staff_id;
+					//$individual->response_doctor=$response_doctor;
+                    //2013-10-28 我好笨 使用通用处理方法
+                    $individual->response_doctor=$this->set_doctor_number($row->response_doctor);
+                    $individual->staff_id=$this->set_doctor_number($row->staff_id);
 					$individual->relation_holder=$relation_of_householder_array_e_i["$row->relation_holder"];
 					$individual->family_number=$family_number;
 					$individual->name_pinyin=getPinyin($row->name);
@@ -933,11 +938,7 @@ class api_phs_iha_cover extends api_phs_comm{
 			//var_dump($where_xml);
             //$org_id = $this->get_org_id($where_xml->org_id);
             $org_id = $organization->id;
-            if ($org_id)
-            {
-                $core->whereAdd("individual_core.org_id='" . $org_id . "'");
-            }
-            else
+            if (empty($org_id))
             {
                 return $this->_error_message_start .
                     "<return_code>2</return_code><return_string>机构ID" . $where_xml->org_id .
@@ -1002,7 +1003,7 @@ class api_phs_iha_cover extends api_phs_comm{
        // $core->debugLevel(9);
         if ($nums)
         {
-            $core->find();
+            $core->find(); 
             $xml_string = "<?xml version='1.0' encoding='UTF-8'?><tables><table name='individual_core'>";
             while ($core->fetch())
             {

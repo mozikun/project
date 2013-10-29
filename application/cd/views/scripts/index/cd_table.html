@@ -358,7 +358,7 @@ width:40px;}
 	<tr>
 	<td colspan="2" align="center">操作选项</td>
 	  <!--{section name=do loop=$nums}-->
-      <td colspan="2"><a href="<!--{$basePath}-->cd/index/edit/uuid/<!--{$hypertension_array[do].uuid}-->">编辑</a>&nbsp;|&nbsp;<a href="<!--{$basePath}-->cd/index/delete/uuid/<!--{$hypertension_array[do].uuid}-->">删除</a>&nbsp;|&nbsp;
+      <td colspan="2"><a href="<!--{$basePath}-->cd/index/edit/uuid/<!--{$hypertension_array[do].uuid}-->">编辑</a>&nbsp;|&nbsp;<a href="###" onclick="return delete_hy('<!--{$basePath}-->cd/index/delete/uuid/<!--{$hypertension_array[do].uuid}-->')">删除</a>&nbsp;|&nbsp;
       <a href="#" onclick="window.open('<!--{$basePath}-->cd/index/print/uuid/<!--{$hypertension_array[do].uuid}-->')">打印</a></td>
       <!--{/section}-->
 	</tr>
@@ -368,3 +368,13 @@ width:40px;}
    </div>
 </body>
 </html>
+<script>
+function delete_hy(durl)
+{
+    if(confirm('确定要删除本条随访记录吗?'))
+    {
+        window.location=durl;
+    }
+    return false;
+}
+</script>

@@ -46,10 +46,11 @@ class api_phsmaindexController extends controller
     public function zltestAction()
     {
         $ws_url="http://172.16.11.251/wsdl/api_phs_phsmaindex.wsdl";
-		//$client=new SoapClient($ws_url);
+		$client=new SoapClient($ws_url);
         require_once(__SITEROOT."application/api/models/api_phs_maindex.php");
-        $client=new phsmaindex();
-        //echo $client->ws_update('54254047451180212C2201',iconv('gbk','utf-8',file_get_contents(__SITEROOT."ych.txt")));
+        //$client=new phsmaindex();
+        echo $client->ws_update('45254619-4',iconv('gbk','utf-8',file_get_contents(__SITEROOT."firsvisit.xml")));
+		exit;
         echo $client->ws_select_single('54254047451180212C2201',"<?xml version='1.0' encoding='UTF-8'?><where><org_id>54254047451180212C2201</org_id><identity_number>511027198109044321</identity_number><ext_uuid>ce4bb093-40d7-4ffc-9c65-c1a736c67f01</ext_uuid></where>");
     }
 	/**

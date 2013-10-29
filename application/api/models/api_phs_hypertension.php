@@ -100,6 +100,8 @@ class phshyper extends api_phs_comm
 	/**
 	 * 添加或者更新数据--家庭档案创建是在个人档案封面决定，此处只做更新
 	 *
+     * 主从表规则,从表记录的ext_uuid必须和主表的ext_uuid一致
+     * 
 	 * @param string $token
 	 * @param string $xml_string
 	 * @return mixed
@@ -240,8 +242,162 @@ class phshyper extends api_phs_comm
 								    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
                                     $this->insert_api_logs($logs_array);
 									$success++;
+                                    $table_object->free_statement();
+                                    $parent_ext_uuid=(string)$rows->ext_uuid;
+                                    //处理从表-先删除从表数据
+                                    $update_status=0;
+                                    foreach ($data_xml as $tables)
+                    				{
+                    					$table_name_son=$tables->attributes();//表名
+                    					$class_name_son="T".$table_name_son;//类名
+                                        if ($table_name_son!="hypertension_follow_up")
+                    					{
+                                            //查询更新标志
+                        					$table_object_son=new $class_name_son();
+                                            //$table_object_son->debug(5);
+                        					$table_object_son->whereAdd("id='$id'");
+                        					$table_object_son->whereAdd("org_id='$org_id'");
+                                            //采用涛哥的方式，先删除记录，再添加记录
+                        					$table_object_son->whereAdd("ext_uuid='".$parent_ext_uuid."'");
+                        					if ($table_object_son->delete())
+                        					{
+                        					   $update_status=0;
+                        					}
+                        					$table_object_son->free_statement();
+                                            foreach ($tables as $rows)
+                        					{
+                        						$org_id=$this->get_org_id($rows->org_id);
+                                                $org_standard_code=$this->set_org_id($rows->org_id);
+                        						if(!$org_id)
+                            					{
+                            						$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>机构ID不存在</error_msg></table>";
+                                                    $error++;
+                                                    continue;
+                            					}
+                                                //判断身份证号是否合法
+                                                $identity_number=$rows->identity_number;
+                                    			$identity_number_length=strlen($identity_number);
+                                    			if ($identity_number_length!=15 && $identity_number_length!=18)
+                                    			{
+                                    			     $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>错误，身份证号只能是15或者18位</error_msg></table>";
+                                                     $error++;
+                                                     continue;
+                                    			}
+                                    			//根据身份证查询此用户是否建档
+                                    			$core=new Tindividual_core();
+                                    			$core->whereAdd("individual_core.identity_number='".$identity_number."'");
+                                    			if (!$core->count("uuid"))
+                                    			{
+                                                    $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>身份证号为：".$rows->identity_number."的用户未建档，请先调用建档接口</error_msg></table>";
+                                                    $error++;
+                                                    $core->free_statement();
+                                                    continue;
+                                    			}
+                                    			else 
+                                    			{
+                                    				$core->find(true);
+                                                    $core->free_statement();
+                                    				$id=$core->uuid;//个人档案号
+                                    				if(!$id)
+                                    				{
+                                                        $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>此用户的档案有错误，没有个人档案序号uuid值</error_msg></table>";
+                                                        $error++;
+                                                        continue;
+                                    				}
+                                    			}
+                        						//这里处理从表数据
+                        						if ($table_name_son!="hypertension_follow_up" && $parent_ext_uuid==(string)$rows->ext_uuid)
+                        						{
+                        								$table_object_son=new $class_name_son();
+                        								foreach ($rows as $colums)
+                        								{
+                        									$colums_name=$colums->getname();//字段名
+                        									//排除除核心表之外的其他表里的身份证号字段
+                        									if ($colums_name!="identity_number")
+                        									{
+                        										$colums_value=$rows->$colums_name;
+                        										$table_object_son->$colums_name=$colums_value;//赋值
+                        									}
+                        								}
+                        								if (isset($table_object_son->staff_id))
+                        								{
+                        									$table_object_son->staff_id=$this->set_doctor_number($table_object_son->staff_id);//处理医生
+                        								}
+                        								if (isset($table_object_son->org_id))
+                        								{
+                        									$table_object_son->org_id=$this->get_org_id($table_object_son->org_id);
+                        								}
+                        								if ($update_status)
+                        								{
+                        									$table_object_son->whereAdd("id='$id'");
+                        									$table_object_son->whereAdd("org_id='$org_id'");
+                        									$table_object_son->whereAdd("ext_uuid='".$rows->ext_uuid."'");
+                        									$update_except_array=array("uuid","follow_up_uuid","follow_uuid","id","org_id","created");//更新时不能更新的字段数组
+                        									foreach ($update_except_array as $v)
+                        									{
+                        										if (isset($table_object_son->$v))
+                        										{
+                        											unset($table_object_son->$v);
+                        										}
+                        									}
+                                                            if ($table_name_son=="follow_up_drugs")
+                        									{
+                                                                $table_object_son->call_module='hypertension';
+                        									}
+                        									if (!$table_object_son->update())
+                        									{
+                        										$status=3;
+                        										$error_msg=$table_object_son->showErrorMessage();
+                                    							$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
+                                                                $error++;
+                                                                $table_object_son->free_statement();
+                                                                continue;
+                        									}
+                        									else 
+                        									{
+                        									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
+                                                                $this->insert_api_logs($logs_array);
+                        										$success++;
+                        									}
+                        									$table_object_son->free_statement();
+                        								}
+                        								else 
+                        								{
+                        									$table_object_son->org_id=$org_id;
+                        									$table_object_son->id=$id;
+                        									//根据表来写关联字段，因为这里字段未统一
+                        									if ($table_name_son=="hypertension_symptom")
+                        									{
+                        										$table_object_son->follow_up_uuid=$follwo_up_uuid;
+                        									}
+                        									if ($table_name_son=="follow_up_drugs")
+                        									{
+                        										$table_object_son->follow_uuid=$follwo_up_uuid;
+                                                                $table_object_son->call_module='hypertension';
+                        									}
+                        									//插入数据时需要生成uuid
+                        									$table_object_son->uuid=uniqid(strtoupper(substr($table_name_son,0,1))."_");
+                                                            //$table_object_son->debug(5);
+                        									if (!$table_object_son->insert())
+                        									{
+                        										$status=3;
+                        										$error_msg=$table_object_son->showErrorMessage();
+                                    							$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
+                                                                $error++;
+                        									}
+                        									else 
+                        									{
+                        									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
+                                                                $this->insert_api_logs($logs_array);
+                        										$success++;
+                        									}
+                        									$table_object_son->free_statement();
+                        								}
+                        						}
+                        					}
+                                        }
+                    				}
 								}
-								$table_object->free_statement();
 							}
 							else 
 							{
@@ -263,166 +419,164 @@ class phshyper extends api_phs_comm
 								    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>1);
                                     $this->insert_api_logs($logs_array);
 									$success++;
+                                    $table_object->free_statement();
+                                    $parent_ext_uuid=(string)$rows->ext_uuid;
+                                    //处理从表-先删除从表数据
+                                    $update_status=0;
+                                    foreach ($data_xml as $tables)
+                    				{
+                    					$table_name_son=$tables->attributes();//表名
+                    					$class_name_son="T".$table_name_son;//类名
+                                        if ($table_name_son!="hypertension_follow_up")
+                    					{
+                                            //查询更新标志
+                        					$table_object_son=new $class_name_son();
+                                            //$table_object->debug(5);
+                        					$table_object_son->whereAdd("id='$id'");
+                        					$table_object_son->whereAdd("org_id='$org_id'");
+                                            //采用涛哥的方式，先删除记录，再添加记录
+                        					$table_object_son->whereAdd("ext_uuid='".$parent_ext_uuid."'");
+                        					if ($table_object_son->delete())
+                        					{
+                        					   $update_status=0;
+                        					}
+                        					$table_object_son->free_statement();
+                                            foreach ($tables as $rows)
+                        					{
+                        						$org_id=$this->get_org_id($rows->org_id);
+                                                $org_standard_code=$this->set_org_id($rows->org_id);
+                        						if(!$org_id)
+                            					{
+                            						$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>机构ID不存在</error_msg></table>";
+                                                    $error++;
+                                                    continue;
+                            					}
+                                                //判断身份证号是否合法
+                                                $identity_number=$rows->identity_number;
+                                    			$identity_number_length=strlen($identity_number);
+                                    			if ($identity_number_length!=15 && $identity_number_length!=18)
+                                    			{
+                                    			     $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>错误，身份证号只能是15或者18位</error_msg></table>";
+                                                     $error++;
+                                                     continue;
+                                    			}
+                                    			//根据身份证查询此用户是否建档
+                                    			$core=new Tindividual_core();
+                                    			$core->whereAdd("individual_core.identity_number='".$identity_number."'");
+                                    			if (!$core->count("uuid"))
+                                    			{
+                                                    $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>身份证号为：".$rows->identity_number."的用户未建档，请先调用建档接口</error_msg></table>";
+                                                    $error++;
+                                                    $core->free_statement();
+                                                    continue;
+                                    			}
+                                    			else 
+                                    			{
+                                    				$core->find(true);
+                                                    $core->free_statement();
+                                    				$id=$core->uuid;//个人档案号
+                                    				if(!$id)
+                                    				{
+                                                        $error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>此用户的档案有错误，没有个人档案序号uuid值</error_msg></table>";
+                                                        $error++;
+                                                        continue;
+                                    				}
+                                    			}
+                        						//这里处理从表数据
+                        						if ($table_name_son!="hypertension_follow_up" && $parent_ext_uuid==(string)$rows->ext_uuid)
+                        						{
+                        								$table_object_son=new $class_name_son();
+                        								foreach ($rows as $colums)
+                        								{
+                        									$colums_name=$colums->getname();//字段名
+                        									//排除除核心表之外的其他表里的身份证号字段
+                        									if ($colums_name!="identity_number")
+                        									{
+                        										$colums_value=$rows->$colums_name;
+                        										$table_object_son->$colums_name=$colums_value;//赋值
+                        									}
+                        								}
+                        								if (isset($table_object_son->staff_id))
+                        								{
+                        									$table_object_son->staff_id=$this->set_doctor_number($table_object_son->staff_id);//处理医生
+                        								}
+                        								if (isset($table_object_son->org_id))
+                        								{
+                        									$table_object_son->org_id=$this->get_org_id($table_object_son->org_id);
+                        								}
+                        								if ($update_status)
+                        								{
+                        									$table_object_son->whereAdd("id='$id'");
+                        									$table_object_son->whereAdd("org_id='$org_id'");
+                        									$table_object_son->whereAdd("ext_uuid='".$rows->ext_uuid."'");
+                        									$update_except_array=array("uuid","follow_up_uuid","follow_uuid","id","org_id","created");//更新时不能更新的字段数组
+                        									foreach ($update_except_array as $v)
+                        									{
+                        										if (isset($table_object_son->$v))
+                        										{
+                        											unset($table_object_son->$v);
+                        										}
+                        									}
+                                                            if ($table_name_son=="follow_up_drugs")
+                        									{
+                                                                $table_object_son->call_module='hypertension';
+                        									}
+                        									if (!$table_object_son->update())
+                        									{
+                        										$status=3;
+                        										$error_msg=$table_object_son->showErrorMessage();
+                                    							$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
+                                                                $error++;
+                                                                $table_object_son->free_statement();
+                                                                continue;
+                        									}
+                        									else 
+                        									{
+                        									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
+                                                                $this->insert_api_logs($logs_array);
+                        										$success++;
+                        									}
+                        									$table_object_son->free_statement();
+                        								}
+                        								else 
+                        								{
+                        									$table_object_son->org_id=$org_id;
+                        									$table_object_son->id=$id;
+                        									//根据表来写关联字段，因为这里字段未统一
+                        									if ($table_name_son=="hypertension_symptom")
+                        									{
+                        										$table_object_son->follow_up_uuid=$follwo_up_uuid;
+                        									}
+                        									if ($table_name_son=="follow_up_drugs")
+                        									{
+                        										$table_object_son->follow_uuid=$follwo_up_uuid;
+                                                                $table_object_son->call_module='hypertension';
+                        									}
+                        									//插入数据时需要生成uuid
+                        									$table_object_son->uuid=uniqid(strtoupper(substr($table_name_son,0,1))."_");
+                                                            //$table_object->debug(5);
+                        									if (!$table_object_son->insert())
+                        									{
+                        										$status=3;
+                        										$error_msg=$table_object_son->showErrorMessage();
+                                    							$error_message_xml.="<table name='$table_name_son'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
+                                                                $error++;
+                        									}
+                        									else 
+                        									{
+                        									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
+                                                                $this->insert_api_logs($logs_array);
+                        										$success++;
+                        									}
+                        									$table_object_son->free_statement();
+                        								}
+                        						}
+                        					}
+                                        }
+                    				}
 								}
-								$table_object->free_statement();
 							}
 						}
-				}
-			}
-			//有主表UUID之后，处理从表数据
-			if ($follwo_up_uuid)
-			{
-				foreach ($data_xml as $tables)
-				{
-					$update_status=0;//更新标志放这里
-					$table_name=$tables->attributes();//表名
-					$class_name="T".$table_name;//类名
-                    if ($table_name!="hypertension_follow_up")
-					{
-                        //查询更新标志
-    					$table_object=new $class_name();
-                        //$table_object->debug(5);
-    					$table_object->whereAdd("id='$id'");
-    					$table_object->whereAdd("org_id='$org_id'");
-                        //采用涛哥的方式，先删除记录，再添加记录
-    					$table_object->whereAdd("ext_uuid='".$rows->ext_uuid."'");
-    					if ($table_object->delete())
-    					{
-    					   $update_status=0;
-    					}
-    					$table_object->free_statement();
-                    }
-					foreach ($tables as $rows)
-					{
-						$org_id=$this->get_org_id($rows->org_id);
-                        $org_standard_code=$this->set_org_id($rows->org_id);
-						if(!$org_id)
-    					{
-    						$error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>机构ID不存在</error_msg></table>";
-                            $error++;
-                            continue;
-    					}
-                        //判断身份证号是否合法
-                        $identity_number=$rows->identity_number;
-            			$identity_number_length=strlen($identity_number);
-            			if ($identity_number_length!=15 && $identity_number_length!=18)
-            			{
-            			     $error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>错误，身份证号只能是15或者18位</error_msg></table>";
-                             $error++;
-                             continue;
-            			}
-            			//根据身份证查询此用户是否建档
-            			$core=new Tindividual_core();
-            			$core->whereAdd("individual_core.identity_number='".$identity_number."'");
-            			if (!$core->count("uuid"))
-            			{
-                            $error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>身份证号为：".$rows->identity_number."的用户未建档，请先调用建档接口</error_msg></table>";
-                            $error++;
-                            $core->free_statement();
-                            continue;
-            			}
-            			else 
-            			{
-            				$core->find(true);
-                            $core->free_statement();
-            				$id=$core->uuid;//个人档案号
-            				if(!$id)
-            				{
-                                $error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>此用户的档案有错误，没有个人档案序号uuid值</error_msg></table>";
-                                $error++;
-                                continue;
-            				}
-            			}
-						//这里处理从表数据
-						if ($table_name!="hypertension_follow_up")
-						{
-								$table_object=new $class_name();
-								foreach ($rows as $colums)
-								{
-									$colums_name=$colums->getname();//字段名
-									//排除除核心表之外的其他表里的身份证号字段
-									if ($colums_name!="identity_number")
-									{
-										$colums_value=$rows->$colums_name;
-										$table_object->$colums_name=$colums_value;//赋值
-									}
-								}
-								if (isset($table_object->staff_id))
-								{
-									$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
-								}
-								if (isset($table_object->org_id))
-								{
-									$table_object->org_id=$this->get_org_id($table_object->org_id);
-								}
-								if ($update_status)
-								{
-									$table_object->whereAdd("id='$id'");
-									$table_object->whereAdd("org_id='$org_id'");
-									$table_object->whereAdd("ext_uuid='".$rows->ext_uuid."'");
-									$update_except_array=array("uuid","follow_up_uuid","follow_uuid","id","org_id","created");//更新时不能更新的字段数组
-									foreach ($update_except_array as $v)
-									{
-										if (isset($table_object->$v))
-										{
-											unset($table_object->$v);
-										}
-									}
-                                    if ($table_name=="follow_up_drugs")
-									{
-                                        $table_object->call_module='hypertension';
-									}
-									if (!$table_object->update())
-									{
-										$status=3;
-										$error_msg=$table_object->showErrorMessage();
-            							$error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
-                                        $error++;
-                                        $table_object->free_statement();
-                                        continue;
-									}
-									else 
-									{
-									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
-                                        $this->insert_api_logs($logs_array);
-										$success++;
-									}
-									$table_object->free_statement();
-								}
-								else 
-								{
-									$table_object->org_id=$org_id;
-									$table_object->id=$id;
-									//根据表来写关联字段，因为这里字段未统一
-									if ($table_name=="hypertension_symptom")
-									{
-										$table_object->follow_up_uuid=$follwo_up_uuid;
-									}
-									if ($table_name=="follow_up_drugs")
-									{
-										$table_object->follow_uuid=$follwo_up_uuid;
-                                        $table_object->call_module='hypertension';
-									}
-									//插入数据时需要生成uuid
-									$table_object->uuid=uniqid(strtoupper(substr($table_name,0,1))."_");
-                                    //$table_object->debug(5);
-									if (!$table_object->insert())
-									{
-										$status=3;
-										$error_msg=$table_object->showErrorMessage();
-            							$error_message_xml.="<table name='$table_name'><row><org_id>".$rows->org_id."</org_id><identity_number>".$rows->identity_number."</identity_number><ext_uuid>".$rows->ext_uuid."</ext_uuid></row><error_msg>$error_msg</error_msg></table>";
-                                        $error++;
-									}
-									else 
-									{
-									    $logs_array=array("ext_uuid"=>$rows->ext_uuid,"org_id"=>$org_id,"model_id"=>4,"upload_time"=>time(),"upload_token"=>2);
-                                        $this->insert_api_logs($logs_array);
-										$success++;
-									}
-									$table_object->free_statement();
-								}
-						}
-					}
 				}
 			}
             return $this->_error_message_start.$error_message_xml."<return_string>成功更新".$success."条记录，".$error."条记录更新失败</return_string>".$this->_error_message_end;
