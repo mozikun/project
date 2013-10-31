@@ -202,7 +202,7 @@ class phschildphysicalthree extends api_phs_comm
 						$table_object_=new $class_name();
 						$table_object_->whereAdd("id='$id'");
 						$table_object_->whereAdd("org_id='$org_id'");
-						//$table_object_->whereAdd("ext_uuid='$ext_uuid'");
+						$table_object_->whereAdd("ext_uuid='$ext_uuid'");
 						$table_object_->whereAdd("age='$age'");
 						if ($table_object_->count()){
 							$update_status=1;
@@ -265,7 +265,10 @@ class phschildphysicalthree extends api_phs_comm
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
 
 					}
-
+					if (isset($table_object->doctors_signature)){
+						$table_object->doctors_signature=$this->set_doctor_number($table_object->doctors_signature);//处理签名医生
+								
+					}
 					if (isset($table_object->org_id)){
 						$table_object->org_id=$this->get_org_id($table_object->org_id);//处理机构
 					}
@@ -274,7 +277,7 @@ class phschildphysicalthree extends api_phs_comm
 					if ($update_status){
 						$table_object->whereAdd("id='$id'");
 						$table_object->whereAdd("org_id='$org_id'");
-						//$table_object->whereAdd("ext_uuid='$ext_uuid'");
+						$table_object->whereAdd("ext_uuid='$ext_uuid'");
 						$table_object->whereAdd("age='$age'");
 						$update_except_array=array("uuid","id","org_id","staff_id","created");//更新时不能更新的字段数组
 						foreach ($update_except_array as $v){

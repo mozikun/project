@@ -571,7 +571,7 @@ class cd_schizophreniaController extends controller{
 			//$this->view->diet_options 				= $cd_diet; //饮食情况|radio|1=>良好,2=>一般,3=>较差
 			$this->view->diet_current 				= array_search_for_other($schizophrenia->diet,$cd_diet);//饮食情况|radio|1=>良好,2=>一般,3=>较差
 
-			//$this->view->personlife_do_options 		= $cd_personlife_do; //个人生活料理|radio|1=>良好,2=>一般,3=>较差
+			$this->view->personlife_do_options 		= $cd_personlife_do; //个人生活料理|radio|1=>良好,2=>一般,3=>较差
 			$this->view->personlife_do_current 		= array_search_for_other($schizophrenia->personlife_do,$cd_personlife_do);//个人生活料理|radio|1=>良好,2=>一般,3=>较差
 
 			//$this->view->housework_options 			= $cd_housework; //家务劳动|radio|1=>良好,2=>一般,3=>较差
@@ -861,7 +861,6 @@ class cd_schizophreniaController extends controller{
 			foreach ($rehabilitation_measures_arr as $rehabilitation_measures_val){
 				$rehabilitation_measures_arrray[]=array_search_for_other($rehabilitation_measures_val,$cd_rehabilitation_measures);
 			}
-
 			$this->view->rehabilitation_measures_current = $rehabilitation_measures_arrray;//康复措施|checkbox|1=>生活劳动能力,2=>职业训练,3=>学习能力,4=>社会交往,5=>其它
 			$this->view->rehabilitation_measure_other  = $schizophrenia->rehabilitation_measure_other;//康复措施其它
 			$next_followup_time						   = $schizophrenia->next_followup_time;//下次随访日期

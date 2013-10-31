@@ -221,6 +221,10 @@ class phsiha extends api_phs_comm
                     {
                         $table_object->staff_id = $this->set_doctor_number($table_object->staff_id); //处理医生
                     }
+                    if (isset($table_object->response_doctor))
+                    {
+                        $table_object->response_doctor = $this->set_doctor_number($table_object->response_doctor); //处理医生
+                    }
                     //判定id
                     if (isset($table_object->id))
                     {

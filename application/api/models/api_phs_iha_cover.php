@@ -563,8 +563,7 @@ class api_phs_iha_cover extends api_phs_comm{
 					if($individual->relation_holder=='1'){
 						$family_number=$individual->family_number=uniqid('f_',true);
 					}
-                    $individual->response_doctor=$response_doctor;
-					$individual->insert();
+                    $individual->insert();
                     //2012-12-04 我好笨 增加档案状态插入
                     $individual_status=new Tindividual_status();
                     $individual_status->uuid=uniqid('sta_',true);

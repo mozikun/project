@@ -136,7 +136,7 @@ class phsstaff extends api_phs_comm
 			$xml_string="<?xml version='1.0' encoding='UTF-8'?><message><return_code>4$mask_token</return_code><return_string>请先登陆</return_string></message>";
 			return $xml_string;
 		}*/
-		$exclude_array=array("id");//排除部分不必要的字段在结果里
+		$exclude_array=array("id","user_id","status_flag");//排除部分不必要的字段在结果里
 		//条件不为空时，解析查询条件
 		$where_xml=new SimpleXMLElement($xml_string);
 		//标准机构号
@@ -204,8 +204,6 @@ class phsstaff extends api_phs_comm
 		{
 			//条件不为空时，解析查询条件
 			$data_xml=new SimpleXMLElement($xml_string);
-
-
 			//定义添加还是修改状态标识
 			$update_status=0;
 			$user_id='';//插入主表的用户id
@@ -216,11 +214,11 @@ class phsstaff extends api_phs_comm
 			{
 				$table_name=$tables->attributes();//表名
 				$class_name="T".$table_name;//类名
-				
 				//遍历行
-				foreach ($tables as $rows){
-
-					if($table_name=='staff_core'){
+				foreach ($tables as $rows)
+                {
+					if($table_name=='staff_core')
+                    {
 						//业务号
 						$ext_uuid			= $rows->ext_uuid;
 						//登录显示名
@@ -230,16 +228,21 @@ class phsstaff extends api_phs_comm
 						//个人标准码
 						$standard_code		= $rows->standard_code;
 						//身份证号
-						$identity_number_core= $rows->identity_card_number;
-                                                                                                                   //中联内部id号
-                                                                                                                   $zl_staff_code = $rows->zl_staff_code;
-						$identity_number_length=strlen($identity_number_core);
+						$identity_number_core= (string)$rows->identity_card_number;
+                        //判定身份证号码为空的标志
+                        $identity_number_status=$identity_number_core?true:false;                                                                                           //中联内部id号
+                        $zl_staff_code = $rows->zl_staff_code;
+						/*$identity_number_length=strlen($identity_number_core);
 						if ($identity_number_length!=15 && $identity_number_length!=18)
 						{
 							return $this->_error_message_start."<return_code>2</return_code><return_string>身份证号码不合法$identity_number_length</return_string>".$this->_error_message_end;
-						}
-
-
+						}*/
+                        //为了解决无身份证问题，当提交的身份证信息为空时，把uuid加密后作为身份证
+                        $uuid = uniqid('',true);
+                        if(!$identity_number_core)
+                        {
+                            $identity_number_core=base64_encode($uuid);
+                        }
 						if(!$ext_uuid){
 							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid></row></error_transaction><return_string>业务id不能为空</return_string>".$this->_error_message_end;
 						}
@@ -257,128 +260,213 @@ class phsstaff extends api_phs_comm
 						if(empty($org_array)){
 							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid></row></error_transaction><return_string>机构ID不存在</return_string>".$this->_error_message_end;
 						}
-
 						$region_id			= $org_array['region_id'];
 						$org_id				= $org_array['org_id'];
 						$region_path		= $org_array['region_path'];
 						//只能是医生角色
 						$role_id			= $this->role_id;
-						$staff_archive	=new Tstaff_archive();
-						$staff_archive->whereAdd("identity_card_number='$identity_number_core'");
-						$staff_archive->find(true);
-						$identity_number=$staff_archive->identity_card_number;//身份证
-						$ext_uuid_self	=$staff_archive->ext_uuid;
-						$staff_archive->free_statement();
+                        //如果添加的是空身份证，则根据主表的相关信息进行判定是否重复提交
+                        if($identity_number_status)
+                        {
+                            //有身份证，按原来的思路
+                            $staff_archive	=new Tstaff_archive();
+    						$staff_archive->whereAdd("identity_card_number='$identity_number_core'");
+    						$staff_archive->find(true);
+    						$identity_number=$staff_archive->identity_card_number;//身份证
+    						$ext_uuid_self	=$staff_archive->ext_uuid;
+    						$staff_archive->free_statement();
+                        }
+						else
+                        {
+                            //无身份证，查询主表
+                            $staff_core = new Tstaff_core();
+                            $staff_core->whereAdd("standard_code='$standard_code'");
+                            $staff_core->whereAdd("name_login='$name_login'");
+                            $staff_core->whereAdd("passwd='".md5($passwd)."'");
+                            $staff_core->whereAdd("region_id='$region_id'");
+                            $staff_core->whereAdd("org_id='$org_id'");
+                            $staff_core->whereAdd("region_path='$region_path'");
+                            //$staff_core->debug(5);
+                            $staff_core->find(true);
+                            $identity_number=base64_encode($staff_core->id);
+                            $ext_uuid_self=$staff_core->ext_uuid;
+                            $staff_core->free_statement();
+                        }
 
-						if($identity_number && empty($ext_uuid_self)){
+						/*if($identity_number && empty($ext_uuid_self)){
 							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid><identity_card_number>$identity_number_core</identity_card_number></row></error_transaction><return_string>此医生身份证已经存在</return_string>".$this->_error_message_end;
-						}
+						}*/
 
 						$staff_core					= new Tstaff_core();
 						$staff_core ->standard_code	= $standard_code;
 						$staff_core ->name_login	= $name_login;
-						$staff_core ->passwd		= $passwd;
+						$staff_core ->passwd		= md5($passwd);
 						$staff_core ->region_id		= $region_id;
 						$staff_core ->org_id		= $org_id;
 						$staff_core ->region_path	= $region_path;
 						$staff_core ->role_id		= $role_id;
-                                                                                                                   $staff_code->zl_staff_code               = $zl_staff_code;
-						$staff_core->startTransaction();
+                        $staff_code->zl_staff_code  = $zl_staff_code;
+						//$staff_core->startTransaction();
 						//$staff_core->debug(3);
-						if(empty($identity_number) && empty($ext_uuid_self)){
+						if(empty($identity_number) && empty($ext_uuid_self))
+                        {
 							//添加
-
-							$uuid					= uniqid('',true);
 							$staff_core ->id		= $uuid;
 							$staff_core ->ext_uuid	= $ext_uuid;
-							
-							if($staff_core->insert()){
+							if($staff_core->insert())
+                            {
 								$action_token=1;//insert
 								$user_id=$uuid;
-							}else{
-								$user_id='';
-								//return $this->_error_message_start."<row><org_id>".$rows->org_id."</org_id><ext_uuid>".$rows->ext_uuid."</ext_uuid></row>".$this->_error_message_end;
+                                //处理从表
+                                foreach ($data_xml as $tables_son)
+                                {
+			                         $table_name_son=$tables_son->attributes();//表名
+                                    foreach($tables_son as $rows_son)
+                                    {
+                                        if($table_name_son=='staff_archive' && $user_id!='')
+                                        {
+                    						//业务号
+                    						$ext_uuid_son			= (string)$rows_son->ext_uuid;
+                    						//身份证号
+                    						$identity_number	= $identity_number_core;
+                    						//$identity_number_length=strlen($identity_number);
+                    						if(!$ext_uuid_son){
+                    							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid></row></error_transaction><return_string>业务id不能为空</return_string>".$this->_error_message_end;
+                    						}
+                    						/*if ($identity_number_length!=15 && $identity_number_length!=18)
+                    						{
+                    							return $this->_error_message_start."<return_code>2</return_code><return_string>身份证号码不合法</return_string>".$this->_error_message_end;
+                    						}
+                    						if($identity_number!=$identity_number){
+                    							return $this->_error_message_start."<return_code>2</return_code><return_string>主表staff_core要与从表staff_archive身份证号码一致</return_string>".$this->_error_message_end;
+                    						}*/
+                                            if($ext_uuid==$ext_uuid_son)
+                                            {
+                                                $class_name_son="T".$table_name_son;//类名
+                        						$table_object=new $class_name_son();
+                        						foreach ($rows_son as $colums_son)
+                                                {
+                        							//给字段赋值
+                        							$colums_name=$colums_son->getname();//字段名
+                        							$colums_value=$rows_son->$colums_name;
+                        							$table_object->$colums_name=$colums_value;
+                        						}
+                        						//$table_object->debug(2);
+                                                //强行赋值
+                                                $table_object->identity_card_number=$identity_number_core;
+                        						if($action_token==1)
+                                                {
+                        							$table_object->id=uniqid('',true);
+                        							$table_object->user_id=$user_id;
+                        							if($table_object->insert())
+                                                    {
+                        								//$staff_core->commit();
+                        								$num++;
+                        							}
+                                                    else
+                                                    {
+                        								//$staff_core->rollBack();
+                        							}
+                        						}
+                                            }
+                    					}
+                                        continue;
+                                    }
+                                }
 							}
-
-						}else{
+                            else
+                            {
+								$user_id='';
+                                continue;
+							}
+						}
+                        else
+                        {
 							//修改
 							$staff_core->whereAdd("ext_uuid='$ext_uuid'");
-							if($staff_core->update()){
+							if($staff_core->update())
+                            {
 								$action_token=2;//update
-								$user_id_array		= get_fields_content('staff_core',array('ext_uuid'),"ext_uuid='$ext_uuid'");
-								$user_id			= $user_id_array[0]['ext_uuid'];
-								//$user_id=ext_uuid];
-							}else{
+								$user_id_array		= get_fields_content('staff_core',array('id'),"ext_uuid='$ext_uuid'");
+								$user_id			= $user_id_array[0]['id'];
+                                //处理从表
+                                foreach ($data_xml as $tables_son)
+                                {
+                                    $table_name_son=$tables_son->attributes();//表名
+                                    foreach($tables_son as $rows_son)
+                                    {
+                                        //var_dump($table_name);
+                                        if($table_name_son=='staff_archive' && $user_id!='')
+                                        {
+                    						//业务号
+                    						$ext_uuid_son			= (string)$rows_son->ext_uuid;
+                    						//身份证号
+                    						$identity_number	= $identity_number_core;
+                    						//$identity_number_length=strlen($identity_number);
+                    						if(!$ext_uuid_son){
+                    							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid></row></error_transaction><return_string>业务id不能为空</return_string>".$this->_error_message_end;
+                    						}
+                    						/*if ($identity_number_length!=15 && $identity_number_length!=18)
+                    						{
+                    							return $this->_error_message_start."<return_code>2</return_code><return_string>身份证号码不合法</return_string>".$this->_error_message_end;
+                    						}
+                    						if($identity_number!=$identity_number){
+                    							return $this->_error_message_start."<return_code>2</return_code><return_string>主表staff_core要与从表staff_archive身份证号码一致</return_string>".$this->_error_message_end;
+                    						}*/
+                                            if($ext_uuid==$ext_uuid_son)
+                                            {
+                                                $class_name_son="T".$table_name_son;//类名
+                        						$table_object=new $class_name_son();
+                        						foreach ($rows_son as $colums_son)
+                                                {
+                        							//给字段赋值
+                        							$colums_name=$colums_son->getname();//字段名
+                        							$colums_value=$rows_son->$colums_name;
+                                                    if($colums_name!='new_identity_number')
+                                                    {
+                                                        $table_object->$colums_name=$colums_value;
+                                                    }
+                        						}
+                        						//$table_object->debug(2);
+                                                //强行赋值
+                                                $table_object->identity_card_number=$identity_number_core;
+                        						if ($action_token==2)
+                                                {
+                        				            //判定是否修改身份证
+                                                    if((string)$rows_son->new_identity_number!='')
+                                                    {
+                                                        $table_object->identity_card_number=(string)$rows_son->new_identity_number;
+                                                    }
+                        							$table_object->whereAdd("user_id='$user_id'");
+                                                    //$table_object->debug(5);
+                        							if($table_object->update())
+                                                    {
+                        								//$staff_core->commit();
+                        								$num++;
+                        							}
+                                                    else
+                                                    {
+                        								//$staff_core->rollBack();
+                        							}
+                        						}
+                                            }
+                    					}
+                                        continue;
+                                    }
+                                }
+							}
+                            else
+                            {
 								$user_id='';
-								//return $this->_error_message_start."<row><org_id>".$rows->org_id."</org_id><ext_uuid>".$rows->ext_uuid."</ext_uuid></row>".$this->_error_message_end;
+                                continue;
 							}
-
 						}
-
-
 					}
-
-					if($table_name=='staff_archive' && $user_id!=''){
-						
-
-						//业务号
-						$ext_uuid			= $rows->ext_uuid;
-						//身份证号
-						$identity_number	= $rows->identity_card_number;
-
-						$identity_number_length=strlen($identity_number);
-
-
-						if(!$ext_uuid){
-							return $this->_error_message_start."<return_code>2</return_code><error_transaction><row><org_id>".$rows->org_id."</org_id><ext_uuid>".$ext_uuid."</ext_uuid></row></error_transaction><return_string>业务id不能为空</return_string>".$this->_error_message_end;
-						}
-						if ($identity_number_length!=15 && $identity_number_length!=18)
-						{
-							return $this->_error_message_start."<return_code>2</return_code><return_string>身份证号码不合法</return_string>".$this->_error_message_end;
-						}
-						if($identity_number!=$identity_number){
-							return $this->_error_message_start."<return_code>2</return_code><return_string>主表staff_core要与从表staff_archive身份证号码一致</return_string>".$this->_error_message_end;
-						}
-
-						$table_object=new $class_name();
-						foreach ($rows as $colums){
-							//给字段赋值
-							$colums_name=$colums->getname();//字段名
-							$colums_value=$rows->$colums_name;
-							$table_object->$colums_name=$colums_value;
-						}
-						//$table_object->debug(2);
-
-					
-						
-						if($action_token==1){
-							$table_object->id=uniqid('',true);
-							$table_object->user_id=$user_id;
-							if($table_object->insert()){
-								$staff_core->commit();
-								$num++;
-							}else{
-								$staff_core->rollBack();
-							}
-						}elseif ($action_token==2){
-							$table_object->whereAdd("user_id='$user_id'");
-							if($table_object->update()){
-								$staff_core->commit();
-								$num++;
-							}else{
-								$staff_core->rollBack();
-								//return $this->_error_message_start."<row><org_id>".$rows->org_id."</org_id><ext_uuid>".$rows->ext_uuid."</ext_uuid></row>".$this->_error_message_end;
-							}
-						}
-
-					}
-
 				}
 			}
 		}else{
 			return $this->_error_message_start."<return_code>2</return_code><return_string>未传递任何数据xml</return_string>".$this->_error_message_end;
 		}
-
 		return $this->_error_message_start."<return_code>1</return_code><return_string>成功写入数据{$num}条</return_string>".$this->_error_message_end;
 
 	}

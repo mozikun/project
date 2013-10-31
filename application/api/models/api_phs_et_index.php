@@ -9,7 +9,7 @@ class api_phs_et_index extends api_phs_comm{
 	 * @param unknown_type $password
 	 * @return unknown
 	 */
-public 	function ws_login($org_id,$password){
+  public function ws_login($org_id,$password){
 		//return 'ok';
 		return 1;
 	}
@@ -18,7 +18,7 @@ public 	function ws_login($org_id,$password){
      * @param unknown_type $token
      * @param unknown_type $xml_string
      */
-    function ws_update($token,$xml_string){
+    function ws_update ($token, $xml_string){
     	/*if(checkToken($token)!=1){
 			$xml_string="<?xml version='1.0' encoding='UTF-8'?><message><return_code>2</return_code><return_string>请先登陆后在进行数据处理</return_string></message>";
 			return $xml_string;	
@@ -41,6 +41,7 @@ public 	function ws_login($org_id,$password){
 		require_once(__SITEROOT.'library/Models/et_nonepi_vaccination.php');
 		require_once(__SITEROOT.'library/Models/et_health_assessment.php');
 		require_once(__SITEROOT.'library/Models/et_health_guidance.php');
+		require_once(__SITEROOT.'library/Models/et_lifecase_assessment.php');
 		require_once __SITEROOT.'library/custom/comm_function.php';
 	    require_once __SITEROOT.'library/data_arr/arrdata.php';
 		$xmlhead = "<?xml version='1.0' encoding='UTF-8'?><message>";
@@ -201,7 +202,7 @@ public 	function ws_login($org_id,$password){
 				  }//主表处理结束
 		     }
 		    // return $error_number.'------'.$success_number;
-		    $manyrows = array('et_main_drug_use','et_operation_history','et_hospitalization_history','et_nonepi_vaccination');
+		    $manyrows = array('et_main_drug_use','et_operation_history','et_hospitalization_history','et_nonepi_vaccination','et_lifecase_assessment');
 		    foreach ($getxml as $k=>$table){
 	               foreach($table as $row)
 	               {
@@ -287,7 +288,10 @@ public 	function ws_login($org_id,$password){
 
 										$tabobj->$colum  = $row->$colum;
 										//处理examination_id
-										$tabobj->examination_id   = $examine_id;
+										if($realtable!='et_lifecase_assessment') //当不是老年人生活方式和情感评分的时候才有该项
+										{
+											$tabobj->examination_id   = $examine_id;
+										}
 										//处理个人id号
 										$tabobj->id               = $individual_id;
 										//处理机构号
@@ -365,10 +369,12 @@ public 	function ws_login($org_id,$password){
 								  	 	$org->free_statement();
 								  	 	//取当前其他表的ext_uuid,个人ID,机构ID号看主表数据是否存在
 								  	 	//echo $individual_id.'--------'.$row->ext_uuid.'----------'.$real_orgid.'<br/>';
+								  	 	//exit();
 								  	 	$exitdata = new Texamination_table();
 								  	 	$exitdata->whereAdd("id='$individual_id'");
 								  	 	$exitdata->whereAdd("ext_uuid='$row->ext_uuid'");
 								  	 	$exitdata->whereAdd("org_id='$real_orgid'");
+								  	 	//$exitdata->debugLevel(9);
 								  	 	$exitnumber = $exitdata->count();
 								  	 	if($exitnumber!=1)
 								  	 	{
@@ -680,6 +686,7 @@ public 	function ws_login($org_id,$password){
 			require_once(__SITEROOT.'library/Models/et_nonepi_vaccination.php');
 			require_once(__SITEROOT.'library/Models/et_health_assessment.php');
 			require_once(__SITEROOT.'library/Models/et_health_guidance.php');
+			require_once(__SITEROOT.'library/Models/et_lifecase_assessment.php');
 			require_once __SITEROOT.'library/custom/comm_function.php';
 			require_once __SITEROOT.'library/data_arr/arrdata.php';
 			$xmlhead = "<?xml version='1.0' encoding='UTF-8'?><message>";
@@ -805,8 +812,7 @@ public 	function ws_login($org_id,$password){
 						}
 						$response.="</table>";
 					}
-					//手术多个row
-					
+					//手术多个row	
 					$et_operation_history = new Tet_operation_history();
 					$et_operation_history->whereAdd("examination_id='$et_uuid'");
 					if($et_operation_history->count()>0)
@@ -831,8 +837,7 @@ public 	function ws_login($org_id,$password){
 						}
 						$response.="</table>";
 					}
-					//住院多个row
-					
+					//住院多个row				
 					$et_hospitalization_history = new Tet_hospitalization_history();
 					$et_hospitalization_history->whereAdd("examination_id='$et_uuid'");
 					if($et_hospitalization_history->count()>0)
@@ -882,6 +887,30 @@ public 	function ws_login($org_id,$password){
 						}
 						$response.="</table>";
 					}
+					//判断当前体检的病人是不是老年人 如果是老年人那么就将老年人的信息给读出来
+					$et_lifecase_assessment = new Tet_lifecase_assessment();
+					$et_lifecase_assessment->whereAdd("id='$individual_id'");
+					if($et_lifecase_assessment->count()>0)
+					{
+						$response.="<table name='et_lifecase_assessment'>";
+						$et_lifecase_assessment->find();
+						while($et_lifecase_assessment->fetch()){
+							$response.="<row><identity_number>".$get_identity_number."</identity_number>";
+							$et_lifecase_assessment->org_id   = $get_orgid;
+							//转换staffid
+							$staff_arcdurg = new Tstaff_archive();
+							$staff_archive->whereAdd("user_id='$et_lifecase_assessment->staff_id'");
+							$staff_archive->find(true);
+							$et_lifecase_assessment->staff_id = $staff_archive->identity_card_number;
+							if(!$tag)
+							{
+								$et_lifecase_assessment->ext_uuid = $et_uuid;
+							}
+							$response.=$et_lifecase_assessment->toXML('',$myarray);
+							$response.="</row>";
+						}
+						$response.="</table>";
+					}
 					//主表要先创建
 					foreach($table_array as $table=>$tablecomment){
 						$tablobjname =  "T".$table;
@@ -892,11 +921,8 @@ public 	function ws_login($org_id,$password){
 							$tablobj->find();
 							while($tablobj->fetch()){		   
 							   	//转换机构id
-							   	 $get_iden = new Tindividual_core();
-							   	 $get_iden->whereAdd("uuid='$tablobj->id'");
-							   	 $get_iden->find(true);
 						   	  	 $orgobject = new Torganization();
-						   	  	 $orgobject->whereAdd("id='$get_iden->org_id'");
+						   	  	 $orgobject->whereAdd("id='$real_orgid'");
 						   	  	 $orgobject->find(true);
 						   	     $tablobj->org_id = $orgobject->standard_code;
 							   	  //转换医生id

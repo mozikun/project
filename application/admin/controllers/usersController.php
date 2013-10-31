@@ -363,6 +363,10 @@ class admin_usersController extends controller {
 		$staff_archive->status_flag = $this->_request->getParam('status_flag');//删除标记|null|0=>未正常保持,1=>正常,2=>删除
 
 		$staff_archive->identity_card_number = $this->_request->getParam('identity_card_number');//身份证号|text
+        if($staff_archive->identity_card_number=='')
+        {
+            $staff_archive->identity_card_number=base64_encode($staff_core_id);
+        }
 
 		$staff_archive->sex = $this->_request->getParam('sex');//性别|radio|1=>男,2=>女
 

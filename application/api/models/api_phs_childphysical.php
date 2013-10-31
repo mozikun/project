@@ -202,8 +202,9 @@ class phschildphysical extends api_phs_comm
 						$table_object_=new $class_name();
 						$table_object_->whereAdd("id='$id'");
 						$table_object_->whereAdd("org_id='$org_id'");
-						//$table_object_->whereAdd("ext_uuid='$ext_uuid'");
+						$table_object_->whereAdd("ext_uuid='$ext_uuid'");
 						$table_object_->whereAdd("project='$project'");
+                                                                                                                 //  $table_object_->debuglevel(9);
 						if ($table_object_->count()){
 							$update_status=1;
 							$table_object_->find(true);
@@ -212,7 +213,7 @@ class phschildphysical extends api_phs_comm
 							$update_status=0;
 						}
 					
-						$table_object_->free_statement();
+						//$table_object_->free_statement();
 						//-------end查询更新标志--------
 
 					}else{
@@ -256,7 +257,7 @@ class phschildphysical extends api_phs_comm
 									$table_object->$colums_name=array_code_change($colums_value,$$n);
 								}
 							}
-
+                           
 						}
 					}
 
@@ -264,7 +265,10 @@ class phschildphysical extends api_phs_comm
 						$table_object->staff_id=$this->set_doctor_number($table_object->staff_id);//处理医生
 
 					}
-
+					if (isset($table_object->doctors_signature)){
+						$table_object->doctors_signature=$this->set_doctor_number($table_object->doctors_signature);//处理签名医生
+					
+					}
 					if (isset($table_object->org_id)){
 						$table_object->org_id=$this->get_org_id($table_object->org_id);//处理机构
 					}
@@ -273,7 +277,7 @@ class phschildphysical extends api_phs_comm
 					if ($update_status){
 						$table_object->whereAdd("id='$id'");
 						$table_object->whereAdd("org_id='$org_id'");
-						//$table_object->whereAdd("ext_uuid='$ext_uuid'");
+						$table_object->whereAdd("ext_uuid='$ext_uuid'");
 						$table_object->whereAdd("project='$project'");
 						$update_except_array=array("uuid","id","org_id","staff_id","created");//更新时不能更新的字段数组
 						foreach ($update_except_array as $v){
@@ -452,10 +456,15 @@ class phschildphysical extends api_phs_comm
 			{
 				$child_physical->staff_id=$this->get_doctor_number($child_physical->staff_id);
 			}
-			if (isset($child_physical->org_id))
-			{
-				$child_physical->org_id=$this->set_org_id($child_physical->org_id);
-			}
+		                   //取机构id 
+                                                         $individual_core = new Tindividual_core();
+                                                         $individual_core->whereAdd("identity_number='$identity_number'");
+                                                         $individual_core->find(true);
+                                                         $org_id = $individual_core->org_id;
+                                                         $api_phs_comm = new api_phs_comm();
+                                                         $standard_code = $api_phs_comm->set_org_id($org_id);
+		                  $child_physical->org_id=empty($child_physical->org_id)?$standard_code:$this->set_org_id($child_physical->org_id);
+	
 			if(!$tag)
             {
                 //对ext_uuid重新赋值

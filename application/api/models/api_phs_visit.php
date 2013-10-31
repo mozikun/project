@@ -90,7 +90,7 @@ class api_phs_visit{
     }
     /**
      * 取 身份证号 和 org_id
-     * (2013年5月10号新增 为了让中联能取到平台中的糖尿病数据  业务号为平台数据的uuid 为了调用下边的ws_select_single接口)
+     * (2013年5月10号新增 为了让中联能取到平台中的新生儿访视数据  业务号为平台数据的uuid 为了调用下边的ws_select_single接口)
      */
     function ws_select_persons($token,$xml_string)
     {
@@ -420,6 +420,12 @@ class api_phs_visit{
 						$staff_archive->find(true);
 						$newtableobj->staff_id=$staff_archive->user_id;	
 						$staff_archive->free_statement();
+						//转换签名医生
+						$staff_archive_doctor =  new Tstaff_archive();
+						$staff_archive_doctor->whereAdd("identity_card_number='$row->doctors_signature'");
+						$staff_archive_doctor->find(true);
+						$newtableobj->doctors_signature=$staff_archive->user_id;
+						$staff_archive_doctor->free_statement();
 						//转化数据字典
 						foreach($dic_table as $k=>$v)
 						{

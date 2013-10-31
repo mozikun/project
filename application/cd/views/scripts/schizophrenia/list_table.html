@@ -88,13 +88,13 @@
    	</tr>
    	<tr>
    	  <td colspan="2" rowspan="5">社会功能情况</td>
-      <!--{section name=diet_current loop=$nums}-->   
+      <!--{section name=personlife_do_current loop=$nums}-->   
       	   <td height="30"  >个人生活料理</td>                    
           <td  height="30" colspan="2">
-          <!--{foreach key=k item=v from=$diet_options}-->
+          <!--{foreach key=k item=v from=$personlife_do_current}-->
                 <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
                 <!--{/foreach}-->&nbsp;
-          <input type="text" name="diet" value="<!--{$schizophrenia_array[diet_current].diet_current}-->" class="inputnew" />
+          <input type="text" name="diet" value="<!--{$schizophrenia_array[personlife_do_current].personlife_do_current}-->" class="inputnew" />
           </td>
       <!--{/section}-->
    	</tr>

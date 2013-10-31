@@ -146,7 +146,7 @@ class phsschi extends api_phs_comm
 			//包含数据字典
 			require_once __SITEROOT.'/library/data_arr/arrdata.php';
 			//$dic['表名']=array("字段"=>"数据字典")
-			$dic['schizophrenia']=array("risk"=>"cd_risk","insight"=>"cd_insight","sleep_quality"=>"cd_sleep_quality","diet"=>"cd_diet","personlife_do"=>"cd_personlife_do","housework"=>"cd_housework","work"=>"cd_work","learning"=>"cd_learning","human_communication"=>"cd_human_communication","shut_case"=>"cd_shut_case","hospitalization"=>"cd_hospitalization","comply"=>"cd_comply","lab_examination"=>"adverse_drug_reaction","adverse_drug"=>"adverse_drug_reaction","treatment_effect"=>"cd_treatment_effect","followup_classification"=>"cd_followup_classification","is_referral"=>"cd_is_referral");
+			$dic['schizophrenia']=array("risk"=>"cd_risk","insight"=>"cd_insight","sleep_quality"=>"cd_sleep_quality","diet"=>"cd_diet","personlife_do"=>"cd_personlife_do","housework"=>"cd_housework","work"=>"cd_work","learning"=>"cd_learning","human_communication"=>"cd_human_communication","shut_case"=>"cd_shut_case","hospitalization"=>"cd_hospitalization","comply"=>"cd_comply","adverse_drug"=>"adverse_drug_reaction","treatment_effect"=>"cd_treatment_effect","followup_classification"=>"cd_followup_classification","is_referral"=>"cd_is_referral");
 			//值中有'|'符号的
 			$dic['special']=array("present_symptoms"=>"cd_present_symptoms","rehabilitation_measures"=>"cd_rehabilitation_measures");
 			//定义添加还是修改状态标识
@@ -219,10 +219,12 @@ class phsschi extends api_phs_comm
 						//排除身份证号字段
 						if ($colums_name!="identity_number"){
 							$table_object->$colums_name=$colums_value;//赋值
+							//if(in_array('rehabilitation_measures',$dic['special']));{return 1;}
 							//特殊处理有'|'字符的数据
-							if(in_array($colums_name,$dic['special']))
-							{
-								if (strpos($colums_value,'|')===false){
+							//if($colums_name=='rehabilitation_measures') return $dic['special'];
+							if($colums_name=='rehabilitation_measures'||$colums_name=='present_symptoms')
+							{  
+								if (strpos($colums_value,'|')){
 									//有|才做转换
 									$temp=array();
 									$temp=explode('|',$colums_value);
@@ -232,6 +234,7 @@ class phsschi extends api_phs_comm
 										{
 											$n=$dic["special"]["$colums_name"];
 											$temp[$k]=array_code_change($v,$$n);
+										
 										}
 									}
 									$table_object->$colums_name=implode('|',$temp);
@@ -408,7 +411,7 @@ class phsschi extends api_phs_comm
 
 			foreach ($dic['schizophrenia'] as $m=>$n)
 			{
-				if (isset($schizophrenia->$m) && isset($dic[$k][$m]))
+				if (isset($schizophrenia->$m) && isset($dic['schizophrenia'][$m]))
 				{
 					$schizophrenia->$m=array_search_for_other($schizophrenia->$m,$$n);
 				}

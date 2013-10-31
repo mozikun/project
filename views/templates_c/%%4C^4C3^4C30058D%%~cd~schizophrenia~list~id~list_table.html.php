@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-08-28 11:35:19
+<?php /* Smarty version 2.6.14, created on 2013-10-31 17:30:36
          compiled from list_table.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'list_table.html', 234, false),)), $this); ?>
@@ -301,7 +301,7 @@ $this->_sections['diet_current']['last']       = ($this->_sections['diet_current
 、<?php echo $this->_tpl_vars['v'][1]; ?>
 </label>&nbsp;
                 <?php endforeach; endif; unset($_from); ?>&nbsp;
-          <input type="text" name="diet" value="<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['diet_current']['index']]['diet_current']; ?>
+          <input type="text" name="diet" value="<?php echo $this->_tpl_vars['schizophrenia_array'][$this->_sections['personlife_do_current']['index']]['personlife_do_current']; ?>
 " class="inputnew" />
           </td>
       <?php endfor; endif; ?>
