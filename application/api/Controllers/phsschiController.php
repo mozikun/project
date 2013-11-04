@@ -79,8 +79,8 @@ class api_phsschiController extends controller
     <present_symptoms>9|10</present_symptoms>
     <present_symptoms_other>通过</present_symptoms_other>
     <insight>2</insight>
-    <sleep_quality>1</sleep_quality>
-    <personlife_do>1</personlife_do>
+    <sleep_quality>2</sleep_quality>
+    <personlife_do>4</personlife_do>
     <housework>1</housework>
     <work>1</work>
     <learning>1</learning>

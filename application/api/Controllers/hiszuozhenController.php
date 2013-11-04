@@ -18,14 +18,13 @@ class api_hiszuozhenController extends controller
 	public function indexAction()
 	{
 		require_once(__SITEROOT."application/api/models/api_his_zuozhen.php");
-
 		/*$client=new hisdictionary();
 		$xml_string="<?xml version='1.0' encoding='UTF-8'?><where><org_id>888888</org_id><number>3</number></where>";
  		$tmp=$client->dictionary_info("12",$xml_string); 
  		echo $tmp;
 		exit();
 		*/ 
-		$SoapServer = new SoapServer(__SITEROOT.$this->wsdl_path);
+		$SoapServer = new SoapServer("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path);
 		$SoapServer->setClass(parent::getControllerName());
 		$SoapServer->handle();
 				
@@ -50,10 +49,8 @@ class api_hiszuozhenController extends controller
 	 *
 	 */
 	public function ws_selectAction()
-	{      
-                
+	{  
 		$client=new SoapClient(__SITEROOT.$this->wsdl_path);
-		
 		$tmp=$client->ws_select("17","<?xml version='1.0' encoding='UTF-8'?>
 		<where>
 			<org_id>45254011251180211A1001</org_id>

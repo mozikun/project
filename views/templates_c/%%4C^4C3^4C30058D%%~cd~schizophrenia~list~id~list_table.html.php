@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-10-31 17:30:36
+<?php /* Smarty version 2.6.14, created on 2013-11-01 09:52:57
          compiled from list_table.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'list_table.html', 234, false),)), $this); ?>
@@ -268,33 +268,33 @@ $this->_sections['personlife_do_current']['last']       = ($this->_sections['per
    	</tr>
    	<tr>
    	  <td colspan="2" rowspan="5">社会功能情况</td>
-      <?php unset($this->_sections['diet_current']);
-$this->_sections['diet_current']['name'] = 'diet_current';
-$this->_sections['diet_current']['loop'] = is_array($_loop=$this->_tpl_vars['nums']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
-$this->_sections['diet_current']['show'] = true;
-$this->_sections['diet_current']['max'] = $this->_sections['diet_current']['loop'];
-$this->_sections['diet_current']['step'] = 1;
-$this->_sections['diet_current']['start'] = $this->_sections['diet_current']['step'] > 0 ? 0 : $this->_sections['diet_current']['loop']-1;
-if ($this->_sections['diet_current']['show']) {
-    $this->_sections['diet_current']['total'] = $this->_sections['diet_current']['loop'];
-    if ($this->_sections['diet_current']['total'] == 0)
-        $this->_sections['diet_current']['show'] = false;
+      <?php unset($this->_sections['personlife_do_current']);
+$this->_sections['personlife_do_current']['name'] = 'personlife_do_current';
+$this->_sections['personlife_do_current']['loop'] = is_array($_loop=$this->_tpl_vars['nums']) ? count($_loop) : max(0, (int)$_loop); unset($_loop);
+$this->_sections['personlife_do_current']['show'] = true;
+$this->_sections['personlife_do_current']['max'] = $this->_sections['personlife_do_current']['loop'];
+$this->_sections['personlife_do_current']['step'] = 1;
+$this->_sections['personlife_do_current']['start'] = $this->_sections['personlife_do_current']['step'] > 0 ? 0 : $this->_sections['personlife_do_current']['loop']-1;
+if ($this->_sections['personlife_do_current']['show']) {
+    $this->_sections['personlife_do_current']['total'] = $this->_sections['personlife_do_current']['loop'];
+    if ($this->_sections['personlife_do_current']['total'] == 0)
+        $this->_sections['personlife_do_current']['show'] = false;
 } else
-    $this->_sections['diet_current']['total'] = 0;
-if ($this->_sections['diet_current']['show']):
+    $this->_sections['personlife_do_current']['total'] = 0;
+if ($this->_sections['personlife_do_current']['show']):
 
-            for ($this->_sections['diet_current']['index'] = $this->_sections['diet_current']['start'], $this->_sections['diet_current']['iteration'] = 1;
-                 $this->_sections['diet_current']['iteration'] <= $this->_sections['diet_current']['total'];
-                 $this->_sections['diet_current']['index'] += $this->_sections['diet_current']['step'], $this->_sections['diet_current']['iteration']++):
-$this->_sections['diet_current']['rownum'] = $this->_sections['diet_current']['iteration'];
-$this->_sections['diet_current']['index_prev'] = $this->_sections['diet_current']['index'] - $this->_sections['diet_current']['step'];
-$this->_sections['diet_current']['index_next'] = $this->_sections['diet_current']['index'] + $this->_sections['diet_current']['step'];
-$this->_sections['diet_current']['first']      = ($this->_sections['diet_current']['iteration'] == 1);
-$this->_sections['diet_current']['last']       = ($this->_sections['diet_current']['iteration'] == $this->_sections['diet_current']['total']);
+            for ($this->_sections['personlife_do_current']['index'] = $this->_sections['personlife_do_current']['start'], $this->_sections['personlife_do_current']['iteration'] = 1;
+                 $this->_sections['personlife_do_current']['iteration'] <= $this->_sections['personlife_do_current']['total'];
+                 $this->_sections['personlife_do_current']['index'] += $this->_sections['personlife_do_current']['step'], $this->_sections['personlife_do_current']['iteration']++):
+$this->_sections['personlife_do_current']['rownum'] = $this->_sections['personlife_do_current']['iteration'];
+$this->_sections['personlife_do_current']['index_prev'] = $this->_sections['personlife_do_current']['index'] - $this->_sections['personlife_do_current']['step'];
+$this->_sections['personlife_do_current']['index_next'] = $this->_sections['personlife_do_current']['index'] + $this->_sections['personlife_do_current']['step'];
+$this->_sections['personlife_do_current']['first']      = ($this->_sections['personlife_do_current']['iteration'] == 1);
+$this->_sections['personlife_do_current']['last']       = ($this->_sections['personlife_do_current']['iteration'] == $this->_sections['personlife_do_current']['total']);
 ?>   
       	   <td height="30"  >个人生活料理</td>                    
           <td  height="30" colspan="2">
-          <?php $_from = $this->_tpl_vars['diet_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+          <?php $_from = $this->_tpl_vars['personlife_do_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
                 <label ><?php echo $this->_tpl_vars['k']; ?>

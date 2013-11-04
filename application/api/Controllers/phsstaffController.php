@@ -144,5 +144,16 @@ class api_phsstaffController extends controller
  		$tmp=$client->ws_update("12",$xml_string); 
  		echo $tmp;*/
 	}
+	public function ws_selectAction(){
+		$xml_string="<?xml version='1.0' encoding='UTF-8'?><where><org_id>54254047451180212C2201</org_id></where>";
+	
+		$client=new SoapClient(__SITEROOT."wsdl/api_phs_phsstaff.wsdl");	
+		$tmp=$client->ws_select("17",$xml_string);
+        //require_once(__SITEROOT."application/api/models/api_phs_staff.php");	
+		//$client=new phsstaff();
+        //$tmp=$client->ws_select('17',$xml_string);
+		echo $tmp;
+	}
+	
 }
 ?>

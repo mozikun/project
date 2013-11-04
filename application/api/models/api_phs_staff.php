@@ -136,7 +136,7 @@ class phsstaff extends api_phs_comm
 			$xml_string="<?xml version='1.0' encoding='UTF-8'?><message><return_code>4$mask_token</return_code><return_string>请先登陆</return_string></message>";
 			return $xml_string;
 		}*/
-		$exclude_array=array("id","user_id","status_flag");//排除部分不必要的字段在结果里
+		$exclude_array=array("id","status_flag");//排除部分不必要的字段在结果里
 		//条件不为空时，解析查询条件
 		$where_xml=new SimpleXMLElement($xml_string);
 		//标准机构号

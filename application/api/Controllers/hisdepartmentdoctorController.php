@@ -18,7 +18,7 @@ class api_hisdepartmentdoctorController extends controller
 	public function indexAction()
 	{
 		require_once(__SITEROOT."application/api/models/api_his_departmentdoctor.php");
-		$SoapServer = new SoapServer(__SITEROOT.$this->wsdl_path);
+		$SoapServer = new SoapServer("http://".$_SERVER['HTTP_HOST']."/".$this->wsdl_path.$this->wsdl_path);
 		$SoapServer->setClass(parent::getControllerName());
 		$SoapServer->handle();
 				

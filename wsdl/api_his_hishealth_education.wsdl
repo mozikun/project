@@ -17,6 +17,14 @@
 <input message="tns:ws_deleteRequest" />
 <output message="tns:ws_deleteResponse" />
 </operation>
+<operation name="api_success">
+<input message="tns:api_successRequest" />
+<output message="tns:api_successResponse" />
+</operation>
+<operation name="api_failure">
+<input message="tns:api_failureRequest" />
+<output message="tns:api_failureResponse" />
+</operation>
 </portType>
 <binding name="wsdl_hishealth_educationBinding" type="tns:wsdl_hishealth_educationPort">
 <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
@@ -46,6 +54,22 @@
 </operation>
 <operation name="ws_delete">
 <soap:operation soapAction="urn:wsdl_hishealth_education#hishealth_education#ws_delete" />
+<input><soap:body use="encoded" namespace="urn:wsdl_hishealth_education" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_hishealth_education" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="api_success">
+<soap:operation soapAction="urn:wsdl_hishealth_education#hishealth_education#api_success" />
+<input><soap:body use="encoded" namespace="urn:wsdl_hishealth_education" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:wsdl_hishealth_education" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="api_failure">
+<soap:operation soapAction="urn:wsdl_hishealth_education#hishealth_education#api_failure" />
 <input><soap:body use="encoded" namespace="urn:wsdl_hishealth_education" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
 </input>
 <output>
@@ -85,5 +109,18 @@
 </message>
 <message name="ws_deleteResponse">
 <part name="ws_delete" type="xsd:string" />
+</message>
+<message name="api_successRequest">
+<part name="msg" type="xsd:string" />
+<part name="other_info" type="xsd:string" />
+</message>
+<message name="api_successResponse">
+<part name="api_success" type="xsd:string" />
+</message>
+<message name="api_failureRequest">
+<part name="msg" type="xsd:string" />
+</message>
+<message name="api_failureResponse">
+<part name="api_failure" type="xsd:string" />
 </message>
 </definitions>

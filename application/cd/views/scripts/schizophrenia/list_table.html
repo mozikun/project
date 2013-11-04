@@ -91,7 +91,7 @@
       <!--{section name=personlife_do_current loop=$nums}-->   
       	   <td height="30"  >个人生活料理</td>                    
           <td  height="30" colspan="2">
-          <!--{foreach key=k item=v from=$personlife_do_current}-->
+          <!--{foreach key=k item=v from=$personlife_do_options}-->
                 <label ><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
                 <!--{/foreach}-->&nbsp;
           <input type="text" name="diet" value="<!--{$schizophrenia_array[personlife_do_current].personlife_do_current}-->" class="inputnew" />

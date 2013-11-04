@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.14, created on 2013-10-31 17:26:00
+<?php /* Smarty version 2.6.14, created on 2013-11-01 09:51:36
          compiled from schizophrenia_add.html */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'html_options', 'schizophrenia_add.html', 645, false),)), $this); ?>
@@ -594,15 +594,15 @@ images/comments.png" class="vtip" /></td>
     <tr>
 		<td colspan="2">饮食情况</td>
 	    <td colspan="3">
-       		<?php $_from = $this->_tpl_vars['personlife_do_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+       		<?php $_from = $this->_tpl_vars['diet_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
                 <label onclick="set_input_value('<?php echo $this->_tpl_vars['k']; ?>
-','personlife_do')"><?php echo $this->_tpl_vars['k']; ?>
+','diet')"><?php echo $this->_tpl_vars['k']; ?>
 、<?php echo $this->_tpl_vars['v'][1]; ?>
 </label>&nbsp;
             <?php endforeach; endif; unset($_from); ?>&nbsp;
-            <input type="text" name="personlife_do" value="<?php echo $this->_tpl_vars['personlife_do_current']; ?>
+            <input type="text" name="diet" value="<?php echo $this->_tpl_vars['diet_current']; ?>
 " class="inputnew" />		</td>
    	</tr>
    	<tr>
@@ -610,15 +610,15 @@ images/comments.png" class="vtip" /></td>
       <td height="30"  >
                         个人生活料理      </td>
    	  <td  height="30" colspan="2">
-   	  <?php $_from = $this->_tpl_vars['diet_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
+   	  <?php $_from = $this->_tpl_vars['personlife_do_options']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array'); }if (count($_from)):
     foreach ($_from as $this->_tpl_vars['k'] => $this->_tpl_vars['v']):
 ?>
             <label onclick="set_input_value('<?php echo $this->_tpl_vars['k']; ?>
-','diet')"><?php echo $this->_tpl_vars['k']; ?>
+','personlife_do')"><?php echo $this->_tpl_vars['k']; ?>
 、<?php echo $this->_tpl_vars['v'][1]; ?>
 </label>&nbsp;
       <?php endforeach; endif; unset($_from); ?>&nbsp;
-      <input type="text" name="diet" value="<?php echo $this->_tpl_vars['personlife_do_current']; ?>
+      <input type="text" name="personlife_do" value="<?php echo $this->_tpl_vars['personlife_do_current']; ?>
 " class="inputnew" />      </td>
    	</tr>
    	<tr>

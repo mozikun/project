@@ -493,20 +493,20 @@ label
     <tr>
 		<td colspan="2">饮食情况</td>
 	    <td colspan="3">
-       		<!--{foreach key=k item=v from=$personlife_do_options}-->
-                <label onclick="set_input_value('<!--{$k}-->','personlife_do')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+       		<!--{foreach key=k item=v from=$diet_options}-->
+                <label onclick="set_input_value('<!--{$k}-->','diet')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
             <!--{/foreach}-->&nbsp;
-            <input type="text" name="personlife_do" value="<!--{$personlife_do_current}-->" class="inputnew" />		</td>
+            <input type="text" name="diet" value="<!--{$diet_current}-->" class="inputnew" />		</td>
    	</tr>
    	<tr>
    	  <td colspan="2" rowspan="5">社会功能情况</td>
       <td height="30"  >
                         个人生活料理      </td>
    	  <td  height="30" colspan="2">
-   	  <!--{foreach key=k item=v from=$diet_options}-->
-            <label onclick="set_input_value('<!--{$k}-->','diet')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
+   	  <!--{foreach key=k item=v from=$personlife_do_options}-->
+            <label onclick="set_input_value('<!--{$k}-->','personlife_do')"><!--{$k}-->、<!--{$v[1]}--></label>&nbsp;
       <!--{/foreach}-->&nbsp;
-      <input type="text" name="diet" value="<!--{$personlife_do_current}-->" class="inputnew" />      </td>
+      <input type="text" name="personlife_do" value="<!--{$personlife_do_current}-->" class="inputnew" />      </td>
    	</tr>
    	<tr>
    	 <td height="30"  >

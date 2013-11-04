@@ -5,7 +5,8 @@
 * @todo 健康教育活动
 * @time 2013-10-25
 * *********** */
-class hishealth_education{
+require_once __SITEROOT . "application/api/models/base.php";//接口返回信息
+class hishealth_education extends base{
 
 	private $_error_message_start;
 	private $_error_message_end;
@@ -18,11 +19,7 @@ class hishealth_education{
 		require_once __SITEROOT . "library/Models/health_education.php"; //健康教育活动表
 		require_once __SITEROOT . "library/Models/staff_core.php";
 		require_once __SITEROOT . "library/Models/staff_archive.php";
-		
-		$this->_error_message_start = "<?xml version='1.0' encoding='UTF-8'?><message>";
-		$this->_error_message_end = "</message>";
 	}
-
 	/*******************
 	* 添加健康教育活动
 	* ****************** */
@@ -38,10 +35,16 @@ class hishealth_education{
 			$organization->find(true);
 			$org_id = $organization->id;
 			if (!$org_id) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或者在本系统找不到该机构编码</return_string>" . $this->_error_message_end;
+				   return $this->api_failure("机构码不正确,或者在本系统找不到该机构编码");
 			}
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构编码不能为空！</return_string>" . $this->_error_message_end;
+			   return $this->api_failure("机构编码不能为空！");
+		}
+		//检查该信息是否已经存在
+		$he=new Thealth_education();
+		$he->whereAdd("ext_uuid='$xml->ext_uuid'");
+		if($he->count()>0){
+			return $this->api_failure("ext_uuid=$xml->ext_uuid 的信息已经存在，如需修改，请调用更新方法");
 		}
 		//创建健康教育对象
 		$he = new Thealth_education();
@@ -52,7 +55,7 @@ class hishealth_education{
 		if(preg_match("/^\d{10}$/",$xml->activity_time)){
 			$he->activity_time=$xml->activity_time;
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>活动时间应该为时间戳形式</return_string>" . $this->_error_message_end;
+			   return $this->api_failure("活动时间应该为时间戳形式");
 		}
 		$he->activity_address=$xml->activity_address;//活动地点
 		
@@ -62,12 +65,12 @@ class hishealth_education{
 			foreach($activity_type as $k=>$v){
 				//如果未找到该活动类型，直接返回
 				if(!array_search_for_other($v,$he_active_type)){
-					return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的活动类型编号:".$v."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+					  return $this->api_failure("未定义的活动类型编号");
 				}
 			}
 		}else{
 			if(!array_search_for_other($v,$he_active_type)){
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的活动类型编号:".$xml->activity_type."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+			  return $this->api_failure("未定义的活动类型编号:".$xml->activity_type."，请联系平台方核对！");
 			}
 		}
 		$he->activity_type=$xml->activity_type;//活动形式,这里需要验证一下是否为规定的形式 
@@ -87,13 +90,13 @@ class hishealth_education{
 				if(!empty($v)){
 					//如果未找到该材料类型，直接返回
 					if(!array_search_for_other($v,$health_more_info)){
-						return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的存档材料类型编号:".$v."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+						   return $this->api_failure("未定义的存档材料类型编号:".$v."，请联系平台方核对！");
 					}
 				}
 			}
 		}else{
 			if(!array_search_for_other($v,$health_more_info)){
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的存档材料类型编号:".$xml->more_info."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+				  return $this->api_failure("未定义的存档材料类型编号:".$xml->more_info."，请联系平台方核对！");
 			}
 		}
 		$he->more_info=$xml->more_info;//活动材料 需验证
@@ -103,8 +106,9 @@ class hishealth_education{
 		$staff->find(true);
 		if($staff->user_id){
 			$he->person_in_charge=$staff->user_id;//负责人 需转换
+			$he->staff_id=$staff->user_id;
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到负责人</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("未找到负责人");
 		}
 		$he->person_category=$xml->person_category;//健康教育人员类别
 		//查找负责人
@@ -114,15 +118,15 @@ class hishealth_education{
 		if($staff->user_id){
 			$he->people_fillin_form=$staff->user_id;//填表人
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到填表人！$xml->people_fillin_form</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("未找到填表人！$xml->people_fillin_form");
 		}
 		$he->created=$xml->created;    //填表时间
 		$he->ext_uuid=$xml->ext_uuid;
 		
 		if ($he->insert()) {
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>ext_uuid为".$xml->ext_uuid."的信息新增成功!</return_string>" . $this->_error_message_end;
+			 return $this->api_success("ext_uuid为".$xml->ext_uuid."的信息新增成功!");
 		} else {
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>ext_uuid为".$xml->ext_uuid."的信息新增失败!</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("ext_uuid为".$xml->ext_uuid."的信息新增失败!");
 		}
 	}
 
@@ -132,35 +136,39 @@ class hishealth_education{
 
 	public function ws_select($token="",$xml_request) {
 		$xml = new SimpleXMLElement($xml_request);
-		if (!empty($xml->org_id)) {
-			//机构转码
-			$organization = new Torganization();
-			$organization->whereAdd("standard_code='$xml->org_id'");
-			$organization->find(true);
-			$org_id = $organization->id;
-			if (!$org_id) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或在本系统中找不到对应的机构。</return_string>" . $this->_error_message_end;
-			}
-		}else{
-			//如果机构码为空，则直接返回
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不能为空！</return_string>" . $this->_error_message_end;
-		}
-		
 		$he = new Thealth_education();
-		//加入查询条件，org_id是必须的，其他参数可选
-		//$org_id=17;
-		if ($org_id) {
-			$he->whereAdd("org_id='$org_id'");
+		if (!empty($xml->ext_uuid)) {
+			$he->whereAdd("ext_uuid='$xml->ext_uuid'");
+		}
+		//如果没有查找到信息，返回提示信息
+		if($he->count()==0){
+			 return $this->api_failure("未找到任何信息");
 		}
 		$he->find();
-		$xml_return = "<?xml version='1.0' encoding='UTF-8'?><table name='health_education'>";
+		$xml_return = "<table name='health_education'>";
 		while ($he->fetch()) {
 			$xml_return.="<row>";
-			$xml_return.=$he->toXML();
+			//机构转码
+			$organization = new Torganization();
+			$organization->whereAdd("id='$he->org_id'");
+			$organization->find(true);
+			$he->org_id = $organization->standard_code;
+			//查询负责人身份证号
+			$staff=new Tstaff_archive();
+			$staff->where("user_id='$he->person_in_charge'");
+			$staff->find(true);
+			$he->person_in_charge=$staff->identity_card_number;
+			//查询填表人身份证号
+			$staff=new tstaff_archive();
+			$staff->where("user_id='$he->people_fillin_form'");
+			$staff->find(true);
+			$he->people_fillin_form=$staff->identity_card_number;
+			
+			$xml_return.=$he->toXML("",array("uuid","staff_id"));
 			$xml_return.="</row>";
 		}
 		$xml_return.="</table>";
-		return $xml_return;
+		return $this->api_success("查询成功!",$xml_return);
 	}
 
 	/*******************
@@ -169,6 +177,7 @@ class hishealth_education{
 
 
 	public function ws_update($token="", $xml_request) {
+		require_once __SITEROOT.'library/data_arr/arrdata.php';
 		$xml = new SimpleXMLElement($xml_request);
 		
 		//机构转码
@@ -178,10 +187,10 @@ class hishealth_education{
 			$organization->find(true);
 			$org_id = $organization->id;
 			if (empty($org_id)) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或者在本系统找不到该机构编码</return_string>" . $this->_error_message_end;
+				 return $this->api_failure("机构码不正确,或者在本系统找不到该机构编码");
 			}
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构编码不能为空！</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("机构编码不能为空！");
 		}
 		//创建健康教育对象
 		$he = new Thealth_education();
@@ -192,7 +201,7 @@ class hishealth_education{
 		if(preg_match("/^\d{10}$/",$xml->activity_time)){
 			$he->activity_time=$xml->activity_time;
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>活动时间应该为时间戳形式</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("活动时间应该为时间戳形式");
 		}
 		$he->activity_address=$xml->activity_address;//活动地点
 		
@@ -202,12 +211,12 @@ class hishealth_education{
 			foreach($activity_type as $k=>$v){
 				//如果未找到该活动类型，直接返回
 				if(!array_search_for_other($v,$he_active_type)){
-					return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的活动类型编号:".$v."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+					 return $this->api_failure("未定义的活动类型编号:".$v."，请联系平台方核对！");
 				}
 			}
 		}else{
 			if(!array_search_for_other($v,$he_active_type)){
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的活动类型编号:".$xml->activity_type."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+				 return $this->api_failure("未定义的活动类型编号:".$xml->activity_type."，请联系平台方核对！");
 			}
 		}
 		$he->activity_type=$xml->activity_type;//活动形式,这里需要验证一下是否为规定的形式 
@@ -227,24 +236,27 @@ class hishealth_education{
 				if(!empty($v)){
 					//如果未找到该材料类型，直接返回
 					if(!array_search_for_other($v,$health_more_info)){
-						return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的存档材料类型编号:".$v."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+						 return $this->api_failure("未定义的存档材料类型编号:".$v."，请联系平台方核对！");
 					}
 				}
 			}
 		}else{
 			if(!array_search_for_other($v,$health_more_info)){
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>未定义的存档材料类型编号:".$xml->more_info."，请联系平台方核对！</return_string>" . $this->_error_message_end;
+				 return $this->api_failure("未定义的存档材料类型编号:".$xml->more_info."，请联系平台方核对！");
 			}
 		}
 		$he->more_info=$xml->more_info;//活动材料 需验证
+		
+		
 		//查询填表人
 		$staff=new Tstaff_archive();
 		$staff->whereAdd("identity_card_number='$xml->person_in_charge'");
 		$staff->find(true);
 		if($staff->user_id){
 			$he->person_in_charge=$staff->user_id;//负责人 需转换
+			$he->staff_id=$staff->user_id;
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到负责人</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("未找到负责人");
 		}
 		$he->person_category=$xml->person_category;//健康教育人员类别
 		//查找负责人
@@ -254,14 +266,18 @@ class hishealth_education{
 		if($staff->user_id){
 			$he->people_fillin_form=$staff->user_id;//填表人
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到填表人！$xml->people_fillin_form</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("未找到填表人！$xml->people_fillin_form");
 		}
 		$he->created=$xml->created;    //填表时间
 		$he->whereAdd("ext_uuid='$xml->ext_uuid'");
+		//查找是否存在该信息
+		if($he->count()==0){
+			return $this->api_failure("没有找到该信息！");
+		}
 		if ($he->update()) {
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>更新成功!</return_string>" . $this->_error_message_end;
+			 return $this->api_success("ext_uuid=".$xml->ext_uuid."的信息更新成功!");
 		} else {
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>更新失败!</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("ext_uuid=".$xml->ext_uuid."的信息更新失败!");
 		}
 	}
 
@@ -271,12 +287,19 @@ class hishealth_education{
 
 	public function ws_delete($token="", $xml_request) {
 		$he=new Thealth_education();
-		$xml=SimpleXMLElement($xml_request);
+		$xml=new SimpleXMLElement($xml_request);
 		$he->whereAdd("ext_uuid='$xml->ext_uuid'");
+		//如果没有找到该信息，则给出提示
+		if($he->count()==0){
+			return $this->api_failure("没有找到该信息");
+		}
+		//写入接口日志
+		$logs_array=array("ext_uuid"=>$xml_string->ext_uuid,"org_id"=>$xml_string->org_id,"model_id"=>10,"upload_time"=>time(),"upload_token"=>3 );
+		$this->insert_api_logs($logs_array);
 		if($he->delete()){
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>ext_uuid为".$xml->ext_uuid."的信息删除成功!</return_string>" . $this->_error_message_end;
+			 return $this->api_success("ext_uuid为".$xml->ext_uuid."的信息删除成功!");
 		} else {
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>ext_uuid为".$xml->ext_uuid."的信息删除失败!</return_string>" . $this->_error_message_end;
+			 return $this->api_failure("ext_uuid为".$xml->ext_uuid."的信息删除失败!");
 		}
 	}
 

@@ -5,7 +5,8 @@
 * @todo 健康教育处方
 * @time 2013-10-25
 * *********** */
-class hishealth_prescription{
+require_once __SITEROOT . "application/api/models/base.php";//接口返回信息
+class hishealth_prescription extends base{
 
 	private $_error_message_start;
 	private $_error_message_end;
@@ -17,8 +18,6 @@ class hishealth_prescription{
 		require_once __SITEROOT . "library/Models/organization.php"; //机构表
 		require_once __SITEROOT . "library/Models/health_prescription.php"; //健康教育处方
 		require_once __SITEROOT . "library/Models/staff_archive.php";
-		$this->_error_message_start = "<?xml version='1.0' encoding='UTF-8'?><message>";
-		$this->_error_message_end = "</message>";
 	}
 
 	/*******************
@@ -34,10 +33,10 @@ class hishealth_prescription{
 			$organization->find(true);
 			$org_id = $organization->id;
 			if (empty($org_id)) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或者在本系统找不到该机构编码</return_string>" . $this->_error_message_end;
+				return $this->api_failure("机构码不正确,或者在本系统找不到该机构编码");
 			}
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构编码不能为空！</return_string>" . $this->_error_message_end;
+			return $this->api_failure("机构编码不能为空！");
 		}
 		//创建健康教育处方对象
 		$he = new Thealth_prescription();
@@ -51,16 +50,16 @@ class hishealth_prescription{
 		$staff->whereAdd("identity_card_number='".trim($xml->doctor_id)."'");
 		$staff->find(true);
 		if(empty($staff->user_id)){
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到该医生信息！</return_string>" . $this->_error_message_end;
+			return $this->api_failure("未找到该医生信息！");
 		}
 		
 		$he->doctor_id=$staff->user_id;
 		$he->status_type=1;
 		//return 1;
 		if ($he->insert()) {
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>新增成功!</return_string>" . $this->_error_message_end;
+			return $this->api_success("新增成功!");
 		} else {
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>新增失败!</return_string>" . $this->_error_message_end;
+			return $this->api_failure("新增失败!");
 		}
 	}
 
@@ -77,11 +76,11 @@ class hishealth_prescription{
 			$organization->find(true);
 			$org_id = $organization->id;
 			if (!$org_id) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或在本系统中找不到对应的机构。</return_string>" . $this->_error_message_end;
+				return $this->api_failure("机构码不正确,或在本系统中找不到对应的机构。");
 			}
 		}else{
 			//如果机构码为空，则直接返回
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不能为空！</return_string>" . $this->_error_message_end;
+			return $this->api_failure("机构码不能为空！");
 		}
 		
 		$he = new Thealth_prescription();
@@ -93,15 +92,25 @@ class hishealth_prescription{
 		if(!empty($xml->ext_uuid)){
 			$he->whereAdd("ext_uuid='$xml->ext_uuid'");
 		}
+		if($he->count()==0){
+			return $this->api_failure("查询失败，没有任何信息");
+		}
 		$he->find();
-		$xml_return = "<?xml version='1.0' encoding='UTF-8'?><table name='health_education'>";
+		$xml_return = "<table name='health_prescription'>";
+	    //不输出的字段
+		$ext=array("uuid");
 		while ($he->fetch()) {
 			$xml_return.="<row>";
+			//机构转码
+			$organization = new Torganization();
+			$organization->whereAdd("id='$he->org_id'");
+			$organization->find(true);
+			$he->org_id = $organization->standard_code;
 			$xml_return.=$he->toXML();
 			$xml_return.="</row>";
 		}
 		$xml_return.="</table>";
-		return $xml_return;
+		return $this->api_success("查询成功！",$xml_return);
 	}
 
 	/*******************
@@ -118,10 +127,10 @@ class hishealth_prescription{
 			$organization->find(true);
 			$org_id = $organization->id;
 			if (!$org_id) {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>机构码不正确,或者在本系统找不到该机构编码</return_string>" . $this->_error_message_end;
+				return $this->api_failure("机构码不正确,或者在本系统找不到该机构编码");
 			}
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>机构编码不能为空！</return_string>" . $this->_error_message_end;
+			return $this->api_failure("机构编码不能为空！");
 		}
 		//创建健康教育处方对象
 		$he = new Thealth_prescription();
@@ -135,16 +144,16 @@ class hishealth_prescription{
 		$staff->whereAdd("identity_card_number='$xml->doctor_id'");
 		$staff->find(true);
 		if(empty($staff->user_id)){
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>未找到该医生信息！</return_string>" . $this->_error_message_end;
+			return $this->api_failure("未找到该医生信息！");
 		}
 		$he->doctor_id=$staff->user_id;
 		//$he->$status_type=1;
 		//$he->ext_uuid=$xml->ext_uuid;
 		$he->whereAdd("ext_uuid='$xml->ext_uuid'");
 		if ($he->update()) {
-			return $this->_error_message_start . "<return_code>1</return_code><return_string>更新成功!</return_string>" . $this->_error_message_end;
+			return $this->api_success("更新成功!");
 		} else {
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>更新失败!</return_string>" . $this->_error_message_end;
+			return $this->api_failure("更新失败!");
 		}
 	}
 
@@ -158,12 +167,12 @@ class hishealth_prescription{
 		if(!empty($xml->ext_uuid)){
 			$he->whereAdd("ext_uuid='$xml->ext_uuid'");
 			if($he->delete()){
-				return $this->_error_message_start . "<return_code>1</return_code><return_string>删除成功!</return_string>" . $this->_error_message_end;
+				return $this->api_success("删除成功!");
 			} else {
-				return $this->_error_message_start . "<return_code>2</return_code><return_string>删除失败!</return_string>" . $this->_error_message_end;
+				return $this->api_failure("删除失败!");
 			}
 		}else{
-			return $this->_error_message_start . "<return_code>2</return_code><return_string>请填写删除条件</return_string>" . $this->_error_message_end;
+			return $this->api_failure("请填写删除条件");
 		}
 	}
 

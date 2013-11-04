@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * @author whx
  * @todo   健康教育处方
@@ -84,7 +84,7 @@ class api_hishealth_prescriptionController extends controller
 		$tmp=$client->ws_select("17","<?xml version='1.0' encoding='UTF-8'?>
 		<where>
 			<org_id>45254011251180211A1001</org_id>
-			<ext_uuid>1</ext_uuid>
+			
 		</where>"); 
  		echo $tmp;
  	
