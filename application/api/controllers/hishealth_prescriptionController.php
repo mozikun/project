@@ -50,7 +50,7 @@ class api_hishealth_prescriptionController extends controller
 			<title>1</title>
 			<content>加适量的经费落实的经费市劳动局</content>
 			<doctor_id>513101198204020021</doctor_id>
-			<ext_uuid>".uniqid()."</ext_uuid>
+			<ext_uuid>1-1</ext_uuid>
 		</where>"); 
  		echo $tmp;
  	

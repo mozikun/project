@@ -75,7 +75,7 @@ class hishealth_prescription extends base{
 			$organization->whereAdd("standard_code='$xml->org_id'");
 			$organization->find(true);
 			$org_id = $organization->id;
-			if (!$org_id) {
+			if (empty($org_id)) {
 				return $this->api_failure("机构码不正确,或在本系统中找不到对应的机构。");
 			}
 		}else{
@@ -86,7 +86,7 @@ class hishealth_prescription extends base{
 		$he = new Thealth_prescription();
 		//加入查询条件，org_id是必须的，其他参数可选
 		//$org_id=17;
-		if ($org_id) {
+		if (!empty($org_id)) {
 			$he->whereAdd("org_id='$org_id'");
 		}
 		if(!empty($xml->ext_uuid)){
@@ -106,7 +106,12 @@ class hishealth_prescription extends base{
 			$organization->whereAdd("id='$he->org_id'");
 			$organization->find(true);
 			$he->org_id = $organization->standard_code;
-			$xml_return.=$he->toXML();
+			//查询医生身份证号
+			$staff=new Tstaff_archive();
+			$staff->where("user_id='$he->doctor_id'");
+			$staff->find(true);
+			$he->doctor_id=$staff->identity_card_number;
+			$xml_return.=$he->toXML("",array("uuid","views","status_type"));
 			$xml_return.="</row>";
 		}
 		$xml_return.="</table>";

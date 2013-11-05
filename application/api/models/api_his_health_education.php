@@ -294,8 +294,8 @@ class hishealth_education extends base{
 			return $this->api_failure("没有找到该信息");
 		}
 		//写入接口日志
-		$logs_array=array("ext_uuid"=>$xml_string->ext_uuid,"org_id"=>$xml_string->org_id,"model_id"=>10,"upload_time"=>time(),"upload_token"=>3 );
-		$this->insert_api_logs($logs_array);
+		//$logs_array=array("ext_uuid"=>$xml_string->ext_uuid,"org_id"=>$xml_string->org_id,"model_id"=>10,"upload_time"=>time(),"upload_token"=>3 );
+		//$this->insert_api_logs($logs_array);
 		if($he->delete()){
 			 return $this->api_success("ext_uuid为".$xml->ext_uuid."的信息删除成功!");
 		} else {
