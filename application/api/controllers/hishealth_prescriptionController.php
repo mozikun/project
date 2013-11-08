@@ -65,11 +65,11 @@ class api_hishealth_prescriptionController extends controller
 		$tmp=$client->ws_update("17","<?xml version='1.0' encoding='UTF-8'?>
 		<where>
 			<org_id>45254011251180211A1001</org_id>
-			<add_time>12345454545</add_time>
-			<title>sjdflsdjflsdjfldddd</title>
-			<content>dfsdfdddddddddddddddddddddd</content>
+			<add_time>12345</add_time>
+			<title>abc</title>
+			<content>1212121</content>
 			<doctor_id>513101198204020021</doctor_id>
-			<ext_uuid>1</ext_uuid>
+			<ext_uuid>1-1</ext_uuid>
 		</where>"); 
  		echo $tmp;
  	

@@ -5,8 +5,8 @@
 * @todo 健康教育处方
 * @time 2013-10-25
 * *********** */
-require_once __SITEROOT . "application/api/models/base.php";//接口返回信息
-class hishealth_prescription extends base{
+require_once __SITEROOT."application/api/models/api_phs_iha_comm.php";
+class hishealth_prescription extends api_phs_comm{
 
 	private $_error_message_start;
 	private $_error_message_end;
@@ -139,12 +139,13 @@ class hishealth_prescription extends base{
 		}
 		//创建健康教育处方对象
 		$he = new Thealth_prescription();
+		//遍历xml对象,有哪些节点就更新哪些节点
+		foreach($xml as $k=>$v){
+			$he->$k=$v;
+		}
 		//$he->uuid ="P_".uniqid();
 		$he->edit_time = time();
 		$he->org_id=$org_id;//机构
-		$he->title=$xml->title;
-		$he->content=$xml->content;
-		//$he->ext_uuid=$xml->ext_uuid;
 		$staff=new Tstaff_archive();
 		$staff->whereAdd("identity_card_number='$xml->doctor_id'");
 		$staff->find(true);
@@ -152,9 +153,11 @@ class hishealth_prescription extends base{
 			return $this->api_failure("未找到该医生信息！");
 		}
 		$he->doctor_id=$staff->user_id;
-		//$he->$status_type=1;
-		//$he->ext_uuid=$xml->ext_uuid;
 		$he->whereAdd("ext_uuid='$xml->ext_uuid'");
+		if($he->count()==0){
+			return $this->api_failure("未找到该信息！");
+		}
+		
 		if ($he->update()) {
 			return $this->api_success("更新成功!");
 		} else {

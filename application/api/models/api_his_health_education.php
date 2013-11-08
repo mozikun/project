@@ -5,8 +5,8 @@
 * @todo 健康教育活动
 * @time 2013-10-25
 * *********** */
-require_once __SITEROOT . "application/api/models/base.php";//接口返回信息
-class hishealth_education extends base{
+require_once __SITEROOT."application/api/models/api_phs_iha_comm.php";
+class hishealth_education extends api_phs_comm{
 
 	private $_error_message_start;
 	private $_error_message_end;
@@ -194,7 +194,10 @@ class hishealth_education extends base{
 		}
 		//创建健康教育对象
 		$he = new Thealth_education();
-		$he->uuid ="H_".uniqid();
+		//遍历xml,上传了哪些节点就更新哪些节点
+		foreach($xml as $k=>$v){
+			$he->$k=$v;
+		}
 		$he->created = time();
 		$he->org_id=$org_id;//机构
 		//判断活动时间是否为时间戳形式
@@ -219,17 +222,6 @@ class hishealth_education extends base{
 				 return $this->api_failure("未定义的活动类型编号:".$xml->activity_type."，请联系平台方核对！");
 			}
 		}
-		$he->activity_type=$xml->activity_type;//活动形式,这里需要验证一下是否为规定的形式 
-		$he->sponsor=$xml->sponsor;//主办单位
-		$he->partner=$xml->partner;//合作伙伴
-		$he->person_num=$xml->person_num;//参与人数
-		$he->promo_type=$xml->promo_type;//宣传品发放种类   
-		$he->promo_num=$xml->promo_num;//宣传品发放种数量
-		$he->activity_theme=$xml->activity_theme;//活动主题
-		
-		$he->doctor=$xml->doctor;//宣传人  这里要由身份证转换而来
-		$he->active_summary=$xml->active_summary;//活动小结
-		$he->activity_juggde=$xml->activity_juggde;//活动评价
 		if(($xml->more_info)){
 			$more_info=explode("|",$xml->more_info);
 			foreach($more_info as $k=>$v){
@@ -245,9 +237,6 @@ class hishealth_education extends base{
 				 return $this->api_failure("未定义的存档材料类型编号:".$xml->more_info."，请联系平台方核对！");
 			}
 		}
-		$he->more_info=$xml->more_info;//活动材料 需验证
-		
-		
 		//查询填表人
 		$staff=new Tstaff_archive();
 		$staff->whereAdd("identity_card_number='$xml->person_in_charge'");
